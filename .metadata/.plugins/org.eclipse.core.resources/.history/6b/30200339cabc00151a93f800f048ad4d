@@ -1,0 +1,15 @@
+package players;
+
+
+/**
+ * The Stack class represents a last-in-first-out stack of objects. 
+ * @author  Jacob Brewer
+ * @version 1.0, Jan 2016
+ * Note this is a part of BYU CS 340  
+ */
+public class PlayerTurnTracker {
+
+	
+	
+}
+

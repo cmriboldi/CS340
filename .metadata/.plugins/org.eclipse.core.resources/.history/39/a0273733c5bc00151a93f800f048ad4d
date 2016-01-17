@@ -1,0 +1,54 @@
+package players;
+
+import java.util.NoSuchElementException;
+import java.util.ArrayList;
+
+/**
+ * The Stack class represents a last-in-first-out stack of objects. 
+ * @author  Jacob Brewer
+ * @version 1.0, Jan 2016
+ * Note this is a part of BYU CS 340  
+ */
+public class PlayerManager {
+
+	
+	/**
+	 * Pushes an item on to the top of this stack. 
+	 * @param   item   the item to be pushed.
+	 */
+	public void push(Object item){this.elements.add(item);}
+
+	/**
+	 * Removes the object at the top of this stack and returns that object. 
+	 * @return  The object at the top of this stack.
+	 * @exception  NoSuchElementException  if this stack is empty.
+	 */
+	public Object pop() throws NoSuchElementException
+	{	int length = this.elements.size();
+		if (length == 0) throw new NoSuchElementException();
+		return this.elements.remove(length - 1);
+	}
+
+	/**
+	 * Returns the object at the top of this stack without removing it. 
+	 * @return  the object at the top of this stack. 
+	 * @exception  NoSuchElementException  if this stack is empty.
+	 */
+	public Object peek() throws NoSuchElementException
+	{	int length = this.elements.size();
+		if (length == 0) throw new NoSuchElementException();
+		return this.elements.get(length - 1);
+	}
+
+	/**
+	 * Tests if this stack is empty.
+	 * @return  true if this stack is empty and false otherwise.
+	 */
+	public boolean isEmpty() 
+	{	return this.elements.isEmpty();
+	}
+
+	private ArrayList elements = new ArrayList();
+	
+	
+}

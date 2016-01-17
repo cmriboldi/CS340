@@ -1,0 +1,33 @@
+package players;
+
+import java.rmi.MarshalException;
+
+
+public class PlayerManager {
+
+	/** Description of myIntField */
+	public int myIntField;
+	/** Description of MyClass() 
+	 * @return 
+	 * 
+	 * @throws MyException 		Description of myException
+	 */
+	public void MyClass() throws MarshalException
+	{
+		// Blah Blah Blah...
+	}
+	
+	/** Description of myMethod(int a, String b)
+	 * 
+	 * @param a			Description of a
+	 * @param b			Description of b
+	 * @return			Description of c
+	 */
+	public Object myMethod(int a, String b)
+	{
+		Object c = null;
+		// Blah Blah Blah...
+		return c;
+	}
+	
+}

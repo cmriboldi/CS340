@@ -1,0 +1,5 @@
+package players.errors;
+
+public class tooManyPlayersException extends Exception {
+
+}

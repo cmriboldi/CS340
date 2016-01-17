@@ -1,0 +1,57 @@
+package players;
+
+import players.errors.noMorePlayersException;
+import players.errors.tooManyPlayersException;
+
+
+
+public class PlayerManager {
+
+	/** Description of myIntField */
+	public int myIntField;
+	
+	/** An array of the current players logged in to play Catan */
+	public Player[] CatanPlayers;
+	
+	
+	/** The PlayerManager generally manages turns and player game flow */
+	public void PlayerManager()
+	{
+		
+	}
+	
+	
+	/** Called in order to log player 'playerID' into the game.  
+	 * This expands CatanPlayers
+	 * @param playerID
+	 * @throws tooManyPlayersException if there are already 6 players
+	 */
+	public void PlayerLogIn(int playerID) throws tooManyPlayersException
+	{
+		
+	}
+	
+	/** Called in order to log player 'playerID' out of the game.  
+	 * Decrements CatanPlayers count
+	 * @param playerID
+	 * @throws tooManyPlayersException if there are already 6 players
+	 */
+	public void PlayerLogOut(int playerID) throws noMorePlayersException
+	{
+		
+	}
+	
+	/** Description of myMethod(int a, String b)
+	 * 
+	 * @param a			Description of a
+	 * @param b			Description of b
+	 * @return			Description of c
+	 */
+	public Object myMethod(int a, String b)
+	{
+		Object c = null;
+		// Blah Blah Blah...
+		return c;
+	}
+	
+}
