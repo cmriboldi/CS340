@@ -1,0 +1,20 @@
+package shared.communication;
+
+public class CommGame 
+{
+	private String title;
+	private int id;
+	private CommPlayer[] players;
+	
+	public CommGame()
+	{
+		
+	}
+
+	public CommGame(String title, int id, CommPlayer[] players)
+	{
+		this.title = title;
+		this.id = id;
+		this.players = players;
+	}
+}

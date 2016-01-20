@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="shared.definitions.ResourceType"/>
+<fullyQualifiedTypeName name="shared.locations.HexLocation"/>
+<fullyQualifiedTypeName name="shared.communication.CommGame"/>
+</qualifiedTypeNameHistroy>
