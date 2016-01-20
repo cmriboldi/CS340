@@ -1,3 +1,6 @@
-players
-players.errors
-resources
+model.development
+model.players
+model.players.errors
+model.resources
+shared.definitions
+shared.locations
