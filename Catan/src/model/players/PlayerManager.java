@@ -21,7 +21,7 @@ public class PlayerManager {
 	
 	
 	/** Creates a PlayerManager object*/
-	public void PlayerManager()
+	public PlayerManager()
 	{
 		
 	}

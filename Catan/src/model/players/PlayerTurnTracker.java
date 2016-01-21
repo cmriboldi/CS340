@@ -18,7 +18,7 @@ public class PlayerTurnTracker {
 	/** Creates a PlayerTurnTracker object using the player manager to construct the queue
 	 * @param playerManager
 	 * */
-	public void PlayerTurnTracker(PlayerManager playerManager) throws GeneralPlayerException
+	public PlayerTurnTracker(PlayerManager playerManager) throws GeneralPlayerException
 	{
 		
 	}

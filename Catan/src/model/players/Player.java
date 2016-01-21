@@ -20,10 +20,7 @@ public class Player {
 	boolean largestArmy; 
 	
 	/** an integer count of how many points this player possesses */
-	int points; 
-	
-	/** This is a pointer to this player's resource bank account */ 
-	Object bankAccount; // TODO: update with Christian's class
+	int points;
 	
 	/** The color of this player's pieces */
 	String color; 
@@ -310,7 +307,6 @@ public class Player {
 
 
 /*
-
  ** cities (number): How many cities this player has left to play,
  **  color (string): The color of this player.,
  ** discarded (boolean): Whether this player has discarded or not already this discard phase.,
@@ -328,5 +324,4 @@ public class Player {
  ** settlements (integer),
  ** soldiers (integer),
  ** victoryPoints (integer)
-
 */
