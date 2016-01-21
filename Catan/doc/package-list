@@ -1,4 +1,6 @@
+clientfacade
 model.development
+model.options
 model.players
 model.players.errors
 model.resources
