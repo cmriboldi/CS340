@@ -1,10 +1,1 @@
-clientfacade
 model.development
-model.options
-model.players
-model.players.errors
-model.resources
-serverProxy
-shared.communication
-shared.definitions
-shared.locations
