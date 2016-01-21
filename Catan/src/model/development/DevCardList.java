@@ -8,6 +8,8 @@ package model.development;
 * @author Joshua Van Steeter
 * @version 1.0 Build Jan, 2016.
 */
+import shared.definitions.DevCardType;
+
 public class DevCardList {
 
 	private int monopoly;
@@ -22,81 +24,19 @@ public class DevCardList {
 	}
 	
 	/**
-	 * Adds a monopoly card to the DevCardList.
+	 * Adds a development card of the given type to the DevCardList.
+	 * @param devCard A DevCardType specifying the card to add.
 	 */
-	public void addMonopolyCard()
+	public void addDevCard(DevCardType devCard)
 	{
 		
 	}
 	
 	/**
-	 * Adds a monument card to the DevCardList.
+	 * Removed a development card of the given type from the DevCardList.
+	 * @param devCard A DevCardType specifying the card to remove.
 	 */
-	public void addMonumentCard()
-	{
-		
-	}
-	
-	/**
-	 * Adds a road builder card to the DevCardList.
-	 */
-	public void addRoadBuilderCard()
-	{
-		
-	}
-	
-	/**
-	 * Adds a soldier card to the DevCardList.
-	 */
-	public void addSoldierCard()
-	{
-		
-	}
-	
-	/**
-	 * Adds a year of plenty card to the DevCardList.
-	 */
-	public void addYearOfPlentyCard()
-	{
-		
-	}
-	
-	/**
-	 * Removed a monopoly card from the DevCardList.
-	 */
-	public void removeMonopolyCard()
-	{
-		
-	}
-	
-	/**
-	 * Removed a monument card from the DevCardList.
-	 */
-	public void removeMonumentCard()
-	{
-		
-	}
-	
-	/**
-	 * Removed a road builder card from the DevCardList.
-	 */
-	public void removeRoadBuilderCard()
-	{
-		
-	}
-	
-	/**
-	 * Removed a soldier card from the DevCardList.
-	 */
-	public void removeSoldierCard()
-	{
-		
-	}
-	
-	/**
-	 * Removed a year of plenty card from the DevCardList.
-	 */
-	public void removeYearOfPlentyCard()
+	public void removeDevCard(DevCardType devCard)
 	{
 		
 	}

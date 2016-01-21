@@ -12,6 +12,7 @@ public class DevCardManager
 {
 
 	private DevCardList devCardStack;
+	private PlayerDevCards playerDevCards;
 	
 	public DevCardManager()
 	{
@@ -19,13 +20,12 @@ public class DevCardManager
 	}
 	
 	/**
-	 * This function will return a DevCardList with a randomly generated card from the devCardStack.
-	 * @return A DevCardList with a random card contained inside.
+	 * Draws a development card for the given player.
+	 * @param playerIndex The index of the player drawing the card.
 	 */
-	public DevCardList drawCard()
+	public void drawCard(int playerIndex)
 	{
-		DevCardList devCard = new DevCardList();
-		return devCard;
+		
 	}
 	
 }

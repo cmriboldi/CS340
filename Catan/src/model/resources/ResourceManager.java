@@ -16,7 +16,6 @@ public class ResourceManager
 	
 	private Banker banker = null;
 	private Trader trader = null;
-	private ResourceGenerator resGenerator = null;
 	
 	public ResourceManager()
 	{

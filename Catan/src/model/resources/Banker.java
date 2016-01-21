@@ -14,7 +14,7 @@ public class Banker
 {
 
 	private ResourceList bank;
-	private ResourceList[] playerResources;
+	private PlayerResources playerResources;
 	
 	public Banker()
 	{

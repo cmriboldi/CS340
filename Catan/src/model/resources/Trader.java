@@ -14,7 +14,7 @@ import shared.definitions.ResourceType;
 public class Trader
 {
 
-	private ResourceList[] playerResources = null;
+	private PlayerResources playerResources = null;
 	
 	public Trader() 
 	{
