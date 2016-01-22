@@ -4,6 +4,12 @@ package model.map;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
+import model.resources.ResourceList;
+
+//Java imports
+import java.util.ArrayList;
+
+
 
 public class MapManager 
 {
@@ -54,18 +60,21 @@ public class MapManager
 	}
 	
 	/**
-	 * Passes the "dice" roll in as a parameter and returns an communication object the resourceManager 
-	 * can use to update the resource states.
+	 * Passes the "dice" roll in as a parameter and returns an ArrayList of ResourceLists
+	 * that the resource manager can use to update the resource states.
 	 * @param number
 	 * @return
 	 */
-	public Object distributeResources(int number)
+	public ArrayList<ResourceList> distributeResources(int number)
 	{
 		return null;
 	}
 	
 	
-	
+	/**
+	 * Used by the facade to update the position of the robber token.
+	 * @param hex
+	 */
 	public void placeRobber(HexLocation hex)
 	{
 		
