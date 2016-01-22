@@ -2,6 +2,7 @@ package serverProxy;
 
 import java.util.List;
 
+import model.resources.ResourceList;
 import shared.communication.*;
 import shared.definitions.*;
 import shared.locations.*;
@@ -230,7 +231,7 @@ public interface ServerProxy
 	 * @param offer What you get(+) and what you give (-)
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON offerTrade(int playerIndex, int receiver, List<ResourceType> offer);
+	public GameModelJSON offerTrade(int playerIndex, int receiver, ResourceList offer);
 	
 	/**
 	 * Used to accept or reject a trade offered to you.
@@ -256,7 +257,7 @@ public interface ServerProxy
 	 * @param discardedCards List of ResourceTypes being discarded
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON discardCards(int playerIndex, List<ResourceType> discardedCards);
+	public GameModelJSON discardCards(int playerIndex, ResourceList discardedCards);
 	
 	/**
 	 * Sets the server's log level. 

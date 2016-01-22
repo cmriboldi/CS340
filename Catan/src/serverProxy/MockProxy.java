@@ -2,6 +2,7 @@ package serverProxy;
 
 import java.util.List;
 
+import model.resources.ResourceList;
 import shared.communication.CommGame;
 import shared.communication.GameModelJSON;
 import shared.definitions.CatanColor;
@@ -182,7 +183,7 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public GameModelJSON offerTrade(int playerIndex, int receiver, List<ResourceType> offer) {
+	public GameModelJSON offerTrade(int playerIndex, int receiver, ResourceList offer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -200,7 +201,7 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public GameModelJSON discardCards(int playerIndex, List<ResourceType> discardedCards) {
+	public GameModelJSON discardCards(int playerIndex, ResourceList discardedCards) {
 		// TODO Auto-generated method stub
 		return null;
 	}
