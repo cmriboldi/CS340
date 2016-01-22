@@ -1,6 +1,7 @@
 package clientfacade;
 
 import java.util.List;
+import shared.communication.*;
 
 public class Facade
 {
@@ -17,7 +18,7 @@ public class Facade
 	 * @return The authenticated User object
 	 * @throws ClientException
 	 */
-	public User AuthenticateUser()
+	public CommUser authenticateUser()
 	{
 		return null;
 	}
@@ -31,7 +32,7 @@ public class Facade
 	 * @return User object associated with the new registered user
 	 * @throws ClientException
 	 */
-	public User RegisterUser()
+	public CommUser registerUser()
 	{
 		return null;
 	}
@@ -42,7 +43,7 @@ public class Facade
 	 * @return List<Game>
 	 * @throws ClientException
 	 */
-	public List<Game> ListGames()
+	public List<CommGame> listGames()
 	{
 		return null;
 	}
@@ -54,7 +55,7 @@ public class Facade
 	 * @return Game
 	 * @throws ClientException
 	 */
-	public Game CreateGame()
+	public CommGame createGame()
 	{
 		return null;
 	}
@@ -66,7 +67,7 @@ public class Facade
 	 * @return Game
 	 * @throws ClientException
 	 */
-	public Game JoinGame()
+	public CommGame joinGame()
 	{
 		return null;
 	}
@@ -80,9 +81,9 @@ public class Facade
 	 * @return The CatanMap object containing Map information
 	 * @throws ClientException
 	 */
-	public CatanMap NewMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts)
+	public void newMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts)
 	{
-		return null;
+		
 	}
 
 	/**
@@ -93,7 +94,7 @@ public class Facade
 	 * @return Game
 	 * @throws ClientException
 	 */
-	public void NewPlayer(String color)
+	public void newPlayer(String color)
 	{
 
 	}
@@ -105,7 +106,7 @@ public class Facade
 	 * @return Game
 	 * @throws ClientException
 	 */
-	public Game GetModel()
+	public CommGame getModel()
 	{
 		return null;
 	}
@@ -117,7 +118,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void AdvancePhase()
+	public void advancePhase()
 	{
 
 	}
@@ -128,7 +129,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void AdvanceTurn()
+	public void advanceTurn()
 	{
 
 	}
@@ -139,19 +140,19 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void Roll()
+	public void roll()
 	{
 
 	}
 
 	/**
-	 * Allocates resource to a player
+	 * Allocates resource to the players
 	 * 
 	 * @param userName
 	 * @return
 	 * @throws ClientException
 	 */
-	public void AllocateResource()
+	public void generateResource()
 	{
 
 	}
@@ -162,7 +163,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void AllocateInitResource()
+	public void generateInitResources()
 	{
 
 	}
@@ -177,7 +178,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void DomesticTrade()
+	public void domesticTrade()
 	{
 
 	}
@@ -191,7 +192,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void MaritimeTrade()
+	public void portTrade()
 	{
 
 	}
@@ -204,7 +205,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void Chat(String message)
+	public void chat(String message)
 	{
 
 	}
@@ -217,7 +218,7 @@ public class Facade
 	 * @return
 	 * @throws ClientException
 	 */
-	public void Log()
+	public void log()
 	{
 
 	}
@@ -229,7 +230,7 @@ public class Facade
 	 * @return True if successful False otherwise
 	 * @throws ClientException
 	 */
-	public boolean BuyDevCard()
+	public boolean buyDevCard()
 	{
 		return true;
 	}
@@ -241,7 +242,7 @@ public class Facade
 	 * @return True if successful False otherwise
 	 * @throws ClientException
 	 */
-	public boolean BuildRoad()
+	public boolean buildRoad()
 	{
 		return true;
 	}
@@ -253,7 +254,7 @@ public class Facade
 	 * @return True if successful False otherwise
 	 * @throws ClientException
 	 */
-	public boolean BuildTown()
+	public boolean buildTown()
 	{
 		return true;
 	}
@@ -265,7 +266,7 @@ public class Facade
 	 * @return True if successful False otherwise
 	 * @throws ClientException
 	 */
-	public boolean BuiltCity()
+	public boolean puiltCity()
 	{
 		return true;
 	}
@@ -277,7 +278,7 @@ public class Facade
 	 * @return True if successful False otherwise
 	 * @throws ClientException
 	 */
-	public boolean PlaceRobber()
+	public boolean placeRobber()
 	{
 		return true;
 	}
