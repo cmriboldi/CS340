@@ -4,11 +4,12 @@ public class Options
 {
 	public Options()
 	{
-		
+
 	}
-	
+
 	/**
 	 * Check if a road can be built
+	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
@@ -16,9 +17,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a town can be built
+	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
@@ -26,9 +28,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a city can be built
+	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
@@ -36,9 +39,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a player can trade
+	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
@@ -46,9 +50,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a player can trade via port
+	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
@@ -56,9 +61,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if it is a player turn
+	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
@@ -66,9 +72,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a road can be placed in specific position
+	 * 
 	 * @param player index
 	 * @param Location
 	 * @return True if allowed False otherwise
@@ -77,9 +84,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a town can be placed in specific position
+	 * 
 	 * @param player index
 	 * @param Location
 	 * @return True if allowed False otherwise
@@ -88,9 +96,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a city can be placed in specific position
+	 * 
 	 * @param player index
 	 * @param Location
 	 * @return True if allowed False otherwise
@@ -99,9 +108,10 @@ public class Options
 	{
 		return true;
 	}
-	
+
 	/**
 	 * Check if a proposed trade can be sent or made
+	 * 
 	 * @param player index
 	 * @param Resources to give
 	 * @param Resources to get
@@ -112,4 +122,3 @@ public class Options
 		return true;
 	}
 }
-

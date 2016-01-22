@@ -3,51 +3,49 @@ package model.players;
 import model.players.errors.NoMorePlayersException;
 import model.players.errors.TooManyPlayersException;
 
-
-
-/** The PlayerManager generally manages turns and player game flow
-* @author Christian Riboldi
-* @author Clayton Condie
-* @author Jacob Brewer
-* @author Joshua Powers
-* @author Joshua Van Steeter
-* @version 1.0 Build Jan, 2016.
-*/
-public class PlayerManager {
-
+/**
+ * The PlayerManager generally manages turns and player game flow
+ * 
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Jan, 2016.
+ */
+public class PlayerManager
+{
 
 	/** An array of the current players logged in to play Catan */
 	public Player[] CatanPlayers;
-	
-	
-	/** Creates a PlayerManager object*/
+
+	/** Creates a PlayerManager object */
 	public PlayerManager()
 	{
-		
+
 	}
-	
-	/** Called in order to log player 'playerID' into the game.  
-	 * This expands CatanPlayers
+
+	/**
+	 * Called in order to log player 'playerID' into the game. This expands CatanPlayers
+	 * 
 	 * @param playerID
 	 * @throws tooManyPlayersException if there are already 6 players
 	 */
 	public void LogPlayerIn(int playerID) throws TooManyPlayersException
 	{
-		
+
 	}
-	
-	/** Called in order to log player 'playerID' out of the game.  
-	 * 'playerID' is removed from CatanPlayers
+
+	/**
+	 * Called in order to log player 'playerID' out of the game. 'playerID' is removed from
+	 * CatanPlayers
+	 * 
 	 * @param playerID
 	 * @throws tooManyPlayersException if there are already 6 players
 	 */
 	public void LogPlayerOut(int playerID) throws NoMorePlayersException
 	{
-		
-	}
-	
-	
-	
 
-	
+	}
+
 }

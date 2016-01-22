@@ -10,34 +10,37 @@ package model.development;
 */
 import shared.definitions.DevCardType;
 
-public class DevCardList {
+public class DevCardList
+{
 
 	private int monopoly;
 	private int monument;
 	private int roadBuilder;
 	private int soldier;
 	private int yearOfPlenty;
-	
-	public DevCardList() 
+
+	public DevCardList()
 	{
-		
+
 	}
-	
+
 	/**
 	 * Adds a development card of the given type to the DevCardList.
+	 * 
 	 * @param devCard A DevCardType specifying the card to add.
 	 */
 	public void addDevCard(DevCardType devCard)
 	{
-		
+
 	}
-	
+
 	/**
 	 * Removed a development card of the given type from the DevCardList.
+	 * 
 	 * @param devCard A DevCardType specifying the card to remove.
 	 */
 	public void removeDevCard(DevCardType devCard)
 	{
-		
+
 	}
 }

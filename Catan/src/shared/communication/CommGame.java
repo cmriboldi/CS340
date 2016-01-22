@@ -2,6 +2,7 @@ package shared.communication;
 
 /**
  * The communication object used to transfer information about games
+ * 
  * @author Christian Riboldi
  * @author Clayton Condie
  * @author Jacob Brewer
@@ -9,18 +10,18 @@ package shared.communication;
  * @author Joshua Van Steeter
  * @version 1.0 Build Winter 2016.
  */
-public class CommGame 
+public class CommGame
 {
 	private String title;
 	private int id;
 	private CommPlayer[] players;
-	
+
 	/**
 	 * 
 	 */
 	public CommGame()
 	{
-		
+
 	}
 
 	/**
@@ -35,27 +36,33 @@ public class CommGame
 		this.players = players;
 	}
 
-	public String getTitle() {
+	public String getTitle()
+	{
 		return title;
 	}
 
-	public void setTitle(String title) {
+	public void setTitle(String title)
+	{
 		this.title = title;
 	}
 
-	public int getId() {
+	public int getId()
+	{
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(int id)
+	{
 		this.id = id;
 	}
 
-	public CommPlayer[] getPlayers() {
+	public CommPlayer[] getPlayers()
+	{
 		return players;
 	}
 
-	public void setPlayers(CommPlayer[] players) {
+	public void setPlayers(CommPlayer[] players)
+	{
 		this.players = players;
 	}
 }
