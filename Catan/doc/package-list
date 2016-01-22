@@ -1,4 +1,7 @@
+clientfacade
 model.development
+model.map
+model.options
 model.players
 model.players.errors
 model.resources

@@ -16,9 +16,6 @@ public class CommGame
 	private int id;
 	private CommPlayer[] players;
 
-	/**
-	 * 
-	 */
 	public CommGame()
 	{
 

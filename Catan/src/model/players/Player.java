@@ -2,6 +2,7 @@ package model.players;
 
 import java.util.ArrayList;
 import shared.definitions.CatanColor;
+import shared.communication.*;
 
 /**
  * The Player class contains all necessary information about a given player
@@ -17,31 +18,31 @@ public class Player
 {
 
 	/** boolean value indicating whether or not this player currently possesses the longest road */
-	boolean longestRoad;
+	private boolean longestRoad;
 
 	/** boolean value indicating whether or not this player currently possesses the largest army */
-	boolean largestArmy;
+	private boolean largestArmy;
 
 	/** an integer count of how many points this player possesses */
-	int points;
+	private int points;
 
 	/** The color of this player's pieces */
-	CatanColor color;
+	private CatanColor color;
 
 	/** boolean indication of whether or not this player has already discarded cards this turn */
-	boolean discarded;
+	private boolean discarded;
 
 	/** Count of this player's monuments */
-	int monuments;
+	private int monuments;
 
 	/** The name of this player */
-	String name;
+	private String name;
 
 	/** Integer indication of this players turn index */
-	int playerIndex;
+	private int playerIndex;
 
 	/** A unique ID to distinguish from other players */
-	int id;
+	private IdNumber id;
 
 	/** A list of the pieces the player can still play */
 	private Pieces piecesRemaining;
@@ -177,7 +178,7 @@ public class Player
 	/**
 	 * @return the id
 	 */
-	public int getId()
+	public IdNumber getId()
 	{
 		return id;
 	}
@@ -185,7 +186,7 @@ public class Player
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(int id)
+	public void setId(IdNumber id)
 	{
 		this.id = id;
 	}

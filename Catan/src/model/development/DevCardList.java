@@ -1,15 +1,17 @@
 package model.development;
 
-/** The DevCardList in an object that keeps track of how many of each development cards it contains.
-* @author Christian Riboldi
-* @author Clayton Condie
-* @author Jacob Brewer
-* @author Joshua Powers
-* @author Joshua Van Steeter
-* @version 1.0 Build Jan, 2016.
-*/
 import shared.definitions.DevCardType;
 
+/**
+ * The DevCardList in an object that keeps track of how many of each development cards it contains.
+ * 
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Jan, 2016.
+ */
 public class DevCardList
 {
 

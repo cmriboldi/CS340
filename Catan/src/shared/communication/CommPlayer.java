@@ -14,11 +14,8 @@ public class CommPlayer
 {
 	private String color;
 	private String name;
-	private int id;
+	private IdNumber id;
 
-	/**
-	 * 
-	 */
 	public CommPlayer()
 	{
 
@@ -29,7 +26,7 @@ public class CommPlayer
 	 * @param name
 	 * @param id
 	 */
-	public CommPlayer(String color, String name, int id)
+	public CommPlayer(String color, String name, IdNumber id)
 	{
 		this.color = color;
 		this.name = name;
@@ -56,12 +53,12 @@ public class CommPlayer
 		this.name = name;
 	}
 
-	public int getId()
+	public IdNumber getId()
 	{
 		return id;
 	}
 
-	public void setId(int id)
+	public void setId(IdNumber id)
 	{
 		this.id = id;
 	}

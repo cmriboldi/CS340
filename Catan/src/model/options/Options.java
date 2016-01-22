@@ -1,5 +1,15 @@
 package model.options;
 
+/**
+ * The Options class is in charge of all canDo methods.
+ * 
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Jan, 2016.
+ */
 public class Options
 {
 	public Options()
@@ -13,7 +23,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanBuildRoad()
+	public boolean canBuildRoad()
 	{
 		return true;
 	}
@@ -24,7 +34,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanBuildTown()
+	public boolean canBuildTown()
 	{
 		return true;
 	}
@@ -35,7 +45,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanBuildCity()
+	public boolean canBuildCity()
 	{
 		return true;
 	}
@@ -46,7 +56,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanTrade()
+	public boolean canTrade()
 	{
 		return true;
 	}
@@ -57,7 +67,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanMaritimeTrade()
+	public boolean canMaritimeTrade()
 	{
 		return true;
 	}
@@ -68,7 +78,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanPlay()
+	public boolean canPlay()
 	{
 		return true;
 	}
@@ -80,7 +90,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanPlaceRoad()
+	public boolean canPlaceRoad()
 	{
 		return true;
 	}
@@ -92,7 +102,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanPlaceTown()
+	public boolean canPlaceTown()
 	{
 		return true;
 	}
@@ -104,7 +114,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean CanPlaceCity()
+	public boolean canPlaceCity()
 	{
 		return true;
 	}
@@ -117,7 +127,7 @@ public class Options
 	 * @param Resources to get
 	 * @return True if allowed False otherwise
 	 */
-	public boolean ValidTrade()
+	public boolean isValidTrade()
 	{
 		return true;
 	}

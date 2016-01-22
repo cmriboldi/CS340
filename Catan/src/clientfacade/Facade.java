@@ -3,6 +3,16 @@ package clientfacade;
 import java.util.List;
 import shared.communication.*;
 
+/**
+ * The Facade class controls all interations between the GUI and the CatanModel
+ * 
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Jan, 2016.
+ */
 public class Facade
 {
 	public Facade()
@@ -83,7 +93,7 @@ public class Facade
 	 */
 	public void newMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts)
 	{
-		
+
 	}
 
 	/**
