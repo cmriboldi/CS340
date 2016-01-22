@@ -1,6 +1,7 @@
 package model.players;
 
 import java.util.ArrayList;
+import shared.definitions.CatanColor; 
 
 /** The Player class contains all necessary information about a given player
 * @author Christian Riboldi
@@ -23,7 +24,7 @@ public class Player {
 	int points;
 	
 	/** The color of this player's pieces */
-	String color; 
+	CatanColor color; 
 	
 	/** boolean indication of whether or not this player has already discarded cards this turn */ 
 	boolean discarded; 
@@ -34,17 +35,8 @@ public class Player {
 	/** The name of this player */ 
 	String name; 
 	
-	/** An ArrayList of the new dev cards this player purchased this turn */ 
-	ArrayList<Object> newDevCards; 
-	
-	/** An ArrayList of the dev cards this player had previous to this turn */ 
-	ArrayList<Object> oldDevCards; 
-	
 	/** Integer indication of this players turn index */ 
 	int playerIndex; 
-	
-	/** Boolean indication of whether or this player has played a dev card this turn */ 
-	boolean playedDevCard; 
 	
 	/** A unique ID to distinguish from other players */
 	int id; 
@@ -58,9 +50,6 @@ public class Player {
 	/** Integer Count of the number of settlements that remain for this player */ 
 	int settlementsRemaining; 
 	
-	/** number of soldiers that this player possesses */ 
-	int soldiers;
-
 	/**
 	 * @return the longestRoad
 	 */
@@ -103,31 +92,18 @@ public class Player {
 		this.points = points;
 	}
 
-	/**
-	 * @return the bankAccount
-	 */
-	public Object getBankAccount() {
-		return bankAccount;
-	}
-
-	/**
-	 * @param bankAccount the bankAccount to set
-	 */
-	public void setBankAccount(Object bankAccount) {
-		this.bankAccount = bankAccount;
-	}
 
 	/**
 	 * @return the color
 	 */
-	public String getColor() {
+	public CatanColor getColor() {
 		return color;
 	}
 
 	/**
 	 * @param color the color to set
 	 */
-	public void setColor(String color) {
+	public void setColor(CatanColor color) {
 		this.color = color;
 	}
 
@@ -173,33 +149,6 @@ public class Player {
 		this.name = name;
 	}
 
-	/**
-	 * @return the newDevCards
-	 */
-	public ArrayList<Object> getNewDevCards() {
-		return newDevCards;
-	}
-
-	/**
-	 * @param newDevCards the newDevCards to set
-	 */
-	public void setNewDevCards(ArrayList<Object> newDevCards) {
-		this.newDevCards = newDevCards;
-	}
-
-	/**
-	 * @return the oldDevCards
-	 */
-	public ArrayList<Object> getOldDevCards() {
-		return oldDevCards;
-	}
-
-	/**
-	 * @param oldDevCards the oldDevCards to set
-	 */
-	public void setOldDevCards(ArrayList<Object> oldDevCards) {
-		this.oldDevCards = oldDevCards;
-	}
 
 	/**
 	 * @return the playerIndex
@@ -215,19 +164,6 @@ public class Player {
 		this.playerIndex = playerIndex;
 	}
 
-	/**
-	 * @return the playedDevCard
-	 */
-	public boolean isPlayedDevCard() {
-		return playedDevCard;
-	}
-
-	/**
-	 * @param playedDevCard the playedDevCard to set
-	 */
-	public void setPlayedDevCard(boolean playedDevCard) {
-		this.playedDevCard = playedDevCard;
-	}
 
 	/**
 	 * @return the id
@@ -285,19 +221,7 @@ public class Player {
 		this.settlementsRemaining = settlementsRemaining;
 	}
 
-	/**
-	 * @return the soldiers
-	 */
-	public int getSoldiers() {
-		return soldiers;
-	}
 
-	/**
-	 * @param soldiers the soldiers to set
-	 */
-	public void setSoldiers(int soldiers) {
-		this.soldiers = soldiers;
-	} 
 	
 	
 	
