@@ -2,6 +2,7 @@ package model.map;
 
 //Project Imports
 import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 
 public class MapManager 
@@ -61,6 +62,13 @@ public class MapManager
 	public Object distributeResources(int number)
 	{
 		return null;
+	}
+	
+	
+	
+	public void placeRobber(HexLocation hex)
+	{
+		
 	}
 	
 	
