@@ -10,6 +10,8 @@ package model.resources;
 */
 
 import shared.definitions.*;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughBankResourcesException;
 
 public class ResourceManager
 {
@@ -28,7 +30,7 @@ public class ResourceManager
 	 * @param playerIndex The index of the player who is purchasing the piece.
 	 * @param piece The PieceType which will be bought.
 	 */
-	public void buyPiece(int playerIndex, PieceType piece)
+	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException
 	{
 
 	}
@@ -36,7 +38,7 @@ public class ResourceManager
 	/**
 	 * @param playerIndex The index of the player who is buying a development card.
 	 */
-	public void buyDevCard(int playerIndex)
+	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException
 	{
 
 	}
@@ -44,7 +46,7 @@ public class ResourceManager
 	/**
 	 * This is the external call for generating resources for the CatanModel.
 	 */
-	public void generateResources()
+	public void generateResources() throws NotEnoughBankResourcesException
 	{
 
 	}
@@ -58,7 +60,7 @@ public class ResourceManager
 	 * @param fromPlayerIndex The index of the player who is receiving the negative numbered
 	 *            resources.
 	 */
-	public void tradeWithPlayer(ResourceList resList, int toPlayerIndex, int fromPlayerIndex)
+	public void tradeWithPlayer(ResourceList resList, int toPlayerIndex, int fromPlayerIndex) throws NotEnoughPlayerResourcesException
 	{
 
 	}
@@ -68,7 +70,7 @@ public class ResourceManager
 	 *            numbers coming from the Bank.
 	 * @param toPlayerIndex The index of the player who is trading with the bank.
 	 */
-	public void tradeWithBank(ResourceList resList, int toPlayerIndex)
+	public void tradeWithBank(ResourceList resList, int toPlayerIndex) throws NotEnoughBankResourcesException
 	{
 
 	}
@@ -86,7 +88,7 @@ public class ResourceManager
 	 * @param playerIndex The index of the player who is using the card.
 	 * @param resourcesAskedFor The ResourceList with the two resources requested.
 	 */
-	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor)
+	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException
 	{
 
 	}

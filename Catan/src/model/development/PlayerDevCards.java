@@ -9,6 +9,7 @@ package model.development;
 * @version 1.0 Build Jan, 2016.
 */
 import shared.definitions.DevCardType;
+import shared.exceptions.development.NotEnoughDevCardsException;
 
 public class PlayerDevCards
 {
@@ -36,7 +37,7 @@ public class PlayerDevCards
 	 * @param devCard A DevCardType specifying the type of development card to remove.
 	 * @param playerIndex The index of the player losing the development card.
 	 */
-	public void removeCardFromPlayer(DevCardType devCard, int playerIndex)
+	public void removeCardFromPlayer(DevCardType devCard, int playerIndex) throws NotEnoughDevCardsException
 	{
 
 	}

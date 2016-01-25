@@ -1,5 +1,7 @@
 package model.development;
 
+import shared.exceptions.development.NotEnoughDevCardsException;
+
 /**
  * The DevCardManager handles all interactions with development cards.
  * 
@@ -26,7 +28,7 @@ public class DevCardManager
 	 * 
 	 * @param playerIndex The index of the player drawing the card.
 	 */
-	public void drawCard(int playerIndex)
+	public void drawCard(int playerIndex) throws NotEnoughDevCardsException
 	{
 
 	}

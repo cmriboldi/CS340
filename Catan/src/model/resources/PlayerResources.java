@@ -1,5 +1,7 @@
 package model.resources;
 
+import shared.exceptions.resources.NotEnoughBankResourcesException;
+
 public class PlayerResources
 {
 
@@ -27,7 +29,7 @@ public class PlayerResources
 	 * @param resList A ResourceList with the positive amounts needed to be taken from the player.
 	 * @param playerIndex The index of the player who will lose the resources.
 	 */
-	public void takeResourcesFromPlayer(ResourceList resList, int playerIndex)
+	public void takeResourcesFromPlayer(ResourceList resList, int playerIndex) throws NotEnoughBankResourcesException
 	{
 
 	}

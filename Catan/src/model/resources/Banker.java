@@ -1,6 +1,7 @@
 package model.resources;
 
 import shared.definitions.PieceType;
+import shared.exceptions.resources.*;
 
 /**
  * The Banker handles all transactions in or out of the Bank
@@ -29,7 +30,7 @@ public class Banker
 	 * @param resLists An array of ResourceLists where the index of the ResourceList is the same as
 	 *            the index of the Player being paid.
 	 */
-	public void payPlayers(ResourceList[] resLists)
+	public void payPlayers(ResourceList[] resLists) throws NotEnoughBankResourcesException
 	{
 
 	}
@@ -40,7 +41,7 @@ public class Banker
 	 * @param playerIndex The index of the player who is purchasing the piece.
 	 * @param piece The PieceType which will be bought.
 	 */
-	public void buyPiece(int playerIndex, PieceType piece)
+	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException
 	{
 
 	}
@@ -50,7 +51,7 @@ public class Banker
 	 * 
 	 * @param playerIndex Index of the player who is buying.
 	 */
-	public void buyDevCard(int playerIndex)
+	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException
 	{
 
 	}
@@ -62,7 +63,7 @@ public class Banker
 	 *            numbers coming from the Bank.
 	 * @param toPlayerIndex The index of the player who is trading with the bank.
 	 */
-	public void tradeWithBank(ResourceList resList, int toPlayerIndex)
+	public void tradeWithBank(ResourceList resList, int toPlayerIndex) throws NotEnoughBankResourcesException
 	{
 
 	}
@@ -71,7 +72,7 @@ public class Banker
 	 * @param playerIndex The index of the player who is using the card.
 	 * @param resourcesAskedFor The ResourceList with the two resources requested.
 	 */
-	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor)
+	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException
 	{
 
 	}

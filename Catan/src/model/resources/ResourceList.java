@@ -1,5 +1,7 @@
 package model.resources;
 
+import shared.exceptions.resources.NotEnoughResourcesException;
+
 /**
  * The ResourceList is an object keeps track of how many resources it contains.
  * 
@@ -79,7 +81,7 @@ public class ResourceList
 	 * 
 	 * @param quantity
 	 */
-	public void removeBrick(int quantity)
+	public void removeBrick(int quantity) throws NotEnoughResourcesException
 	{
 
 	}
@@ -89,7 +91,7 @@ public class ResourceList
 	 * 
 	 * @param quantity
 	 */
-	public void removeOre(int quantity)
+	public void removeOre(int quantity) throws NotEnoughResourcesException
 	{
 
 	}
@@ -99,7 +101,7 @@ public class ResourceList
 	 * 
 	 * @param quantity
 	 */
-	public void removeWheat(int quantity)
+	public void removeWheat(int quantity) throws NotEnoughResourcesException
 	{
 
 	}
@@ -109,7 +111,7 @@ public class ResourceList
 	 * 
 	 * @param quantity
 	 */
-	public void removeWood(int quantity)
+	public void removeWood(int quantity) throws NotEnoughResourcesException
 	{
 
 	}
@@ -119,7 +121,7 @@ public class ResourceList
 	 * 
 	 * @param quantity
 	 */
-	public void removeWool(int quantity)
+	public void removeWool(int quantity) throws NotEnoughResourcesException
 	{
 
 	}

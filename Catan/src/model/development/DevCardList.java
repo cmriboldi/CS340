@@ -1,6 +1,7 @@
 package model.development;
 
 import shared.definitions.DevCardType;
+import shared.exceptions.development.NotEnoughDevCardsException;
 
 /**
  * The DevCardList in an object that keeps track of how many of each development cards it contains.
@@ -41,8 +42,35 @@ public class DevCardList
 	 * 
 	 * @param devCard A DevCardType specifying the card to remove.
 	 */
-	public void removeDevCard(DevCardType devCard)
+	public void removeDevCard(DevCardType devCard) throws NotEnoughDevCardsException
 	{
 
 	}
+
+	public int getMonopolyCount()
+	{
+		return monopoly;
+	}
+
+	public int getMonumentCount()
+	{
+		return monument;
+	}
+
+	public int getRoadBuilderCount()
+	{
+		return roadBuilder;
+	}
+
+	public int getSoldierCount()
+	{
+		return soldier;
+	}
+
+	public int getYearOfPlentyCount()
+	{
+		return yearOfPlenty;
+	}
+	
+	
 }

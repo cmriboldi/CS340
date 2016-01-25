@@ -1,6 +1,7 @@
 package model.resources;
 
 import shared.definitions.ResourceType;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 
 /**
  * The Trader handles all Player to Player transactions.
@@ -34,7 +35,7 @@ public class Trader
 	 * @param fromPlayerIndex The index of the player who is receiving the negative numbered
 	 *            resources.
 	 */
-	public void tradeWithPlayer(ResourceList resList, int fromPlayerIndex, int toPlayerIndex)
+	public void tradeWithPlayer(ResourceList resList, int fromPlayerIndex, int toPlayerIndex) throws NotEnoughPlayerResourcesException
 	{
 
 	}
