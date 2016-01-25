@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import shared.definitions.CatanColor;
 import shared.communication.*;
 
-
 /**
  * The Player class contains all necessary information about a given player
  * 

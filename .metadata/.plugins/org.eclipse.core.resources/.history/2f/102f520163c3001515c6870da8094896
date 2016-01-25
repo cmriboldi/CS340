@@ -1,6 +1,7 @@
 package model.players;
 
-import shared.exceptions.player.*;
+import model.players.errors.NoMorePlayersException;
+import model.players.errors.TooManyPlayersException;
 
 /**
  * The PlayerManager generally manages turns and player game flow

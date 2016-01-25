@@ -2,7 +2,7 @@ package model.players;
 
 import java.util.ArrayList;
 
-import shared.exceptions.player.*;
+import model.players.errors.GeneralPlayerException;
 
 /**
  * The PlayerTurnTracker tracks whose turn it is, and who will go next
