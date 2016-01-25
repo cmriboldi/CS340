@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import shared.definitions.CatanColor;
 import shared.communication.*;
 
-
 /**
  * The Player class contains all necessary information about a given player
  * 
@@ -29,6 +28,12 @@ public class Player
 
 	/** The color of this player's pieces */
 	private CatanColor color;
+
+	/** boolean indication of whether or not this player has already discarded cards this turn */
+	private boolean discarded;
+
+	/** Count of this player's monuments */
+	private int monuments;
 
 	/** The name of this player */
 	private String name;
@@ -106,6 +111,37 @@ public class Player
 		this.color = color;
 	}
 
+	/**
+	 * @return the discarded
+	 */
+	public boolean isDiscarded()
+	{
+		return discarded;
+	}
+
+	/**
+	 * @param discarded the discarded to set
+	 */
+	public void setDiscarded(boolean discarded)
+	{
+		this.discarded = discarded;
+	}
+
+	/**
+	 * @return the monuments
+	 */
+	public int getMonuments()
+	{
+		return monuments;
+	}
+
+	/**
+	 * @param monuments the monuments to set
+	 */
+	public void setMonuments(int monuments)
+	{
+		this.monuments = monuments;
+	}
 
 	/**
 	 * @return the name
@@ -155,6 +191,28 @@ public class Player
 		this.id = id;
 	}
 
+	/**
+	 * @return the citiesRemaining
+	 */
+	public int getCitiesRemaining()
+	{
+		return piecesRemaining.getCities();
+	}
 
+	/**
+	 * @return the roadsRemaining
+	 */
+	public int getRoadsRemaining()
+	{
+		return piecesRemaining.getSettlements();
+	}
+
+	/**
+	 * @return the settlementsRemaining
+	 */
+	public int getSettlementsRemaining()
+	{
+		return piecesRemaining.getSettlements();
+	}
 
 }
