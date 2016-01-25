@@ -12,10 +12,11 @@ package serverProxy;
  */
 public class Poller
 {
+	
 	/**
-	 * 
+	 * @param server The server that will be used to poll from
 	 */
-	public Poller()
+	public Poller(ServerProxy server)
 	{
 
 	}

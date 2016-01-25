@@ -25,9 +25,9 @@ public interface ServerProxy
 	 * 
 	 * @param username Catan account username
 	 * @param password Catan account password
-	 * @return True if login was successful or false if an error occcurred.
+	 * @throws ServerException If an error occurred along the way, throw a server exception with a detailed message
 	 */
-	public boolean userLogin(String username, String password);
+	public void userLogin(String username, String password) throws ServerException;
 
 	/**
 	 * Creates a new player account, and logs them in to the server (i.e., sets their catan.user
@@ -35,9 +35,9 @@ public interface ServerProxy
 	 * 
 	 * @param username Catan account username
 	 * @param password Catan account password
-	 * @return True if registration was successful or false if an error occurred.
+	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
-	public boolean userRegister(String username, String password);
+	public void userRegister(String username, String password) throws ServerException;
 
 	/**
 	 * Get a list of all games in progress.
@@ -63,9 +63,9 @@ public interface ServerProxy
 	 * @param gameId The ID of the game to join.
 	 * @param color ['red' or 'green' or 'blue' or 'yellow' or 'puce' or 'brown' or 'white' or
 	 *            'purple' or 'orange']: What color you want to join (or rejoin) as.
-	 * @return True if joining the game was successful, false if an error occurred.
+	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
-	public boolean joinGame(int gameId, CatanColor color);
+	public void joinGame(int gameId, CatanColor color) throws ServerException;
 
 	/**
 	 * Saves the current state of the specified game to a file. This method is for testing and
@@ -76,9 +76,9 @@ public interface ServerProxy
 	 * 
 	 * @param gameId The ID of the game to save.
 	 * @param fileName The file name you want to save it under.
-	 * @return True if save is successful, false if an error occurred.
+	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
-	public boolean saveGame(int gameId, String fileName);
+	public void saveGame(int gameId, String fileName) throws ServerException;
 
 	/**
 	 * Loads a previously saved game file to restore the state of a game. This method is for testing
@@ -90,9 +90,9 @@ public interface ServerProxy
 	 * 
 	 * @param fileName The name of the saved game file that you want to load. (The game's ID is
 	 *            restored as well.)
-	 * @return True if load is successful, false if an error occurred.
+	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
-	public boolean loadGame(String fileName);
+	public void loadGame(String fileName) throws ServerException;
 
 	/**
 	 * Returns the current state of the game in JSON format. You must login and join a game before
@@ -148,9 +148,9 @@ public interface ServerProxy
 	 * 
 	 * @param AIType The type of AI player to add (currently, LARGEST_ARMY is the only supported
 	 *            type). Only strings returned by /game/listAI are valid.
-	 * @return True if method was successful, false if an error occured.
+	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
-	public boolean addAI(String AIType);
+	public void addAI(String AIType) throws ServerException;
 
 	/**
 	 * Returns a list of supported AI player types (currently, LARGEST_ARMY is the only supported
@@ -320,7 +320,7 @@ public interface ServerProxy
 	 * Sets the server's log level. (ALL, SEVERE, WARNING ,INFO, CONFIG, FINE, FINER, FINEST, OFF)
 	 * 
 	 * @param logLevel The level you want the server to log at
-	 * @return True if the change was successful, false if an error occurred.
+	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
-	public boolean changeLogLevel(LogLevel logLevel);
+	public void changeLogLevel(LogLevel logLevel) throws ServerException;
 }

@@ -1,6 +1,7 @@
 clientfacade
 model.development
 model.map
+model.messagelog
 model.options
 model.players
 model.players.errors

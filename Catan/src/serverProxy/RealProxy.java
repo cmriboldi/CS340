@@ -28,220 +28,190 @@ public class RealProxy implements ServerProxy
 {
 
 	@Override
-	public boolean userLogin(String username, String password)
-	{
+	public void userLogin(String username, String password) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean userRegister(String username, String password)
-	{
+	public void userRegister(String username, String password) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public List<CommGame> listGames()
-	{
+	public List<CommGame> listGames() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name)
-	{
+	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean joinGame(int gameId, CatanColor color)
-	{
+	public void joinGame(int gameId, CatanColor color) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean saveGame(int gameId, String fileName)
-	{
+	public void saveGame(int gameId, String fileName) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean loadGame(String fileName)
-	{
+	public void loadGame(String fileName) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public GameModelJSON getGameModel(int modelNumber)
-	{
+	public GameModelJSON getGameModel(int modelNumber) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON resetGame()
-	{
+	public GameModelJSON resetGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON setCommands(List<Command> commands)
-	{
+	public GameModelJSON setCommands(List<Command> commands) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Command> getCommands()
-	{
+	public List<Command> getCommands() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean addAI(String AIType)
-	{
+	public void addAI(String AIType) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public List<String> listAI()
-	{
+	public List<String> listAI() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON sendChat(int playerIndex, String content)
-	{
+	public GameModelJSON sendChat(int playerIndex, String content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON rollNumber(int playerIndex, int number)
-	{
+	public GameModelJSON rollNumber(int playerIndex, int number) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation)
-	{
+	public GameModelJSON robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON finishTurn(int playerIndex)
-	{
+	public GameModelJSON finishTurn(int playerIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buyDevCard(int playerIndex)
-	{
+	public GameModelJSON buyDevCard(int playerIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2)
-	{
+	public GameModelJSON yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2)
-	{
+	public GameModelJSON roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON soldier(int playerIndex, int victimIndex, HexLocation hexLocation)
-	{
+	public GameModelJSON soldier(int playerIndex, int victimIndex, HexLocation hexLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON monopoly(int playerIndex, ResourceType resource)
-	{
+	public GameModelJSON monopoly(int playerIndex, ResourceType resource) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON monument(int playerIndex)
-	{
+	public GameModelJSON monument(int playerIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free)
-	{
+	public GameModelJSON buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free)
-	{
+	public GameModelJSON buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buildCity(int playerIndex, VertexLocation vertexLocation)
-	{
+	public GameModelJSON buildCity(int playerIndex, VertexLocation vertexLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON offerTrade(int playerIndex, int receiver, ResourceList offer)
-	{
+	public GameModelJSON offerTrade(int playerIndex, int receiver, ResourceList offer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON acceptTrade(int playerIndex, boolean willAccept)
-	{
+	public GameModelJSON acceptTrade(int playerIndex, boolean willAccept) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output)
-	{
+	public GameModelJSON maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON discardCards(int playerIndex, ResourceList discardedCards)
-	{
+	public GameModelJSON discardCards(int playerIndex, ResourceList discardedCards) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public boolean changeLogLevel(LogLevel logLevel)
-	{
+	public void changeLogLevel(LogLevel logLevel) throws ServerException {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
+
 
 }

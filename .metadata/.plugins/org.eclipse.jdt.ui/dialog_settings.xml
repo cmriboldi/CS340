@@ -17,12 +17,12 @@
 		<item value="true" key="splitindex"/>
 		<item value="true" key="fromStandard"/>
 		<item value="false" key="notree"/>
-		<item value="E:\Users\Joshua\Google Drive\School\2016 Winter\CS360\Group Files\Catan\doc" key="destdir"/>
+		<item value="D:\Users\jvanstee\Google Drive\School\2016 Winter\CS360\Group Files\CS340\Catan\doc" key="destdir"/>
 		<item value="false" key="openinbrowser"/>
 		<section name="projects">
 			<section name="Catan">
 				<item value="E:\Users\Joshua\Google Drive\School\2016 Winter\CS360\Group Files\Catan\javadoc.xml" key="antpath"/>
-				<item value="E:\Users\Joshua\Google Drive\School\2016 Winter\CS360\Group Files\Catan\doc" key="destdir"/>
+				<item value="D:\Users\jvanstee\Google Drive\School\2016 Winter\CS360\Group Files\CS340\Catan\doc" key="destdir"/>
 				<item value="" key="href"/>
 			</section>
 		</section>
