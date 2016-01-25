@@ -23,13 +23,13 @@ public class Map
 	private HashMap<HexLocation, Hex> hexes;
 
 	/** container for all the settlements that exist on the board */
-	private ArrayList<VertexObject> settlements;
+	private HashMap<VertexLocation, VertexObject> settlements;
 
 	/** container for all the ports that exist on the board */
-	private ArrayList<VertexObject> ports;
+	private HashMap<VertexLocation, VertexObject> ports;
 
 	/** container for all the roads that exist on the board */
-	private ArrayList<EdgeValue> roads;
+	private HashMap<EdgeLocation, EdgeValue> roads;
 
 	/**
 	 * Queries the HashMap of hexes looking for tiles with a specific number value. Could
