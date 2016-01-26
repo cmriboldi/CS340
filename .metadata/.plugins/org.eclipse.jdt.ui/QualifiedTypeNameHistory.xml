@@ -3,4 +3,7 @@
 <fullyQualifiedTypeName name="shared.definitions.ResourceType"/>
 <fullyQualifiedTypeName name="shared.locations.HexLocation"/>
 <fullyQualifiedTypeName name="shared.communication.CommGame"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="java.net.HttpURLConnection"/>
+<fullyQualifiedTypeName name="java.io.InputStreamReader"/>
 </qualifiedTypeNameHistroy>

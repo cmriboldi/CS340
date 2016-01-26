@@ -1,8 +1,5 @@
 package serverProxy;
 
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.List;
 
 import model.resources.ResourceList;
@@ -29,12 +26,6 @@ import shared.locations.VertexLocation;
  */
 public class RealProxy implements ServerProxy
 {
-	private String urlBase;
-	
-	public RealProxy()
-	{
-		urlBase = "http://localhost:8081";
-	}
 
 	@Override
 	public void userLogin(String username, String password) throws ServerException {
@@ -220,55 +211,6 @@ public class RealProxy implements ServerProxy
 	public void changeLogLevel(LogLevel logLevel) throws ServerException {
 		// TODO Auto-generated method stub
 		
-	}
-	
-	private Object post(String urlPath, Object data)
-	{
-		//XStream xstream = new XStream(new DomDriver());
-		URL url;
-		try 
-		{
-			url = new URL(urlBase + urlPath);
-			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-			conn.setConnectTimeout(5000);
-			conn.setReadTimeout(10000);
-			conn.setRequestMethod("POST");
-			conn.setDoInput(true);
-			conn.setDoOutput(true);
-			conn.connect();
-			
-			xstream.toXML(data, conn.getOutputStream());
-			conn.getOutputStream().close();
-			
-			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
-			{
-				InputStreamReader ipr = new InputStreamReader(conn.getInputStream());
-				System.out.println("start IPR");
-				while(ipr.ready())
-				{
-					int iprOut = ipr.read();
-					char[] iprOutChat = Character.toChars(iprOut);
-					System.out.print(iprOutChat);
-				}
-				System.out.println("\nend IPR");
-				
-				Object result = xstream.fromXML(conn.getInputStream());
-				return result;
-			}
-		} 
-		catch (MalformedURLException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (ProtocolException e) 
-		{
-			e.printStackTrace();
-		} 
-		catch (IOException e) 
-		{
-			e.printStackTrace();
-		}
-		return null;
 	}
 
 
