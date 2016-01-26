@@ -1,4 +1,5 @@
-/model/
-/shared/
-/serverProxy/
 /.DS_Store
+/clientfacade/
+/model/
+/serverProxy/
+/shared/
