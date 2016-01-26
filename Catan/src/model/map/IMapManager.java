@@ -3,6 +3,8 @@ package model.map;
 import java.util.ArrayList;
 
 import model.resources.ResourceList;
+import shared.exceptions.map.IllegalPlacementException;
+import shared.exceptions.map.OwnershipException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -26,7 +28,7 @@ public interface IMapManager
 	 * @param edge
 	 * @param player
 	 */
-	public void placeRoad(EdgeLocation edge, int player);
+	public void placeRoad(EdgeLocation edge, int player) throws IllegalPlacementException;
 
 	/**
 	 * Places a settlement on the given vertex, belonging to the indicated player
@@ -34,7 +36,7 @@ public interface IMapManager
 	 * @param vertex
 	 * @param player
 	 */
-	public void placeSettlement(VertexLocation vertex, int player);
+	public void placeSettlement(VertexLocation vertex, int player) throws IllegalPlacementException;
 
 	/**
 	 * Upgrades the state of the indicated vertex from settlement to city, the player id plays a
@@ -43,7 +45,7 @@ public interface IMapManager
 	 * @param vertex
 	 * @param player
 	 */
-	public void upgradeSettlement(VertexLocation vertex, int player);
+	public void upgradeSettlement(VertexLocation vertex, int player) throws OwnershipException;
 
 	/**
 	 * Passes the "dice" roll in as a parameter and returns an ArrayList of ResourceLists that the
