@@ -12,37 +12,42 @@ package shared.communication;
  */
 public class CommUser
 {
-	private String username;
-	private String password;
+	private Username username;
+	private Password password;
+	private IdNumber id;
 
 	public CommUser()
 	{
 
 	}
-	
-	public CommUser(String username, String password)
-	{
-		this.username = username;
-		this.password = password;
-	}
 
-	public String getUsername()
+	public Username getUsername()
 	{
 		return username;
 	}
 
-	public void setUsername(String username)
+	public void setUsername(Username username)
 	{
 		this.username = username;
 	}
 
-	public String getPassword()
+	public Password getPassword()
 	{
 		return password;
 	}
 
-	public void setPassword(String password)
+	public void setPassword(Password password)
 	{
 		this.password = password;
+	}
+
+	public IdNumber getId()
+	{
+		return id;
+	}
+
+	public void setId(IdNumber id)
+	{
+		this.id = id;
 	}
 }

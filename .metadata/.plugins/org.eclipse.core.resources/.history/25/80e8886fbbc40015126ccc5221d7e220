@@ -3,17 +3,15 @@ package testMains;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
 
-public class ProxyTestMain 
-{
+public class ProxyTestMain {
+
 	public static void main(String[] args) 
 	{
 		RealProxy server = new RealProxy();
-		try 
-		{
+		try {
 			server.userLogin("test", "test");
-		} 
-		catch (ServerException e) 
-		{
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
