@@ -1,9 +1,19 @@
 package serverProxy;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 
 import model.resources.ResourceList;
 import shared.communication.CommGame;
@@ -49,8 +59,11 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public List<CommGame> listGames() {
-		// TODO Auto-generated method stub
+	public List<CommGame> listGames() 
+	{
+		String obj = (String) get("/games/list");
+		JsonArray json = new Gson().fromJson(obj, JsonArray.class);
+		System.out.println(json.get(3));
 		return null;
 	}
 
@@ -222,9 +235,54 @@ public class RealProxy implements ServerProxy
 		
 	}
 	
-	private Object post(String urlPath, Object data)
+	private Object get(String urlPath)
 	{
-		//XStream xstream = new XStream(new DomDriver());
+		//GsonBuilder builder = new GsonBuilder();
+		//Gson gson = builder.create();
+		URL url;
+		try 
+		{
+			url = new URL(urlBase + urlPath);
+			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+			conn.setConnectTimeout(5000);
+			conn.setReadTimeout(10000);
+			conn.setRequestMethod("GET");
+			conn.setDoInput(true);
+			conn.setDoOutput(true);
+			conn.connect();
+			
+			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
+			{
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while((line = br.readLine()) != null)
+				{
+					sb.append(line + "\n");
+				}
+				br.close();
+				
+				return sb.toString();
+			}
+		} 
+		catch (MalformedURLException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (ProtocolException e) 
+		{
+			e.printStackTrace();
+		} 
+		catch (IOException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	/*private Object post(String urlPath, Object data)
+	{
+		GsonBuilder builder = new GsonBuilder();
 		URL url;
 		try 
 		{
@@ -269,7 +327,7 @@ public class RealProxy implements ServerProxy
 			e.printStackTrace();
 		}
 		return null;
-	}
+	}*/
 
 
 }
