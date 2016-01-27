@@ -1,4 +1,4 @@
-package test.map;
+package test.model.map;
 
 import org.junit.Test;
 

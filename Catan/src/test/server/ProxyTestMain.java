@@ -1,4 +1,4 @@
-package testMains;
+package test.server;
 
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
