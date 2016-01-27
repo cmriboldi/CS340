@@ -24,7 +24,11 @@ public class DevCardList
 
 	public DevCardList()
 	{
-
+		monopoly = 0;
+		monument = 0;
+		roadBuilder = 0;
+		soldier = 0;
+		yearOfPlenty = 0;
 	}
 
 	/**
@@ -34,7 +38,24 @@ public class DevCardList
 	 */
 	public void addDevCard(DevCardType devCard)
 	{
-
+		switch (devCard)
+		{
+		case MONOPOLY:
+			monopoly++;
+			break;
+		case MONUMENT:
+			monument++;
+			break;
+		case ROAD_BUILD:
+			roadBuilder++;
+			break;
+		case SOLDIER:
+			soldier++;
+			break;
+		case YEAR_OF_PLENTY:
+			yearOfPlenty++;
+			break;
+		}
 	}
 
 	/**
@@ -44,7 +65,49 @@ public class DevCardList
 	 */
 	public void removeDevCard(DevCardType devCard) throws NotEnoughDevCardsException
 	{
+		if (getDevCardCount() == 0)
+		{
+			throw new NotEnoughDevCardsException("There are not enough development cards to remove one.");
+		}
 
+		switch (devCard)
+		{
+		case MONOPOLY:
+			if (monopoly == 0)
+			{
+				throw new NotEnoughDevCardsException("There are not enough monopoly cards to remove one.");
+			}
+			monopoly--;
+			break;
+		case MONUMENT:
+			if (monument == 0)
+			{
+				throw new NotEnoughDevCardsException("There are not enough monument cards to remove one.");
+			}
+			monument--;
+			break;
+		case ROAD_BUILD:
+			if (roadBuilder == 0)
+			{
+				throw new NotEnoughDevCardsException("There are not enough road builder cards to remove one.");
+			}
+			roadBuilder--;
+			break;
+		case SOLDIER:
+			if (soldier == 0)
+			{
+				throw new NotEnoughDevCardsException("There are not enough soldier cards to remove one.");
+			}
+			soldier--;
+			break;
+		case YEAR_OF_PLENTY:
+			if (yearOfPlenty == 0)
+			{
+				throw new NotEnoughDevCardsException("There are not enough year of plenty cards to remove one.");
+			}
+			yearOfPlenty--;
+			break;
+		}
 	}
 
 	public int getMonopolyCount()
@@ -71,6 +134,10 @@ public class DevCardList
 	{
 		return yearOfPlenty;
 	}
-	
-	
+
+	public int getDevCardCount()
+	{
+		return monopoly + monument + roadBuilder + soldier + yearOfPlenty;
+	}
+
 }
