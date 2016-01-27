@@ -20,11 +20,19 @@ public class DevCardManager
 
 	public DevCardManager()
 	{
-
+		devCardStack = new DevCardList();
+		playerDevCards = new PlayerDevCards();
 	}
 
 	/**
 	 * Draws a development card for the given player.
+	 * 
+	 * @pre 0 < playerIndex < 4
+	 * 
+	 * @post playerDevCards[playerIndex].count++
+	 * @post playerDevCards[playerIndex] will have a new random card.
+	 * 
+	 * @throws NotEnoughDevCardsException if there are no development cards left to draw.
 	 * 
 	 * @param playerIndex The index of the player drawing the card.
 	 */
