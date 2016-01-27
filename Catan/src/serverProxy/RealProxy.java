@@ -8,6 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.util.List;
 
 import com.google.gson.*;
@@ -34,6 +35,9 @@ import shared.locations.*;
 public class RealProxy implements ServerProxy
 {
 	private String urlBase;
+	private String name;
+	private int playerID;
+	private AuthProxy authProxy;
 	
 	public RealProxy()
 	{
@@ -43,12 +47,24 @@ public class RealProxy implements ServerProxy
 	@Override
 	public void userLogin(String username, String password) throws ServerException 
 	{
+		System.out.println("User Login");
+		login("/user/login", username, password);
+	}
+
+	@Override
+	public void userRegister(String username, String password) throws ServerException 
+	{
+		login("/user/register", username, password);
+	}
+	
+	private void login(String urlPath, String username, String password)
+	{
 		CommUser user = new CommUser(username, password);
 		System.out.println("Login User");
 		URL url;
 		try 
 		{
-			url = new URL(urlBase + "/user/login");
+			url = new URL(urlBase + urlPath);
 			HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 			conn.setConnectTimeout(5000);
 			conn.setReadTimeout(10000);
@@ -65,7 +81,17 @@ public class RealProxy implements ServerProxy
 			System.out.println(conn.getResponseCode());
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
-				System.out.println("Set-cookie: " + conn.getHeaderFields().toString());
+				String cookie = conn.getHeaderField("Set-cookie");
+				cookie = cookie.replace("catan.user=", "");
+				cookie = cookie.replace(";Path=/;", "");
+				authProxy = new AuthProxy(cookie);
+				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
+				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
+				this.name = userjson.get("name").toString().replace("\"", "");
+				this.playerID = userjson.get("playerID").getAsInt();
+				System.out.println("Set-cookie: " + cookie);
+				System.out.println("Decoded: " + URLDecoder.decode(cookie, "UTF-8"));
+				System.out.println(name + " " + playerID);
 			}
 		} 
 		catch (MalformedURLException e) 
@@ -80,12 +106,6 @@ public class RealProxy implements ServerProxy
 		{
 			e.printStackTrace();
 		}
-	}
-
-	@Override
-	public void userRegister(String username, String password) throws ServerException {
-		// TODO Auto-generated method stub
-		
 	}
 
 	@Override
@@ -104,9 +124,9 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public void joinGame(int gameId, CatanColor color) throws ServerException {
-		// TODO Auto-generated method stub
-		
+	public void joinGame(int gameId, CatanColor color) throws ServerException 
+	{
+		authProxy.joinGame(gameId, "red");
 	}
 
 	@Override
@@ -122,9 +142,9 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public GameModelJSON getGameModel(int modelNumber) {
-		// TODO Auto-generated method stub
-		return null;
+	public GameModelJSON getGameModel(int modelNumber) 
+	{
+		return authProxy.getGameModel(modelNumber);
 	}
 
 	@Override

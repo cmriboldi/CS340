@@ -1,0 +1,5 @@
+package serverProxy;
+
+public class AuthProxy {
+
+}

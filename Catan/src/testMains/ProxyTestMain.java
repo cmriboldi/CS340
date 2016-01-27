@@ -2,6 +2,7 @@ package testMains;
 
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
+import shared.definitions.CatanColor;
 
 public class ProxyTestMain 
 {
@@ -11,6 +12,8 @@ public class ProxyTestMain
 		try 
 		{
 			server.userLogin("test", "test");
+			server.joinGame(3, CatanColor.RED);
+			server.getGameModel(1);
 		} 
 		catch (ServerException e) 
 		{
