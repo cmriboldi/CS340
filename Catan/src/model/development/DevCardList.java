@@ -109,6 +109,52 @@ public class DevCardList
 			break;
 		}
 	}
+	
+	/**
+	 * Check if the given player has the given development card.
+	 * 
+	 * @param playerIndex
+	 * @param devCard
+	 * @return
+	 */
+	public boolean hasDevCard(DevCardType devCard)
+	{
+		boolean hasCard = false;
+		switch (devCard)
+		{
+		case MONOPOLY:
+			if (monopoly > 0)
+			{
+				hasCard = true;
+			}
+			break;
+		case MONUMENT:
+			if (monument > 0)
+			{
+				hasCard = true;
+			}
+			break;
+		case ROAD_BUILD:
+			if (roadBuilder > 0)
+			{
+				hasCard = true;
+			}
+			break;
+		case SOLDIER:
+			if (soldier > 0)
+			{
+				hasCard = true;
+			}
+			break;
+		case YEAR_OF_PLENTY:
+			if (yearOfPlenty > 0)
+			{
+				hasCard = true;
+			}
+			break;
+		}
+		return hasCard;
+	}
 
 	public int getMonopolyCount()
 	{

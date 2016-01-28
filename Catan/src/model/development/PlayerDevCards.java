@@ -17,7 +17,7 @@ public class PlayerDevCards
 
 	public PlayerDevCards()
 	{
-
+		playerDevCards = new DevCardList[4];
 	}
 
 	/**
@@ -28,7 +28,7 @@ public class PlayerDevCards
 	 */
 	public void addCardToPlayer(DevCardType devCard, int playerIndex)
 	{
-
+		playerDevCards[playerIndex].addDevCard(devCard);
 	}
 
 	/**
@@ -39,7 +39,13 @@ public class PlayerDevCards
 	 */
 	public void removeCardFromPlayer(DevCardType devCard, int playerIndex) throws NotEnoughDevCardsException
 	{
-
+		try
+		{
+			playerDevCards[playerIndex].removeDevCard(devCard);
+		} catch (NotEnoughDevCardsException e)
+		{
+			throw e;
+		}
 	}
 
 	/**
@@ -51,6 +57,18 @@ public class PlayerDevCards
 	public DevCardList getDevCardsForPlayer(int playerIndex)
 	{
 		return playerDevCards[playerIndex];
+	}
+
+	/**
+	 * Check if the given player has the given development card.
+	 * 
+	 * @param playerIndex
+	 * @param devCard
+	 * @return
+	 */
+	public boolean hasDevCard(int playerIndex, DevCardType devCard)
+	{
+		return playerDevCards[playerIndex].hasDevCard(devCard);
 	}
 
 }

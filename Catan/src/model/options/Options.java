@@ -2,6 +2,7 @@ package model.options;
 
 import model.map.EdgeValue;
 import model.map.VertexObject;
+import shared.definitions.DevCardType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
@@ -23,35 +24,83 @@ public class Options
 	}
 
 	/**
-	 * Check if a road can be built
+	 * Check if a player can afford a road
 	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canBuildRoad(int index)
+	public boolean canAffordRoad(int playerIndex)
 	{
 		return true;
 	}
 
 	/**
-	 * Check if a town can be built
+	 * Check if a player can afford a town
 	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canBuildTown(int index)
+	public boolean canAffordTown(int playerIndex)
 	{
 		return true;
 	}
 
 	/**
-	 * Check if a city can be built
+	 * Check if a player can afford a city
 	 * 
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canBuildCity(int index)
+	public boolean canAffordCity(int playerIndex)
 	{
+		return true;
+	}
+	
+	/**
+	 * Check if a player can afford a development card
+	 * 
+	 * @param player index
+	 * @return True if allowed False otherwise
+	 */
+	public boolean canAffordDevCard(int playerIndex)
+	{
+		return true;
+	}
+	
+	/**
+	 * Check if a player can play a development card
+	 * 
+	 * @param playerIndex
+	 * @return
+	 */
+	public boolean canPlayDevCard(int playerIndex)
+	{
+		//call playerTurnManager to see if it players turn.
+		//call hasPlayedDevCard(playerIndex) to see if a player has played a devCard this turn.
+		return true;
+	}
+	
+	/**
+	 * Check if a player has a development card of the given type.
+	 * 
+	 * @param playerIndex index of the player.
+	 * @param card DevCardType of the card in question.
+	 * @return
+	 */
+	public boolean hasDevCard(int playerIndex, DevCardType card)
+	{
+		//call devCardManager to see if player has card of given type.
+		return true;
+	}
+	
+	/**
+	 * Check if there are enough cards in the development card stack to draw a card.
+	 * 
+	 * @return
+	 */
+	public boolean canDrawDevCard()
+	{
+		// call devCardManager to see if there enough cards in development card deck.
 		return true;
 	}
 
@@ -61,7 +110,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canTrade(int index)
+	public boolean canTrade(int playerIndex)
 	{
 		return true;
 	}
@@ -72,7 +121,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canMaritimeTrade(int index)
+	public boolean canMaritimeTrade(int playerIndex)
 	{
 		return true;
 	}
@@ -83,7 +132,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlay(int index)
+	public boolean canPlay(int playerIndex)
 	{
 		return true;
 	}
@@ -95,7 +144,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlaceRoad(int index, EdgeLocation location)
+	public boolean canPlaceRoad(int playerIndex, EdgeLocation location)
 	{
 		return true;
 	}
@@ -107,7 +156,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlaceTown(int index, VertexLocation location)
+	public boolean canPlaceTown(int playerIndex, VertexLocation location)
 	{
 		return true;
 	}
@@ -119,7 +168,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlaceCity(int index, VertexLocation location)
+	public boolean canPlaceCity(int playerIndex, VertexLocation location)
 	{
 		return true;
 	}

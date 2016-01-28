@@ -1,5 +1,8 @@
 package model.development;
 
+import java.util.Random;
+
+import shared.definitions.DevCardType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 
 /**
@@ -17,11 +20,13 @@ public class DevCardManager
 
 	private DevCardList devCardStack;
 	private PlayerDevCards playerDevCards;
+	private boolean[] hasPlayedDevCardsList;
 
 	public DevCardManager()
 	{
 		devCardStack = new DevCardList();
 		playerDevCards = new PlayerDevCards();
+		hasPlayedDevCardsList = new boolean[4];
 	}
 
 	/**
@@ -36,9 +41,51 @@ public class DevCardManager
 	 * 
 	 * @param playerIndex The index of the player drawing the card.
 	 */
-	public void drawCard(int playerIndex) throws NotEnoughDevCardsException
+	public DevCardType drawCard(int playerIndex) throws NotEnoughDevCardsException
 	{
-
+		DevCardType cardType;
+		do{
+			int randomInt = new Random().nextInt(4);
+			cardType = DevCardType.values()[randomInt];
+		} while (!devCardStack.hasDevCard(cardType));
+	    
+	    devCardStack.removeDevCard(cardType);
+	    playerDevCards.addCardToPlayer(cardType, playerIndex);
+		
+		return cardType;
 	}
-
+	
+	
+	/**
+	 * Call to find out if the player has played a development card this turn.
+	 * 
+	 * @param playerIndex
+	 */
+	public boolean hasPlayedDevCard(int playerIndex)
+	{
+		return hasPlayedDevCardsList[playerIndex];
+	}
+	
+	/**
+	 * Check if a player has a development card of the given type.
+	 * 
+	 * @param card
+	 * @return
+	 */
+	public boolean hasDevCard(int playerIndex, DevCardType devCard)
+	{
+		return playerDevCards.hasDevCard(playerIndex, devCard);
+	}
+	
+	/**
+	 * Check if there are enough development cards left to draw one.
+	 * 
+	 * @param card
+	 * @return
+	 */
+	public boolean canDrawDevCard()
+	{
+		return devCardStack.getDevCardCount() > 0;
+	}
+	
 }
