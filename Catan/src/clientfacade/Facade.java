@@ -1,6 +1,9 @@
 package clientfacade;
 
 import java.util.List;
+
+import model.CatanModel;
+import model.resources.ResourceList;
 import shared.communication.*;
 
 /**
@@ -26,9 +29,9 @@ public class Facade
 	 * @param userName
 	 * @param password
 	 * @return The authenticated User object
-	 * @throws ClientException
+	 * @throws InvalidCredentials
 	 */
-	public CommUser authenticateUser()
+	public CommUser authenticateUser(String userName, String password)
 	{
 		return null;
 	}
@@ -40,9 +43,9 @@ public class Facade
 	 * @param password
 	 * @param passConfirm
 	 * @return User object associated with the new registered user
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
-	public CommUser registerUser()
+	public CommUser registerUser(String userName, String password, String passConfirm)
 	{
 		return null;
 	}
@@ -50,8 +53,8 @@ public class Facade
 	/**
 	 * Generates a game list for the Client
 	 * 
-	 * @return List<Game>
-	 * @throws ClientException
+	 * @return A list of all the current games
+	 * @throws ServerException
 	 */
 	public List<CommGame> listGames()
 	{
@@ -62,22 +65,22 @@ public class Facade
 	 * Creates a new game with a specific user
 	 * 
 	 * @param userName
-	 * @return Game
-	 * @throws ClientException
+	 * @return
+	 * @throws ServerException
 	 */
-	public CommGame createGame()
+	public void createGame(String userName)
 	{
-		return null;
+		
 	}
 
 	/**
 	 * Joins a new game from the game list
 	 * 
 	 * @param userName
-	 * @return Game
-	 * @throws ClientException
+	 * @return The CatanModel of the game
+	 * @throws ServerException
 	 */
-	public CommGame joinGame()
+	public CatanModel joinGame(String userName)
 	{
 		return null;
 	}
@@ -88,8 +91,8 @@ public class Facade
 	 * @param randomNumbers
 	 * @param randomHexes
 	 * @param randomPorts
-	 * @return The CatanMap object containing Map information
-	 * @throws ClientException
+	 * @return
+	 * @throws ServerException
 	 */
 	public void newMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts)
 	{
@@ -97,26 +100,12 @@ public class Facade
 	}
 
 	/**
-	 * Set up a new player for a user. Creates association for user, player and color
-	 * 
-	 * @param userName
-	 * @param color
-	 * @return Game
-	 * @throws ClientException
-	 */
-	public void newPlayer(String color)
-	{
-
-	}
-
-	/**
 	 * Get the current game model for the Client
 	 * 
-	 * @param userName
-	 * @return Game
-	 * @throws ClientException
+	 * @return The current CatanModel of the game
+	 * @throws ServerException
 	 */
-	public CommGame getModel()
+	public CatanModel getModel()
 	{
 		return null;
 	}
@@ -124,11 +113,11 @@ public class Facade
 	/**
 	 * Advances a player through the phases of his turn, and updates a players options
 	 * 
-	 * @param userName
+	 * @param Index of player
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
-	public void advancePhase()
+	public void advancePhase(int index)
 	{
 
 	}
@@ -137,7 +126,7 @@ public class Facade
 	 * Advances the turn from one player to another, and updates a players options
 	 * 
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
 	public void advanceTurn()
 	{
@@ -148,7 +137,7 @@ public class Facade
 	 * Rolls the dice and determines resource allocations and robber usage
 	 * 
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
 	public void roll()
 	{
@@ -156,39 +145,16 @@ public class Facade
 	}
 
 	/**
-	 * Allocates resource to the players
-	 * 
-	 * @param userName
-	 * @return
-	 * @throws ClientException
-	 */
-	public void generateResource()
-	{
-
-	}
-
-	/**
-	 * Handles the allocation of games resources for initial setup
-	 * 
-	 * @return
-	 * @throws ClientException
-	 */
-	public void generateInitResources()
-	{
-
-	}
-
-	/**
 	 * Set up a trade between players
 	 * 
-	 * @param fromPlayer
-	 * @param toPlayer
-	 * @param toGive
-	 * @param toAsk
+	 * @param index of trading player
+	 * @param index of tradee player
+	 * @param List of giving resources
+	 * @param List of asking resources
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
-	public void domesticTrade()
+	public void domesticTrade(int traderIndex, int tradeeIndex, ResourceList toGive, ResourceList toAsk)
 	{
 
 	}
@@ -196,13 +162,13 @@ public class Facade
 	/**
 	 * Trades a players resources through an available port
 	 * 
-	 * @param userName
-	 * @param giving
-	 * @param getting
+	 * @param index of player trading
+	 * @param List of giving resources
+	 * @param List of getting resources
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
-	public void portTrade()
+	public void portTrade(int index, ResourceList toGive, ResourceList toGet)
 	{
 
 	}
@@ -210,10 +176,9 @@ public class Facade
 	/**
 	 * Chat a message to other players
 	 * 
-	 * @param userName
 	 * @param message
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
 	public void chat(String message)
 	{
@@ -223,12 +188,12 @@ public class Facade
 	/**
 	 * Logs a players move in the log
 	 * 
-	 * @param userName
+	 * @param index of player taking action
 	 * @param message
 	 * @return
-	 * @throws ClientException
+	 * @throws ServerException
 	 */
-	public void log()
+	public void log(int index, String message)
 	{
 
 	}
@@ -236,61 +201,61 @@ public class Facade
 	/**
 	 * Buys a development card for a specific player
 	 * 
-	 * @param userName
-	 * @return True if successful False otherwise
-	 * @throws ClientException
+	 * @param index of player buying dev card
+	 * @return
+	 * @throws InvalidAction
 	 */
-	public boolean buyDevCard()
+	public void buyDevCard(int index)
 	{
-		return true;
+		
 	}
 
 	/**
 	 * Builds a road for a specific player
 	 * 
-	 * @param userName
-	 * @return True if successful False otherwise
-	 * @throws ClientException
+	 * @param index of player building road
+	 * @return
+	 * @throws InvalidAction
 	 */
-	public boolean buildRoad()
+	public void buildRoad(int index)
 	{
-		return true;
+		
 	}
 
 	/**
 	 * Builds a town for a specific player
 	 * 
-	 * @param userName
-	 * @return True if successful False otherwise
-	 * @throws ClientException
+	 * @param index of player building town
+	 * @return
+	 * @throws InvalidAction
 	 */
-	public boolean buildTown()
+	public void buildTown(int index)
 	{
-		return true;
+		
 	}
 
 	/**
 	 * Builds a city for a specific player
 	 * 
-	 * @param userName
-	 * @return True if successful False otherwise
-	 * @throws ClientException
+	 * @param index of player building city
+	 * @return
+	 * @throws InvalidAction
 	 */
-	public boolean puiltCity()
+	public void buildCity(int index)
 	{
-		return true;
+		
 	}
 
 	/**
 	 * Places the robber in a hex specified by a specific player
 	 * 
-	 * @param userName
-	 * @return True if successful False otherwise
-	 * @throws ClientException
+	 * @param index of player using robber
+	 * @return
+	 * @throws InvalidAction
 	 */
-	public boolean placeRobber()
+	public void placeRobber(int index)
 	{
-		return true;
+		
 	}
 
 }

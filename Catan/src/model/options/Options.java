@@ -1,5 +1,10 @@
 package model.options;
 
+import model.map.EdgeValue;
+import model.map.VertexObject;
+import shared.locations.EdgeLocation;
+import shared.locations.VertexLocation;
+
 /**
  * The Options class is in charge of all canDo methods.
  * 
@@ -23,7 +28,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canBuildRoad()
+	public boolean canBuildRoad(int index)
 	{
 		return true;
 	}
@@ -34,7 +39,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canBuildTown()
+	public boolean canBuildTown(int index)
 	{
 		return true;
 	}
@@ -45,7 +50,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canBuildCity()
+	public boolean canBuildCity(int index)
 	{
 		return true;
 	}
@@ -56,7 +61,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canTrade()
+	public boolean canTrade(int index)
 	{
 		return true;
 	}
@@ -67,7 +72,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canMaritimeTrade()
+	public boolean canMaritimeTrade(int index)
 	{
 		return true;
 	}
@@ -78,7 +83,7 @@ public class Options
 	 * @param player index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlay()
+	public boolean canPlay(int index)
 	{
 		return true;
 	}
@@ -90,7 +95,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlaceRoad()
+	public boolean canPlaceRoad(int index, EdgeLocation location)
 	{
 		return true;
 	}
@@ -102,7 +107,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlaceTown()
+	public boolean canPlaceTown(int index, VertexLocation location)
 	{
 		return true;
 	}
@@ -114,20 +119,7 @@ public class Options
 	 * @param Location
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canPlaceCity()
-	{
-		return true;
-	}
-
-	/**
-	 * Check if a proposed trade can be sent or made
-	 * 
-	 * @param player index
-	 * @param Resources to give
-	 * @param Resources to get
-	 * @return True if allowed False otherwise
-	 */
-	public boolean isValidTrade()
+	public boolean canPlaceCity(int index, VertexLocation location)
 	{
 		return true;
 	}
