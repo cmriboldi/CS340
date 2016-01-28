@@ -118,7 +118,8 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) {
+	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
