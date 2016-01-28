@@ -2,7 +2,6 @@ package test.model.development;
 
 import static org.junit.Assert.*;
 import org.junit.*;
-
 import model.development.DevCardList;
 import shared.definitions.DevCardType;
 import shared.exceptions.development.NotEnoughDevCardsException;
