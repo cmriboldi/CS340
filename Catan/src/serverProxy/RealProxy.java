@@ -126,7 +126,7 @@ public class RealProxy implements ServerProxy
 	@Override
 	public void joinGame(int gameId, CatanColor color) throws ServerException 
 	{
-		authProxy.joinGame(gameId, "red");
+		authProxy.joinGame(gameId, color.toString());
 	}
 
 	@Override
