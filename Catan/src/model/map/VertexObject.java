@@ -1,5 +1,7 @@
 package model.map;
 
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
 /**
@@ -26,5 +28,30 @@ public class VertexObject
 	 * a map.
 	 */
 	VertexLocation location;
+
+	/**
+	 * Constructor independant of VertexObject storage. Notable because it will assign and store the
+	 * VertexLocation locally.
+	 * @param x_t
+	 * @param y_t
+	 * @param dir
+	 * @param player_t
+     */
+	public VertexObject(int x_t, int y_t, VertexDirection dir, int player_t){
+
+		location = new VertexLocation(new HexLocation(x_t, y_t), dir);
+		player = player_t;
+	}
+
+	/**
+	 * Map dependant constructor, used only if the VertexLocation is stored outside the object
+	 * @param player_t
+     */
+
+	public VertexObject(int player_t){
+		player = player_t;
+		location = null;
+	}
+
 
 }
