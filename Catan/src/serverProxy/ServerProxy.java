@@ -55,8 +55,9 @@ public interface ServerProxy
 	 * @param randomPorts Whether the ports should be randomly placed.
 	 * @param name The name of the game.
 	 * @return A game communication object of the newly created game.
+	 * @throws ServerException 
 	 */
-	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name);
+	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException;
 
 	/**
 	 * Adds (or re-adds) the player to the specified game, and sets their catan.game HTTP cookie

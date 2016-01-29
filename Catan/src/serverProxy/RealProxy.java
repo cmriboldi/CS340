@@ -97,7 +97,7 @@ public class RealProxy implements ServerProxy
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
-				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
 			}
 			else
 			{
@@ -149,7 +149,7 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) 
+	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException 
 	{
 		CreateGameJSON json = new CreateGameJSON(randomTiles, randomNumbers, randomPorts, name);
 		String response = (String) post("/games/create", json);
@@ -172,15 +172,17 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public void saveGame(int gameId, String fileName) throws ServerException {
-		// TODO Auto-generated method stub
-		
+	public void saveGame(int gameId, String fileName) throws ServerException 
+	{
+		SaveJSON json = new SaveJSON(gameId, fileName);
+		post("/games/save", json);
 	}
 
 	@Override
-	public void loadGame(String fileName) throws ServerException {
-		// TODO Auto-generated method stub
-		
+	public void loadGame(String fileName) throws ServerException 
+	{
+		LoadJSON json = new LoadJSON(fileName);
+		post("/games/load", json);
 	}
 
 	@Override
@@ -356,7 +358,7 @@ public class RealProxy implements ServerProxy
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
-				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
 			}
 			else
 			{
@@ -378,7 +380,7 @@ public class RealProxy implements ServerProxy
 		return null;
 	}
 	
-	private Object post(String urlPath, Object data)
+	private Object post(String urlPath, Object data) throws ServerException
 	{
 		URL url;
 		try 
@@ -411,6 +413,14 @@ public class RealProxy implements ServerProxy
 				}
 				br.close();
 				return sb.toString();
+			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
 			}
 		} 
 		catch (MalformedURLException e) 

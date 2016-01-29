@@ -80,7 +80,7 @@ public class AuthProxy
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
-				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
 			}
 			else
 			{
@@ -133,7 +133,7 @@ public class AuthProxy
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
-				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
 			}
 			else
 			{
@@ -192,7 +192,7 @@ public class AuthProxy
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
-				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
 			}
 			else
 			{
