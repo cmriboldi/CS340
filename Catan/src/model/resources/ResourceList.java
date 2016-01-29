@@ -19,11 +19,20 @@ public class ResourceList
 	private int ore;
 	private int wheat;
 	private int wood;
-	private int wool;
+	private int sheep;
 
 	public ResourceList()
 	{
 
+	}
+
+	public ResourceList(int brick, int ore, int sheep, int wheat, int wood)
+	{
+		this.brick = brick;
+		this.ore = ore;
+		this.sheep = sheep;
+		this.wheat = wheat;
+		this.wood = wood;
 	}
 
 	/**
@@ -67,11 +76,11 @@ public class ResourceList
 	}
 
 	/**
-	 * Increase the number of wool by the given quantity.
+	 * Increase the number of sheep by the given quantity.
 	 * 
 	 * @param quantity
 	 */
-	public void addWool(int quantity)
+	public void addSheep(int quantity)
 	{
 
 	}
@@ -117,11 +126,11 @@ public class ResourceList
 	}
 
 	/**
-	 * Decrease the number of wool by the given quantity.
+	 * Decrease the number of sheep by the given quantity.
 	 * 
 	 * @param quantity
 	 */
-	public void removeWool(int quantity) throws NotEnoughResourcesException
+	public void removeSheep(int quantity) throws NotEnoughResourcesException
 	{
 
 	}

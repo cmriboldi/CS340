@@ -19,9 +19,11 @@ public class ResourceManager
 	private Banker banker = null;
 	private Trader trader = null;
 
-	public ResourceManager()
+	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources)
 	{
-
+		PlayerResources newPlayerResources = new PlayerResources(playerResources);
+		banker = new Banker(newPlayerResources, bankResources);
+		trader = new Trader(newPlayerResources);
 	}
 
 	/**
@@ -91,6 +93,50 @@ public class ResourceManager
 	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException
 	{
 
+	}
+	
+	/**
+	 * Check if a player can afford a road
+	 * 
+	 * @param player index
+	 * @return True if allowed False otherwise
+	 */
+	public boolean canAffordRoad(int playerIndex)
+	{
+		return banker.canPlayerAfford(playerIndex, Cost.ROAD);
+	}
+
+	/**
+	 * Check if a player can afford a town
+	 * 
+	 * @param player index
+	 * @return True if allowed False otherwise
+	 */
+	public boolean canAffordTown(int playerIndex)
+	{
+		return banker.canPlayerAfford(playerIndex, Cost.SETTLEMENT);
+	}
+
+	/**
+	 * Check if a player can afford a city
+	 * 
+	 * @param player index
+	 * @return True if allowed False otherwise
+	 */
+	public boolean canAffordCity(int playerIndex)
+	{
+		return banker.canPlayerAfford(playerIndex, Cost.CITY);
+	}
+	
+	/**
+	 * Check if a player can afford a development card
+	 * 
+	 * @param player index
+	 * @return True if allowed False otherwise
+	 */
+	public boolean canAffordDevCard(int playerIndex)
+	{
+		return banker.canPlayerAfford(playerIndex, Cost.DEVCARD);
 	}
 
 };

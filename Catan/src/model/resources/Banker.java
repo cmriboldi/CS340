@@ -1,5 +1,6 @@
 package model.resources;
 
+import shared.definitions.Cost;
 import shared.definitions.PieceType;
 import shared.exceptions.resources.*;
 
@@ -19,9 +20,10 @@ public class Banker
 	private ResourceList bank;
 	private PlayerResources playerResources;
 
-	public Banker()
+	public Banker(PlayerResources playerResources, ResourceList bankResources)
 	{
-
+		this.bank = bankResources;
+		this.playerResources = playerResources;
 	}
 
 	/**
@@ -75,6 +77,12 @@ public class Banker
 	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException
 	{
 
+	}
+
+	public boolean canPlayerAfford(int playerIndex, Cost product)
+	{
+		
+		return false;
 	}
 
 }

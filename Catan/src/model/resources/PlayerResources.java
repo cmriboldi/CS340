@@ -12,6 +12,11 @@ public class PlayerResources
 
 	}
 
+	public PlayerResources(ResourceList[] playerResources)
+	{
+		this.playerResources = playerResources;
+	}
+
 	/**
 	 * Adds the specified amount of resources to a given player.
 	 * 

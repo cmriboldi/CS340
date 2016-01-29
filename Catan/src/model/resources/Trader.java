@@ -19,9 +19,9 @@ public class Trader
 
 	private PlayerResources playerResources = null;
 
-	public Trader()
+	public Trader(PlayerResources newPlayerResources)
 	{
-
+		this.playerResources = newPlayerResources;
 	}
 
 	/**
