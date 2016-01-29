@@ -150,6 +150,30 @@ public class DevCardList
 		}
 		return hasCard;
 	}
+	
+	public int getCardTypeCount(DevCardType devCard)
+	{
+		int cardCount = 0;
+		switch (devCard)
+		{
+		case MONOPOLY:
+			cardCount = getMonopolyCount();
+			break;
+		case MONUMENT:
+			cardCount = getMonumentCount();
+			break;
+		case ROAD_BUILD:
+			cardCount = getRoadBuilderCount();
+			break;
+		case SOLDIER:
+			cardCount = getSoldierCount();
+			break;
+		case YEAR_OF_PLENTY:
+			cardCount = getYearOfPlentyCount();
+			break;
+		}
+		return cardCount;
+	}
 
 	public int getMonopolyCount()
 	{

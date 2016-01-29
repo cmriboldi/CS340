@@ -87,5 +87,20 @@ public class DevCardManager
 	{
 		return devCardStack.getDevCardCount() > 0;
 	}
+
+	public void setDevCardStack(DevCardList devCardStack)
+	{
+		this.devCardStack = devCardStack;
+	}
+
+	public DevCardList getDevCardStack()
+	{
+		return devCardStack;
+	}
+
+	public PlayerDevCards getPlayerDevCards()
+	{
+		return playerDevCards;
+	}
 	
 }
