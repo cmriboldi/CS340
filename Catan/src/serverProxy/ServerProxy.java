@@ -43,8 +43,9 @@ public interface ServerProxy
 	 * Get a list of all games in progress.
 	 * 
 	 * @return a list of game communication objects of available games
+	 * @throws ServerException 
 	 */
-	public List<CommGame> listGames();
+	public List<CommGame> listGames() throws ServerException;
 
 	/**
 	 * Creates a new game.
@@ -104,8 +105,9 @@ public interface ServerProxy
 	 *            Otherwise, it returns the string "true" to notify the caller that it already has
 	 *            the current model state.
 	 * @return The current state of the game in a game model JSON object
+	 * @throws ServerException 
 	 */
-	public GameModelJSON getGameModel(int modelNumber);
+	public GameModelJSON getGameModel(int modelNumber) throws ServerException;
 
 	/**
 	 * Clears out the command history of the current game For the default games created by the

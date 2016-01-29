@@ -26,18 +26,18 @@ public class AuthProxy
 		urlBase = "http://localhost:8081";
 	}
 	
-	public GameModelJSON getGameModel(int modelNumber) 
+	public GameModelJSON getGameModel(int modelNumber) throws ServerException 
 	{
-		System.out.println("Get Game Model");
+//		System.out.println("Get Game Model");
 		String obj = (String) get("/game/model");
 		JsonObject json = new Gson().fromJson(obj, JsonObject.class);
-		System.out.println("Get Game Model: " + json.toString());
+//		System.out.println("Get Game Model: " + json.toString());
 		return null;
 	}
 	
 	public void joinGame(int gameId, String color) throws ServerException 
 	{
-		System.out.println("Joining Game");
+//		System.out.println("Joining Game");
 		CommJoin join = new CommJoin(gameId, color);
 		URL url;
 		try 
@@ -50,17 +50,17 @@ public class AuthProxy
 			conn.setRequestProperty("Cookie", authCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-			System.out.println(conn.getRequestProperties().toString());
+//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
 			
-			System.out.println(new Gson().toJson(join));
+//			System.out.println(new Gson().toJson(join));
 			
 			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
 			byte[] send = new Gson().toJson(join).getBytes();
 			writer.write(send);
 			writer.close();
 			
-			System.out.println(conn.getResponseCode());
+//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
@@ -78,6 +78,14 @@ public class AuthProxy
 				}
 				br.close();
 			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -93,7 +101,7 @@ public class AuthProxy
 		}
 	}
 	
-	private Object get(String urlPath)
+	private Object get(String urlPath) throws ServerException
 	{
 		URL url;
 		try 
@@ -106,10 +114,10 @@ public class AuthProxy
 			conn.setRequestProperty("Cookie", authCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-			System.out.println(conn.getRequestProperties().toString());
+//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
 			
-			System.out.println(conn.getResponseCode());
+//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
@@ -122,6 +130,14 @@ public class AuthProxy
 				}
 				br.close();
 				return sb.toString();
+			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
 			}
 		} 
 		catch (MalformedURLException e) 
@@ -139,7 +155,7 @@ public class AuthProxy
 		return null;
 	}
 	
-	private Object post(String urlPath, Object data)
+	private Object post(String urlPath, Object data) throws ServerException
 	{
 		URL url;
 		try 
@@ -152,7 +168,7 @@ public class AuthProxy
 			conn.setRequestProperty("Cookie", authCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-			System.out.println(conn.getRequestProperties().toString());
+//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
 			
 			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
@@ -160,7 +176,7 @@ public class AuthProxy
 			writer.write(send);
 			writer.close();
 			
-			System.out.println(conn.getResponseCode());
+//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
@@ -173,6 +189,14 @@ public class AuthProxy
 				}
 				br.close();
 				return sb.toString();
+			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
 			}
 		} 
 		catch (MalformedURLException e) 

@@ -9,12 +9,14 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.*;
 
 import model.resources.ResourceList;
 import shared.communication.*;
+import shared.communication.JSON.*;
 import shared.definitions.CatanColor;
 import shared.definitions.Command;
 import shared.definitions.LogLevel;
@@ -57,7 +59,7 @@ public class RealProxy implements ServerProxy
 		login("/user/register", username, password);
 	}
 	
-	private void login(String urlPath, String username, String password)
+	private void login(String urlPath, String username, String password) throws ServerException
 	{
 		CommUser user = new CommUser(username, password);
 		System.out.println("Login User");
@@ -93,6 +95,14 @@ public class RealProxy implements ServerProxy
 				System.out.println("Decoded: " + URLDecoder.decode(cookie, "UTF-8"));
 				System.out.println(name + " " + playerID);
 			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -109,19 +119,50 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public List<CommGame> listGames() 
+	public List<CommGame> listGames() throws ServerException 
 	{
-		String obj = (String) get("/games/list");
-		JsonArray json = new Gson().fromJson(obj, JsonArray.class);
-		System.out.println(json.get(3));
-		return null;
+		System.out.println("List Games");
+		String response = (String) get("/games/list");
+		JsonArray json = new Gson().fromJson(response, JsonArray.class);
+		List<CommGame> games = new ArrayList<CommGame>();
+		for(int i = 0; i < json.size(); i++)
+		{
+			JsonObject game = (JsonObject) json.get(i);
+			String title = game.get("title").toString();
+			int id = game.get("id").getAsInt();
+			JsonArray players = game.getAsJsonArray("players");
+			System.out.println(players.toString());
+			
+			CommPlayer[] playerArray = new CommPlayer[4];
+			for(int j = 0; j < players.size(); j++)
+			{
+				System.out.println("Player: " + players.get(j));
+				System.out.println("Class: " + players.get(j).getClass());
+				CommPlayer player = new Gson().fromJson(players.get(j), CommPlayer.class);
+				playerArray[j] = player;
+			}
+			CommGame newGame = new CommGame(title,id,playerArray);
+			games.add(newGame);
+		}
+		System.out.println(games.toString());
+		return games;
 	}
 
 	@Override
 	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		CreateGameJSON json = new CreateGameJSON(randomTiles, randomNumbers, randomPorts, name);
+		String response = (String) post("/games/create", json);
+		JsonObject game = new Gson().fromJson(response, JsonObject.class);
+		CommPlayer[] players = new CommPlayer[4];
+		JsonArray playersArray = game.getAsJsonArray("players");
+		for(int i = 0; i < playersArray.size(); i++)
+		{
+			CommPlayer player = new Gson().fromJson(playersArray.get(i), CommPlayer.class);
+			players[i] = player;
+		}
+		CommGame newGame = new CommGame(game.get("title").toString(), Integer.parseInt(game.get("id").toString()), players);
+		return newGame;
 	}
 
 	@Override
@@ -143,7 +184,7 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public GameModelJSON getGameModel(int modelNumber) 
+	public GameModelJSON getGameModel(int modelNumber) throws ServerException 
 	{
 		return authProxy.getGameModel(modelNumber);
 	}
@@ -286,10 +327,8 @@ public class RealProxy implements ServerProxy
 		
 	}
 	
-	private Object get(String urlPath)
+	private Object get(String urlPath) throws ServerException
 	{
-		//GsonBuilder builder = new GsonBuilder();
-		//Gson gson = builder.create();
 		URL url;
 		try 
 		{
@@ -315,6 +354,14 @@ public class RealProxy implements ServerProxy
 				
 				return sb.toString();
 			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code->" + conn.getResponseCode());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -331,9 +378,8 @@ public class RealProxy implements ServerProxy
 		return null;
 	}
 	
-	/*private Object post(String urlPath, Object data)
+	private Object post(String urlPath, Object data)
 	{
-		GsonBuilder builder = new GsonBuilder();
 		URL url;
 		try 
 		{
@@ -344,25 +390,27 @@ public class RealProxy implements ServerProxy
 			conn.setRequestMethod("POST");
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
+//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
 			
-			xstream.toXML(data, conn.getOutputStream());
-			conn.getOutputStream().close();
+			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
+			byte[] send = new Gson().toJson(data).getBytes();
+			writer.write(send);
+			writer.close();
+			
+//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
-				InputStreamReader ipr = new InputStreamReader(conn.getInputStream());
-				System.out.println("start IPR");
-				while(ipr.ready())
+				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+				StringBuilder sb = new StringBuilder();
+				String line;
+				while((line = br.readLine()) != null)
 				{
-					int iprOut = ipr.read();
-					char[] iprOutChat = Character.toChars(iprOut);
-					System.out.print(iprOutChat);
+					sb.append(line + "\n");
 				}
-				System.out.println("\nend IPR");
-				
-				Object result = xstream.fromXML(conn.getInputStream());
-				return result;
+				br.close();
+				return sb.toString();
 			}
 		} 
 		catch (MalformedURLException e) 
@@ -378,7 +426,7 @@ public class RealProxy implements ServerProxy
 			e.printStackTrace();
 		}
 		return null;
-	}*/
+	}
 
 
 }
