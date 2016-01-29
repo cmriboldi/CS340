@@ -38,7 +38,6 @@ public class VertexObject
 	 * @param player_t
      */
 	public VertexObject(int x_t, int y_t, VertexDirection dir, int player_t){
-
 		location = new VertexLocation(new HexLocation(x_t, y_t), dir);
 		player = player_t;
 	}
