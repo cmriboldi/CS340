@@ -1,7 +1,5 @@
 package model.options;
 
-import model.map.EdgeValue;
-import model.map.VertexObject;
 import shared.definitions.DevCardType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
@@ -26,7 +24,7 @@ public class Options
 	/**
 	 * Check if a player can afford a road
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canAffordRoad(int playerIndex)
@@ -37,7 +35,7 @@ public class Options
 	/**
 	 * Check if a player can afford a town
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canAffordTown(int playerIndex)
@@ -48,7 +46,7 @@ public class Options
 	/**
 	 * Check if a player can afford a city
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canAffordCity(int playerIndex)
@@ -59,7 +57,7 @@ public class Options
 	/**
 	 * Check if a player can afford a development card
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canAffordDevCard(int playerIndex)
@@ -107,7 +105,7 @@ public class Options
 	/**
 	 * Check if a player can trade
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canTrade(int playerIndex)
@@ -118,7 +116,7 @@ public class Options
 	/**
 	 * Check if a player can trade via port
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canMaritimeTrade(int playerIndex)
@@ -129,7 +127,7 @@ public class Options
 	/**
 	 * Check if it is a player turn
 	 * 
-	 * @param player index
+	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canPlay(int playerIndex)
@@ -140,8 +138,8 @@ public class Options
 	/**
 	 * Check if a road can be placed in specific position
 	 * 
-	 * @param player index
-	 * @param Location
+	 * @param playerIndex index
+	 * @param location
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canPlaceRoad(int playerIndex, EdgeLocation location)
@@ -152,8 +150,8 @@ public class Options
 	/**
 	 * Check if a town can be placed in specific position
 	 * 
-	 * @param player index
-	 * @param Location
+	 * @param playerIndex index
+	 * @param location
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canPlaceTown(int playerIndex, VertexLocation location)
@@ -164,8 +162,8 @@ public class Options
 	/**
 	 * Check if a city can be placed in specific position
 	 * 
-	 * @param player index
-	 * @param Location
+	 * @param playerIndex index
+	 * @param location
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canPlaceCity(int playerIndex, VertexLocation location)

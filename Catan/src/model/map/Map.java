@@ -37,7 +37,7 @@ public class Map {
     /**
      * container for all the roads that exist on the board
      */
-    private HashMap<EdgeLocation, EdgeValue> roads;
+    private HashMap<EdgeLocation, EdgeObject> roads;
 
 
     /**
@@ -47,7 +47,7 @@ public class Map {
         hexes = new HashMap<HexLocation, Hex>();
         settlements = new HashMap<VertexLocation, VertexObject>();
         ports = new HashMap<VertexLocation, VertexObject>();
-        roads = new HashMap<EdgeLocation, EdgeValue>();
+        roads = new HashMap<EdgeLocation, EdgeObject>();
     }
 
     /**
@@ -59,7 +59,7 @@ public class Map {
      * @param roads_t
      */
     public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
-               HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeValue> roads_t) {
+               HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t) {
         hexes = hexes_t;
         settlements = settlements_t;
         ports = ports_t;

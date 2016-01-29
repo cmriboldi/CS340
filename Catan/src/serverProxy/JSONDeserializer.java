@@ -33,7 +33,7 @@ public class JSONDeserializer
 	 * Parse through the JSON string received from the server and translate into GameModelJSON
 	 * object
 	 * 
-	 * @param jsonObject String received from the server API
+	 * @param json String received from the server API
 	 * @return The now parsed GameModelJSON object.
 	 */
 	public static CatanModel deserialize(String json)

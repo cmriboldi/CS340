@@ -21,4 +21,10 @@ public class VertexObject
 	 */
 	int player;
 
+	/**
+	 * Represents the location of this vertex on the board. May be null if the Vertex Object is stored in
+	 * a map.
+	 */
+	VertexLocation location;
+
 }

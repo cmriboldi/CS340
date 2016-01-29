@@ -13,7 +13,7 @@ import shared.locations.EdgeLocation;
  * @author Joshua Van Steeter
  * @version 1.0 Build Jan, 2016.
  */
-public class EdgeValue
+public class EdgeObject
 {
 	/** indicates the player who owns the road occupying this edge */
 	int owner;
