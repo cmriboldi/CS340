@@ -61,6 +61,30 @@ public class Map
 		roads = roads_t;
 	}
 	
+	public EdgeLocation[] findAdjEdges(EdgeLocation edge_t)
+	{
+		return null;
+	}
+	
+	public VertexLocation[] findAdjVertex(EdgeLocation edge_t)
+	{
+		return null;
+	}
+	
+	public EdgeLocation[] findAdjEdges(VertexLocation vertex_t)
+	{
+		return null;
+	}
+	
+	public EdgeLocation[] findHexEdges(HexLocation hex_t)
+	{
+		return null;
+	}
+	
+	public VertexLocation[] findHexVertex(HexLocation hex_t)
+	{
+		return null;
+	}
 	
 	
 	/**

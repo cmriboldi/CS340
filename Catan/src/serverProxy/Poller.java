@@ -1,5 +1,7 @@
 package serverProxy;
 
+import clientfacade.Facade;
+
 /**
  * The poller will poll the server regularly and commit any changes to the game model.
  * 
@@ -10,25 +12,33 @@ package serverProxy;
  * @author Joshua Van Steeter
  * @version 1.0 Build Winter 2016.
  */
-public class Poller
+public class Poller implements Runnable
 {
-	
+	private ServerProxy server;
+	private int modelNumber;
 	/**
 	 * @param server The server that will be used to poll from
 	 */
 	public Poller(ServerProxy server)
 	{
-
+		this.server = server;
 	}
 
 	/**
 	 * Start the tread that will regularly poll the server for changes.
 	 * 
 	 * @param seconds Amount of time in seconds between polls.
+	 * @throws InterruptedException 
 	 */
-	public void start(float seconds)
+	public void start(long seconds) throws InterruptedException
 	{
-
+		for(;;)
+		{
+			Thread.sleep((long)(seconds*1000));
+			//modelNumber = CatanModel.getmodelnumber()		
+			Facade.updateView(server.getGameModel(modelNumber));
+		}
+		
 	}
 
 	/**
@@ -36,6 +46,15 @@ public class Poller
 	 */
 	public void stop()
 	{
+		
+	}
 
+	@Override
+	public void run() {
+		try {
+			this.start(3);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}		
 	}
 }

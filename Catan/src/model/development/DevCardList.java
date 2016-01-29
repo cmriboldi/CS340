@@ -65,11 +65,6 @@ public class DevCardList
 	 */
 	public void removeDevCard(DevCardType devCard) throws NotEnoughDevCardsException
 	{
-		if (getDevCardCount() == 0)
-		{
-			throw new NotEnoughDevCardsException("There are not enough development cards to remove one.");
-		}
-
 		switch (devCard)
 		{
 		case MONOPOLY:
@@ -185,5 +180,32 @@ public class DevCardList
 	{
 		return monopoly + monument + roadBuilder + soldier + yearOfPlenty;
 	}
+
+	public void setMonopoly(int monopoly)
+	{
+		this.monopoly = monopoly;
+	}
+
+	public void setMonument(int monument)
+	{
+		this.monument = monument;
+	}
+
+	public void setRoadBuilder(int roadBuilder)
+	{
+		this.roadBuilder = roadBuilder;
+	}
+
+	public void setSoldier(int soldier)
+	{
+		this.soldier = soldier;
+	}
+
+	public void setYearOfPlenty(int yearOfPlenty)
+	{
+		this.yearOfPlenty = yearOfPlenty;
+	}
+	
+	
 
 }

@@ -18,6 +18,8 @@ import shared.communication.*;
  */
 public class Facade
 {
+	private CatanModel catanModel;
+	
 	public Facade()
 	{
 
@@ -108,6 +110,11 @@ public class Facade
 	public CatanModel getModel()
 	{
 		return null;
+	}
+	
+	public void updateView(CatanModel catanModel)
+	{
+		this.catanModel = catanModel;
 	}
 
 	/**

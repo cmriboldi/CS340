@@ -18,6 +18,15 @@ public class PlayerDevCards
 	public PlayerDevCards()
 	{
 		playerDevCards = new DevCardList[4];
+		for (int i = 0; i < 4; i++)
+		{
+			playerDevCards[i] = new DevCardList();
+		}
+	}
+	
+	public int length()
+	{
+		return playerDevCards.length;
 	}
 
 	/**

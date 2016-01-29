@@ -4,10 +4,14 @@ import java.util.List;
 
 public class ChatManager
 {
-	public ChatManager(){}
+	private List<Line> chatMessages;
+	private List<Line> gameHistory;
 	
-	List<String> chatMessages;
-	List<String> gameHistory;
+	public ChatManager(List<Line> chatMessages, List<Line> gameHistory)
+	{
+		this.chatMessages = chatMessages;
+		this.gameHistory = gameHistory;
+	}
 	
 	/**
 	 * update the chatMessages list
@@ -15,9 +19,10 @@ public class ChatManager
 	 * @param string containing message
 	 * @return
 	 */
-	public void SendMessage()
+	public void SendMessage(String message, String source)
 	{
-		
+		Line line = new Line(message, source);
+		chatMessages.add(line);
 	}
 	
 	/**
@@ -26,8 +31,9 @@ public class ChatManager
 	 * @param string with action taken message
 	 * @return
 	 */
-	public void LogAction()
+	public void LogAction(String message, String source)
 	{
-		
+		Line line = new Line(message, source);
+		gameHistory.add(line);
 	}
 }
