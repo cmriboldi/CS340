@@ -2,6 +2,7 @@ package serverProxy;
 
 import java.util.List;
 
+import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.*;
 import shared.definitions.*;
@@ -108,7 +109,7 @@ public interface ServerProxy
 	 * @return The current state of the game in a game model JSON object
 	 * @throws ServerException 
 	 */
-	public GameModelJSON getGameModel(int modelNumber) throws ServerException;
+	public CatanModel getGameModel(int modelNumber) throws ServerException;
 
 	/**
 	 * Clears out the command history of the current game For the default games created by the
@@ -119,7 +120,7 @@ public interface ServerProxy
 	 * 
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON resetGame();
+	public CatanModel resetGame();
 
 	/**
 	 * Executes the specified command list in the current game. This method can be used for testing
@@ -130,7 +131,7 @@ public interface ServerProxy
 	 * @param commands The list of commands to be executed
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON setCommands(List<Command> commands);
+	public CatanModel setCommands(List<Command> commands);
 
 	/**
 	 * Returns a list of commands that have been executed in the current game. This method can be
@@ -170,14 +171,14 @@ public interface ServerProxy
 	 * @param content The message to be posted
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON sendChat(int playerIndex, String content);
+	public CatanModel sendChat(int playerIndex, String content);
 
 	/**
 	 * @param playerIndex Who's sending this command (0-3).
 	 * @param number What number was rolled (2-12).
 	 * @return The 'Client Model' JSON (identical to getGameModel()))
 	 */
-	public GameModelJSON rollNumber(int playerIndex, int number);
+	public CatanModel rollNumber(int playerIndex, int number);
 
 	/**
 	 * @param playerIndex Who's doing the robbing
@@ -185,7 +186,7 @@ public interface ServerProxy
 	 * @param hexLocation The new HexLocation of the robber
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation);
+	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation);
 
 	/**
 	 * Used to finish your turn.
@@ -193,7 +194,7 @@ public interface ServerProxy
 	 * @param playerIndex Who's sending this command (0-3)
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON finishTurn(int playerIndex);
+	public CatanModel finishTurn(int playerIndex);
 
 	/**
 	 * Used to buy a development card.
@@ -201,7 +202,7 @@ public interface ServerProxy
 	 * @param playerIndex Who's buying this dev card
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON buyDevCard(int playerIndex);
+	public CatanModel buyDevCard(int playerIndex);
 
 	/**
 	 * Plays a 'Year of Plenty' card from your hand to gain the two specified ResourceTypes.
@@ -211,7 +212,7 @@ public interface ServerProxy
 	 * @param resource2
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2);
+	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2);
 
 	/**
 	 * Plays a 'Road Building' card from your hand to build two roads at the specified HexLocations.
@@ -221,7 +222,7 @@ public interface ServerProxy
 	 * @param spot2 Edge to build a road on
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2);
+	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2);
 
 	/**
 	 * Plays a 'Soldier' from your hand, selecting the new robber position and player to rob.
@@ -231,7 +232,7 @@ public interface ServerProxy
 	 * @param hexLocation The new HexLocation of the robber
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON soldier(int playerIndex, int victimIndex, HexLocation hexLocation);
+	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation);
 
 	/**
 	 * Plays a 'Monopoly' card from your hand to monopolize the specified ResourceType.
@@ -241,7 +242,7 @@ public interface ServerProxy
 	 *            card
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON monopoly(int playerIndex, ResourceType resource);
+	public CatanModel monopoly(int playerIndex, ResourceType resource);
 
 	/**
 	 * Plays a 'Monument' card from your hand to give you a victory point.
@@ -249,7 +250,7 @@ public interface ServerProxy
 	 * @param playerIndex Who's playing this dev card
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON monument(int playerIndex);
+	public CatanModel monument(int playerIndex);
 
 	/**
 	 * Builds a road at the specified HexLocation. (Set 'free' to true during initial setup.)
@@ -259,7 +260,7 @@ public interface ServerProxy
 	 * @param free Whether this is placed for free (setup).
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free);
+	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free);
 
 	/**
 	 * Builds a settlement at the specified HexLocation. (Set 'free' to true during initial setup.)
@@ -269,7 +270,7 @@ public interface ServerProxy
 	 * @param free Whether this is placed for free (setup).
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free);
+	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free);
 
 	/**
 	 * Builds a city at the specified HexLocation.
@@ -278,7 +279,7 @@ public interface ServerProxy
 	 * @param vertexLocation
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON buildCity(int playerIndex, VertexLocation vertexLocation);
+	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation);
 
 	/**
 	 * Offers a domestic trade to another player.
@@ -288,7 +289,7 @@ public interface ServerProxy
 	 * @param offer What you get(+) and what you give (-)
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON offerTrade(int playerIndex, int receiver, ResourceList offer);
+	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer);
 
 	/**
 	 * Used to accept or reject a trade offered to you.
@@ -297,7 +298,7 @@ public interface ServerProxy
 	 * @param willAccept Whether you accept the trade or not.
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON acceptTrade(int playerIndex, boolean willAccept);
+	public CatanModel acceptTrade(int playerIndex, boolean willAccept);
 
 	/**
 	 * Used to execute a maritime trade.
@@ -308,7 +309,7 @@ public interface ServerProxy
 	 * @param output What type of ResourceType you're receiving
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output);
+	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output);
 
 	/**
 	 * Discards the specified ResourceType cards.
@@ -317,7 +318,7 @@ public interface ServerProxy
 	 * @param discardedCards List of ResourceTypes being discarded
 	 * @return The 'Client Model' JSON (identical to getGameModel())
 	 */
-	public GameModelJSON discardCards(int playerIndex, ResourceList discardedCards);
+	public CatanModel discardCards(int playerIndex, ResourceList discardedCards);
 
 	/**
 	 * Sets the server's log level. (ALL, SEVERE, WARNING ,INFO, CONFIG, FINE, FINER, FINEST, OFF)

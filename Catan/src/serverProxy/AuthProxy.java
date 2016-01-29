@@ -11,14 +11,13 @@ import java.net.URL;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
+import model.CatanModel;
 import shared.communication.*;
-import shared.definitions.CatanColor;
 
 public class AuthProxy 
 {
 	private String authCookie;
 	private String urlBase;
-	private int gameID;
 	
 	public AuthProxy(String authCookie)
 	{
@@ -26,7 +25,7 @@ public class AuthProxy
 		urlBase = "http://localhost:8081";
 	}
 	
-	public GameModelJSON getGameModel(int modelNumber) throws ServerException 
+	public CatanModel getGameModel(int modelNumber) throws ServerException 
 	{
 //		System.out.println("Get Game Model");
 		String obj = (String) get("/game/model");

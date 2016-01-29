@@ -14,6 +14,7 @@ import java.util.List;
 
 import com.google.gson.*;
 
+import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.*;
 import shared.communication.JSON.*;
@@ -186,19 +187,19 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public GameModelJSON getGameModel(int modelNumber) throws ServerException 
+	public CatanModel getGameModel(int modelNumber) throws ServerException 
 	{
 		return authProxy.getGameModel(modelNumber);
 	}
 
 	@Override
-	public GameModelJSON resetGame() {
+	public CatanModel resetGame() {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON setCommands(List<Command> commands) {
+	public CatanModel setCommands(List<Command> commands) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -222,103 +223,103 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public GameModelJSON sendChat(int playerIndex, String content) {
+	public CatanModel sendChat(int playerIndex, String content) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON rollNumber(int playerIndex, int number) {
+	public CatanModel rollNumber(int playerIndex, int number) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) {
+	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON finishTurn(int playerIndex) {
+	public CatanModel finishTurn(int playerIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buyDevCard(int playerIndex) {
+	public CatanModel buyDevCard(int playerIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
+	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
+	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON soldier(int playerIndex, int victimIndex, HexLocation hexLocation) {
+	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON monopoly(int playerIndex, ResourceType resource) {
+	public CatanModel monopoly(int playerIndex, ResourceType resource) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON monument(int playerIndex) {
+	public CatanModel monument(int playerIndex) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
+	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) {
+	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON buildCity(int playerIndex, VertexLocation vertexLocation) {
+	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON offerTrade(int playerIndex, int receiver, ResourceList offer) {
+	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON acceptTrade(int playerIndex, boolean willAccept) {
+	public CatanModel acceptTrade(int playerIndex, boolean willAccept) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) {
+	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public GameModelJSON discardCards(int playerIndex, ResourceList discardedCards) {
+	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) {
 		// TODO Auto-generated method stub
 		return null;
 	}
