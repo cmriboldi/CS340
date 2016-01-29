@@ -193,9 +193,9 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel resetGame() {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel resetGame() throws ServerException 
+	{
+		return authProxy.resetGame();
 	}
 
 	@Override

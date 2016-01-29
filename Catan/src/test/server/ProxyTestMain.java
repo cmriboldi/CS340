@@ -20,7 +20,6 @@ public class ProxyTestMain
 			
 			System.out.println("Create new game");
 			CommGame newGame = server.createGame(true, true, true, "Automated Test");
-			
 			System.out.println("Title: " + newGame.getTitle() + " id: " + newGame.getId() + " players:");
 			CommPlayer[] playersArray = newGame.getPlayers();
 			for(CommPlayer player : playersArray)
@@ -63,6 +62,13 @@ public class ProxyTestMain
 			System.out.println("Loading test save game");
 			server.loadGame("test save");
 			System.out.println("Load Successful!");
+			
+			System.out.println("Get game model");
+			server.getGameModel(1);
+			
+			System.out.println("Reset Game");
+			server.resetGame();
+			System.out.println("Reset Successful!");
 		} 
 		catch (ServerException e) 
 		{

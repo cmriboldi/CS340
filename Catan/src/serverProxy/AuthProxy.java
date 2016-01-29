@@ -27,16 +27,14 @@ public class AuthProxy
 	
 	public CatanModel getGameModel(int modelNumber) throws ServerException 
 	{
-//		System.out.println("Get Game Model");
-		String obj = (String) get("/game/model");
-		JsonObject json = new Gson().fromJson(obj, JsonObject.class);
-//		System.out.println("Get Game Model: " + json.toString());
+		String response = (String) get("/game/model");
+		JsonObject json = new Gson().fromJson(response, JsonObject.class);
+		System.out.println(json.toString());
 		return null;
 	}
 	
 	public void joinGame(int gameId, String color) throws ServerException 
 	{
-//		System.out.println("Joining Game");
 		CommJoin join = new CommJoin(gameId, color);
 		URL url;
 		try 
@@ -49,18 +47,13 @@ public class AuthProxy
 			conn.setRequestProperty("Cookie", authCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
-			
-//			System.out.println(new Gson().toJson(join));
-			
+						
 			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
 			byte[] send = new Gson().toJson(join).getBytes();
 			writer.write(send);
 			writer.close();
-			
-//			System.out.println(conn.getResponseCode());
-			
+						
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
 				String cookie = conn.getHeaderField("Set-cookie");
@@ -100,6 +93,14 @@ public class AuthProxy
 		}
 	}
 	
+	public CatanModel resetGame() throws ServerException
+	{
+		String response = (String) post("/game/reset", null);
+		JsonObject json = new Gson().fromJson(response, JsonObject.class);
+		System.out.println(json.toString());
+		return null;
+	}
+	
 	private Object get(String urlPath) throws ServerException
 	{
 		URL url;
@@ -113,10 +114,7 @@ public class AuthProxy
 			conn.setRequestProperty("Cookie", authCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
-			
-//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
@@ -167,15 +165,12 @@ public class AuthProxy
 			conn.setRequestProperty("Cookie", authCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
 			
 			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
 			byte[] send = new Gson().toJson(data).getBytes();
 			writer.write(send);
 			writer.close();
-			
-//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{

@@ -119,8 +119,9 @@ public interface ServerProxy
 	 * after it has been reset. You must login and join a game before calling this method.
 	 * 
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel resetGame();
+	public CatanModel resetGame() throws ServerException;
 
 	/**
 	 * Executes the specified command list in the current game. This method can be used for testing
