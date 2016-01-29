@@ -96,6 +96,7 @@ public class Map {
     public EdgeLocation[] findAdjEdges(VertexLocation vertex_t) {
 
         EdgeLocation[] edges = new EdgeLocation[3];
+
         if (vertex_t.getNormalizedLocation().getDir() == VertexDirection.NorthWest) {
             //return current hex location, N
             //return current hex location, NW
@@ -104,7 +105,15 @@ public class Map {
             //return currentHex.getNeighbor(NW), NE
         }
 
-        return null;
+        if (vertex_t.getNormalizedLocation().getDir() == VertexDirection.NorthEast) {
+            //return current hex location, N
+            //return current hex location, NE
+
+            //check for third edge (or neighboring hex), watch for boundary of map
+            //return currentHex.getNeighbor(NE), NW
+        }
+
+        return edges;
     }
 
     /**

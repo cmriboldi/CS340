@@ -1,6 +1,7 @@
 package model.map;
 
 //Project Imports
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 /**
@@ -27,5 +28,4 @@ public class Hex
 	 * outside the Hex class, so this is more for reference
 	 */
 	HexLocation location;
-
 }
