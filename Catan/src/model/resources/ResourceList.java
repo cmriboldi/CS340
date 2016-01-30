@@ -12,7 +12,7 @@ import shared.exceptions.resources.NotEnoughResourcesException;
  * @author Joshua Van Steeter
  * @version 1.0 Build Jan, 2016.
  */
-public class ResourceList
+public class ResourceList implements Comparable<ResourceList>
 {
 
 	private int brick;
@@ -133,6 +133,62 @@ public class ResourceList
 	public void removeSheep(int quantity) throws NotEnoughResourcesException
 	{
 
+	}
+
+	public void plus(ResourceList rs)
+	{
+		this.brick += rs.brick;
+		this.ore += rs.ore;
+		this.wheat += rs.wheat;
+		this.wood += rs.wood;
+		this.sheep += rs.sheep;
+	}
+
+	public void minus(ResourceList rs)
+	{
+		this.brick -= rs.brick;
+		this.ore -= rs.ore;
+		this.wheat -= rs.wheat;
+		this.wood -= rs.wood;
+		this.sheep -= rs.sheep;
+	}
+
+	public boolean greaterThan(ResourceList rs)
+	{
+		return this.compareTo(rs) > 0 ? true : false;
+	}
+
+	public boolean lessThan(ResourceList rs)
+	{
+		return this.compareTo(rs) < 0 ? true : false;
+	}
+
+	@Override
+	public int compareTo(ResourceList rs)
+	{
+		int compareValue = 0;
+
+		ResourceList thisCopy = new ResourceList(this.brick, this.ore, this.sheep, this.wheat, this.wood);
+
+		thisCopy.minus(rs);
+
+		int smallestResCount = Math.min(thisCopy.brick,
+				Math.min(thisCopy.ore, Math.min(thisCopy.sheep, Math.min(thisCopy.wheat, thisCopy.wood))));
+
+		if (smallestResCount < 0)
+		{
+			compareValue = -1;
+		} else if (thisCopy.getResourceCount() > 0)
+		{
+			compareValue = 1;
+		}
+
+		return compareValue;
+	}
+
+	private int getResourceCount()
+	{
+		return this.brick + this.ore + this.sheep + this.wheat + this.wood;
 	}
 
 }

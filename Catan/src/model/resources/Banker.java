@@ -81,8 +81,12 @@ public class Banker
 
 	public boolean canPlayerAfford(int playerIndex, Cost product)
 	{
+		boolean canAfford = false;
+		if(playerResources.getResourcesForPlayer(playerIndex).greaterThan(product.getCost())) {
+			canAfford = true;
+		}
 		
-		return false;
+		return canAfford;
 	}
 
 }

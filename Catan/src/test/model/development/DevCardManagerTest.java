@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import model.development.*;
+import serverProxy.JSONDeserializer;
 import shared.definitions.DevCardType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 
@@ -14,6 +15,9 @@ public class DevCardManagerTest
 	@Before
 	public void setUp()
 	{
+//		CatanModel cm = JSONDeserializer.dezerialize(TestJSON.get());
+		
+//		devManager = cm.devManager;
 		devManager = new DevCardManager();
 	}
 

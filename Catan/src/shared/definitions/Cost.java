@@ -12,11 +12,13 @@ public enum Cost
 	
 	static
 	{
-		ROAD.cost = new ResourceList();
-		SETTLEMENT.cost = new ResourceList();
-		CITY.cost = new ResourceList();
-		DEVCARD.cost = new ResourceList();
+		ROAD.cost = new ResourceList(1,0,0,0,1);
+		SETTLEMENT.cost = new ResourceList(1,0,1,1,1);
+		CITY.cost = new ResourceList(0,3,0,2,0);
+		DEVCARD.cost = new ResourceList(0,1,1,1,0);
 	}
+	
+	//int brick, int ore, int sheep, int wheat, int wood
 	
 	public ResourceList getCost()
 	{
