@@ -205,39 +205,40 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public List<Command> getCommands() {
+	public List<Command> getCommands() 
+	{
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public void addAI(String AIType) throws ServerException {
-		// TODO Auto-generated method stub
-		
+	public void addAI(String AIType) throws ServerException 
+	{
+		authProxy.addAI(AIType);
 	}
 
 	@Override
-	public List<String> listAI() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<String> listAI() throws ServerException 
+	{
+		return authProxy.listAI();
 	}
 
 	@Override
-	public CatanModel sendChat(int playerIndex, String content) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel sendChat(int playerIndex, String content) throws ServerException 
+	{
+		return authProxy.sendChat(playerIndex, content);
 	}
 
 	@Override
-	public CatanModel rollNumber(int playerIndex, int number) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel rollNumber(int playerIndex, int number) throws ServerException 
+	{
+		return authProxy.rollNumber(playerIndex, number);
 	}
 
 	@Override
-	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException 
+	{
+		return authProxy.robPlayer(playerIndex, victimIndex, hexLocation);
 	}
 
 	@Override
