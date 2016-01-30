@@ -29,15 +29,14 @@ public class Poller implements Runnable
 	 * 
 	 * @param seconds Amount of time in seconds between polls.
 	 * @throws InterruptedException 
+	 * @throws ServerException 
 	 */
-	public void start(long seconds) throws InterruptedException
+	public void start(long seconds) throws InterruptedException, ServerException
 	{
 		for(;;)
 		{
 			Thread.sleep((long)(seconds*1000));
-			//modelNumber = CatanModel.getmodelnumber()
-			server.getGameModel(modelNumber);
-			//Facade.updateView();
+			server.getGameModel();
 		}
 		
 	}
@@ -51,10 +50,13 @@ public class Poller implements Runnable
 	}
 
 	@Override
-	public void run() {
+	public void run() 
+	{
 		try {
 			this.start(3);
 		} catch (InterruptedException e) {
+			e.printStackTrace();
+		} catch (ServerException e) {
 			e.printStackTrace();
 		}		
 	}

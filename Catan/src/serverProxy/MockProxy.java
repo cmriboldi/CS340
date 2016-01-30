@@ -2,6 +2,7 @@ package serverProxy;
 
 import java.util.List;
 
+import clientfacade.Facade;
 import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.CommGame;
@@ -28,6 +29,9 @@ import shared.locations.VertexLocation;
 public class MockProxy implements ServerProxy
 {
 
+	CatanModel catanModel;
+	
+	
 	@Override
 	public void userLogin(String username, String password) throws ServerException {
 		// TODO Auto-generated method stub
@@ -72,9 +76,10 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel getGameModel(int modelNumber) throws ServerException {
-		// TODO Auto-generated method stub
-		return null;
+	public void getGameModel() throws ServerException {
+		String json = null;
+		catanModel = JSONDeserializer.deserialize(json);
+		Facade.updateView(catanModel);
 	}
 
 	@Override

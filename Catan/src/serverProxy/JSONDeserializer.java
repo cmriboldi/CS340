@@ -42,7 +42,7 @@ public class JSONDeserializer
 	
 	public static CatanModel deserialize(String json)
 	{
-		return JSONDeserializer.instance()._deserialize(json);
+		return instance()._deserialize(json);
 	}
 	
 	private ResourceManager resourceManager;
@@ -85,20 +85,23 @@ public class JSONDeserializer
 			playerResources[index] = resources;
 		}
 		
-		int sender = tradeOffer.getAsJsonPrimitive("sender").getAsInt();
-	    int receiver = tradeOffer.getAsJsonPrimitive("receiver").getAsInt();
-	    
-	    ResourceList resourcesOffer;
-	    JsonObject offer = tradeOffer.getAsJsonObject("offer");
-	    {    	
-	    	int brick = offer.getAsJsonPrimitive("brick").getAsInt();
-		    int ore = offer.getAsJsonPrimitive("ore").getAsInt();
-		    int sheep = offer.getAsJsonPrimitive("sheep").getAsInt();
-		    int wheat = offer.getAsJsonPrimitive("wheat").getAsInt();
-		    int wood = offer.getAsJsonPrimitive("wood").getAsInt();
-		    resourcesOffer = new ResourceList(brick, ore, sheep, wheat, wood);
-	    }
-	    tradeResourcesOffer = new TradeOffer(resourcesOffer, sender, receiver);
+        if(tradeOffer != null) //This is null if there is no current trade offers
+        {
+            int sender = tradeOffer.getAsJsonPrimitive("sender").getAsInt();
+            int receiver = tradeOffer.getAsJsonPrimitive("receiver").getAsInt();
+            
+            ResourceList resourcesOffer;
+            JsonObject offer = tradeOffer.getAsJsonObject("offer");
+            {    	
+                int brick = offer.getAsJsonPrimitive("brick").getAsInt();
+                int ore = offer.getAsJsonPrimitive("ore").getAsInt();
+                int sheep = offer.getAsJsonPrimitive("sheep").getAsInt();
+                int wheat = offer.getAsJsonPrimitive("wheat").getAsInt();
+                int wood = offer.getAsJsonPrimitive("wood").getAsInt();
+                resourcesOffer = new ResourceList(brick, ore, sheep, wheat, wood);
+            }
+            tradeResourcesOffer = new TradeOffer(resourcesOffer, sender, receiver);
+        }
 		
 		this.resourceManager = new ResourceManager(playerResources, bankResources, tradeResourcesOffer);
 	}
@@ -187,11 +190,18 @@ public class JSONDeserializer
 	    {
 	    	JsonObject hex = hexes.get(i).getAsJsonObject();    	
 	    	JsonObject location = hex.getAsJsonObject("location");
+	    	String resource;
+	    	int number;
 	    	
 	    	int x = location.getAsJsonPrimitive("x").getAsInt();
 	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	String resource = hex.getAsJsonPrimitive("resource").getAsString();
-	    	int number = hex.getAsJsonPrimitive("number").getAsInt();
+	    	
+	    	//if hex doesn't have resource and number it is desert hex
+	    	if(hex.has("resource") && hex.has("number"))
+	    	{
+	    		resource = hex.getAsJsonPrimitive("resource").getAsString();
+	    		number = hex.getAsJsonPrimitive("number").getAsInt();
+	    	}
 	    }
 	    
 	    //Get Port info
@@ -199,10 +209,14 @@ public class JSONDeserializer
 	    {
 	    	JsonObject port = ports.get(i).getAsJsonObject();
 	    	JsonObject location = port.getAsJsonObject("location");
+	    	String resource;
 	    	
 	    	int x = location.getAsJsonPrimitive("x").getAsInt();
 	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	String resource = port.getAsJsonPrimitive("resource").getAsString();
+	    	
+	    	//if port doesn't have resource than it is 3:1 and those are for any resource
+	    	if(port.has("resource"))
+	    		resource = port.getAsJsonPrimitive("resource").getAsString();
 	    	String direction = port.getAsJsonPrimitive("direction").getAsString();
 	    	int ratio = port.getAsJsonPrimitive("ratio").getAsInt();    	
 	    }
@@ -216,7 +230,7 @@ public class JSONDeserializer
 	    	int x = location.getAsJsonPrimitive("x").getAsInt();
 	    	int y = location.getAsJsonPrimitive("y").getAsInt();
 	    	int owner = road.getAsJsonPrimitive("owner").getAsInt();
-	    	String direction = road.getAsJsonPrimitive("direction").getAsString();
+	    	String direction = location.getAsJsonPrimitive("direction").getAsString();
 	    }
 	    
 	    //Get settlement info
@@ -228,7 +242,7 @@ public class JSONDeserializer
 	    	int x = location.getAsJsonPrimitive("x").getAsInt();
 	    	int y = location.getAsJsonPrimitive("y").getAsInt();
 	    	int owner = settlement.getAsJsonPrimitive("owner").getAsInt();
-	    	String direction = settlement.getAsJsonPrimitive("direction").getAsString();
+	    	String direction = location.getAsJsonPrimitive("direction").getAsString();
 	    }
 	    
 	    //Get city info
@@ -240,12 +254,11 @@ public class JSONDeserializer
 	    	int x = location.getAsJsonPrimitive("x").getAsInt();
 	    	int y = location.getAsJsonPrimitive("y").getAsInt();
 	    	int owner = city.getAsJsonPrimitive("owner").getAsInt();
-	    	String direction = city.getAsJsonPrimitive("direction").getAsString();
+	    	String direction = location.getAsJsonPrimitive("direction").getAsString();
 	    }
 	    
 	    int x = robber.getAsJsonPrimitive("x").getAsInt();
 	    int y = robber.getAsJsonPrimitive("y").getAsInt();
-	    /*End MapManager*******************************************************/
 	}
 	
 	private void SetChatManager(JsonObject chat, JsonObject log)

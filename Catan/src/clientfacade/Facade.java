@@ -4,6 +4,7 @@ import java.util.List;
 
 import model.CatanModel;
 import model.resources.ResourceList;
+import serverProxy.JSONDeserializer;
 import shared.communication.*;
 
 /**
@@ -18,13 +19,39 @@ import shared.communication.*;
  */
 public class Facade
 {
+	private static Facade _instance;
+	private Facade(){}
+	private static Facade instance() {
+		
+		if (_instance == null)
+			_instance = new Facade();
+
+		return _instance;
+	}
+	
+	
 	private CatanModel catanModel;
 	
-	public Facade()
+	
+	private void _updateView(CatanModel catanModel)
 	{
-
+		this.catanModel = catanModel;
+	}	
+	public static void updateView(CatanModel catanModel)
+	{
+		instance()._updateView(catanModel);
 	}
-
+	
+	
+	private CatanModel _getCatanModel()
+	{
+		return this.catanModel;
+	}	
+	public static CatanModel getCatanModel()
+	{
+		return instance()._getCatanModel();
+	}
+	
 	/**
 	 * Validates user credentials
 	 * 
@@ -33,7 +60,7 @@ public class Facade
 	 * @return The authenticated User object
 	 * @throws InvalidCredentials
 	 */
-	public CommUser authenticateUser(String userName, String password)
+	private CommUser _authenticateUser(String userName, String password)
 	{
 		return null;
 	}
@@ -47,7 +74,7 @@ public class Facade
 	 * @return User object associated with the new registered user
 	 * @throws ServerException
 	 */
-	public CommUser registerUser(String userName, String password, String passConfirm)
+	private CommUser _registerUser(String userName, String password, String passConfirm)
 	{
 		return null;
 	}
@@ -58,7 +85,7 @@ public class Facade
 	 * @return A list of all the current games
 	 * @throws ServerException
 	 */
-	public List<CommGame> listGames()
+	private List<CommGame> _listGames()
 	{
 		return null;
 	}
@@ -70,7 +97,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void createGame(String userName)
+	private void _createGame(String userName)
 	{
 		
 	}
@@ -82,7 +109,7 @@ public class Facade
 	 * @return The CatanModel of the game
 	 * @throws ServerException
 	 */
-	public CatanModel joinGame(String userName)
+	private CatanModel _joinGame(String userName)
 	{
 		return null;
 	}
@@ -96,7 +123,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void newMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts)
+	private void _newMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts)
 	{
 
 	}
@@ -107,14 +134,9 @@ public class Facade
 	 * @return The current CatanModel of the game
 	 * @throws ServerException
 	 */
-	public CatanModel getModel()
+	private CatanModel _getModel()
 	{
 		return null;
-	}
-	
-	public void updateView()
-	{
-		this.catanModel = catanModel;
 	}
 
 	/**
@@ -124,7 +146,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void advancePhase(int index)
+	private void _advancePhase(int index)
 	{
 
 	}
@@ -135,7 +157,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void advanceTurn()
+	private void _advanceTurn()
 	{
 
 	}
@@ -146,7 +168,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void roll()
+	private void _roll()
 	{
 
 	}
@@ -161,7 +183,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void domesticTrade(int traderIndex, int tradeeIndex, ResourceList toGive, ResourceList toAsk)
+	private void _domesticTrade(int traderIndex, int tradeeIndex, ResourceList toGive, ResourceList toAsk)
 	{
 
 	}
@@ -175,7 +197,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void portTrade(int index, ResourceList toGive, ResourceList toGet)
+	private void _portTrade(int index, ResourceList toGive, ResourceList toGet)
 	{
 
 	}
@@ -187,7 +209,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void chat(String message)
+	private void _chat(String message)
 	{
 
 	}
@@ -200,7 +222,7 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	public void log(int index, String message)
+	private void _log(int index, String message)
 	{
 
 	}
@@ -212,7 +234,7 @@ public class Facade
 	 * @return
 	 * @throws InvalidAction
 	 */
-	public void buyDevCard(int index)
+	private void _buyDevCard(int index)
 	{
 		
 	}
@@ -224,7 +246,7 @@ public class Facade
 	 * @return
 	 * @throws InvalidAction
 	 */
-	public void buildRoad(int index)
+	private void _buildRoad(int index)
 	{
 		
 	}
@@ -236,7 +258,7 @@ public class Facade
 	 * @return
 	 * @throws InvalidAction
 	 */
-	public void buildTown(int index)
+	private void _buildTown(int index)
 	{
 		
 	}
@@ -248,7 +270,7 @@ public class Facade
 	 * @return
 	 * @throws InvalidAction
 	 */
-	public void buildCity(int index)
+	private void _buildCity(int index)
 	{
 		
 	}
@@ -260,7 +282,7 @@ public class Facade
 	 * @return
 	 * @throws InvalidAction
 	 */
-	public void placeRobber(int index)
+	private void _placeRobber(int index)
 	{
 		
 	}
