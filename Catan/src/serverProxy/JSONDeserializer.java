@@ -1,6 +1,8 @@
 package serverProxy;
 
 import shared.communication.GameModelJSON;
+import shared.communication.IdNumber;
+import shared.definitions.CatanColor;
 import model.resources.*;
 import model.players.*;
 import model.map.*;
@@ -55,7 +57,7 @@ public class JSONDeserializer
 	{
 	    ResourceList bankResources;
 	    ResourceList[] playerResources = new ResourceList[4];
-	    TradeOffer tradeResourcesOffer;
+	    TradeOffer tradeResourcesOffer = null;
 	    
 	    //Get bank resources
 	    {
@@ -102,7 +104,7 @@ public class JSONDeserializer
             }
             tradeResourcesOffer = new TradeOffer(resourcesOffer, sender, receiver);
         }
-		
+        		
 		this.resourceManager = new ResourceManager(playerResources, bankResources, tradeResourcesOffer);
 	}
 	
@@ -157,6 +159,8 @@ public class JSONDeserializer
 	
 	private void SetPlayerManager(JsonArray players)
 	{    
+		Player[] catanPlayers = new Player[players.size()];
+		
 	    for(int i = 0; i < players.size(); i++)
 	    {
 	    	JsonObject player = players.get(i).getAsJsonObject();
@@ -164,15 +168,41 @@ public class JSONDeserializer
 	    	
 	    	String name = player.getAsJsonPrimitive("name").getAsString();
 	    	String color = player.getAsJsonPrimitive("color").getAsString();
+	    	// CatanColor catanColor = new CatanColor();                    // TODO
 	    	int playerId = player.getAsJsonPrimitive("playerID").getAsInt();
 	    	int cities = player.getAsJsonPrimitive("cities").getAsInt();
 	    	int settlements = player.getAsJsonPrimitive("settlements").getAsInt();
 	    	int roads = player.getAsJsonPrimitive("roads").getAsInt();
 	    	int victoryPoints = player.getAsJsonPrimitive("victoryPoints").getAsInt();
 	    	boolean discarded = player.getAsJsonPrimitive("discarded").getAsBoolean();
+	    	
+	    	Player newPlayer = new Player(); 
+	    	newPlayer.setPoints(victoryPoints);
+	    	// newPlayer.setColor(color);   // TODO
+	    	newPlayer.setId(new IdNumber(playerId));
+		    // Pieces newPlayerPieces = new Pieces();
+		    	// newPlayerPieces.setCities(cities);
+		    	//bnewPlayerPieces.setRoads(roads);
+		    	// newPlayerPieces.setSettlements(settlements);
+	    	// newPlayer.setPieces(newPlayerPieces);
+	    	newPlayer.setCitiesRemaining(cities);
+	    	newPlayer.setSettlementsRemaining(settlements);
+	    	newPlayer.setRoadsRemaining(roads);
+		    newPlayer.setPlayerIndex(index);
+		    newPlayer.setName(name);
+	    	
+		    // TOUCH UPS
+		    // private boolean longestRoad; // (IN PLAYER CLASS PUT NOT PASSED IN THROUGH DESERIALIZER)
+		    // private boolean largestArmy; // (IN PLAYER CLASS PUT NOT PASSED IN THROUGH DESERIALIZER)
+			// private CatanColor color; // (NEED TO FIGURE OUT CATAN-COLOR CONSTRUCTOR)
+		    
 	    	//<========Construct part of player manager here============>	    	
+		    catanPlayers[i] = newPlayer; 
 	    }
 	    //<========Construct player manager here============>
+	    PlayerManager newPlayerManager = new PlayerManager(); 
+	    newPlayerManager.setCatanPlayers(catanPlayers);
+	    this.playerManager = newPlayerManager; 
 	}
 	
 	private void SetMapManager(JsonObject map)

@@ -18,11 +18,15 @@ public class PlayerManager
 	/** An array of the current players logged in to play Catan */
 	public Player[] CatanPlayers;
 
-	/** Creates a PlayerManager object */
-	public PlayerManager()
-	{
-
+	public Player[] getCatanPlayers() {
+		return CatanPlayers;
 	}
+
+	public void setCatanPlayers(Player[] catanPlayers) {
+		CatanPlayers = catanPlayers;
+	}
+
+
 
 	/**
 	 * Called in order to log player 'playerID' into the game. This expands CatanPlayers

@@ -26,6 +26,9 @@ public enum CatanColor
 		return color;
 	}
 	
+	
+	
+
 	public String toString()
 	{
 		switch(this)

@@ -39,8 +39,11 @@ public class Player
 	/** A unique ID to distinguish from other players */
 	private IdNumber id;
 
-	/** A list of the pieces the player can still play */
-	private Pieces piecesRemaining;
+	private int settlementsRemaining;
+	
+	private int citiesRemaining; 
+	
+	private int roadsRemaining; 
 
 	/**
 	 * @return the longestRoad
@@ -155,6 +158,18 @@ public class Player
 		this.id = id;
 	}
 
+
+	/*
+	/** A list of the pieces the player can still play 
+	private Pieces pieces;
+
+	public Pieces getPieces() {
+		return pieces;
+	}
+
+	public void setPieces(Pieces pieces) {
+		this.pieces = pieces;
+	}*/
 
 
 }

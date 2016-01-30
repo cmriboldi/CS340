@@ -13,10 +13,9 @@ package shared.communication;
 public class IdNumber
 {
 	private int id;
-	
-	public IdNumber()
-	{
-		
+
+	public IdNumber(int playerId) {
+		this.id = playerId;
 	}
 
 	public int getId()

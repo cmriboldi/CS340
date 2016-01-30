@@ -56,4 +56,25 @@ public class Pieces
 		return roads;
 	}
 
+	public void setSettlements(int settlements) {
+		this.settlements = settlements;
+	}
+
+	public void setCities(int cities) {
+		this.cities = cities;
+	}
+
+	public void setRoads(int roads) {
+		this.roads = roads;
+	}
+
+	public Pieces(int settlements, int cities, int roads) {
+		super();
+		this.settlements = settlements;
+		this.cities = cities;
+		this.roads = roads;
+	}
+
+	
+	
 }
