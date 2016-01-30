@@ -36,4 +36,22 @@ public class ChatManager
 		Line line = new Line(message, source);
 		gameHistory.add(line);
 	}
+
+	public List<Line> getChatMessages() {
+		return chatMessages;
+	}
+
+	public void setChatMessages(List<Line> chatMessages) {
+		this.chatMessages = chatMessages;
+	}
+
+	public List<Line> getGameHistory() {
+		return gameHistory;
+	}
+
+	public void setGameHistory(List<Line> gameHistory) {
+		this.gameHistory = gameHistory;
+	}
+	
+	
 }

@@ -112,7 +112,7 @@ public class Facade
 		return null;
 	}
 	
-	public void updateView(CatanModel catanModel)
+	public void updateView()
 	{
 		this.catanModel = catanModel;
 	}
