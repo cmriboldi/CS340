@@ -162,8 +162,9 @@ public interface ServerProxy
 	 * type).
 	 * 
 	 * @return A list of support AI player types
+	 * @throws ServerException 
 	 */
-	public List<String> listAI();
+	public List<String> listAI() throws ServerException;
 
 	/**
 	 * Sends a chat message.
@@ -171,23 +172,26 @@ public interface ServerProxy
 	 * @param playerIndex Who's sending this chat message.
 	 * @param content The message to be posted
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel sendChat(int playerIndex, String content);
+	public CatanModel sendChat(int playerIndex, String content) throws ServerException;
 
 	/**
 	 * @param playerIndex Who's sending this command (0-3).
 	 * @param number What number was rolled (2-12).
 	 * @return The 'Client Model' JSON (identical to getGameModel()))
+	 * @throws ServerException 
 	 */
-	public CatanModel rollNumber(int playerIndex, int number);
+	public CatanModel rollNumber(int playerIndex, int number) throws ServerException;
 
 	/**
 	 * @param playerIndex Who's doing the robbing
 	 * @param victimIndex The order index of the player to rob.
 	 * @param hexLocation The new HexLocation of the robber
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation);
+	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException;
 
 	/**
 	 * Used to finish your turn.

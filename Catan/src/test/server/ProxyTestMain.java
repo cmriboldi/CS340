@@ -8,6 +8,7 @@ import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.communication.*;
 import shared.definitions.CatanColor;
+import shared.locations.HexLocation;
 import test.TestJSON;
 
 public class ProxyTestMain 
@@ -73,10 +74,29 @@ public class ProxyTestMain
 			server.resetGame();
 			System.out.println("Reset Successful!");
 			
-			System.out.println("Test Deserializer");
-			System.out.println(TestJSON.get());
-			CatanModel model = JSONDeserializer.deserialize(TestJSON.get());
-			System.out.println("Well it didn't throw any exceptions");
+//			System.out.println("Test Deserializer");
+//			System.out.println(TestJSON.get());
+//			CatanModel model = JSONDeserializer.deserialize(TestJSON.get());
+//			System.out.println("Well it didn't throw any exceptions");
+			
+//			System.out.println("Add AI");
+//			server.addAI("Test that won't work anyway");
+//			System.out.println("Added");
+			
+			System.out.println("List AIs");
+			System.out.println(server.listAI().toString());
+			
+			System.out.println("Send Chat");
+			server.sendChat(0, "Test Chat");
+			System.out.println("Chat Successful");
+			
+			System.out.println("Roll Number");
+			server.rollNumber(0, 10);
+			System.out.println("Roll Number Successful");
+			
+			System.out.println("Rob Player");
+			server.robPlayer(0, 1, new HexLocation(1,1));
+			System.out.println("Rob Player Successful");
 		} 
 		catch (ServerException e) 
 		{

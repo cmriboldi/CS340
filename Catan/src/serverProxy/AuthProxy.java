@@ -8,11 +8,17 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
+
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import model.CatanModel;
 import shared.communication.*;
+import shared.communication.JSON.*;
+import shared.locations.*;
 
 public class AuthProxy 
 {
@@ -99,6 +105,48 @@ public class AuthProxy
 		JsonObject json = new Gson().fromJson(response, JsonObject.class);
 		System.out.println(json.toString());
 		return null;
+	}
+	
+	public void addAI(String AIType) throws ServerException
+	{
+		AddAIJSON add = new AddAIJSON(AIType);
+		post("/game/addAI", add);
+	}
+	
+	public List<String> listAI() throws ServerException 
+	{
+		String response = (String) get("/game/listAI");
+		JsonArray json = new Gson().fromJson(response, JsonArray.class);
+		List<String> AIs = new ArrayList<String>();
+		for(int i = 0; i < json.size(); i++)
+		{
+			AIs.add(json.get(i).getAsString());
+		}
+		return AIs;
+	}
+	
+	public CatanModel sendChat(int playerIndex, String content) throws ServerException
+	{
+		SendChatJSON send = new SendChatJSON(playerIndex, content);
+		String response = (String) post("/moves/sendChat", send);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel rollNumber(int playerIndex, int number) throws ServerException
+	{
+		RollNumberJSON data = new RollNumberJSON(playerIndex, number);
+		String response = (String) post("/moves/rollNumber", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException
+	{
+		RobPlayerJSON data = new RobPlayerJSON(playerIndex, victimIndex, hexLocation);
+		String response = (String) post("/moves/robPlayer", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
 	}
 	
 	private Object get(String urlPath) throws ServerException
