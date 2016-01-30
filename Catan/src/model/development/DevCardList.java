@@ -31,6 +31,15 @@ public class DevCardList
 		yearOfPlenty = 0;
 	}
 
+	public DevCardList(int monopoly, int monument, int roadBuilder, int soldier, int yearOfPlenty)
+	{
+		this.monopoly = monopoly;
+		this.monument = monument;
+		this.roadBuilder = roadBuilder;
+		this.soldier = soldier;
+		this.yearOfPlenty = yearOfPlenty;
+	}
+
 	/**
 	 * Adds a development card of the given type to the DevCardList.
 	 * 
@@ -229,7 +238,22 @@ public class DevCardList
 	{
 		this.yearOfPlenty = yearOfPlenty;
 	}
+
+	public void minus(PlayerDevCards playerDevCards)
+	{
+		for(int i = 0; i < 4; i++)
+		{
+			this.minus(playerDevCards.getDevCardsForPlayer(i));
+		}
+	}
 	
-	
+	public void minus(DevCardList devCards)
+	{
+		this.monopoly -= devCards.monopoly;
+		this.monument -= devCards.monument;
+		this.roadBuilder -= devCards.roadBuilder;
+		this.soldier -= devCards.soldier;
+		this.yearOfPlenty -= devCards.yearOfPlenty;
+	}
 
 }

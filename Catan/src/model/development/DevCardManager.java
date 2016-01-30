@@ -19,14 +19,43 @@ public class DevCardManager
 {
 
 	private DevCardList devCardStack;
-	private PlayerDevCards playerDevCards;
+	private PlayerDevCards newDevCards;
+	private PlayerDevCards oldDevCards;
+	private PlayerDevCards playedDevCards;
 	private boolean[] hasPlayedDevCardsList;
 
 	public DevCardManager()
 	{
 		devCardStack = new DevCardList();
-		playerDevCards = new PlayerDevCards();
+		newDevCards = new PlayerDevCards();
+		oldDevCards = new PlayerDevCards();
+		playedDevCards = new PlayerDevCards();
 		hasPlayedDevCardsList = new boolean[4];
+	}
+
+	public DevCardManager(PlayerDevCards newDevCards, PlayerDevCards oldDevCards, PlayerDevCards playedDevCards, boolean[] hasPlayedDevCardsList)
+	{
+		this.newDevCards = newDevCards;
+		this.oldDevCards = oldDevCards;
+		this.playedDevCards = playedDevCards;
+		this.hasPlayedDevCardsList = hasPlayedDevCardsList;
+		this.devCardStack = calculateDevCardStack();
+	}
+
+	private DevCardList calculateDevCardStack()
+	{
+//		14 Soldiers
+//		5 Victory Points
+//		2 Monopoly
+//		2 Road Building
+//		2 Year of Plenty
+		
+		DevCardList devStack = new DevCardList(2,5,2,14,2);
+		devStack.minus(this.newDevCards);
+		devStack.minus(this.oldDevCards);
+		devStack.minus(this.playedDevCards);
+		
+		return devStack;
 	}
 
 	/**
@@ -50,7 +79,7 @@ public class DevCardManager
 		} while (!devCardStack.hasDevCard(cardType));
 	    
 	    devCardStack.removeDevCard(cardType);
-	    playerDevCards.addCardToPlayer(cardType, playerIndex);
+	    newDevCards.addCardToPlayer(cardType, playerIndex);
 		
 		return cardType;
 	}
@@ -72,9 +101,9 @@ public class DevCardManager
 	 * @param card
 	 * @return
 	 */
-	public boolean hasDevCard(int playerIndex, DevCardType devCard)
+	public boolean canPlayDevCard(int playerIndex, DevCardType devCard)
 	{
-		return playerDevCards.hasDevCard(playerIndex, devCard);
+		return oldDevCards.hasDevCard(playerIndex, devCard);
 	}
 	
 	/**
@@ -98,9 +127,19 @@ public class DevCardManager
 		return devCardStack;
 	}
 
-	public PlayerDevCards getPlayerDevCards()
+	public PlayerDevCards getNewDevCards()
 	{
-		return playerDevCards;
+		return newDevCards;
+	}
+	
+	public PlayerDevCards getOldDevCards()
+	{
+		return oldDevCards;
+	}
+	
+	public PlayerDevCards getPlayedDevCards()
+	{
+		return playedDevCards;
 	}
 	
 }

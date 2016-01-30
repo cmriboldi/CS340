@@ -18,10 +18,12 @@ public class Trader
 {
 
 	private PlayerResources playerResources = null;
+	private TradeOffer tradeOffer = null;
 
-	public Trader(PlayerResources newPlayerResources)
+	public Trader(PlayerResources newPlayerResources, TradeOffer tradeOffer)
 	{
 		this.playerResources = newPlayerResources;
+		this.tradeOffer = tradeOffer;
 	}
 
 	/**

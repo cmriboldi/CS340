@@ -19,11 +19,11 @@ public class ResourceManager
 	private Banker banker = null;
 	private Trader trader = null;
 
-	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources)
+	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources, TradeOffer tradeOffer)
 	{
 		PlayerResources newPlayerResources = new PlayerResources(playerResources);
 		banker = new Banker(newPlayerResources, bankResources);
-		trader = new Trader(newPlayerResources);
+		trader = new Trader(newPlayerResources, tradeOffer);
 	}
 
 	/**

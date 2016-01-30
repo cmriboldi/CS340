@@ -13,6 +13,7 @@ public class DevCardListTest
 	@Before
 	public void setUp() throws Exception
 	{
+		
 		devCardList = new DevCardList();
 	}
 

@@ -59,10 +59,10 @@ public class DevCardManagerTest
 		{
 			if (devManager.canDrawDevCard())
 			{
-				assertEquals(0,devManager.getPlayerDevCards().getDevCardsForPlayer(playerIndex).getDevCardCount());
+				assertEquals(0,devManager.getNewDevCards().getDevCardsForPlayer(playerIndex).getDevCardCount());
 				DevCardType devCard = devManager.drawCard(playerIndex);
-				assertTrue(devManager.getPlayerDevCards().hasDevCard(playerIndex, devCard));
-				assertEquals(1,devManager.getPlayerDevCards().getDevCardsForPlayer(playerIndex).getDevCardCount());
+				assertTrue(devManager.getNewDevCards().hasDevCard(playerIndex, devCard));
+				assertEquals(1,devManager.getNewDevCards().getDevCardsForPlayer(playerIndex).getDevCardCount());
 
 				assertEquals(oldStackSize - 1, devManager.getDevCardStack().getDevCardCount());
 				

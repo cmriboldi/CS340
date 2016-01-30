@@ -32,6 +32,16 @@ public class CatanModel
 
 	}
 
+	public CatanModel(ResourceManager resourceManager, DevCardManager devCardManager, PlayerManager playerManager, MapManager mapManager, ChatManager chatManager)
+	{
+		this.cardManager = devCardManager;
+		this.mapManager = mapManager;
+		this.chatManager = chatManager;
+		this.playerManager = playerManager;
+		this.resourceManager = resourceManager;
+		options = new Options();
+	}
+
 	public void setCardManager(DevCardManager cardManager)
 	{
 		this.cardManager = cardManager;

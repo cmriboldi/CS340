@@ -67,6 +67,13 @@ public class PlayerDevCards
 	{
 		return playerDevCards[playerIndex];
 	}
+	
+	
+
+	public void setDevCardsForPlayer(int playerIndex, DevCardList playerDevCards)
+	{
+		this.playerDevCards[playerIndex] = playerDevCards;
+	}
 
 	/**
 	 * Check if the given player has the given development card.
@@ -80,4 +87,5 @@ public class PlayerDevCards
 		return playerDevCards[playerIndex].hasDevCard(devCard);
 	}
 
+	
 }

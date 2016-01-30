@@ -7,14 +7,13 @@ import model.map.*;
 import model.CatanModel;
 import model.development.*;
 import model.messagelog.*;
+import model.options.Options;
 import shared.locations.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.*;
-
-
 
 /**
  * Static object designed to deserialize the JSON object received from the server into a
@@ -52,10 +51,11 @@ public class JSONDeserializer
 	private MapManager mapManager;
 	private ChatManager chatManager;
 	
-	private void SetResourceManager(JsonObject bank, JsonArray players)
+	private void SetResourceManager(JsonObject bank, JsonArray players, JsonObject tradeOffer)
 	{
 	    ResourceList bankResources;
 	    ResourceList[] playerResources = new ResourceList[4];
+	    TradeOffer tradeResourcesOffer;
 	    
 	    //Get bank resources
 	    {
@@ -84,12 +84,33 @@ public class JSONDeserializer
 		    resources = new ResourceList(brick,ore,sheep,wheat,wood);
 			playerResources[index] = resources;
 		}
-		this.resourceManager = new ResourceManager(playerResources,bankResources);
+		
+		int sender = tradeOffer.getAsJsonPrimitive("sender").getAsInt();
+	    int receiver = tradeOffer.getAsJsonPrimitive("receiver").getAsInt();
+	    
+	    ResourceList resourcesOffer;
+	    JsonObject offer = tradeOffer.getAsJsonObject("offer");
+	    {    	
+	    	int brick = offer.getAsJsonPrimitive("brick").getAsInt();
+		    int ore = offer.getAsJsonPrimitive("ore").getAsInt();
+		    int sheep = offer.getAsJsonPrimitive("sheep").getAsInt();
+		    int wheat = offer.getAsJsonPrimitive("wheat").getAsInt();
+		    int wood = offer.getAsJsonPrimitive("wood").getAsInt();
+		    resourcesOffer = new ResourceList(brick, ore, sheep, wheat, wood);
+	    }
+	    tradeResourcesOffer = new TradeOffer(resourcesOffer, sender, receiver);
+		
+		this.resourceManager = new ResourceManager(playerResources, bankResources, tradeResourcesOffer);
 	}
 	
 	private void SetDevCardManager(JsonArray players)
 	{	
-	    for(int i = 0; i < players.size(); i++)
+	    PlayerDevCards newPlayerDevCards = new PlayerDevCards();
+	    PlayerDevCards oldPlayerDevCards = new PlayerDevCards();
+	    PlayerDevCards playedDevCards = new PlayerDevCards();
+	    boolean[] hasPlayedDevCardsList = new boolean[4];
+		
+		for(int i = 0; i < players.size(); i++)
 	    {
 	    	JsonObject player = players.get(i).getAsJsonObject();
 	    	int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
@@ -104,18 +125,31 @@ public class JSONDeserializer
 		    	int soldier = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
 		    	int yearOfPlenty = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 		    	//<======Set part of devCarManager here=====>//
+		    	newPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
 	    	}
 	    	//Old Dev Cards
 	    	{
-	    		int monopoly = newDevCards.getAsJsonPrimitive("monopoly").getAsInt();
-		    	int monument = newDevCards.getAsJsonPrimitive("monument").getAsInt();
-		    	int roadBuilding = newDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
-		    	int soldier = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
-		    	int yearOfPlenty = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
+	    		int monopoly = oldDevCards.getAsJsonPrimitive("monopoly").getAsInt();
+		    	int monument = oldDevCards.getAsJsonPrimitive("monument").getAsInt();
+		    	int roadBuilding = oldDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
+		    	int soldier = oldDevCards.getAsJsonPrimitive("soldier").getAsInt();
+		    	int yearOfPlenty = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
 		    	//<======Set other part of devCarManager here=====>//
+		    	oldPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
 	    	}
-	    	//<=======Construct devCardManager here=======>//	    	
+	    	//Played Dev Cards
+	    	{
+	    		int monuments = player.getAsJsonPrimitive("monuments").getAsInt();
+		    	int soldiers = player.getAsJsonPrimitive("soldiers").getAsInt();
+		    	playedDevCards.setDevCardsForPlayer(index, new DevCardList(0,monuments,0,soldiers,0));
+	    	}
+	    	//Has Played Dev Cards List
+	    	{
+	    		boolean playedDevCard = player.getAsJsonPrimitive("playedDevCard").getAsBoolean();
+	    		hasPlayedDevCardsList[index] = playedDevCard;
+	    	}
 	    }
+		this.devCardManager = new DevCardManager(newPlayerDevCards, oldPlayerDevCards, playedDevCards, hasPlayedDevCardsList);
 	}
 	
 	private void SetPlayerManager(JsonArray players)
@@ -131,11 +165,8 @@ public class JSONDeserializer
 	    	int cities = player.getAsJsonPrimitive("cities").getAsInt();
 	    	int settlements = player.getAsJsonPrimitive("settlements").getAsInt();
 	    	int roads = player.getAsJsonPrimitive("roads").getAsInt();
-	    	int monuments = player.getAsJsonPrimitive("monuments").getAsInt();
-	    	int soldiers = player.getAsJsonPrimitive("soldiers").getAsInt();
 	    	int victoryPoints = player.getAsJsonPrimitive("victoryPoints").getAsInt();
 	    	boolean discarded = player.getAsJsonPrimitive("discarded").getAsBoolean();
-	    	boolean playedDevCard = player.getAsJsonPrimitive("playedDevCard").getAsBoolean();
 	    	//<========Construct part of player manager here============>	    	
 	    }
 	    //<========Construct player manager here============>
@@ -251,21 +282,6 @@ public class JSONDeserializer
 	    this.chatManager = new ChatManager(chatMessages, gameHistory);
 	}
 	
-	private void SetTradeManager(JsonObject tradeOffer)
-	{
-		int sender = tradeOffer.getAsJsonPrimitive("sender").getAsInt();
-	    int receiver = tradeOffer.getAsJsonPrimitive("receiver").getAsInt();
-	    
-	    JsonObject offer = tradeOffer.getAsJsonObject("offer");
-	    {    	
-	    	int brick = offer.getAsJsonPrimitive("brick").getAsInt();
-		    int ore = offer.getAsJsonPrimitive("ore").getAsInt();
-		    int sheep = offer.getAsJsonPrimitive("sheep").getAsInt();
-		    int wheat = offer.getAsJsonPrimitive("wheat").getAsInt();
-		    int wood = offer.getAsJsonPrimitive("wood").getAsInt();
-	    }
-	}
-	
 	private void SetTurnManager(JsonObject turnTracker)
 	{
 		int currentTurn = turnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
@@ -297,14 +313,13 @@ public class JSONDeserializer
 	    int version = jobject.getAsJsonPrimitive("version").getAsInt();
 	    int winner = jobject.getAsJsonPrimitive("winner").getAsInt();
 	    
-	    SetResourceManager(bank, players);
+	    SetResourceManager(bank, players, tradeOffer);
 	    SetDevCardManager(players);
 	    SetPlayerManager(players);
 	    SetMapManager(map);
 	    SetChatManager(chat, log);
-	    SetTradeManager(tradeOffer);
 	    SetTurnManager(turnTracker);
-	        
+	    
 		return catanModel = new CatanModel(resourceManager, devCardManager, playerManager, mapManager, chatManager);
 	}
 }
