@@ -11,6 +11,7 @@ package model.resources;
 
 import shared.definitions.*;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.player.InvalidPlayerIndexException;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 
 public class ResourceManager
@@ -34,7 +35,7 @@ public class ResourceManager
 	 */
 	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException
 	{
-
+		banker.buyPiece(playerIndex, piece);
 	}
 
 	/**
@@ -42,7 +43,7 @@ public class ResourceManager
 	 */
 	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException
 	{
-
+		banker.buyDevCard(playerIndex);
 	}
 
 	/**
@@ -50,21 +51,28 @@ public class ResourceManager
 	 */
 	public void generateResources() throws NotEnoughBankResourcesException
 	{
-
+		// TODO Ask Clayton how he's going to give me the resources so that we know how we're
+		// generating resources.
 	}
 
 	/**
-	 * @param resLists This is an ResourceList where the positive numbers in the arrays are the
-	 *            resources going to one player and the negative numbers are coming from another
-	 *            player.
-	 * @param toPlayerIndex The index of the player who is receiving the positive numbered
-	 *            resources.
-	 * @param fromPlayerIndex The index of the player who is receiving the negative numbered
-	 *            resources.
+	 * Called when accepting the current Trade Offer.
+	 * 
+	 * @param int player index of the player accepting the trade offer. This index must be match the
+	 *            index of the player receiving the offer.
+	 * @throws NotEnoughPlayerResourcesException
+	 * @throws InvalidPlayerIndex
 	 */
-	public void tradeWithPlayer(ResourceList resList, int toPlayerIndex, int fromPlayerIndex) throws NotEnoughPlayerResourcesException
+	public void acceptPlayerTrade(int playerIndex) throws NotEnoughPlayerResourcesException, InvalidPlayerIndexException
 	{
-
+		try
+		{
+			trader.acceptPlayerTrade(playerIndex);
+		} catch (Exception e)
+		{
+			throw e;
+		}
+		
 	}
 
 	/**
@@ -90,11 +98,12 @@ public class ResourceManager
 	 * @param playerIndex The index of the player who is using the card.
 	 * @param resourcesAskedFor The ResourceList with the two resources requested.
 	 */
-	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException
+	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor)
+			throws NotEnoughBankResourcesException
 	{
 
 	}
-	
+
 	/**
 	 * Check if a player can afford a road
 	 * 
@@ -127,7 +136,7 @@ public class ResourceManager
 	{
 		return banker.canPlayerAfford(playerIndex, Cost.CITY);
 	}
-	
+
 	/**
 	 * Check if a player can afford a development card
 	 * 

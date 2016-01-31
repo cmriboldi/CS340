@@ -1,6 +1,7 @@
 package model.resources;
 
 import shared.definitions.ResourceType;
+import shared.exceptions.player.InvalidPlayerIndexException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 
 /**
@@ -49,6 +50,28 @@ public class Trader
 	public void useMonopolyCard(int playerIndex, ResourceType resource)
 	{
 
+	}
+
+	public void acceptPlayerTrade(int playerIndex) throws InvalidPlayerIndexException, NotEnoughPlayerResourcesException
+	{
+		if(playerIndex != tradeOffer.getReceiver())
+		{
+			throw new InvalidPlayerIndexException("The player index must match the index of the trade offer reciever.");
+		}
+		boolean senderCanAfforTrade = playerResources.canPlayerAfford(tradeOffer.getSender(), tradeOffer.getResourcesOffer().invert());
+		boolean recieverCanAfforTrade = playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer());
+	
+		if(!senderCanAfforTrade)
+		{
+			throw new NotEnoughPlayerResourcesException("The player offering the trade doesn't have enough resources.");
+		} else if(!recieverCanAfforTrade)
+		{
+			throw new NotEnoughPlayerResourcesException("The player accepting the trade doesn't have enough resources.");
+		}
+		
+		playerResources.addResourcesToPlayer(tradeOffer.getResourcesOffer(), tradeOffer.getReceiver());
+		playerResources.addResourcesToPlayer(tradeOffer.getResourcesOffer().invert(), tradeOffer.getSender());
+		
 	}
 
 }

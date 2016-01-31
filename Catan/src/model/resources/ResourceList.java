@@ -191,4 +191,15 @@ public class ResourceList implements Comparable<ResourceList>
 		return this.brick + this.ore + this.sheep + this.wheat + this.wood;
 	}
 
+	public ResourceList invert()
+	{
+		ResourceList invertedResList = new ResourceList(this.brick, this.ore, this.sheep, this.wheat, this.wood);
+		invertedResList.brick *= -1;
+		invertedResList.ore *= -1;
+		invertedResList.wheat *= -1;
+		invertedResList.wood *= -1;
+		invertedResList.sheep *= -1;
+		return invertedResList;
+	}
+
 }

@@ -49,4 +49,14 @@ public class PlayerResources
 	{
 		return playerResources[playerIndex];
 	}
+
+	public boolean canPlayerAfford(int playerIndex, ResourceList resourceList)
+	{
+		boolean canAfford = false;
+		if(playerResources[playerIndex].greaterThan(resourceList)) {
+			canAfford = true;
+		}
+		
+		return canAfford;
+	}
 }
