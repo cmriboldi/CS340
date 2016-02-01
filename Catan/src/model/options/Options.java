@@ -148,19 +148,43 @@ public class Options
 	}
 
 	
-	public boolean canRoll(int playerIndex)
+	public boolean canRollNumber(int playerIndex)
 	{
 		
-		return true;
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("rolling")) return true; 
+		else return false; 	
 	}
 
-	
-	public boolean canRob(int playerIndex)
+	public boolean canPlaceRobber(int playerIndex)
 	{
 		
-		return true;
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("robbing")) return true; 
+		else return false; 	
 	}
 	
+	public boolean canDiscardCards(int playerIndex)
+	{
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("discarding")) return true; 
+		else return false; 	
+	}
+	
+	public boolean canFinishTurn(int playerIndex)
+	{
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("playing")) return true; 
+		else return false; 	
+	}
+	
+
 	/**
 	 * Check if a road can be placed in specific position
 	 * 
