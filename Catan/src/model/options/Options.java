@@ -1,6 +1,7 @@
 package model.options;
 
 import model.CatanModel;
+import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
@@ -138,7 +139,12 @@ public class Options
 	
 	public boolean canPlay(int playerIndex)
 	{
-		return true;
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("playing")) return true; 
+		else return false; 
+		
 	}
 
 	

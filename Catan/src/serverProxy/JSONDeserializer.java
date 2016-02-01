@@ -360,9 +360,9 @@ public class JSONDeserializer
 	    int longestRoad = turnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
 	    int largestArmy = turnTracker.getAsJsonPrimitive("largestArmy").getAsInt();
 	    
-	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker(catanModel, currentTurn, status); 
-	    
-	    
+	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker( currentTurn, status); 
+	    playerManager.setTurnTracker(playerTurnTracker);
+	   
 	}
 	
 	/**

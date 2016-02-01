@@ -29,14 +29,30 @@ public class PlayerTurnTracker
 	
 	String status = null; 
 	
-	CatanModel catanModel = null; 
+	
+	
 	
 
-	public PlayerTurnTracker(CatanModel catanModel, int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
+	public int getTurnIndex() {
+		return turnIndex;
+	}
+
+	public void setTurnIndex(int turnIndex) {
+		this.turnIndex = turnIndex;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public PlayerTurnTracker(int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
 	{
 		this.status = status; 
 		this.turnIndex = turnIndex; 
-		this.catanModel = catanModel; 
 		
 		if (turnIndex < 0 | turnIndex > 3)
 			throw new TurnIndexException(); 
@@ -44,10 +60,7 @@ public class PlayerTurnTracker
 		if (!(status.toLowerCase().equals("rolling") | status.toLowerCase().equals("discarding") | status.toLowerCase().equals("robbing") | status.toLowerCase().equals("playing")))       
 			throw new InvalidTurnStatusException(); 
 		
-		if (catanModel == null)
-		{
-			throw new GeneralPlayerException(); 
-		}
+
 	}
 	
 	
@@ -78,7 +91,7 @@ public class PlayerTurnTracker
 		
 	}
 	
-
+	
 	
 	
 	
