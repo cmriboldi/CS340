@@ -5,6 +5,7 @@ import model.map.MapManager;
 import model.messagelog.ChatManager;
 import model.options.Options;
 import model.players.PlayerManager;
+import model.players.PlayerTurnTracker;
 import model.resources.ResourceManager;
 
 /**
@@ -26,6 +27,7 @@ public class CatanModel
 	public Options options;
 	public PlayerManager playerManager;
 	public ResourceManager resourceManager;
+	public PlayerTurnTracker turnTracker; 
 
 	public CatanModel()
 	{
@@ -39,7 +41,7 @@ public class CatanModel
 		this.chatManager = chatManager;
 		this.playerManager = playerManager;
 		this.resourceManager = resourceManager;
-		options = new Options();
+		options = new Options(this);
 	}
 
 	public void setCardManager(DevCardManager cardManager)
@@ -71,5 +73,12 @@ public class CatanModel
 	{
 		this.resourceManager = resourceManager;
 	}
+
+	public PlayerManager getPlayerManager() {
+		return playerManager;
+	}
+	
+	
+	
 
 }

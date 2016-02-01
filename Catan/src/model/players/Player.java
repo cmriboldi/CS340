@@ -44,6 +44,32 @@ public class Player
 	private int citiesRemaining; 
 	
 	private int roadsRemaining; 
+	
+	
+
+	public int getSettlementsRemaining() {
+		return settlementsRemaining;
+	}
+
+	public void setSettlementsRemaining(int settlementsRemaining) {
+		this.settlementsRemaining = settlementsRemaining;
+	}
+
+	public int getCitiesRemaining() {
+		return citiesRemaining;
+	}
+
+	public void setCitiesRemaining(int citiesRemaining) {
+		this.citiesRemaining = citiesRemaining;
+	}
+
+	public int getRoadsRemaining() {
+		return roadsRemaining;
+	}
+
+	public void setRoadsRemaining(int roadsRemaining) {
+		this.roadsRemaining = roadsRemaining;
+	}
 
 	/**
 	 * @return the longestRoad

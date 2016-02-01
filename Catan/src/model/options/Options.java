@@ -1,5 +1,6 @@
 package model.options;
 
+import model.CatanModel;
 import shared.definitions.DevCardType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
@@ -16,9 +17,12 @@ import shared.locations.VertexLocation;
  */
 public class Options
 {
-	public Options()
-	{
+	
+	CatanModel catanModel = null; 
 
+	public Options(CatanModel catanModel)
+	{
+		this.catanModel = catanModel; 
 	}
 
 	/**
@@ -130,11 +134,27 @@ public class Options
 	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
+	
+	
 	public boolean canPlay(int playerIndex)
 	{
 		return true;
 	}
 
+	
+	public boolean canRoll(int playerIndex)
+	{
+		
+		return true;
+	}
+
+	
+	public boolean canRob(int playerIndex)
+	{
+		
+		return true;
+	}
+	
 	/**
 	 * Check if a road can be placed in specific position
 	 * 
