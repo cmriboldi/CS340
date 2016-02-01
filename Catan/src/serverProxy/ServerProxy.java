@@ -240,8 +240,9 @@ public interface ServerProxy
 	 * @param victimIndex The index of the player to rob.
 	 * @param hexLocation The new HexLocation of the robber
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation);
+	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException;
 
 	/**
 	 * Plays a 'Monopoly' card from your hand to monopolize the specified ResourceType.
@@ -250,8 +251,9 @@ public interface ServerProxy
 	 * @param resource The ResourceType that all players must give to the player who played the dev
 	 *            card
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel monopoly(int playerIndex, ResourceType resource);
+	public CatanModel monopoly(int playerIndex, ResourceType resource) throws ServerException;
 
 	/**
 	 * Plays a 'Monument' card from your hand to give you a victory point.

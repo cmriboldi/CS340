@@ -182,6 +182,22 @@ public class AuthProxy
 		return null;//model;
 	}
 	
+	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation location) throws ServerException
+	{
+		SoldierJSON data = new SoldierJSON(playerIndex, victimIndex, location);
+		String response = (String) post("/moves/Soldier", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel monopoly(int playerIndex, ResourceType resource) throws ServerException
+	{
+		MonopolyJSON data = new MonopolyJSON(playerIndex, resource.toString());
+		String response = (String) post("/moves/Soldier", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
 	private Object get(String urlPath) throws ServerException
 	{
 		URL url;

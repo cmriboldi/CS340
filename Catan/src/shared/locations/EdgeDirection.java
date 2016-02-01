@@ -27,17 +27,17 @@ public enum EdgeDirection
 		switch(this)
 		{
 			case NorthWest:
-				return "NorthWest";
+				return "NW";
 			case North:
-				return "North";
+				return "N";
 			case NorthEast:
-				return "NorthEast";
+				return "NE";
 			case SouthEast:
-				return "SouthEast";
+				return "SE";
 			case South:
-				return "South";
+				return "S";
 			case SouthWest:
-				return "SouthWest";
+				return "SW";
 			default:
 				return null;
 		}

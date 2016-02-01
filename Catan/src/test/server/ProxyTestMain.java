@@ -116,6 +116,14 @@ public class ProxyTestMain
 			System.out.println("Road Building");
 			server.roadBuilding(1, new EdgeLocation(new HexLocation(1,1), EdgeDirection.South), new EdgeLocation(new HexLocation(1,1), EdgeDirection.NorthEast));
 			System.out.println("Successful!");
+			
+			System.out.println("Soldier");
+			server.soldier(0, 1, new HexLocation(1,1));
+			System.out.println("Successful");
+			
+			System.out.println("Monoply");
+			server.monopoly(0, ResourceType.ORE);
+			System.out.println("Successful");
 		} 
 		catch (ServerException e) 
 		{

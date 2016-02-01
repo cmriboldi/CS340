@@ -266,15 +266,15 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException 
+	{
+		return authProxy.soldier(playerIndex, victimIndex, hexLocation);
 	}
 
 	@Override
-	public CatanModel monopoly(int playerIndex, ResourceType resource) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel monopoly(int playerIndex, ResourceType resource) throws ServerException 
+	{
+		return authProxy.monopoly(playerIndex, resource);
 	}
 
 	@Override
