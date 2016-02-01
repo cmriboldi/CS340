@@ -242,27 +242,27 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel finishTurn(int playerIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel finishTurn(int playerIndex) throws ServerException 
+	{
+		return authProxy.finishTurn(playerIndex);
 	}
 
 	@Override
-	public CatanModel buyDevCard(int playerIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel buyDevCard(int playerIndex) throws ServerException 
+	{
+		return authProxy.buyDevCard(playerIndex);
 	}
 
 	@Override
-	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) throws ServerException 
+	{
+		return authProxy.yearOfPlenty(playerIndex, resource1, resource2);
 	}
 
 	@Override
-	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws ServerException 
+	{
+		return authProxy.roadBuilding(playerIndex, spot1, spot2);
 	}
 
 	@Override

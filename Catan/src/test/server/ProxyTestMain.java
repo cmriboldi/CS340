@@ -8,6 +8,9 @@ import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.communication.*;
 import shared.definitions.CatanColor;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import test.TestJSON;
 
@@ -97,6 +100,22 @@ public class ProxyTestMain
 			System.out.println("Rob Player");
 			server.robPlayer(0, 1, new HexLocation(1,1));
 			System.out.println("Rob Player Successful");
+			
+			System.out.println("Finish Turn");
+			server.finishTurn(0);
+			System.out.println("Finish Turn Successful!");
+			
+			System.out.println("Buy Dev Card");
+			server.buyDevCard(1);
+			System.out.println("Successful!");
+			
+			System.out.println("Year of Plenty");
+			server.yearOfPlenty(1, ResourceType.ORE, ResourceType.BRICK);
+			System.out.println("Successful!");
+			
+			System.out.println("Road Building");
+			server.roadBuilding(1, new EdgeLocation(new HexLocation(1,1), EdgeDirection.South), new EdgeLocation(new HexLocation(1,1), EdgeDirection.NorthEast));
+			System.out.println("Successful!");
 		} 
 		catch (ServerException e) 
 		{

@@ -198,16 +198,18 @@ public interface ServerProxy
 	 * 
 	 * @param playerIndex Who's sending this command (0-3)
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel finishTurn(int playerIndex);
+	public CatanModel finishTurn(int playerIndex) throws ServerException;
 
 	/**
 	 * Used to buy a development card.
 	 * 
 	 * @param playerIndex Who's buying this dev card
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel buyDevCard(int playerIndex);
+	public CatanModel buyDevCard(int playerIndex) throws ServerException;
 
 	/**
 	 * Plays a 'Year of Plenty' card from your hand to gain the two specified ResourceTypes.
@@ -216,8 +218,9 @@ public interface ServerProxy
 	 * @param resource1
 	 * @param resource2
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2);
+	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) throws ServerException;
 
 	/**
 	 * Plays a 'Road Building' card from your hand to build two roads at the specified HexLocations.
@@ -226,8 +229,9 @@ public interface ServerProxy
 	 * @param spot1 Edge to build a road on
 	 * @param spot2 Edge to build a road on
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2);
+	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws ServerException;
 
 	/**
 	 * Plays a 'Soldier' from your hand, selecting the new robber position and player to rob.

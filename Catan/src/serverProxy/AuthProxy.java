@@ -18,6 +18,7 @@ import com.google.gson.JsonObject;
 import model.CatanModel;
 import shared.communication.*;
 import shared.communication.JSON.*;
+import shared.definitions.ResourceType;
 import shared.locations.*;
 
 public class AuthProxy 
@@ -145,6 +146,38 @@ public class AuthProxy
 	{
 		RobPlayerJSON data = new RobPlayerJSON(playerIndex, victimIndex, hexLocation);
 		String response = (String) post("/moves/robPlayer", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel finishTurn(int playerIndex) throws ServerException
+	{
+		FinishTurnJSON data = new FinishTurnJSON(playerIndex);
+		String response = (String) post("/moves/finishTurn", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel buyDevCard(int playerIndex) throws ServerException
+	{
+		BuyDevCardJSON data = new BuyDevCardJSON(playerIndex);
+		String response = (String) post("/moves/buyDevCard", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) throws ServerException
+	{
+		YearOfPlentyJSON data = new YearOfPlentyJSON(playerIndex, resource1.toString(), resource2.toString());
+		String response = (String) post("/moves/Year_of_Plenty", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws ServerException
+	{
+		RoadBuildingJSON data = new RoadBuildingJSON(playerIndex, spot1, spot2);
+		String response = (String) post("/moves/Road_Building", data);
 		//CatanModel model = JSONDeserializer.deserialize(response);
 		return null;//model;
 	}
