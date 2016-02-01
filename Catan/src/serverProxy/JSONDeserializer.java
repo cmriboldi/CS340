@@ -1,15 +1,23 @@
 package serverProxy;
 
-import shared.communication.GameModelJSON;
-import shared.communication.IdNumber;
-import shared.definitions.CatanColor;
-import model.resources.*;
-import model.players.*;
-import model.map.*;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import model.CatanModel;
-import model.development.*;
-import model.messagelog.*;
-import model.options.Options;
+import model.development.DevCardList;
+import model.development.DevCardManager;
+import model.development.PlayerDevCards;
+import model.map.*;
+import model.messagelog.ChatManager;
+import model.messagelog.Line;
+import model.players.Player;
+import model.players.PlayerManager;
+import model.players.PlayerTurnTracker;
+import model.resources.ResourceList;
+import model.resources.ResourceManager;
+import model.resources.TradeOffer;
+import shared.communication.IdNumber;
 import shared.definitions.PortType;
 import shared.exceptions.player.GeneralPlayerException;
 import shared.exceptions.player.InvalidTurnStatusException;
@@ -19,8 +27,6 @@ import shared.locations.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
-import com.google.gson.*;
 
 /**
  * Static object designed to deserialize the JSON object received from the server into a
@@ -252,7 +258,7 @@ public class JSONDeserializer
 		for (int i = 0; i < ports.size(); i++) {
 			JsonObject port = ports.get(i).getAsJsonObject();
 			JsonObject location = port.getAsJsonObject("location");
-			String resource;
+			String resource = "";
 
 			int x = location.getAsJsonPrimitive("x").getAsInt();
 			int y = location.getAsJsonPrimitive("y").getAsInt();
@@ -264,7 +270,7 @@ public class JSONDeserializer
 			int ratio = port.getAsJsonPrimitive("ratio").getAsInt();
 
 			//compile into Map structure
-			Port entry = new Port(x, y, VertexDirection.valueOf(direction), PortType.valueOf(direction), ratio);
+			Port entry = new Port(x, y, VertexDirection.valueOf(direction), PortType.valueOf(resource), ratio);
 			ports_r.put(entry.location, entry);
 		}
 
@@ -316,7 +322,7 @@ public class JSONDeserializer
 		int x = robber.getAsJsonPrimitive("x").getAsInt();
 		int y = robber.getAsJsonPrimitive("y").getAsInt();
 
-		this.mapManager = new MapManager(hexes_r, settlements_r, ports_r, roads_r, new HexLocation(x, y));
+		this.mapManager = new MapManager(hexes_r, settlements_r, ports_r, roads_r, new HexLocation(x, y), radius);
 	}
 	
 	private void SetChatManager(JsonObject chat, JsonObject log)

@@ -44,6 +44,11 @@ public class Map {
      */
     HexLocation robber;
 
+    /**
+     * Represents the ratuys if the game board
+     */
+    private int radius;
+
     /////////////////////////////////////////////////////////////////////
     //----- Constructor Methods
     //----- Function: Implicit
@@ -70,7 +75,7 @@ public class Map {
      */
     public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
                HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t,
-               HexLocation robber_t) {
+               HexLocation robber_t, int radius_t) {
         hexes = hexes_t;
         settlements = settlements_t;
         ports = ports_t;
