@@ -25,7 +25,7 @@ public class EdgeObject {
     /**
      * indicates the location of the edge on the board
      */
-    EdgeLocation location;
+    public EdgeLocation location;
 
     /**
      * Independent constructor. Used when EdgeObject is not being stored in a map.

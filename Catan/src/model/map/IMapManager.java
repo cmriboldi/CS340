@@ -14,6 +14,7 @@ public interface IMapManager
 	/** The Map which all the public functions will interact with */
 	Map map = new Map();
 
+
 	/**
 	 * Queries the Map and determines which player possess the longest road
 	 * 

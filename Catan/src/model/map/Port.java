@@ -13,13 +13,17 @@ public class Port extends VertexObject {
      */
     PortType type;
 
-    public Port(int x_t, int y_t, VertexDirection dir, int player_t, PortType type_t) {
-        super(x_t, y_t, dir, player_t);
+    int ratio;
+
+    public Port(int x_t, int y_t, VertexDirection dir, PortType type_t, int ratio_t) {
+        super(x_t, y_t, dir, -1);
         type = type_t;
+        ratio = ratio_t;
     }
 
-    public Port(int player_t, PortType type_t) {
+    public Port(int player_t, PortType type_t, int ratio_t) {
         super(player_t);
         type = type_t;
+        ratio = ratio_t;
     }
 }

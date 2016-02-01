@@ -27,7 +27,7 @@ public class VertexObject
 	 * Represents the location of this vertex on the board. May be null if the Vertex Object is stored in
 	 * a map.
 	 */
-	VertexLocation location;
+	public VertexLocation location;
 
 	/**
 	 * Constructor independant of VertexObject storage. Notable because it will assign and store the

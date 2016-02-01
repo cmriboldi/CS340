@@ -31,7 +31,7 @@ public class Hex {
      * The representation of this tile's x,y coordinates. Most cases hexes will be accessed from
      * outside the Hex class, so this is more for reference
      */
-    HexLocation location;
+    public HexLocation location;
 
     /**
      * Most independent constructor, used when there is no map to store the HexLocation

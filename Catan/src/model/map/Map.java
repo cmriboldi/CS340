@@ -39,6 +39,15 @@ public class Map {
      */
     private HashMap<EdgeLocation, EdgeObject> roads;
 
+    /**
+     * container for the robber
+     */
+    HexLocation robber;
+
+    /////////////////////////////////////////////////////////////////////
+    //----- Constructor Methods
+    //----- Function: Implicit
+    /////////////////////////////////////////////////////////////////////
 
     /**
      * Default constructor, initializes each variable to empty hashmaps
@@ -50,6 +59,7 @@ public class Map {
         roads = new HashMap<EdgeLocation, EdgeObject>();
     }
 
+
     /**
      * Constructor that fills the Map with MashMaps through the constructor (via the deserializer)
      *
@@ -59,12 +69,20 @@ public class Map {
      * @param roads_t
      */
     public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
-               HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t) {
+               HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t,
+               HexLocation robber_t) {
         hexes = hexes_t;
         settlements = settlements_t;
         ports = ports_t;
         roads = roads_t;
+        robber = robber_t;
     }
+
+
+    /////////////////////////////////////////////////////////////////////
+    //----- Navigation Methods
+    //----- Function: Find component X neighboring component Y
+    /////////////////////////////////////////////////////////////////////
 
     /**
      * Returns the location of the 4 edges attached to the given edge
@@ -77,6 +95,7 @@ public class Map {
         return null;
     }
 
+
     /**
      * Returns the location of the 2 vertices attached to the given edge
      *
@@ -84,8 +103,10 @@ public class Map {
      * @return
      */
     public VertexLocation[] findAdjVertex(EdgeLocation edge_t) {
+
         return null;
     }
+
 
     /**
      * Returns the location of the 3 edges attached to the given vertex
@@ -116,6 +137,7 @@ public class Map {
         return edges;
     }
 
+
     /**
      * Returns the location of the 6 edges attached to a given hex
      *
@@ -123,8 +145,10 @@ public class Map {
      * @return
      */
     public EdgeLocation[] findHexEdges(HexLocation hex_t) {
+
         return null;
     }
+
 
     /**
      * Returns the location of the 6 vertices attached to a given hex
@@ -133,9 +157,15 @@ public class Map {
      * @return
      */
     public VertexLocation[] findHexVertex(HexLocation hex_t) {
+
         return null;
     }
 
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //----- Functional Methods
+    //----- Function: These methods DO STUFF, often using the navigational methods
+    /////////////////////////////////////////////////////////////////////////////////
 
     /**
      * Queries the HashMap of hexes looking for tiles with a specific number value. Could
@@ -145,6 +175,7 @@ public class Map {
      * @return An ArrayList of HexLocations of hexes assigned the given number.
      */
     public ArrayList<HexLocation> queryNumber(int number) {
+
         return null;
     }
 }

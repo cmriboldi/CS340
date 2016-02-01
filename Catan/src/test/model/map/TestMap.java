@@ -34,8 +34,6 @@ public class TestMap {
 
     }
 
-
-
     @Test
     public void testQueryNumberValid() {
 

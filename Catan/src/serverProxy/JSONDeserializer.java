@@ -10,9 +10,11 @@ import model.CatanModel;
 import model.development.*;
 import model.messagelog.*;
 import model.options.Options;
+import shared.definitions.PortType;
 import shared.locations.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.google.gson.*;
@@ -204,91 +206,112 @@ public class JSONDeserializer
 	    newPlayerManager.setCatanPlayers(catanPlayers);
 	    this.playerManager = newPlayerManager; 
 	}
-	
-	private void SetMapManager(JsonObject map)
-	{	    
-	    JsonArray hexes = map.getAsJsonArray("hexes");
-	    JsonArray ports = map.getAsJsonArray("ports");
-	    JsonArray roads = map.getAsJsonArray("roads");
-	    JsonArray settlements = map.getAsJsonArray("settlements");
-	    JsonArray cities = map.getAsJsonArray("cities");
-	    JsonObject robber = map.getAsJsonObject("robber");
-	    int radius = map.getAsJsonPrimitive("radius").getAsInt();
-	    
-	    //Get Hex info
-	    for(int i = 0; i < hexes.size(); i++)
-	    {
-	    	JsonObject hex = hexes.get(i).getAsJsonObject();    	
-	    	JsonObject location = hex.getAsJsonObject("location");
-	    	String resource;
-	    	int number;
-	    	
-	    	int x = location.getAsJsonPrimitive("x").getAsInt();
-	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	
-	    	//if hex doesn't have resource and number it is desert hex
-	    	if(hex.has("resource") && hex.has("number"))
-	    	{
-	    		resource = hex.getAsJsonPrimitive("resource").getAsString();
-	    		number = hex.getAsJsonPrimitive("number").getAsInt();
-	    	}
-	    }
-	    
-	    //Get Port info
-	    for(int i = 0; i < ports.size(); i++)
-	    {
-	    	JsonObject port = ports.get(i).getAsJsonObject();
-	    	JsonObject location = port.getAsJsonObject("location");
-	    	String resource;
-	    	
-	    	int x = location.getAsJsonPrimitive("x").getAsInt();
-	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	
-	    	//if port doesn't have resource than it is 3:1 and those are for any resource
-	    	if(port.has("resource"))
-	    		resource = port.getAsJsonPrimitive("resource").getAsString();
-	    	String direction = port.getAsJsonPrimitive("direction").getAsString();
-	    	int ratio = port.getAsJsonPrimitive("ratio").getAsInt();    	
-	    }
-	    
-	    //Get road info
-	    for(int i = 0; i < roads.size(); i++)
-	    {
-	    	JsonObject road = roads.get(i).getAsJsonObject();
-	    	JsonObject location = road.getAsJsonObject("location");
-	    	
-	    	int x = location.getAsJsonPrimitive("x").getAsInt();
-	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	int owner = road.getAsJsonPrimitive("owner").getAsInt();
-	    	String direction = location.getAsJsonPrimitive("direction").getAsString();
-	    }
-	    
-	    //Get settlement info
-	    for(int i = 0; i < settlements.size(); i++)
-	    {
-	    	JsonObject settlement = roads.get(i).getAsJsonObject();
-	    	JsonObject location = settlement.getAsJsonObject("location");
-	    	
-	    	int x = location.getAsJsonPrimitive("x").getAsInt();
-	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	int owner = settlement.getAsJsonPrimitive("owner").getAsInt();
-	    	String direction = location.getAsJsonPrimitive("direction").getAsString();
-	    }
-	    
-	    //Get city info
-	    for(int i = 0; i < cities.size(); i++)
-	    {
-	    	JsonObject city = roads.get(i).getAsJsonObject();
-	    	JsonObject location = city.getAsJsonObject("location");
-	    	
-	    	int x = location.getAsJsonPrimitive("x").getAsInt();
-	    	int y = location.getAsJsonPrimitive("y").getAsInt();
-	    	int owner = city.getAsJsonPrimitive("owner").getAsInt();
-	    	String direction = location.getAsJsonPrimitive("direction").getAsString();
-	    }
-	    
-	    int x = robber.getAsJsonPrimitive("x").getAsInt();
-	    int y = robber.getAsJsonPrimitive("y").getAsInt();
+
+	private void SetMapManager(JsonObject map) {
+		JsonArray hexes = map.getAsJsonArray("hexes");
+		JsonArray ports = map.getAsJsonArray("ports");
+		JsonArray roads = map.getAsJsonArray("roads");
+		JsonArray settlements = map.getAsJsonArray("settlements");
+		JsonArray cities = map.getAsJsonArray("cities");
+		JsonObject robber = map.getAsJsonObject("robber");
+		int radius = map.getAsJsonPrimitive("radius").getAsInt();
+
+		//Return data structures
+		HashMap<HexLocation, Hex> hexes_r = new HashMap<>();
+		HashMap<VertexLocation, VertexObject> settlements_r = new HashMap<VertexLocation, VertexObject>();
+		HashMap<VertexLocation, VertexObject> ports_r = new HashMap<VertexLocation, VertexObject>();
+		HashMap<EdgeLocation, EdgeObject> roads_r = new HashMap<EdgeLocation, EdgeObject>();
+
+		//Get Hex info
+		for (int i = 0; i < hexes.size(); i++) {
+			JsonObject hex = hexes.get(i).getAsJsonObject();
+			JsonObject location = hex.getAsJsonObject("location");
+			String resource = "desert";
+			int number = 0;
+
+			int x = location.getAsJsonPrimitive("x").getAsInt();
+			int y = location.getAsJsonPrimitive("y").getAsInt();
+
+			//if hex doesn't have resource and number it is desert hex
+			if (hex.has("resource") && hex.has("number")) {
+				resource = hex.getAsJsonPrimitive("resource").getAsString();
+				number = hex.getAsJsonPrimitive("number").getAsInt();
+			}
+
+			//compile into Map structure
+			Hex entry = new Hex(x, y, resource, number);
+			hexes_r.put(entry.location, entry);
+		}
+
+		//Get Port info
+		for (int i = 0; i < ports.size(); i++) {
+			JsonObject port = ports.get(i).getAsJsonObject();
+			JsonObject location = port.getAsJsonObject("location");
+			String resource;
+
+			int x = location.getAsJsonPrimitive("x").getAsInt();
+			int y = location.getAsJsonPrimitive("y").getAsInt();
+
+			//if port doesn't have resource than it is 3:1 and those are for any resource
+			if (port.has("resource"))
+				resource = port.getAsJsonPrimitive("resource").getAsString();
+			String direction = port.getAsJsonPrimitive("direction").getAsString();
+			int ratio = port.getAsJsonPrimitive("ratio").getAsInt();
+
+			//compile into Map structure
+			Port entry = new Port(x, y, VertexDirection.valueOf(direction), PortType.valueOf(direction), ratio);
+			ports_r.put(entry.location, entry);
+		}
+
+		//Get road info
+		for (int i = 0; i < roads.size(); i++) {
+			JsonObject road = roads.get(i).getAsJsonObject();
+			JsonObject location = road.getAsJsonObject("location");
+
+			int x = location.getAsJsonPrimitive("x").getAsInt();
+			int y = location.getAsJsonPrimitive("y").getAsInt();
+			int owner = road.getAsJsonPrimitive("owner").getAsInt();
+			String direction = location.getAsJsonPrimitive("direction").getAsString();
+
+			//compile into Map structure
+			EdgeObject entry = new EdgeObject(x, y, EdgeDirection.valueOf(direction), owner);
+			roads_r.put(entry.location, entry);
+		}
+
+		//Get settlement info
+		for (int i = 0; i < settlements.size(); i++) {
+			JsonObject settlement = roads.get(i).getAsJsonObject();
+			JsonObject location = settlement.getAsJsonObject("location");
+
+			int x = location.getAsJsonPrimitive("x").getAsInt();
+			int y = location.getAsJsonPrimitive("y").getAsInt();
+			int owner = settlement.getAsJsonPrimitive("owner").getAsInt();
+			String direction = location.getAsJsonPrimitive("direction").getAsString();
+
+			//compile into Map structure
+			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(direction), owner);
+			settlements_r.put(entry.location, entry);
+		}
+
+		//Get city info
+		for (int i = 0; i < cities.size(); i++) {
+			JsonObject city = roads.get(i).getAsJsonObject();
+			JsonObject location = city.getAsJsonObject("location");
+
+			int x = location.getAsJsonPrimitive("x").getAsInt();
+			int y = location.getAsJsonPrimitive("y").getAsInt();
+			int owner = city.getAsJsonPrimitive("owner").getAsInt();
+			String direction = location.getAsJsonPrimitive("direction").getAsString();
+
+			//compile into Map structure
+			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(direction), owner);
+			settlements_r.put(entry.location, entry);
+		}
+
+		int x = robber.getAsJsonPrimitive("x").getAsInt();
+		int y = robber.getAsJsonPrimitive("y").getAsInt();
+
+		this.mapManager = new MapManager(hexes_r, settlements_r, ports_r, roads_r, new HexLocation(x, y));
 	}
 	
 	private void SetChatManager(JsonObject chat, JsonObject log)
