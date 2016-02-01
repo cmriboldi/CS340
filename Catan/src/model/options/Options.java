@@ -34,7 +34,7 @@ public class Options
 	 */
 	public boolean canAffordRoad(int playerIndex)
 	{
-		return true;
+		return catanModel.resourceManager.canAffordRoad(playerIndex);
 	}
 
 	/**
@@ -45,7 +45,7 @@ public class Options
 	 */
 	public boolean canAffordTown(int playerIndex)
 	{
-		return true;
+		return catanModel.resourceManager.canAffordTown(playerIndex);
 	}
 
 	/**
@@ -56,7 +56,7 @@ public class Options
 	 */
 	public boolean canAffordCity(int playerIndex)
 	{
-		return true;
+		return catanModel.resourceManager.canAffordCity(playerIndex);
 	}
 	
 	/**
@@ -67,7 +67,7 @@ public class Options
 	 */
 	public boolean canAffordDevCard(int playerIndex)
 	{
-		return true;
+		return catanModel.resourceManager.canAffordDevCard(playerIndex);
 	}
 	
 	/**
@@ -78,13 +78,11 @@ public class Options
 	 */
 	public boolean canPlayDevCard(int playerIndex)
 	{
-		//call playerTurnManager to see if it players turn.
-		//call hasPlayedDevCard(playerIndex) to see if a player has played a devCard this turn.
-		return true;
+		return canPlay(playerIndex) && catanModel.cardManager.hasPlayedDevCard(playerIndex);
 	}
 	
 	/**
-	 * Check if a player has a development card of the given type.
+	 * Check if a player has an un-played development card of the given type.
 	 * 
 	 * @param playerIndex index of the player.
 	 * @param card DevCardType of the card in question.
@@ -92,30 +90,28 @@ public class Options
 	 */
 	public boolean hasDevCard(int playerIndex, DevCardType card)
 	{
-		//call devCardManager to see if player has card of given type.
-		return true;
+		return catanModel.cardManager.hasDevCard(playerIndex, card);
 	}
-	
+
 	/**
 	 * Check if there are enough cards in the development card stack to draw a card.
-	 * 
+	 * @param playerIndex The index of the player who needs to see if they can draw a card.
 	 * @return
 	 */
-	public boolean canDrawDevCard()
+	public boolean canDrawDevCard(int playerIndex)
 	{
-		// call devCardManager to see if there enough cards in development card deck.
-		return true;
+		return canPlay(playerIndex) && catanModel.cardManager.canDrawDevCard();
 	}
 
 	/**
 	 * Check if a player can trade
 	 * 
-	 * @param playerIndex index
+	 * @param playerIndex index of the player asking to trade.
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canTrade(int playerIndex)
 	{
-		return true;
+		return canPlay(playerIndex) || catanModel.resourceManager.canTrade(playerIndex);
 	}
 
 	/**
@@ -135,8 +131,6 @@ public class Options
 	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
-	
-	
 	public boolean canPlay(int playerIndex)
 	{
 		

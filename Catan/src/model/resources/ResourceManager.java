@@ -148,4 +148,9 @@ public class ResourceManager
 		return banker.canPlayerAfford(playerIndex, Cost.DEVCARD);
 	}
 
+	public boolean canTrade(int playerIndex)
+	{
+		return trader.canTrade(playerIndex);
+	}
+
 };

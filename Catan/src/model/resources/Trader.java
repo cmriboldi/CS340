@@ -74,4 +74,9 @@ public class Trader
 		
 	}
 
+	public boolean canTrade(int playerIndex)
+	{
+		return tradeOffer.getReceiver() == playerIndex || tradeOffer.getSender() == playerIndex;
+	}
+
 }

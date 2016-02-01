@@ -141,5 +141,10 @@ public class DevCardManager
 	{
 		return playedDevCards;
 	}
+
+	public boolean hasDevCard(int playerIndex, DevCardType devCard)
+	{
+		return newDevCards.hasDevCard(playerIndex, devCard) || oldDevCards.hasDevCard(playerIndex, devCard);
+	}
 	
 }
