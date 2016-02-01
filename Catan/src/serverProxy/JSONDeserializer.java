@@ -11,6 +11,9 @@ import model.development.*;
 import model.messagelog.*;
 import model.options.Options;
 import shared.definitions.PortType;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 import shared.locations.*;
 
 import java.util.ArrayList;
@@ -44,7 +47,7 @@ public class JSONDeserializer
 		return _instance;
 	}
 	
-	public static CatanModel deserialize(String json)
+	public static CatanModel deserialize(String json) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
 	{
 		return instance()._deserialize(json);
 	}
@@ -54,6 +57,8 @@ public class JSONDeserializer
 	private PlayerManager playerManager;
 	private MapManager mapManager;
 	private ChatManager chatManager;
+	CatanModel catanModel = null;
+
 	
 	private void SetResourceManager(JsonObject bank, JsonArray players, JsonObject tradeOffer)
 	{
@@ -348,12 +353,16 @@ public class JSONDeserializer
 	    this.chatManager = new ChatManager(chatMessages, gameHistory);
 	}
 	
-	private void SetTurnManager(JsonObject turnTracker)
+	private void SetTurnManager(JsonObject turnTracker) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
 	{
 		int currentTurn = turnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 	    String status = turnTracker.getAsJsonPrimitive("status").getAsString();
 	    int longestRoad = turnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
 	    int largestArmy = turnTracker.getAsJsonPrimitive("largestArmy").getAsInt();
+	    
+	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker( currentTurn, status); 
+	    playerManager.setTurnTracker(playerTurnTracker);
+	   
 	}
 	
 	/**
@@ -362,10 +371,12 @@ public class JSONDeserializer
 	 * 
 	 * @param jsonObject String received from the server API
 	 * @return The now parsed GameModelJSON object.
+	 * @throws GeneralPlayerException 
+	 * @throws InvalidTurnStatusException 
+	 * @throws TurnIndexException 
 	 */
-	private CatanModel _deserialize(String json)
+	private CatanModel _deserialize(String json) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
 	{
-		CatanModel catanModel;
 		
 		JsonElement jelement = new JsonParser().parse(json);
 	    JsonObject  jobject = jelement.getAsJsonObject();

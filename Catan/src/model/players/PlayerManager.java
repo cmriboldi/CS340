@@ -26,29 +26,17 @@ public class PlayerManager
 		CatanPlayers = catanPlayers;
 	}
 
+	public PlayerTurnTracker turnTracker = null; 
+	
+	
 
-
-	/**
-	 * Called in order to log player 'playerID' into the game. This expands CatanPlayers
-	 * 
-	 * @param playerID
-	 * @throws tooManyPlayersException if there are already 6 players
-	 */
-	public void LogPlayerIn(int playerID) throws TooManyPlayersException
-	{
-
+	public PlayerTurnTracker getTurnTracker() {
+		return turnTracker;
 	}
 
-	/**
-	 * Called in order to log player 'playerID' out of the game. 'playerID' is removed from
-	 * CatanPlayers
-	 * 
-	 * @param playerID
-	 * @throws tooManyPlayersException if there are already 6 players
-	 */
-	public void LogPlayerOut(int playerID) throws NoMorePlayersException
-	{
-
+	public void setTurnTracker(PlayerTurnTracker turnTracker) {
+		this.turnTracker = turnTracker;
 	}
+
 
 }

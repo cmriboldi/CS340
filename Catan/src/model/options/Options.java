@@ -1,5 +1,7 @@
 package model.options;
 
+import model.CatanModel;
+import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
@@ -16,9 +18,12 @@ import shared.locations.VertexLocation;
  */
 public class Options
 {
-	public Options()
-	{
+	
+	CatanModel catanModel = null; 
 
+	public Options(CatanModel catanModel)
+	{
+		this.catanModel = catanModel; 
 	}
 
 	/**
@@ -130,10 +135,55 @@ public class Options
 	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
+	
+	
 	public boolean canPlay(int playerIndex)
 	{
-		return true;
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("playing")) return true; 
+		else return false; 
+		
 	}
+
+	
+	public boolean canRollNumber(int playerIndex)
+	{
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("rolling")) return true; 
+		else return false; 	
+	}
+
+	public boolean canPlaceRobber(int playerIndex)
+	{
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("robbing")) return true; 
+		else return false; 	
+	}
+	
+	public boolean canDiscardCards(int playerIndex)
+	{
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("discarding")) return true; 
+		else return false; 	
+	}
+	
+	public boolean canFinishTurn(int playerIndex)
+	{
+		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("playing")) return true; 
+		else return false; 	
+	}
+	
 
 	/**
 	 * Check if a road can be placed in specific position
