@@ -308,27 +308,28 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel acceptTrade(int playerIndex, boolean willAccept) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel acceptTrade(int playerIndex, boolean willAccept) throws ServerException 
+	{
+		return authProxy.acceptTrade(playerIndex, willAccept);
 	}
 
 	@Override
-	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) throws ServerException 
+	{
+		return authProxy.maritimeTrade(playerIndex, ratio, input, output);
 	}
 
 	@Override
-	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) throws ServerException 
+	{
+		return authProxy.discardCards(playerIndex, discardedCards);
 	}
 
 	@Override
-	public void changeLogLevel(LogLevel logLevel) throws ServerException {
-		// TODO Auto-generated method stub
-		
+	public void changeLogLevel(LogLevel logLevel) throws ServerException 
+	{
+		ChangeLogLevelJSON data = new ChangeLogLevelJSON(logLevel.toString());
+		post("/util/changeLogLevel", data);
 	}
 	
 	private Object get(String urlPath) throws ServerException

@@ -313,8 +313,9 @@ public interface ServerProxy
 	 * @param playerIndex Who's accepting/rejecting this trade.
 	 * @param willAccept Whether you accept the trade or not.
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel acceptTrade(int playerIndex, boolean willAccept);
+	public CatanModel acceptTrade(int playerIndex, boolean willAccept) throws ServerException;
 
 	/**
 	 * Used to execute a maritime trade.
@@ -324,8 +325,9 @@ public interface ServerProxy
 	 * @param input What type of ResourceType you're giving
 	 * @param output What type of ResourceType you're receiving
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output);
+	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) throws ServerException;
 
 	/**
 	 * Discards the specified ResourceType cards.
@@ -333,8 +335,9 @@ public interface ServerProxy
 	 * @param playerIndex Who's discarding
 	 * @param discardedCards List of ResourceTypes being discarded
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel discardCards(int playerIndex, ResourceList discardedCards);
+	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) throws ServerException;
 
 	/**
 	 * Sets the server's log level. (ALL, SEVERE, WARNING ,INFO, CONFIG, FINE, FINER, FINEST, OFF)
