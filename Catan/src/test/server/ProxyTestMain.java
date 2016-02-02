@@ -9,6 +9,7 @@ import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.communication.*;
 import shared.definitions.CatanColor;
+import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.GeneralPlayerException;
 import shared.exceptions.player.InvalidTurnStatusException;
@@ -22,7 +23,7 @@ import test.TestJSON;
 
 public class ProxyTestMain 
 {
-	public static void main(String[] args) 
+	public static void main(String[] args)
 	{
 		RealProxy server = new RealProxy();
 		try 
@@ -150,6 +151,22 @@ public class ProxyTestMain
 			System.out.println("Offer Trade");
 			server.offerTrade(0, 1, new ResourceList(1,1,1,1,1));
 			System.out.println("Successful");
+			
+			System.out.println("Accept Trade");
+			server.acceptTrade(1, true);
+			System.out.println("Successful");
+			
+			System.out.println("Maritime Trade");
+			server.maritimeTrade(0, 3, ResourceType.SHEEP, ResourceType.ORE);
+			System.out.println("Successful");
+			
+			System.out.println("Discard Cards");
+			server.discardCards(1, new ResourceList(1,1,1,1,1));
+			System.out.println("Successful");
+			
+			System.out.println("Change Log Level");
+			server.changeLogLevel(LogLevel.ALL);
+			System.out.println("Successful!");
 		} 
 		catch (ServerException e) 
 		{

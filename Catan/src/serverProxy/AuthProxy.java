@@ -239,6 +239,30 @@ public class AuthProxy
 		return null;//model;
 	}
 	
+	public CatanModel acceptTrade(int playerIndex, boolean willAccept) throws ServerException
+	{
+		AcceptTradeJSON data = new AcceptTradeJSON(playerIndex, willAccept);
+		String response = (String) post("/moves/acceptTrade", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) throws ServerException
+	{
+		MaritimeTradeJSON data = new MaritimeTradeJSON(playerIndex, ratio, input.toString(), output.toString());
+		String response = (String) post("/moves/maritimeTrade", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) throws ServerException
+	{
+		DiscardCardsJSON data = new DiscardCardsJSON(playerIndex, discardedCards);
+		String response = (String) post("/moves/discardCards", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
 	private Object get(String urlPath) throws ServerException
 	{
 		URL url;
