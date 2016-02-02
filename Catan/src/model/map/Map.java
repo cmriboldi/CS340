@@ -68,10 +68,10 @@ public class Map {
     /**
      * Constructor that fills the Map with MashMaps through the constructor (via the deserializer)
      *
-     * @param hexes_t
-     * @param settlements_t
-     * @param ports_t
-     * @param roads_t
+     * @param hexes_t       hashMap of Hex Objects
+     * @param settlements_t hashMap of Settlement Objects
+     * @param ports_t       hashMap of Port Objects
+     * @param roads_t       hasMap of edgeValue Objects
      */
     public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
                HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t,
@@ -81,6 +81,7 @@ public class Map {
         ports = ports_t;
         roads = roads_t;
         robber = robber_t;
+        radius = radius_t;
     }
 
 
@@ -89,83 +90,18 @@ public class Map {
     //----- Function: Find component X neighboring component Y
     /////////////////////////////////////////////////////////////////////
 
-    /**
-     * Returns the location of the 4 edges attached to the given edge
-     *
-     * @param edge_t The given edge
-     * @return
-     */
-    public EdgeLocation[] findAdjEdges(EdgeLocation edge_t) {
+    public VertexLocation findVertexLeft(EdgeLocation edge_t) {
 
         return null;
     }
 
-
-    /**
-     * Returns the location of the 2 vertices attached to the given edge
-     *
-     * @param edge_t The given edge
-     * @return
-     */
-    public VertexLocation[] findAdjVertex(EdgeLocation edge_t) {
-
+    public VertexLocation findVertexRight(EdgeLocation edge_t) {
         return null;
     }
 
-
-    /**
-     * Returns the location of the 3 edges attached to the given vertex
-     *
-     * @param vertex_t The given vertex
-     * @return
-     */
-    public EdgeLocation[] findAdjEdges(VertexLocation vertex_t) {
-
-        EdgeLocation[] edges = new EdgeLocation[3];
-
-        if (vertex_t.getNormalizedLocation().getDir() == VertexDirection.NorthWest) {
-            //return current hex location, N
-            //return current hex location, NW
-
-            //check for third edge (or neighboring hex), watch for boundary of map
-            //return currentHex.getNeighbor(NW), NE
-        }
-
-        if (vertex_t.getNormalizedLocation().getDir() == VertexDirection.NorthEast) {
-            //return current hex location, N
-            //return current hex location, NE
-
-            //check for third edge (or neighboring hex), watch for boundary of map
-            //return currentHex.getNeighbor(NE), NW
-        }
-
-        return edges;
-    }
-
-
-    /**
-     * Returns the location of the 6 edges attached to a given hex
-     *
-     * @param hex_t The given hex
-     * @return
-     */
-    public EdgeLocation[] findHexEdges(HexLocation hex_t) {
-
+    public EdgeLocation[] findEdges(VertexLocation vertex_t){
         return null;
     }
-
-
-    /**
-     * Returns the location of the 6 vertices attached to a given hex
-     *
-     * @param hex_t The given hex
-     * @return
-     */
-    public VertexLocation[] findHexVertex(HexLocation hex_t) {
-
-        return null;
-    }
-
 
     /////////////////////////////////////////////////////////////////////////////////
     //----- Functional Methods
@@ -176,7 +112,7 @@ public class Map {
      * Queries the HashMap of hexes looking for tiles with a specific number value. Could
      * potentially be hard coded at map creation
      *
-     * @param number
+     * @param number the number to look for inside each of the hexes
      * @return An ArrayList of HexLocations of hexes assigned the given number.
      */
     public ArrayList<HexLocation> queryNumber(int number) {
