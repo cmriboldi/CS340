@@ -19,7 +19,6 @@ import model.resources.ResourceList;
 import shared.communication.*;
 import shared.communication.JSON.*;
 import shared.definitions.CatanColor;
-import shared.definitions.Command;
 import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
 import shared.locations.*;
@@ -199,16 +198,15 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel setCommands(List<Command> commands) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel setCommands(JsonArray commands) throws ServerException 
+	{
+		return authProxy.setCommands(commands);
 	}
 
 	@Override
-	public List<Command> getCommands() 
+	public JsonArray getCommands() throws ServerException 
 	{
-		// TODO Auto-generated method stub
-		return null;
+		return authProxy.getCommands();
 	}
 
 	@Override
@@ -395,15 +393,12 @@ public class RealProxy implements ServerProxy
 			conn.setRequestMethod("POST");
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
-//			System.out.println(conn.getRequestProperties().toString());
 			conn.connect();
 			
 			DataOutputStream writer = new DataOutputStream(conn.getOutputStream());
 			byte[] send = new Gson().toJson(data).getBytes();
 			writer.write(send);
 			writer.close();
-			
-//			System.out.println(conn.getResponseCode());
 			
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
@@ -440,6 +435,4 @@ public class RealProxy implements ServerProxy
 		}
 		return null;
 	}
-
-
 }

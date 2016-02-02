@@ -2,6 +2,8 @@ package test.server;
 
 import java.util.List;
 
+import com.google.gson.JsonArray;
+
 import model.CatanModel;
 import model.resources.ResourceList;
 import serverProxy.JSONDeserializer;
@@ -84,10 +86,18 @@ public class ProxyTestMain
 			server.resetGame();
 			System.out.println("Reset Successful!");
 			
-//			System.out.println("Test Deserializer");
-//			System.out.println(TestJSON.get());
-//			CatanModel model = JSONDeserializer.deserialize(TestJSON.get());
-//			System.out.println("Well it didn't throw any exceptions");
+			System.out.println("Get Commands");
+			JsonArray commands = server.getCommands();
+			System.out.println("Successful!");
+			
+			System.out.println("Set Commands");
+			server.setCommands(commands);
+			System.out.println("Successful!");
+			
+			System.out.println("Test Deserializer");
+			System.out.println(TestJSON.get());
+			CatanModel model = JSONDeserializer.deserialize(TestJSON.get());
+			System.out.println("Well it didn't throw any exceptions");
 			
 //			System.out.println("Add AI");
 //			server.addAI("Test that won't work anyway");
@@ -170,6 +180,15 @@ public class ProxyTestMain
 		} 
 		catch (ServerException e) 
 		{
+			e.printStackTrace();
+		} catch (TurnIndexException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidTurnStatusException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GeneralPlayerException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}

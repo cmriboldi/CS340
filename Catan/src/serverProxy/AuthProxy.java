@@ -107,9 +107,40 @@ public class AuthProxy
 	public CatanModel resetGame() throws ServerException
 	{
 		String response = (String) post("/game/reset", null);
-		JsonObject json = new Gson().fromJson(response, JsonObject.class);
-		System.out.println(json.toString());
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
 		return null;
+	}
+	
+	public CatanModel setCommands(JsonArray commands) throws ServerException
+	{
+		String response = (String) post("/game/commands", commands);
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public JsonArray getCommands() throws ServerException
+	{
+		String response = (String) get("/game/commands");
+		JsonArray json = new Gson().fromJson(response, JsonArray.class);
+		return json;
 	}
 	
 	public void addAI(String AIType) throws ServerException

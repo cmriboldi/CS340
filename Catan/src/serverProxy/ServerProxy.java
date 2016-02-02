@@ -2,6 +2,8 @@ package serverProxy;
 
 import java.util.List;
 
+import com.google.gson.JsonArray;
+
 import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.*;
@@ -131,8 +133,9 @@ public interface ServerProxy
 	 * 
 	 * @param commands The list of commands to be executed
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel setCommands(List<Command> commands);
+	public CatanModel setCommands(JsonArray commands) throws ServerException;
 
 	/**
 	 * Returns a list of commands that have been executed in the current game. This method can be
@@ -144,8 +147,9 @@ public interface ServerProxy
 	 * join a game before calling this method.
 	 * 
 	 * @return Returns the list of Commands that have occurred since the game was initialized
+	 * @throws ServerException 
 	 */
-	public List<Command> getCommands();
+	public JsonArray getCommands() throws ServerException;
 
 	/**
 	 * Adds an AI player to the current game. You must login and join a game before calling this
