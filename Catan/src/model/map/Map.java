@@ -150,10 +150,21 @@ public class Map {
         EdgeLocation[] edges = new EdgeLocation[3];
 
         //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
+        if(vertex_t.getDir() == VertexDirection.NorthEast){
+            edges[0] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
+            edges[1] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthEast);
+            edges[2] = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast), EdgeDirection.NorthWest);
+            return edges;
+        }
 
 
         //If the vertex is a NorthWest Vertex, return the local N and NW edges and the NW neighbor's NE edge
-
+        if(vertex_t.getDir() == VertexDirection.NorthWest){
+            edges[0] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
+            edges[1] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthWest);
+            edges[2] = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest), EdgeDirection.NorthEast);
+            return edges;
+        }
 
         return null;
     }
