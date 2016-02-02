@@ -75,7 +75,8 @@ public class Map {
      */
     public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
                HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t,
-               HexLocation robber_t, int radius_t) {
+               HexLocation robber_t, int radius_t)
+    {
         hexes = hexes_t;
         settlements = settlements_t;
         ports = ports_t;
@@ -90,16 +91,70 @@ public class Map {
     //----- Function: Find component X neighboring component Y
     /////////////////////////////////////////////////////////////////////
 
+    /**
+     * Identifies and returns the leftmost vertex attached to the given edge
+     * @param edge_t The edge
+     * @return The location of the leftmost vertex
+     */
     public VertexLocation findVertexLeft(EdgeLocation edge_t) {
+        //Normalize the input edge
+        edge_t = edge_t.getNormalizedLocation();
 
+        //If the edge is a NorthWest edge, return the NorthEast vertex of the Hex to the SouthWest
+        if(edge_t.getDir() == EdgeDirection.NorthWest)
+            return new VertexLocation(edge_t.getHexLoc().getNeighborLoc(EdgeDirection.SouthWest), VertexDirection.NorthEast);
+
+        //If the edge is a North edge, return the NorthWest Vertex of the Hex
+        if(edge_t.getDir() == EdgeDirection.North)
+            return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthWest);
+
+        //If the edge is a NorthEast edge, return the NorthEast Vertex of the Hex
+        if(edge_t.getDir() == EdgeDirection.NorthEast)
+            return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthEast);
+
+        //Should Never get here
         return null;
     }
 
+    /**
+     * Identifies and returns the rightmost vertex attached to the given edge
+     * @param edge_t The edge
+     * @return The location of the rightmost vertex
+     */
     public VertexLocation findVertexRight(EdgeLocation edge_t) {
+        //Normalize the input edge
+        edge_t = edge_t.getNormalizedLocation();
+
+        //If the edge is a NorthWest edge, return the NorthWest Vertex of the Hex
+        if(edge_t.getDir() == EdgeDirection.NorthWest)
+            return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthWest);
+
+        //If the edge is a North edge, return the NorthEast Vertex of Hex
+        if(edge_t.getDir() == EdgeDirection.North)
+            return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthEast);
+
+        //If the edge is a NorthEast edge, return the NorthWest Vertex of the Hex to the SouthEast
+        if(edge_t.getDir() == EdgeDirection.NorthEast)
+            return new VertexLocation(edge_t.getHexLoc().getNeighborLoc(EdgeDirection.SouthEast), VertexDirection.NorthWest);
+
+        //Should Never get here
         return null;
     }
+
 
     public EdgeLocation[] findEdges(VertexLocation vertex_t){
+        //Normalize the input vertex
+        vertex_t = vertex_t.getNormalizedLocation();
+
+        //Initialize the return array;
+        EdgeLocation[] edges = new EdgeLocation[3];
+
+        //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
+
+
+        //If the vertex is a NorthWest Vertex, return the local N and NW edges and the NW neighbor's NE edge
+
+
         return null;
     }
 

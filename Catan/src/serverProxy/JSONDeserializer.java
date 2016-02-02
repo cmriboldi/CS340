@@ -23,6 +23,7 @@ import shared.exceptions.player.GeneralPlayerException;
 import shared.exceptions.player.InvalidTurnStatusException;
 import shared.exceptions.player.TurnIndexException;
 import shared.locations.*;
+import shared.locations.Direction;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -270,7 +271,7 @@ public class JSONDeserializer
 			int ratio = port.getAsJsonPrimitive("ratio").getAsInt();
 
 			//compile into Map structure
-			Port entry = new Port(x, y, VertexDirection.valueOf(direction), PortType.valueOf(resource), ratio);
+			Port entry = new Port(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), PortType.valueOf(resource), ratio);
 			ports_r.put(entry.location, entry);
 		}
 
@@ -300,7 +301,7 @@ public class JSONDeserializer
 			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
-			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(direction), owner);
+			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), owner);
 			settlements_r.put(entry.location, entry);
 		}
 
@@ -315,7 +316,7 @@ public class JSONDeserializer
 			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
-			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(direction), owner);
+			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), owner);
 			settlements_r.put(entry.location, entry);
 		}
 
