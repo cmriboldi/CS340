@@ -47,10 +47,8 @@ public class VertexObject
 	 * @param player_t
      */
 
-	public VertexObject(int player_t){
+	public VertexObject(VertexLocation location_t, int player_t){
 		player = player_t;
-		location = null;
+		location = location_t;
 	}
-
-
 }

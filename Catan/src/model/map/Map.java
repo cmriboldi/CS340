@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 //Project Imports
 import shared.locations.*;
+import sun.security.provider.certpath.Vertex;
 
 /**
  * The Map class contains all information dealing with the map.
@@ -185,4 +186,56 @@ public class Map {
 
         return null;
     }
+
+    public boolean canPlaceRoad(EdgeLocation edge, int player) {
+        //normalize the edge
+        edge = edge.getNormalizedLocation();
+
+        //is there a road already present at edge
+        if(roads.containsKey(edge))
+            return false;
+
+        //is there a player settlement adj to the edge
+        VertexLocation left = findVertexLeft(edge);
+        VertexLocation right = findVertexRight(edge);
+
+
+        System.out.println("left:" + left.toString());
+        if(settlements.containsKey(left))
+            if(settlements.get(left).player == player){
+                return true;
+            }
+
+        System.out.println("right:" + right.toString());
+        System.out.println(settlements.containsKey(right));
+
+        if(settlements.containsKey(right)){
+            System.out.println(settlements.get(right).player);
+            System.out.println(player);
+            if(settlements.get(right).player == player) {
+                return true;
+            }
+        }
+
+
+
+
+
+        return false;
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////
+    //----- Getters and Setters
+    //----- Function: implicit
+    /////////////////////////////////////////////////////////////////////////////////
+
+    public HashMap<EdgeLocation, Road> getRoads(){
+        return roads;
+    }
+
+    public HashMap<VertexLocation, Settlement> getSettlements(){
+        return settlements;
+    }
+
 }

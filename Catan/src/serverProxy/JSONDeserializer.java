@@ -4,6 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.sun.javafx.geom.Edge;
 import model.CatanModel;
 import model.development.DevCardList;
 import model.development.DevCardManager;
@@ -271,7 +272,10 @@ public class JSONDeserializer
 			int ratio = port.getAsJsonPrimitive("ratio").getAsInt();
 
 			//compile into Map structure
-			Port entry = new Port(x, y, EdgeDirection.valueOf(Direction.shortToLong(direction)), PortType.valueOf(resource.toUpperCase()), ratio);
+			HexLocation hexLocation = new HexLocation(x, y);
+			EdgeLocation edgeLocation = new EdgeLocation(hexLocation, EdgeDirection.valueOf(Direction.shortToLong(direction)));
+			edgeLocation = edgeLocation.getNormalizedLocation();
+			Port entry = new Port(edgeLocation, PortType.valueOf(resource.toUpperCase()), ratio);
 			ports_r.put(entry.location, entry);
 		}
 
@@ -286,7 +290,10 @@ public class JSONDeserializer
 			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
-			Road entry = new Road(x, y, EdgeDirection.valueOf(Direction.shortToLong(direction)), owner);
+			HexLocation hexLocation = new HexLocation(x,y);
+			EdgeLocation edgeLocation = new EdgeLocation(hexLocation,EdgeDirection.valueOf(Direction.shortToLong(direction)));
+			edgeLocation = edgeLocation.getNormalizedLocation();
+			Road entry = new Road(edgeLocation, owner);
 			roads_r.put(entry.location, entry);
 		}
 
@@ -301,7 +308,10 @@ public class JSONDeserializer
 			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
-			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), owner);
+			HexLocation hexLocation = new HexLocation(x,y);
+			VertexLocation vertexLocation = new VertexLocation(hexLocation, VertexDirection.valueOf(Direction.shortToLong(direction)));
+			vertexLocation = vertexLocation.getNormalizedLocation();
+			Settlement entry = new Settlement(vertexLocation, owner);
 			settlements_r.put(entry.location, entry);
 		}
 
@@ -316,7 +326,10 @@ public class JSONDeserializer
 			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
-			Settlement entry = new Settlement(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), owner);
+			HexLocation hexLocation = new HexLocation(x,y);
+			VertexLocation vertexLocation = new VertexLocation(hexLocation, VertexDirection.valueOf(Direction.shortToLong(direction)));
+			vertexLocation = vertexLocation.getNormalizedLocation();
+			Settlement entry = new Settlement(vertexLocation, owner);
 			settlements_r.put(entry.location, entry);
 		}
 

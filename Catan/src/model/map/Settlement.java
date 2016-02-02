@@ -1,6 +1,7 @@
 package model.map;
 
 import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 /**
  * Created by clayt on 1/29/2016.
@@ -17,8 +18,12 @@ public class Settlement extends VertexObject {
         isCity = false;
     }
 
-    public Settlement(int player_t){
-        super(player_t);
+    public Settlement(VertexLocation location_t, int player_t){
+        super(location_t, player_t);
         isCity = false;
+    }
+
+    public String toString(){
+        return "Settlement-" + location.toString() + " isCity[" + isCity + "] player[" + player + "]";
     }
 }
