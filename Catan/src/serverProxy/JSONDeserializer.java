@@ -259,7 +259,7 @@ public class JSONDeserializer
 		for (int i = 0; i < ports.size(); i++) {
 			JsonObject port = ports.get(i).getAsJsonObject();
 			JsonObject location = port.getAsJsonObject("location");
-			String resource = "";
+			String resource = "THREE";
 
 			int x = location.getAsJsonPrimitive("x").getAsInt();
 			int y = location.getAsJsonPrimitive("y").getAsInt();
@@ -271,7 +271,7 @@ public class JSONDeserializer
 			int ratio = port.getAsJsonPrimitive("ratio").getAsInt();
 
 			//compile into Map structure
-			Port entry = new Port(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), PortType.valueOf(resource), ratio);
+			Port entry = new Port(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), PortType.valueOf(resource.toUpperCase()), ratio);
 			ports_r.put(entry.location, entry);
 		}
 
