@@ -20,6 +20,9 @@ import model.resources.ResourceList;
 import shared.communication.*;
 import shared.communication.JSON.*;
 import shared.definitions.ResourceType;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 import shared.locations.*;
 
 public class AuthProxy 
@@ -131,136 +134,289 @@ public class AuthProxy
 	{
 		SendChatJSON send = new SendChatJSON(playerIndex, content);
 		String response = (String) post("/moves/sendChat", send);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel rollNumber(int playerIndex, int number) throws ServerException
 	{
 		RollNumberJSON data = new RollNumberJSON(playerIndex, number);
 		String response = (String) post("/moves/rollNumber", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException
 	{
 		RobPlayerJSON data = new RobPlayerJSON(playerIndex, victimIndex, hexLocation);
 		String response = (String) post("/moves/robPlayer", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel finishTurn(int playerIndex) throws ServerException
 	{
 		FinishTurnJSON data = new FinishTurnJSON(playerIndex);
 		String response = (String) post("/moves/finishTurn", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel buyDevCard(int playerIndex) throws ServerException
 	{
 		BuyDevCardJSON data = new BuyDevCardJSON(playerIndex);
 		String response = (String) post("/moves/buyDevCard", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) throws ServerException
 	{
 		YearOfPlentyJSON data = new YearOfPlentyJSON(playerIndex, resource1.toString(), resource2.toString());
 		String response = (String) post("/moves/Year_of_Plenty", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws ServerException
 	{
 		RoadBuildingJSON data = new RoadBuildingJSON(playerIndex, spot1, spot2);
 		String response = (String) post("/moves/Road_Building", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation location) throws ServerException
 	{
 		SoldierJSON data = new SoldierJSON(playerIndex, victimIndex, location);
 		String response = (String) post("/moves/Soldier", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel monopoly(int playerIndex, ResourceType resource) throws ServerException
 	{
 		MonopolyJSON data = new MonopolyJSON(playerIndex, resource.toString());
 		String response = (String) post("/moves/Soldier", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel monument(int playerIndex) throws ServerException
 	{
 		MonumentJSON data = new MonumentJSON(playerIndex);
 		String response = (String) post("/moves/Monument", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) throws ServerException
 	{
 		BuildRoadJSON data = new BuildRoadJSON(playerIndex, roadLocation, free);
 		String response = (String) post("/moves/buildRoad", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) throws ServerException
 	{
 		BuildSettlementJSON data = new BuildSettlementJSON(playerIndex, vertexLocation, free);
 		String response = (String) post("/moves/buildSettlement", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) throws ServerException
 	{
 		BuildCityJSON data = new BuildCityJSON(playerIndex, vertexLocation);
 		String response = (String) post("/moves/buildCity", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) throws ServerException
 	{
 		OfferTradeJSON data = new OfferTradeJSON(playerIndex, offer, receiver);
 		String response = (String) post("/moves/offerTrade", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel acceptTrade(int playerIndex, boolean willAccept) throws ServerException
 	{
 		AcceptTradeJSON data = new AcceptTradeJSON(playerIndex, willAccept);
 		String response = (String) post("/moves/acceptTrade", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) throws ServerException
 	{
 		MaritimeTradeJSON data = new MaritimeTradeJSON(playerIndex, ratio, input.toString(), output.toString());
 		String response = (String) post("/moves/maritimeTrade", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) throws ServerException
 	{
 		DiscardCardsJSON data = new DiscardCardsJSON(playerIndex, discardedCards);
 		String response = (String) post("/moves/discardCards", data);
-		//CatanModel model = JSONDeserializer.deserialize(response);
-		return null;//model;
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	private Object get(String urlPath) throws ServerException

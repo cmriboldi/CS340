@@ -4,6 +4,7 @@ import model.resources.ResourceList;
 
 public class OfferTradeJSON 
 {
+	@SuppressWarnings("unused")
 	private String type;
 	private int playerIndex;
 	private ResourceList offer;

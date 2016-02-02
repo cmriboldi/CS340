@@ -4,6 +4,7 @@ import shared.locations.EdgeLocation;
 
 public class RoadBuildingJSON 
 {
+	@SuppressWarnings("unused")
 	private String type;
 	private int playerIndex;
 	private EdgeLocationJSON spot1;
