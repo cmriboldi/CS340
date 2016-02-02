@@ -35,6 +35,14 @@ public interface IMapManager
 	public void placeRoad(EdgeLocation edge, int player) throws IllegalPlacementException;
 
 	/**
+	 * canDo representation of the function placeRoad
+	 * @param edge
+	 * @param player
+     * @return
+     */
+	public boolean canPlaceRoad(EdgeLocation edge, int player);
+
+	/**
 	 * Places a settlement on the given vertex, belonging to the indicated player
 	 * 
 	 * @param vertex

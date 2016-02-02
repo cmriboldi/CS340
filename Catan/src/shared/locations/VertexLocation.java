@@ -64,15 +64,18 @@ public class VertexLocation
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
+
 		VertexLocation other = (VertexLocation) obj;
+
 		if (dir != other.dir)
 			return false;
-		if (hexLoc == null)
-		{
+
+		if (hexLoc == null) {
 			if (other.hexLoc != null)
 				return false;
 		} else if (!hexLoc.equals(other.hexLoc))
 			return false;
+
 		return true;
 	}
 

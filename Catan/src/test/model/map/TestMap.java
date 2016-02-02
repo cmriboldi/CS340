@@ -10,6 +10,9 @@ import shared.exceptions.player.TurnIndexException;
 import shared.locations.*;
 import test.TestJSON;
 
+import java.util.Iterator;
+import java.util.Set;
+
 import static org.junit.Assert.assertEquals;
 
 public class TestMap {
@@ -71,7 +74,39 @@ public class TestMap {
         assertEquals("EdgeLocation [hexLoc=HexLocation [x=0, y=0], dir=N]", edges[0].toString());
         assertEquals("EdgeLocation [hexLoc=HexLocation [x=0, y=0], dir=NW]", edges[1].toString());
         assertEquals("EdgeLocation [hexLoc=HexLocation [x=-1, y=0], dir=NE]", edges[2].toString());
+    }
 
+    @Test
+    public void canPlaceRoadSettlmentValid() throws GeneralPlayerException, InvalidTurnStatusException, TurnIndexException {
+        CatanModel model = JSONDeserializer.deserialize(TestJSON.get());
+        Map map = model.mapManager.getMap();
+
+        printMap(map);
+
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,1), EdgeDirection.NorthWest);
+        int player = 2;
+
+        System.out.println();
+        System.out.println(map.canPlaceRoad(edge, player));
+    }
+
+
+
+
+    public void printMap(Map map){
+        Set<EdgeLocation> roadKeys = map.getRoads().keySet();
+        for(Iterator<EdgeLocation> i = roadKeys.iterator(); i.hasNext();){
+            EdgeLocation next = i.next();
+            System.out.println(map.getRoads().get(next).toString());
+        }
+
+        System.out.println();
+
+        Set<VertexLocation> settleKeys = map.getSettlements().keySet();
+        for(Iterator<VertexLocation> i = settleKeys.iterator(); i.hasNext();){
+            VertexLocation next = i.next();
+            System.out.println(map.getSettlements().get(next).toString());
+        }
     }
 
 }

@@ -19,4 +19,9 @@ public class Road extends EdgeObject
         super(location_t);
         owner = owner_t;
     }
+
+    public String toString(){
+
+        return "Road-" + location.getNormalizedLocation().toString() + " Owner[" + owner + "]";
+    }
 }
