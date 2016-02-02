@@ -25,8 +25,8 @@ public class MapManager implements IMapManager {
     private Map map;
 
 
-    public MapManager(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
-                      HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t,
+    public MapManager(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, Settlement> settlements_t,
+                      HashMap<EdgeLocation, Port> ports_t, HashMap<EdgeLocation, Road> roads_t,
                       HexLocation robber_t, int radius_t) {
 
         map = new Map(hexes_t, settlements_t, ports_t, roads_t, robber_t, radius_t);

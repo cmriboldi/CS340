@@ -230,9 +230,9 @@ public class JSONDeserializer
 
 		//Return data structures
 		HashMap<HexLocation, Hex> hexes_r = new HashMap<>();
-		HashMap<VertexLocation, VertexObject> settlements_r = new HashMap<VertexLocation, VertexObject>();
-		HashMap<VertexLocation, VertexObject> ports_r = new HashMap<VertexLocation, VertexObject>();
-		HashMap<EdgeLocation, EdgeObject> roads_r = new HashMap<EdgeLocation, EdgeObject>();
+		HashMap<VertexLocation, Settlement> settlements_r = new HashMap<VertexLocation, Settlement>();
+		HashMap<EdgeLocation, Port> ports_r = new HashMap<EdgeLocation, Port>();
+		HashMap<EdgeLocation, Road> roads_r = new HashMap<EdgeLocation, Road>();
 
 		//Get Hex info
 		for (int i = 0; i < hexes.size(); i++) {
@@ -271,7 +271,7 @@ public class JSONDeserializer
 			int ratio = port.getAsJsonPrimitive("ratio").getAsInt();
 
 			//compile into Map structure
-			Port entry = new Port(x, y, VertexDirection.valueOf(Direction.shortToLong(direction)), PortType.valueOf(resource.toUpperCase()), ratio);
+			Port entry = new Port(x, y, EdgeDirection.valueOf(Direction.shortToLong(direction)), PortType.valueOf(resource.toUpperCase()), ratio);
 			ports_r.put(entry.location, entry);
 		}
 
@@ -286,13 +286,13 @@ public class JSONDeserializer
 			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
-			EdgeObject entry = new EdgeObject(x, y, EdgeDirection.valueOf(direction), owner);
+			Road entry = new Road(x, y, EdgeDirection.valueOf(Direction.shortToLong(direction)), owner);
 			roads_r.put(entry.location, entry);
 		}
 
 		//Get settlement info
 		for (int i = 0; i < settlements.size(); i++) {
-			JsonObject settlement = roads.get(i).getAsJsonObject();
+			JsonObject settlement = settlements.get(i).getAsJsonObject();
 			JsonObject location = settlement.getAsJsonObject("location");
 
 			int x = location.getAsJsonPrimitive("x").getAsInt();
@@ -307,7 +307,7 @@ public class JSONDeserializer
 
 		//Get city info
 		for (int i = 0; i < cities.size(); i++) {
-			JsonObject city = roads.get(i).getAsJsonObject();
+			JsonObject city = cities.get(i).getAsJsonObject();
 			JsonObject location = city.getAsJsonObject("location");
 
 			int x = location.getAsJsonPrimitive("x").getAsInt();

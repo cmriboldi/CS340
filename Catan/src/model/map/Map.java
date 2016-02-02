@@ -27,17 +27,17 @@ public class Map {
     /**
      * container for all the settlements that exist on the board
      */
-    private HashMap<VertexLocation, VertexObject> settlements;
+    private HashMap<VertexLocation, Settlement> settlements;
 
     /**
      * container for all the ports that exist on the board
      */
-    private HashMap<VertexLocation, VertexObject> ports;
+    private HashMap<EdgeLocation, Port> ports;
 
     /**
      * container for all the roads that exist on the board
      */
-    private HashMap<EdgeLocation, EdgeObject> roads;
+    private HashMap<EdgeLocation, Road> roads;
 
     /**
      * container for the robber
@@ -59,9 +59,9 @@ public class Map {
      */
     public Map() {
         hexes = new HashMap<HexLocation, Hex>();
-        settlements = new HashMap<VertexLocation, VertexObject>();
-        ports = new HashMap<VertexLocation, VertexObject>();
-        roads = new HashMap<EdgeLocation, EdgeObject>();
+        settlements = new HashMap<VertexLocation, Settlement>();
+        ports = new HashMap<EdgeLocation, Port>();
+        roads = new HashMap<EdgeLocation, Road>();
     }
 
 
@@ -73,8 +73,8 @@ public class Map {
      * @param ports_t       hashMap of Port Objects
      * @param roads_t       hasMap of edgeValue Objects
      */
-    public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, VertexObject> settlements_t,
-               HashMap<VertexLocation, VertexObject> ports_t, HashMap<EdgeLocation, EdgeObject> roads_t,
+    public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, Settlement> settlements_t,
+               HashMap<EdgeLocation, Port> ports_t, HashMap<EdgeLocation, Road> roads_t,
                HexLocation robber_t, int radius_t)
     {
         hexes = hexes_t;

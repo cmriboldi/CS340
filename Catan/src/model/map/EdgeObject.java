@@ -2,6 +2,7 @@ package model.map;
 
 //Project Imports
 
+import com.sun.javafx.geom.Edge;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -17,10 +18,6 @@ import shared.locations.HexLocation;
  * @version 1.0 Build Jan, 2016.
  */
 public class EdgeObject {
-    /**
-     * indicates the player who owns the road occupying this edge
-     */
-    int owner;
 
     /**
      * indicates the location of the edge on the board
@@ -32,19 +29,12 @@ public class EdgeObject {
      * @param x_t
      * @param y_t
      * @param dir
-     * @param owner_t
      */
-    public EdgeObject(int x_t, int y_t, EdgeDirection dir, int owner_t) {
+    public EdgeObject(int x_t, int y_t, EdgeDirection dir) {
         location = new EdgeLocation(new HexLocation(x_t, y_t), dir);
-        owner = owner_t;
     }
 
-    /**
-     * Dependant constructor, used when storing EdgeObjects in a map of EdgeLocations
-     * @param owner_t
-     */
-    public EdgeObject(int owner_t) {
-        location = null;
-        owner = owner_t;
+    public EdgeObject(EdgeLocation location_t){
+        location = location_t;
     }
 }
