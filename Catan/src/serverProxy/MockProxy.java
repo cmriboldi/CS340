@@ -10,6 +10,9 @@ import shared.definitions.CatanColor;
 import shared.definitions.Command;
 import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -76,11 +79,21 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public void getGameModel() throws ServerException {
+	public CatanModel getGameModel(int modelNumber) throws ServerException {
 		String json = null;
-		catanModel = JSONDeserializer.deserialize(json);
+		try {
+			catanModel = JSONDeserializer.deserialize(json);
+		} catch (TurnIndexException e) {
+			e.printStackTrace();
+		} catch (InvalidTurnStatusException e) {
+			e.printStackTrace();
+		} catch (GeneralPlayerException e) {
+			e.printStackTrace();
+		}
 		Facade.updateView(catanModel);
+		return catanModel;
 	}
+
 
 	@Override
 	public CatanModel resetGame() {

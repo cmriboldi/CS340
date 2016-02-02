@@ -33,6 +33,11 @@ public class MapManager implements IMapManager {
     }
 
     @Override
+    public Map getMap() {
+        return map;
+    }
+
+    @Override
     public int findLargestRoad() {
         // TODO Auto-generated method stub
         return 0;
