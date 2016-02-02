@@ -4,6 +4,7 @@ package model.map;
 
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.List;
 
 //Project Imports
 import shared.locations.*;
@@ -143,27 +144,75 @@ public class Map {
     }
 
 
-    public EdgeLocation[] findEdges(VertexLocation vertex_t){
+    public List<EdgeLocation> findEdges(VertexLocation vertex_t){
         //Normalize the input vertex
         vertex_t = vertex_t.getNormalizedLocation();
 
         //Initialize the return array;
-        EdgeLocation[] edges = new EdgeLocation[3];
+        List<EdgeLocation> edges = new ArrayList<EdgeLocation>();
 
         //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
         if(vertex_t.getDir() == VertexDirection.NorthEast){
-            edges[0] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
-            edges[1] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthEast);
-            edges[2] = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast), EdgeDirection.NorthWest);
+            edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North));
+            edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthEast));
+            edges.add(new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast), EdgeDirection.NorthWest));
             return edges;
         }
 
 
         //If the vertex is a NorthWest Vertex, return the local N and NW edges and the NW neighbor's NE edge
         if(vertex_t.getDir() == VertexDirection.NorthWest){
-            edges[0] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
-            edges[1] = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthWest);
-            edges[2] = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest), EdgeDirection.NorthEast);
+            edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North));
+            edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthWest));
+            edges.add(new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest), EdgeDirection.NorthEast));
+            return edges;
+        }
+        return null;
+    }
+
+    public List<EdgeLocation> findEdges(VertexLocation vertex_t, EdgeLocation edge_t){
+        //Normalize the input vertex
+        vertex_t = vertex_t.getNormalizedLocation();
+
+        //Normalize the input edge
+        edge_t = edge_t.getNormalizedLocation();
+        EdgeLocation temp_edge;
+
+        //Initialize the return array;
+        List<EdgeLocation> edges = new ArrayList<EdgeLocation>();
+
+        //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
+        if(vertex_t.getDir() == VertexDirection.NorthEast){
+            temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
+            if(temp_edge != edge_t)
+                edges.add(temp_edge);
+
+            temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthEast);
+            if(temp_edge != edge_t)
+                edges.add(temp_edge);
+
+            temp_edge = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast), EdgeDirection.NorthWest);
+            if(temp_edge != edge_t)
+                edges.add(temp_edge);
+
+            return edges;
+        }
+
+        //If the vertex is a NorthWest Vertex, return the local N and NW edges and the NW neighbor's NE edge
+        if(vertex_t.getDir() == VertexDirection.NorthWest){
+
+            temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
+            if(temp_edge != edge_t)
+                edges.add(temp_edge);
+
+            temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthWest);
+            if(temp_edge != edge_t)
+                edges.add(temp_edge);
+
+            temp_edge = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest), EdgeDirection.NorthEast);
+            if(temp_edge != edge_t)
+                edges.add(temp_edge);
+
             return edges;
         }
 
@@ -199,27 +248,31 @@ public class Map {
         VertexLocation left = findVertexLeft(edge);
         VertexLocation right = findVertexRight(edge);
 
-
-        System.out.println("left:" + left.toString());
         if(settlements.containsKey(left))
             if(settlements.get(left).player == player){
                 return true;
             }
 
-        System.out.println("right:" + right.toString());
-        System.out.println(settlements.containsKey(right));
-
         if(settlements.containsKey(right)){
-            System.out.println(settlements.get(right).player);
-            System.out.println(player);
             if(settlements.get(right).player == player) {
                 return true;
             }
         }
 
+        //is there a player owned road adj to the edgj
+        List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
+        adjEdges.addAll(findEdges(left, edge));
+        adjEdges.addAll(findEdges(right, edge));
 
-
-
+        //for each edge adj to the edge in question
+        for(int i = 0; i < adjEdges.size(); i++){
+            //does roads contain each adj edge (does there exist roads next to the edge)
+            if(roads.containsKey(adjEdges.get(i))){
+                //does that road belong to the given player
+                if(roads.get(adjEdges.get(i)).owner == player)
+                    return true;
+            }
+        }
 
         return false;
     }
