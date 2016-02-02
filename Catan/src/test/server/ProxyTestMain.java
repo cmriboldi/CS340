@@ -3,15 +3,21 @@ package test.server;
 import java.util.List;
 
 import model.CatanModel;
+import model.resources.ResourceList;
 import serverProxy.JSONDeserializer;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.communication.*;
 import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 import test.TestJSON;
 
 public class ProxyTestMain 
@@ -123,6 +129,26 @@ public class ProxyTestMain
 			
 			System.out.println("Monoply");
 			server.monopoly(0, ResourceType.ORE);
+			System.out.println("Successful");
+			
+			System.out.println("Monumnet");
+			server.monument(0);
+			System.out.println("Successful");
+			
+			System.out.println("Build Road");
+			server.buildRoad(0, new EdgeLocation(new HexLocation(1,1), EdgeDirection.South), false);
+			System.out.println("Successful");
+			
+			System.out.println("Build Settlement");
+			server.buildSettlement(0, new VertexLocation(new HexLocation(1,1), VertexDirection.East), false);
+			System.out.println("Successful");
+			
+			System.out.println("Build City");
+			server.buildCity(0, new VertexLocation(new HexLocation(1,1), VertexDirection.East));
+			System.out.println("Successful");
+			
+			System.out.println("Offer Trade");
+			server.offerTrade(0, 1, new ResourceList(1,1,1,1,1));
 			System.out.println("Successful");
 		} 
 		catch (ServerException e) 

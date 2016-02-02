@@ -278,33 +278,33 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CatanModel monument(int playerIndex) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel monument(int playerIndex) throws ServerException 
+	{
+		return authProxy.monument(playerIndex);
 	}
 
 	@Override
-	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) throws ServerException 
+	{
+		return authProxy.buildRoad(playerIndex, roadLocation, free);
 	}
 
 	@Override
-	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) throws ServerException 
+	{
+		return authProxy.buildSettlement(playerIndex, vertexLocation, free);
 	}
 
 	@Override
-	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) throws ServerException 
+	{
+		return authProxy.buildCity(playerIndex, vertexLocation);
 	}
 
 	@Override
-	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) {
-		// TODO Auto-generated method stub
-		return null;
+	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) throws ServerException 
+	{
+		return authProxy.offerTrade(playerIndex, receiver, offer);
 	}
 
 	@Override

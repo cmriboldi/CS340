@@ -260,8 +260,9 @@ public interface ServerProxy
 	 * 
 	 * @param playerIndex Who's playing this dev card
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel monument(int playerIndex);
+	public CatanModel monument(int playerIndex) throws ServerException;
 
 	/**
 	 * Builds a road at the specified HexLocation. (Set 'free' to true during initial setup.)
@@ -270,8 +271,9 @@ public interface ServerProxy
 	 * @param roadLocation Where the road will be placed
 	 * @param free Whether this is placed for free (setup).
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free);
+	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) throws ServerException;
 
 	/**
 	 * Builds a settlement at the specified HexLocation. (Set 'free' to true during initial setup.)
@@ -280,8 +282,9 @@ public interface ServerProxy
 	 * @param vertexLocation Where the settlement will be placed.
 	 * @param free Whether this is placed for free (setup).
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free);
+	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) throws ServerException;
 
 	/**
 	 * Builds a city at the specified HexLocation.
@@ -289,8 +292,9 @@ public interface ServerProxy
 	 * @param playerIndex Who's placing the city
 	 * @param vertexLocation
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation);
+	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) throws ServerException;
 
 	/**
 	 * Offers a domestic trade to another player.
@@ -299,8 +303,9 @@ public interface ServerProxy
 	 * @param receiver Who you're offering the trade to
 	 * @param offer What you get(+) and what you give (-)
 	 * @return The 'Client Model' JSON (identical to getGameModel())
+	 * @throws ServerException 
 	 */
-	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer);
+	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) throws ServerException;
 
 	/**
 	 * Used to accept or reject a trade offered to you.

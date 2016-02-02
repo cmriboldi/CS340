@@ -1,6 +1,7 @@
 package shared.communication.JSON;
 
 import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
 public class EdgeLocationJSON 
@@ -8,6 +9,13 @@ public class EdgeLocationJSON
 	private int x;
 	private int y;
 	private String direction;
+	
+	public EdgeLocationJSON(EdgeLocation edgeLocation)
+	{
+		this.x = edgeLocation.getHexLoc().getX();
+		this.y = edgeLocation.getHexLoc().getY();
+		this.direction = edgeLocation.getDir().toString();
+	}
 	
 	public EdgeLocationJSON(HexLocation hex, EdgeDirection direction)
 	{

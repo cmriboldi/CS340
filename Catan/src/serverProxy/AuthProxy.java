@@ -16,6 +16,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import model.CatanModel;
+import model.resources.ResourceList;
 import shared.communication.*;
 import shared.communication.JSON.*;
 import shared.definitions.ResourceType;
@@ -194,6 +195,46 @@ public class AuthProxy
 	{
 		MonopolyJSON data = new MonopolyJSON(playerIndex, resource.toString());
 		String response = (String) post("/moves/Soldier", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel monument(int playerIndex) throws ServerException
+	{
+		MonumentJSON data = new MonumentJSON(playerIndex);
+		String response = (String) post("/moves/Monument", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) throws ServerException
+	{
+		BuildRoadJSON data = new BuildRoadJSON(playerIndex, roadLocation, free);
+		String response = (String) post("/moves/buildRoad", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) throws ServerException
+	{
+		BuildSettlementJSON data = new BuildSettlementJSON(playerIndex, vertexLocation, free);
+		String response = (String) post("/moves/buildSettlement", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) throws ServerException
+	{
+		BuildCityJSON data = new BuildCityJSON(playerIndex, vertexLocation);
+		String response = (String) post("/moves/buildCity", data);
+		//CatanModel model = JSONDeserializer.deserialize(response);
+		return null;//model;
+	}
+	
+	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) throws ServerException
+	{
+		OfferTradeJSON data = new OfferTradeJSON(playerIndex, offer, receiver);
+		String response = (String) post("/moves/offerTrade", data);
 		//CatanModel model = JSONDeserializer.deserialize(response);
 		return null;//model;
 	}
