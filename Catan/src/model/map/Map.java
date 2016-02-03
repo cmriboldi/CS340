@@ -280,12 +280,15 @@ public class Map {
         List<EdgeLocation> firstEdges = findEdges(vertex);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<>();
         Set<VertexLocation> firstVertexes = new HashSet<>();
+        Set<VertexLocation> firstVertexesPlayer = new HashSet<>();
+        List<EdgeLocation> secondEdges = new ArrayList<>();
 
         //get all of the edges attached to the vertex
         //check if any of them have roads belonging to the player
         for(int i = 0; i < firstEdges.size(); i++){
             //grab the first set of vertexies for later
             firstVertexes.add(findVertexLeft(firstEdges.get(i)));
+            firstVertexes.add(findVertexRight(firstEdges.get(i)));
 
             if(roads.containsKey(firstEdges.get(i))){
                 //if any do, save then in a separate list
@@ -297,8 +300,8 @@ public class Map {
         if(firstEdgesPlayer.size() == 0)
             return false;
 
-        //using the three vertecies attached to those edges
-            //remove the inital edge
+        //using the three vertexes attached to those edges
+            //remove the initial vertex
             firstVertexes.remove(vertex);
 
         //check if any have ANY settlements
@@ -309,6 +312,23 @@ public class Map {
         }
 
         //check edges adjoining any edges with play roads on them for additional roads belonging to the player
+        //collect the vertexes
+        for(int i = 0; i < firstEdgesPlayer.size(); i++){
+            VertexLocation left = findVertexLeft(firstEdgesPlayer.get(i));
+            VertexLocation right = findVertexRight(firstEdgesPlayer.get(i));
+
+            if(left != vertex){
+                //if the new vertex is the left vertex
+                secondEdges = findEdges(left, firstEdgesPlayer.get(i));
+                firstVertexesPlayer.add(left);
+
+            }else{
+                //is the new vertex is the right vertex
+                secondEdges = findEdges(right, firstEdgesPlayer.get(i));
+                firstVertexesPlayer.add(left);
+            }
+        }
+
             //if none of them do, return false
 
         //check those edges for vertecies with settlements belonging to the player
