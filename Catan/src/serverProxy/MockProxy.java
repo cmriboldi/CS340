@@ -2,6 +2,8 @@ package serverProxy;
 
 import java.util.List;
 
+import com.google.gson.JsonArray;
+
 import clientfacade.Facade;
 import model.CatanModel;
 import model.resources.ResourceList;
@@ -33,8 +35,7 @@ public class MockProxy implements ServerProxy
 {
 
 	CatanModel catanModel;
-	
-	
+
 	@Override
 	public void userLogin(String username, String password) throws ServerException {
 		// TODO Auto-generated method stub
@@ -94,21 +95,20 @@ public class MockProxy implements ServerProxy
 		return catanModel;
 	}
 
-
 	@Override
-	public CatanModel resetGame() {
+	public CatanModel resetGame() throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel setCommands(List<Command> commands) {
+	public CatanModel setCommands(JsonArray commands) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Command> getCommands() {
+	public JsonArray getCommands() throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -120,109 +120,112 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public List<String> listAI() {
+	public List<String> listAI() throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel sendChat(int playerIndex, String content) {
+	public CatanModel sendChat(int playerIndex, String content) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel rollNumber(int playerIndex, int number) {
+	public CatanModel rollNumber(int playerIndex, int number) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) {
+	public CatanModel robPlayer(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel finishTurn(int playerIndex) {
+	public CatanModel finishTurn(int playerIndex) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel buyDevCard(int playerIndex) {
+	public CatanModel buyDevCard(int playerIndex) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2) {
+	public CatanModel yearOfPlenty(int playerIndex, ResourceType resource1, ResourceType resource2)
+			throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) {
+	public CatanModel roadBuilding(int playerIndex, EdgeLocation spot1, EdgeLocation spot2) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation) {
+	public CatanModel soldier(int playerIndex, int victimIndex, HexLocation hexLocation) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel monopoly(int playerIndex, ResourceType resource) {
+	public CatanModel monopoly(int playerIndex, ResourceType resource) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel monument(int playerIndex) {
+	public CatanModel monument(int playerIndex) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) {
+	public CatanModel buildRoad(int playerIndex, EdgeLocation roadLocation, boolean free) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free) {
+	public CatanModel buildSettlement(int playerIndex, VertexLocation vertexLocation, boolean free)
+			throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) {
+	public CatanModel buildCity(int playerIndex, VertexLocation vertexLocation) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) {
+	public CatanModel offerTrade(int playerIndex, int receiver, ResourceList offer) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel acceptTrade(int playerIndex, boolean willAccept) {
+	public CatanModel acceptTrade(int playerIndex, boolean willAccept) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output) {
+	public CatanModel maritimeTrade(int playerIndex, int ratio, ResourceType input, ResourceType output)
+			throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) {
+	public CatanModel discardCards(int playerIndex, ResourceList discardedCards) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -232,5 +235,6 @@ public class MockProxy implements ServerProxy
 		// TODO Auto-generated method stub
 		
 	}
+	
 
 }
