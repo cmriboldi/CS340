@@ -96,7 +96,7 @@ public class AuthProxy
 		}
 	}
 	
-	public CatanModel getGameModel(int modelNumber) throws ServerException 
+	public CatanModel getGameModel() throws ServerException 
 	{
 		String response = (String) get("/game/model");
 		CatanModel model;
@@ -108,6 +108,26 @@ public class AuthProxy
 		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
 		{
 			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	public CatanModel getGameModel(int modelNumber) throws ServerException 
+	{
+		String response = (String) get("/game/model?version=" + modelNumber);
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		catch (IllegalStateException e)
+		{
+			return null;
 		}
 		return null;
 	}

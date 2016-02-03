@@ -9,7 +9,6 @@ import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.CommGame;
 import shared.definitions.CatanColor;
-import shared.definitions.Command;
 import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.GeneralPlayerException;
@@ -77,6 +76,11 @@ public class MockProxy implements ServerProxy
 	public void loadGame(String fileName) throws ServerException {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	@Override
+	public CatanModel getGameModel() throws ServerException {
+		return null;
 	}
 
 	@Override

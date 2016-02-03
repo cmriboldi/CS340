@@ -49,11 +49,22 @@ public class ProxyTestMain
 					System.out.println("\tEmpty Player spot");
 				}
 			}
+			System.out.println("Successful!");
+			
+			System.out.println("Join Game");
 			server.joinGame(0, CatanColor.ORANGE);
-			server.getGameModel(1);
-			List<CommGame> games = server.listGames();
+			System.out.println("Successful!");
+			
+			System.out.println("Get Game Model()");
+			server.getGameModel();
+			System.out.println("Successful!");
+			
+			System.out.println("Get Game Model Version 0");
+			server.getGameModel(0);
+			System.out.println("Successful!");
 			
 			System.out.println("Print List of Games");
+			List<CommGame> games = server.listGames();
 			for(CommGame game : games)
 			{
 				System.out.println("Title: " + game.getTitle() + " id: " + game.getId() + " players:");

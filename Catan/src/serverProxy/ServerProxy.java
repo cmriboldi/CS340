@@ -98,9 +98,18 @@ public interface ServerProxy
 	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
 	public void loadGame(String fileName) throws ServerException;
-
+	
 	/**
 	 * Returns the current state of the game in JSON format. You must login and join a game before
+	 * calling this method.
+	 * 
+	 * @return The current state of the game in a game model JSON object
+	 * @throws ServerException 
+	 */
+	public CatanModel getGameModel() throws ServerException;
+
+	/**
+	 * Returns the state of the game at the specified model Number in JSON format. You must login and join a game before
 	 * calling this method.
 	 * 
 	 * @param modelNumber The version number of the model that the caller already has. It goes up by

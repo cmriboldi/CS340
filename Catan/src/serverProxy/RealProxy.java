@@ -173,6 +173,12 @@ public class RealProxy implements ServerProxy
 		LoadJSON json = new LoadJSON(fileName);
 		post("/games/load", json);
 	}
+	
+	@Override
+	public CatanModel getGameModel() throws ServerException 
+	{
+		return authProxy.getGameModel();
+	}
 
 	@Override
 	public CatanModel getGameModel(int modelNumber) throws ServerException 
