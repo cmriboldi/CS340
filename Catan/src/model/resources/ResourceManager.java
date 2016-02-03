@@ -10,25 +10,22 @@ package model.resources;
 */
 
 import shared.definitions.*;
-import shared.exceptions.resources.NotEnoughPlayerResourcesException;
-import shared.exceptions.resources.NotEnoughResourcesException;
-import shared.exceptions.resources.TradeOfferNullException;
+import shared.exceptions.resources.*;
 import shared.exceptions.player.InvalidPlayerIndexException;
-import shared.exceptions.resources.InvalidNumberOfResourcesRequested;
-import shared.exceptions.resources.InvalidPieceTypeException;
-import shared.exceptions.resources.NotEnoughBankResourcesException;
 
 public class ResourceManager
 {
 
 	private Banker banker = null;
 	private Trader trader = null;
+	private boolean[] hasPlayerDiscarded = null;
 
-	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources, TradeOffer tradeOffer)
+	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources, TradeOffer tradeOffer, boolean[] hasPlayerDiscarded)
 	{
 		PlayerResources newPlayerResources = new PlayerResources(playerResources);
 		banker = new Banker(newPlayerResources, bankResources);
 		trader = new Trader(newPlayerResources, tradeOffer);
+		this.hasPlayerDiscarded = hasPlayerDiscarded;
 	}
 
 	/**
@@ -86,10 +83,11 @@ public class ResourceManager
 	 * @param resList ResourceList with the positive numbers going to the player and the negative
 	 *            numbers coming from the Bank.
 	 * @param toPlayerIndex The index of the player who is trading with the bank.
+	 * @throws NotEnoughPlayerResourcesException 
 	 */
-	public void tradeWithBank(ResourceList resList, int toPlayerIndex) throws NotEnoughBankResourcesException
+	public void tradeWithBank(ResourceList resList, int toPlayerIndex) throws NotEnoughBankResourcesException, NotEnoughPlayerResourcesException
 	{
-
+		banker.tradeWithBank(resList, toPlayerIndex);
 	}
 
 	/**
@@ -158,6 +156,16 @@ public class ResourceManager
 	public boolean canTrade(int playerIndex) throws TradeOfferNullException
 	{
 		return trader.canTrade(playerIndex);
+	}
+	
+	public boolean hasPlayerDiscarded(int playerIndex)
+	{
+		return hasPlayerDiscarded[playerIndex];
+	}
+
+	public void setHasPlayerDiscarded(boolean[] hasPlayerDiscarded)
+	{
+		this.hasPlayerDiscarded = hasPlayerDiscarded;
 	}
 
 };

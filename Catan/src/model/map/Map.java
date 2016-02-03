@@ -2,9 +2,7 @@ package model.map;
 
 //JAVA imports
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //Project Imports
 import shared.locations.*;
@@ -273,6 +271,69 @@ public class Map {
                     return true;
             }
         }
+
+        return false;
+    }
+
+    public boolean canPlaceSettlement(VertexLocation vertex, int player){
+
+        List<EdgeLocation> firstEdges = findEdges(vertex);
+        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
+        Set<VertexLocation> firstVertexes = new HashSet<VertexLocation>();
+        Set<VertexLocation> firstVertexesPlayer = new HashSet<VertexLocation>();
+        List<EdgeLocation> secondEdges = new ArrayList<EdgeLocation>();
+
+        //get all of the edges attached to the vertex
+        //check if any of them have roads belonging to the player
+        for(int i = 0; i < firstEdges.size(); i++){
+            //grab the first set of vertexies for later
+            firstVertexes.add(findVertexLeft(firstEdges.get(i)));
+            firstVertexes.add(findVertexRight(firstEdges.get(i)));
+
+            if(roads.containsKey(firstEdges.get(i))){
+                //if any do, save then in a separate list
+                if(roads.get(firstEdges.get(i)).owner == player)
+                    firstEdgesPlayer.add(firstEdges.get(i));
+            }
+        }
+        //if none do, return false
+        if(firstEdgesPlayer.size() == 0)
+            return false;
+
+        //using the three vertexes attached to those edges
+            //remove the initial vertex
+            firstVertexes.remove(vertex);
+
+        //check if any have ANY settlements
+        for(VertexLocation loc : firstVertexes){
+            if(settlements.containsKey(loc))
+                return false;
+        }
+
+
+        //check edges adjoining any edges with play roads on them for additional roads belonging to the player
+        //collect the vertexes
+        for(EdgeLocation edge : firstEdgesPlayer){
+            VertexLocation left = findVertexLeft(edge);
+            VertexLocation right = findVertexRight(edge);
+
+            if(left != vertex){
+                //if the new vertex is the left vertex
+                secondEdges = findEdges(left, edge);
+                firstVertexesPlayer.add(left);
+
+            }else{
+                //is the new vertex is the right vertex
+                secondEdges = findEdges(right, edge);
+                firstVertexesPlayer.add(left);
+            }
+        }
+
+            //if none of them do, return false
+
+        //check those edges for vertecies with settlements belonging to the player
+            //if yes, return true
+
 
         return false;
     }

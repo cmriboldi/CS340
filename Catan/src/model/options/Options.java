@@ -71,6 +71,36 @@ public class Options
 		return catanModel.resourceManager.canAffordDevCard(playerIndex);
 	}
 	
+	public boolean canBuyDevCard(int playerIndex)
+	{
+		return canPlay(playerIndex) && canAffordDevCard(playerIndex);
+	}
+	
+	public boolean canUseYearOfPlenty(int playerIndex)
+	{
+		return canPlayDevCard(playerIndex) && hasDevCard(playerIndex, DevCardType.YEAR_OF_PLENTY);
+	}
+	
+	public boolean canUseRoadBuilder(int playerIndex)
+	{
+		return canPlayDevCard(playerIndex) && hasDevCard(playerIndex, DevCardType.ROAD_BUILD);
+	}
+	
+	public boolean canUseSoldier(int playerIndex)
+	{
+		return canPlayDevCard(playerIndex) && hasDevCard(playerIndex, DevCardType.SOLDIER);
+	}
+	
+	public boolean canUseMonopoly(int playerIndex)
+	{
+		return canPlayDevCard(playerIndex) && hasDevCard(playerIndex, DevCardType.MONOPOLY);
+	}
+	
+	public boolean canUseMonument(int playerIndex)
+	{
+		return canPlayDevCard(playerIndex) && hasDevCard(playerIndex, DevCardType.MONUMENT);
+	}
+	
 	/**
 	 * Check if a player can play a development card
 	 * 
