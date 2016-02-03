@@ -6,6 +6,7 @@ import org.junit.*;
 
 import model.CatanModel;
 import model.development.DevCardManager;
+import model.players.Player;
 import model.players.PlayerManager;
 import model.players.PlayerTurnTracker;
 import serverProxy.JSONDeserializer;
@@ -35,7 +36,7 @@ public class PlayerManagerDeserializerTest
 	}
 
 	@Test
-	public void testDeserializerInitialization()
+	public void testDeserializerPlayerManagerInitialization()
 	{
 		
 		assertNotEquals(playerManager,null);
@@ -43,44 +44,39 @@ public class PlayerManagerDeserializerTest
 		assertNotEquals(playerManager.getCatanPlayers() ,null);
 		assertEquals(playerManager.getCatanPlayers().length ,4);
 
-
-
-
+	}
+	
+	
+	@Test
+	public void testDeserializerPlayerInitialization()
+	{
 		
-/*		
-		//assert values are not null
-		assertNotEquals(devManager,null);
-		assertNotEquals(devManager.getDevCardStack(),null);
-		assertNotEquals(devManager.getNewDevCards(),null);
-		assertNotEquals(devManager.getOldDevCards(),null);
-		assertNotEquals(devManager.getPlayedDevCards(),null);
-		
-		//assert devManager elements sizes are correct
-		assertEquals(devManager.getDevCardStack().getDevCardCount(),25);
-		assertEquals(devManager.getNewDevCards().length(),4);
-		assertEquals(devManager.getOldDevCards().length(),4);
-		assertEquals(devManager.getPlayedDevCards().length(),4);
-		
-		//assert hasPlayedDevCard values are all false.
-		assertEquals(devManager.hasPlayedDevCard(0),false);
-		assertEquals(devManager.hasPlayedDevCard(1),false);
-		assertEquals(devManager.hasPlayedDevCard(2),false);
-		assertEquals(devManager.hasPlayedDevCard(3),false);*/
+		assertNotEquals(playerManager,null);
+		assertNotEquals(turnTracker,null);
+		assertNotEquals(playerManager.getCatanPlayers() ,null);
+		assertEquals(playerManager.getCatanPlayers()[0].getCitiesRemaining() ,4);
+
+	}
+	
+	
+	public void testPlayer1()
+	{
+		System.out.println("Player 1 Testing"); 
+		Player player1 = playerManager.getCatanPlayers()[0]; 
+		assertEquals(player1.getRoadsRemaining(), 13); 
+		assertEquals(player1.getCitiesRemaining(), 4); 
+		assertEquals(player1.getSettlementsRemaining(), 3); 
+		assertEquals(player1.getPoints(), 2); 
+		assertEquals(player1.getPlayerIndex(), 0); 
+		assertEquals(player1.getId(), 0); 
+		assertEquals(player1.getName(), "Sam"); 
+
 	}
 	
 	@Test
 	public void testCanDoMethods()
 	{
-		//assert values are not null
-		//assertEquals(devManager.canDrawDevCard(), true);
-		for (int i = 0; i < 4; i++)
-		{
-		//	assertEquals(devManager.canPlayDevCard(i, DevCardType.MONOPOLY), false);
-		//	assertEquals(devManager.canPlayDevCard(i, DevCardType.MONUMENT), false);
-		//	assertEquals(devManager.canPlayDevCard(i, DevCardType.ROAD_BUILD), false);
-		//	assertEquals(devManager.canPlayDevCard(i, DevCardType.SOLDIER), false);
-		//	assertEquals(devManager.canPlayDevCard(i, DevCardType.YEAR_OF_PLENTY), false);
-		}
+		
 	}
 
 }
