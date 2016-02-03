@@ -40,7 +40,6 @@ public class AuthProxy
 	{
 		String response = (String) get("/game/model");
 		JsonObject json = new Gson().fromJson(response, JsonObject.class);
-		System.out.println(json.toString());
 		return null;
 	}
 	

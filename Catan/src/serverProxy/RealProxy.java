@@ -49,7 +49,6 @@ public class RealProxy implements ServerProxy
 	@Override
 	public void userLogin(String username, String password) throws ServerException 
 	{
-		System.out.println("User Login");
 		login("/user/login", username, password);
 	}
 
@@ -62,7 +61,6 @@ public class RealProxy implements ServerProxy
 	private void login(String urlPath, String username, String password) throws ServerException
 	{
 		CommUser user = new CommUser(username, password);
-		System.out.println("Login User");
 		URL url;
 		try 
 		{
@@ -80,7 +78,6 @@ public class RealProxy implements ServerProxy
 			writer.write(data);
 			writer.close();
 			
-			System.out.println(conn.getResponseCode());
 			if (conn.getResponseCode() == HttpURLConnection.HTTP_OK)
 			{
 				String cookie = conn.getHeaderField("Set-cookie");
@@ -91,9 +88,6 @@ public class RealProxy implements ServerProxy
 				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
 				this.name = userjson.get("name").toString().replace("\"", "");
 				this.playerID = userjson.get("playerID").getAsInt();
-				System.out.println("Set-cookie: " + cookie);
-				System.out.println("Decoded: " + URLDecoder.decode(cookie, "UTF-8"));
-				System.out.println(name + " " + playerID);
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
@@ -121,7 +115,6 @@ public class RealProxy implements ServerProxy
 	@Override
 	public List<CommGame> listGames() throws ServerException 
 	{
-		System.out.println("List Games");
 		String response = (String) get("/games/list");
 		JsonArray json = new Gson().fromJson(response, JsonArray.class);
 		List<CommGame> games = new ArrayList<CommGame>();
@@ -131,20 +124,16 @@ public class RealProxy implements ServerProxy
 			String title = game.get("title").toString();
 			int id = game.get("id").getAsInt();
 			JsonArray players = game.getAsJsonArray("players");
-			System.out.println(players.toString());
 			
 			CommPlayer[] playerArray = new CommPlayer[4];
 			for(int j = 0; j < players.size(); j++)
 			{
-				System.out.println("Player: " + players.get(j));
-				System.out.println("Class: " + players.get(j).getClass());
 				CommPlayer player = new Gson().fromJson(players.get(j), CommPlayer.class);
 				playerArray[j] = player;
 			}
 			CommGame newGame = new CommGame(title,id,playerArray);
 			games.add(newGame);
 		}
-		System.out.println(games.toString());
 		return games;
 	}
 
