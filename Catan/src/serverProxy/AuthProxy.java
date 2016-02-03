@@ -13,7 +13,7 @@ import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
+//import com.google.gson.JsonObject;
 
 import model.CatanModel;
 import model.resources.ResourceList;
@@ -34,13 +34,6 @@ public class AuthProxy
 	{
 		this.authCookie = "catan.user=" + authCookie;
 		urlBase = "http://localhost:8081";
-	}
-	
-	public CatanModel getGameModel(int modelNumber) throws ServerException 
-	{
-		String response = (String) get("/game/model");
-		JsonObject json = new Gson().fromJson(response, JsonObject.class);
-		return null;
 	}
 	
 	public void joinGame(int gameId, String color) throws ServerException 
@@ -80,14 +73,14 @@ public class AuthProxy
 				}
 				br.close();
 			}
-			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-			{
-				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-			}
-			else
-			{
-				throw new ServerException("No Response from Server");
-			}
+//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+//			{
+//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+//			}
+//			else
+//			{
+//				throw new ServerException("No Response from Server");
+//			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -101,6 +94,22 @@ public class AuthProxy
 		{
 			e.printStackTrace();
 		}
+	}
+	
+	public CatanModel getGameModel(int modelNumber) throws ServerException 
+	{
+		String response = (String) get("/game/model");
+		CatanModel model;
+		try 
+		{
+			model = JSONDeserializer.deserialize(response);
+			return model;
+		} 
+		catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) 
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 	
 	public CatanModel resetGame() throws ServerException
@@ -476,14 +485,14 @@ public class AuthProxy
 				br.close();
 				return sb.toString();
 			}
-			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-			{
-				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-			}
-			else
-			{
-				throw new ServerException("No Response from Server");
-			}
+//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+//			{
+//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+//			}
+//			else
+//			{
+//				throw new ServerException("No Response from Server");
+//			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -532,14 +541,14 @@ public class AuthProxy
 				br.close();
 				return sb.toString();
 			}
-			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-			{
-				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-			}
-			else
-			{
-				throw new ServerException("No Response from Server");
-			}
+//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+//			{
+//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+//			}
+//			else
+//			{
+//				throw new ServerException("No Response from Server");
+//			}
 		} 
 		catch (MalformedURLException e) 
 		{

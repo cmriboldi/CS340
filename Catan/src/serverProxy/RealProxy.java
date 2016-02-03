@@ -8,7 +8,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.net.URLDecoder;
+//import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,8 +37,8 @@ import shared.locations.*;
 public class RealProxy implements ServerProxy
 {
 	private String urlBase;
-	private String name;
-	private int playerID;
+//	private String name;
+//	private int playerID;
 	private AuthProxy authProxy;
 	
 	public RealProxy()
@@ -84,19 +84,19 @@ public class RealProxy implements ServerProxy
 				cookie = cookie.replace("catan.user=", "");
 				cookie = cookie.replace(";Path=/;", "");
 				authProxy = new AuthProxy(cookie);
-				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
-				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
-				this.name = userjson.get("name").toString().replace("\"", "");
-				this.playerID = userjson.get("playerID").getAsInt();
+//				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
+//				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
+//				this.name = userjson.get("name").toString().replace("\"", "");
+//				this.playerID = userjson.get("playerID").getAsInt();
 			}
-			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-			{
-				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-			}
-			else
-			{
-				throw new ServerException("No Response from Server");
-			}
+//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+//			{
+//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+//			}
+//			else
+//			{
+//				throw new ServerException("No Response from Server");
+//			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -346,14 +346,14 @@ public class RealProxy implements ServerProxy
 				
 				return sb.toString();
 			}
-			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-			{
-				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-			}
-			else
-			{
-				throw new ServerException("No Response from Server");
-			}
+//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+//			{
+//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+//			}
+//			else
+//			{
+//				throw new ServerException("No Response from Server");
+//			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -401,14 +401,14 @@ public class RealProxy implements ServerProxy
 				br.close();
 				return sb.toString();
 			}
-			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-			{
-				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-			}
-			else
-			{
-				throw new ServerException("No Response from Server");
-			}
+//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+//			{
+//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+//			}
+//			else
+//			{
+//				throw new ServerException("No Response from Server");
+//			}
 		} 
 		catch (MalformedURLException e) 
 		{
