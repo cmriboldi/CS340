@@ -19,8 +19,10 @@ import model.resources.ResourceList;
 import model.resources.ResourceManager;
 import model.resources.TradeOffer;
 import shared.communication.IdNumber;
+import shared.definitions.CatanColor;
 import shared.definitions.PortType;
 import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidColorException;
 import shared.exceptions.player.InvalidTurnStatusException;
 import shared.exceptions.player.TurnIndexException;
 import shared.locations.*;
@@ -72,6 +74,7 @@ public class JSONDeserializer
 	{
 	    ResourceList bankResources;
 	    ResourceList[] playerResources = new ResourceList[4];
+	    boolean[] hasPlayerDiscarded = new boolean[4];
 	    TradeOffer tradeResourcesOffer = null;
 	    
 	    //Get bank resources
@@ -90,6 +93,10 @@ public class JSONDeserializer
 			JsonObject player = players.get(i).getAsJsonObject();
 			JsonObject resource = player.getAsJsonObject("resources");
 			int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
+			
+			boolean discarded = player.getAsJsonPrimitive("discarded").getAsBoolean();
+			hasPlayerDiscarded[i] = discarded;
+			
 			ResourceList resources;
 			
 			int brick = resource.getAsJsonPrimitive("brick").getAsInt();
@@ -120,7 +127,7 @@ public class JSONDeserializer
             tradeResourcesOffer = new TradeOffer(resourcesOffer, sender, receiver);
         }
         		
-		this.resourceManager = new ResourceManager(playerResources, bankResources, tradeResourcesOffer);
+		this.resourceManager = new ResourceManager(playerResources, bankResources, tradeResourcesOffer, hasPlayerDiscarded);
 	}
 	
 	private void SetDevCardManager(JsonArray players)
@@ -189,27 +196,23 @@ public class JSONDeserializer
 	    	int settlements = player.getAsJsonPrimitive("settlements").getAsInt();
 	    	int roads = player.getAsJsonPrimitive("roads").getAsInt();
 	    	int victoryPoints = player.getAsJsonPrimitive("victoryPoints").getAsInt();
-	    	boolean discarded = player.getAsJsonPrimitive("discarded").getAsBoolean();
 	    	
-	    	Player newPlayer = new Player(); 
+	    	Player newPlayer = new Player();
 	    	newPlayer.setPoints(victoryPoints);
-	    	// newPlayer.setColor(color);   // TODO
+	    	try
+			{
+				newPlayer.setColor(color);
+			} catch (InvalidColorException e)
+			{
+				System.out.println(e);
+				e.printStackTrace();
+			}
 	    	newPlayer.setId(new IdNumber(playerId));
-		    // Pieces newPlayerPieces = new Pieces();
-		    	// newPlayerPieces.setCities(cities);
-		    	//bnewPlayerPieces.setRoads(roads);
-		    	// newPlayerPieces.setSettlements(settlements);
-	    	// newPlayer.setPieces(newPlayerPieces);
 	    	newPlayer.setCitiesRemaining(cities);
 	    	newPlayer.setSettlementsRemaining(settlements);
 	    	newPlayer.setRoadsRemaining(roads);
 		    newPlayer.setPlayerIndex(index);
 		    newPlayer.setName(name);
-	    	
-		    // TOUCH UPS
-		    // private boolean longestRoad; // (IN PLAYER CLASS PUT NOT PASSED IN THROUGH DESERIALIZER)
-		    // private boolean largestArmy; // (IN PLAYER CLASS PUT NOT PASSED IN THROUGH DESERIALIZER)
-			// private CatanColor color; // (NEED TO FIGURE OUT CATAN-COLOR CONSTRUCTOR)
 		    
 	    	//<========Construct part of player manager here============>	    	
 		    catanPlayers[i] = newPlayer; 
@@ -380,7 +383,7 @@ public class JSONDeserializer
 	    int longestRoad = turnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
 	    int largestArmy = turnTracker.getAsJsonPrimitive("largestArmy").getAsInt();
 	    
-	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker( currentTurn, status); 
+	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker(currentTurn, status); 
 	    playerManager.setTurnTracker(playerTurnTracker);
 	   
 	}

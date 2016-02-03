@@ -28,10 +28,6 @@ public class PlayerTurnTracker
 	int turnIndex = -1; 
 	
 	String status = null; 
-	
-	
-	
-	
 
 	public int getTurnIndex() {
 		return turnIndex;

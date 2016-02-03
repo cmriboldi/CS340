@@ -2,6 +2,7 @@ package model.players;
 
 import java.util.ArrayList;
 import shared.definitions.CatanColor;
+import shared.exceptions.player.InvalidColorException;
 import shared.communication.*;
 
 
@@ -38,37 +39,32 @@ public class Player
 
 	/** A unique ID to distinguish from other players */
 	private IdNumber id;
-
-	private int settlementsRemaining;
 	
-	private int citiesRemaining; 
-	
-	private int roadsRemaining; 
-	
-	
+	/** A list of the pieces the player can still play*/
+	private Pieces pieces;
 
 	public int getSettlementsRemaining() {
-		return settlementsRemaining;
+		return pieces.getSettlements();
 	}
 
 	public void setSettlementsRemaining(int settlementsRemaining) {
-		this.settlementsRemaining = settlementsRemaining;
+		pieces.setSettlements(settlementsRemaining);
 	}
 
 	public int getCitiesRemaining() {
-		return citiesRemaining;
+		return pieces.getCities();
 	}
 
 	public void setCitiesRemaining(int citiesRemaining) {
-		this.citiesRemaining = citiesRemaining;
+		pieces.setCities(citiesRemaining);
 	}
 
 	public int getRoadsRemaining() {
-		return roadsRemaining;
+		return pieces.getRoads();
 	}
 
 	public void setRoadsRemaining(int roadsRemaining) {
-		this.roadsRemaining = roadsRemaining;
+		pieces.setRoads(roadsRemaining);
 	}
 
 	/**
@@ -183,19 +179,52 @@ public class Player
 	{
 		this.id = id;
 	}
-
-
-	/*
-	/** A list of the pieces the player can still play 
-	private Pieces pieces;
-
-	public Pieces getPieces() {
+	
+	public Pieces getPieces() 
+	{
 		return pieces;
 	}
 
-	public void setPieces(Pieces pieces) {
+	public void setPieces(Pieces pieces) 
+	{
 		this.pieces = pieces;
-	}*/
+	}
 
+	public void setColor(String color) throws InvalidColorException
+	{
+		//red, green, blue, yellow, puce, brown, white, purple, orange are the valid colors.
+		switch (color)
+		{
+		case "red":
+			this.color = CatanColor.RED;
+			break;
+		case "green":
+			this.color = CatanColor.GREEN;
+			break;
+		case "blue":
+			this.color = CatanColor.BLUE;
+			break;
+		case "yellow":
+			this.color = CatanColor.YELLOW;
+			break;
+		case "puce":
+			this.color = CatanColor.PUCE;
+			break;
+		case "brown":
+			this.color = CatanColor.BROWN;
+			break;
+		case "white":
+			this.color = CatanColor.WHITE;
+			break;
+		case "purple":
+			this.color = CatanColor.PURPLE;
+			break;
+		case "orange":
+			this.color = CatanColor.ORANGE;
+			break;
+		default:
+			throw new InvalidColorException();
+		}
+	}
 
 }

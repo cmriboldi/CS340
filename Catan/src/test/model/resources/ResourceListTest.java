@@ -12,6 +12,7 @@ public class ResourceListTest
 	@Before
 	public void setUp() throws Exception
 	{
+		
 	}
 
 	@After
