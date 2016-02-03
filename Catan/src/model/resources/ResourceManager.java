@@ -11,7 +11,11 @@ package model.resources;
 
 import shared.definitions.*;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
+import shared.exceptions.resources.TradeOfferNullException;
 import shared.exceptions.player.InvalidPlayerIndexException;
+import shared.exceptions.resources.InvalidNumberOfResourcesRequested;
+import shared.exceptions.resources.InvalidPieceTypeException;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 
 public class ResourceManager
@@ -32,16 +36,19 @@ public class ResourceManager
 	 * 
 	 * @param playerIndex The index of the player who is purchasing the piece.
 	 * @param piece The PieceType which will be bought.
+	 * @throws NotEnoughResourcesException 
+	 * @throws InvalidPieceTypeException 
 	 */
-	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException
+	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException, InvalidPieceTypeException, NotEnoughResourcesException
 	{
 		banker.buyPiece(playerIndex, piece);
 	}
 
 	/**
 	 * @param playerIndex The index of the player who is buying a development card.
+	 * @throws NotEnoughResourcesException 
 	 */
-	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException
+	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException, NotEnoughResourcesException
 	{
 		banker.buyDevCard(playerIndex);
 	}
@@ -63,7 +70,7 @@ public class ResourceManager
 	 * @throws NotEnoughPlayerResourcesException
 	 * @throws InvalidPlayerIndex
 	 */
-	public void acceptPlayerTrade(int playerIndex) throws NotEnoughPlayerResourcesException, InvalidPlayerIndexException
+	public void acceptPlayerTrade(int playerIndex) throws NotEnoughPlayerResourcesException, InvalidPlayerIndexException, TradeOfferNullException
 	{
 		try
 		{
@@ -91,17 +98,17 @@ public class ResourceManager
 	 */
 	public void useMonopolyCard(int playerIndex, ResourceType resource)
 	{
-
+		trader.useMonopolyCard(playerIndex, resource);
 	}
 
 	/**
 	 * @param playerIndex The index of the player who is using the card.
 	 * @param resourcesAskedFor The ResourceList with the two resources requested.
+	 * @throws InvalidNumberOfResourcesRequested 
 	 */
-	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor)
-			throws NotEnoughBankResourcesException
+	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException, InvalidNumberOfResourcesRequested
 	{
-
+		banker.useYearOfPlentyCard(playerIndex, resourcesAskedFor);
 	}
 
 	/**
@@ -148,7 +155,7 @@ public class ResourceManager
 		return banker.canPlayerAfford(playerIndex, Cost.DEVCARD);
 	}
 
-	public boolean canTrade(int playerIndex)
+	public boolean canTrade(int playerIndex) throws TradeOfferNullException
 	{
 		return trader.canTrade(playerIndex);
 	}

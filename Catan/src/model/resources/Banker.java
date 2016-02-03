@@ -34,7 +34,16 @@ public class Banker
 	 */
 	public void payPlayers(ResourceList[] resLists) throws NotEnoughBankResourcesException
 	{
-
+		for(int index = 0; index < 4; index++)
+		{
+			if(!bank.greaterThan(resLists[index]))
+			{
+				throw new NotEnoughBankResourcesException("There are not enough resources in the bank to give to player " + index + ".");
+			}
+			
+			playerResources.addResourcesToPlayer(resLists[index], index);
+			bank.minus(resLists[index]);
+		}
 	}
 
 	/**
@@ -42,20 +51,49 @@ public class Banker
 	 * 
 	 * @param playerIndex The index of the player who is purchasing the piece.
 	 * @param piece The PieceType which will be bought.
+	 * @throws InvalidPieceTypeException 
+	 * @throws NotEnoughResourcesException 
 	 */
-	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException
+	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException, InvalidPieceTypeException, NotEnoughResourcesException
 	{
-
+		Cost product = null;
+		switch (piece)
+		{
+		case CITY:
+			product = Cost.CITY;
+			break;
+		case ROAD:
+			product = Cost.ROAD;
+			break;
+		case SETTLEMENT:
+			product = Cost.SETTLEMENT;
+			break;
+		default:
+			throw new InvalidPieceTypeException("Invalid piece trying to be purchased in the buyPiece function.");
+		}
+		
+		if(product == null || !canPlayerAfford(playerIndex, product))
+		{
+			throw new NotEnoughPlayerResourcesException("Not enough player resources to purchase this piece.");
+		}
+		playerResources.takeResourcesFromPlayer(product.getCost(), playerIndex);
+		bank.plus(product.getCost());
 	}
 
 	/**
 	 * Purchases a development card by paying the bank.
 	 * 
 	 * @param playerIndex Index of the player who is buying.
+	 * @throws NotEnoughResourcesException 
 	 */
-	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException
+	public void buyDevCard(int playerIndex) throws NotEnoughPlayerResourcesException, NotEnoughResourcesException
 	{
-
+		if(!canPlayerAfford(playerIndex, Cost.DEVCARD))
+		{
+			throw new NotEnoughPlayerResourcesException("Not enough player resources to purchase a development card.");
+		}
+		playerResources.takeResourcesFromPlayer(Cost.DEVCARD.getCost(), playerIndex);
+		bank.plus(Cost.DEVCARD.getCost());
 	}
 
 	/**
@@ -64,19 +102,39 @@ public class Banker
 	 * @param resList ResourceList with the positive numbers going to the player and the negative
 	 *            numbers coming from the Bank.
 	 * @param toPlayerIndex The index of the player who is trading with the bank.
+	 * @throws NotEnoughPlayerResourcesException 
 	 */
-	public void tradeWithBank(ResourceList resList, int toPlayerIndex) throws NotEnoughBankResourcesException
+	public void tradeWithBank(ResourceList resList, int toPlayerIndex) throws NotEnoughBankResourcesException, NotEnoughPlayerResourcesException
 	{
-
+		if(!bank.greaterThan(resList))
+		{
+			throw new NotEnoughBankResourcesException("There are not enough resources in the bank make that trade");
+		} else if(!playerResources.getResourcesForPlayer(toPlayerIndex).greaterThan(resList.invert()))
+		{
+			throw new NotEnoughPlayerResourcesException("The player doesn't have enough resources to offer that trade.");
+		}
+		playerResources.addResourcesToPlayer(resList, toPlayerIndex);
+		bank.minus(resList);
 	}
 
 	/**
 	 * @param playerIndex The index of the player who is using the card.
 	 * @param resourcesAskedFor The ResourceList with the two resources requested.
+	 * @throws InvalidNumberOfResourcesRequested 
 	 */
-	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor) throws NotEnoughBankResourcesException
+	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor)
+			throws NotEnoughBankResourcesException, InvalidNumberOfResourcesRequested
 	{
-
+		if (!bank.greaterThan(resourcesAskedFor))
+		{
+			throw new NotEnoughBankResourcesException("There are not enough resources in the bank for to use this monopoly card.");
+		} else if (resourcesAskedFor.getResourceCount() != 2)
+		{
+			throw new InvalidNumberOfResourcesRequested("You must request two resources when you use the year of plenty card.");
+		}
+		
+		playerResources.addResourcesToPlayer(resourcesAskedFor, playerIndex);
+		bank.minus(resourcesAskedFor);
 	}
 
 	public boolean canPlayerAfford(int playerIndex, Cost product)

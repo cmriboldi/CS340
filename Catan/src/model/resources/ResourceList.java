@@ -1,5 +1,6 @@
 package model.resources;
 
+import shared.definitions.ResourceType;
 import shared.exceptions.resources.NotEnoughResourcesException;
 
 /**
@@ -23,7 +24,11 @@ public class ResourceList implements Comparable<ResourceList>
 
 	public ResourceList()
 	{
-
+		brick = 0;
+		ore = 0;
+		wheat = 0;
+		wood = 0;
+		sheep = 0;
 	}
 
 	public ResourceList(int brick, int ore, int sheep, int wheat, int wood)
@@ -42,7 +47,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void addBrick(int quantity)
 	{
-
+		brick += quantity;
 	}
 
 	/**
@@ -52,7 +57,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void addOre(int quantity)
 	{
-
+		ore += quantity;
 	}
 
 	/**
@@ -62,7 +67,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void addWheat(int quantity)
 	{
-
+		wheat += quantity;
 	}
 
 	/**
@@ -72,7 +77,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void addWood(int quantity)
 	{
-
+		wood += quantity;
 	}
 
 	/**
@@ -82,7 +87,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void addSheep(int quantity)
 	{
-
+		sheep += quantity;
 	}
 
 	/**
@@ -92,7 +97,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void removeBrick(int quantity) throws NotEnoughResourcesException
 	{
-
+		brick -= quantity;
 	}
 
 	/**
@@ -102,7 +107,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void removeOre(int quantity) throws NotEnoughResourcesException
 	{
-
+		ore -= quantity;
 	}
 
 	/**
@@ -112,7 +117,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void removeWheat(int quantity) throws NotEnoughResourcesException
 	{
-
+		wheat -= quantity;
 	}
 
 	/**
@@ -122,7 +127,7 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void removeWood(int quantity) throws NotEnoughResourcesException
 	{
-
+		wood -= quantity;
 	}
 
 	/**
@@ -132,7 +137,36 @@ public class ResourceList implements Comparable<ResourceList>
 	 */
 	public void removeSheep(int quantity) throws NotEnoughResourcesException
 	{
+		sheep -= quantity;
+	}
+	
+	public int getResourceTypeCount(ResourceType resource)
+	{
+		int resourceCount = 0;
+		switch (resource)
+		{
+		case BRICK:
+			resourceCount = brick;
+			break;
+		case ORE:
+			resourceCount = ore;
+			break;
+		case SHEEP:
+			resourceCount = sheep;
+			break;
+		case WHEAT:
+			resourceCount = wheat;
+			break;
+		case WOOD:
+			resourceCount = wood;
+			break;
+		}
+		return resourceCount;
+	}
 
+	public int getResourceCount()
+	{
+		return this.brick + this.ore + this.sheep + this.wheat + this.wood;
 	}
 
 	public void plus(ResourceList rs)
@@ -184,11 +218,6 @@ public class ResourceList implements Comparable<ResourceList>
 		}
 
 		return compareValue;
-	}
-
-	private int getResourceCount()
-	{
-		return this.brick + this.ore + this.sheep + this.wheat + this.wood;
 	}
 
 	public ResourceList invert()

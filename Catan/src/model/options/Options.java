@@ -3,6 +3,7 @@ package model.options;
 import model.CatanModel;
 import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
+import shared.exceptions.resources.TradeOfferNullException;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
@@ -111,7 +112,18 @@ public class Options
 	 */
 	public boolean canTrade(int playerIndex)
 	{
-		return canPlay(playerIndex) || catanModel.resourceManager.canTrade(playerIndex);
+		boolean canTrade = false; 
+		
+		try
+		{
+			canTrade = canPlay(playerIndex) || catanModel.resourceManager.canTrade(playerIndex);
+		} catch (TradeOfferNullException e)
+		{
+			System.out.println("Exception: " + e);
+			e.printStackTrace();
+		}
+		
+		return canTrade;
 	}
 
 	/**

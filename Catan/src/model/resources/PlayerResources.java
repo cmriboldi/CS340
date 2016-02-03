@@ -1,6 +1,7 @@
 package model.resources;
 
-import shared.exceptions.resources.NotEnoughBankResourcesException;
+import shared.definitions.ResourceType;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class PlayerResources
 {
@@ -25,7 +26,7 @@ public class PlayerResources
 	 */
 	public void addResourcesToPlayer(ResourceList resList, int playerIndex)
 	{
-
+		playerResources[playerIndex].plus(resList);
 	}
 
 	/**
@@ -34,9 +35,13 @@ public class PlayerResources
 	 * @param resList A ResourceList with the positive amounts needed to be taken from the player.
 	 * @param playerIndex The index of the player who will lose the resources.
 	 */
-	public void takeResourcesFromPlayer(ResourceList resList, int playerIndex) throws NotEnoughBankResourcesException
+	public void takeResourcesFromPlayer(ResourceList resList, int playerIndex) throws NotEnoughResourcesException
 	{
-
+		if(playerResources[playerIndex].lessThan(resList))
+		{
+			throw new NotEnoughResourcesException("There were not enough resources in the players stack to take more.");
+		}
+		playerResources[playerIndex].minus(resList);
 	}
 
 	/**
@@ -53,10 +58,21 @@ public class PlayerResources
 	public boolean canPlayerAfford(int playerIndex, ResourceList resourceList)
 	{
 		boolean canAfford = false;
-		if(playerResources[playerIndex].greaterThan(resourceList)) {
+		if(playerResources[playerIndex].greaterThan(resourceList)) 
+		{
 			canAfford = true;
 		}
 		
 		return canAfford;
+	}
+
+	public int getResourceCount(int playerIndex, ResourceType resource)
+	{
+		return playerResources[playerIndex].getResourceTypeCount(resource);
+	}
+
+	public int getResourceTypeCount(int playerIndex, ResourceType resource)
+	{
+		return playerResources[playerIndex].getResourceTypeCount(resource);
 	}
 }

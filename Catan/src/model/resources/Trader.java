@@ -3,6 +3,8 @@ package model.resources;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.InvalidPlayerIndexException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
+import shared.exceptions.resources.TradeOfferNullException;
 
 /**
  * The Trader handles all Player to Player transactions.
@@ -28,19 +30,22 @@ public class Trader
 	}
 
 	/**
-	 * This function is were trading Player to Player is implemented.
+	 * This function is called when a new Trade Offer wants to be created and accepted.
 	 * 
-	 * @param resLists This is an ResourceList where the positive numbers in the arrays are the
-	 *            resources going to one player and the negative numbers are coming from another
-	 *            player.
-	 * @param toPlayerIndex The index of the player who is receiving the positive numbered
-	 *            resources.
-	 * @param fromPlayerIndex The index of the player who is receiving the negative numbered
-	 *            resources.
+	 * @param tradeOffer
+	 * @throws NotEnoughPlayerResourcesException
 	 */
-	public void tradeWithPlayer(ResourceList resList, int fromPlayerIndex, int toPlayerIndex) throws NotEnoughPlayerResourcesException
+	public void tradeWithPlayer(TradeOffer tradeOffer) throws NotEnoughPlayerResourcesException
 	{
-
+		this.tradeOffer = tradeOffer;
+		try
+		{
+			acceptPlayerTrade(tradeOffer.getReceiver());
+		} catch (Exception e)
+		{
+			System.out.println(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -49,11 +54,49 @@ public class Trader
 	 */
 	public void useMonopolyCard(int playerIndex, ResourceType resource)
 	{
-
+		ResourceList monopolizedResources = new ResourceList();
+		
+		for(int index = 0; index < 4; index++)
+		{
+			int resourceCount = playerResources.getResourceTypeCount(index, resource);
+			switch (resource)
+			{
+			case BRICK:
+				monopolizedResources.addBrick(resourceCount);
+				break;
+			case ORE:
+				monopolizedResources.addOre(resourceCount);
+				break;
+			case SHEEP:
+				monopolizedResources.addSheep(resourceCount);
+				break;
+			case WHEAT:
+				monopolizedResources.addWheat(resourceCount);
+				break;
+			case WOOD:
+				monopolizedResources.addWood(resourceCount);
+				break;
+			}
+			try
+			{
+				playerResources.takeResourcesFromPlayer(monopolizedResources, index);
+				playerResources.addResourcesToPlayer(monopolizedResources, playerIndex);
+			} catch (NotEnoughResourcesException e)
+			{
+				System.out.println(e);
+				e.printStackTrace();
+			}
+		}
+		
 	}
 
-	public void acceptPlayerTrade(int playerIndex) throws InvalidPlayerIndexException, NotEnoughPlayerResourcesException
+	public void acceptPlayerTrade(int playerIndex) throws InvalidPlayerIndexException, NotEnoughPlayerResourcesException, TradeOfferNullException
 	{
+		if(tradeOffer == null)
+		{
+			throw new TradeOfferNullException("There is no trade offer initialized.");
+		}
+		
 		if(playerIndex != tradeOffer.getReceiver())
 		{
 			throw new InvalidPlayerIndexException("The player index must match the index of the trade offer reciever.");
@@ -74,8 +117,12 @@ public class Trader
 		
 	}
 
-	public boolean canTrade(int playerIndex)
+	public boolean canTrade(int playerIndex) throws TradeOfferNullException
 	{
+		if(tradeOffer == null)
+		{
+			throw new TradeOfferNullException("There is no trade offer initialized.");
+		}
 		return tradeOffer.getReceiver() == playerIndex || tradeOffer.getSender() == playerIndex;
 	}
 
