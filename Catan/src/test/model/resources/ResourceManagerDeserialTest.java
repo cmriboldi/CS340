@@ -29,7 +29,8 @@ public class ResourceManagerDeserialTest
 	@Test
 	public void test()
 	{
-		fail("Not yet implemented");
+		//assert values are not null
+		assertNotEquals(resManager,null);
 	}
 
 }
