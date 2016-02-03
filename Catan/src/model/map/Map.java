@@ -2,9 +2,7 @@ package model.map;
 
 //JAVA imports
 
-import java.util.HashMap;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 //Project Imports
 import shared.locations.*;
@@ -273,6 +271,49 @@ public class Map {
                     return true;
             }
         }
+
+        return false;
+    }
+
+    public boolean canPlaceSettlement(VertexLocation vertex, int player){
+
+        List<EdgeLocation> firstEdges = findEdges(vertex);
+        List<EdgeLocation> firstEdgesPlayer = new ArrayList<>();
+        Set<VertexLocation> firstVertexes = new HashSet<>();
+
+        //get all of the edges attached to the vertex
+        //check if any of them have roads belonging to the player
+        for(int i = 0; i < firstEdges.size(); i++){
+            //grab the first set of vertexies for later
+            firstVertexes.add(findVertexLeft(firstEdges.get(i)));
+
+            if(roads.containsKey(firstEdges.get(i))){
+                //if any do, save then in a separate list
+                if(roads.get(firstEdges.get(i)).owner == player)
+                    firstEdgesPlayer.add(firstEdges.get(i));
+            }
+        }
+        //if none do, return false
+        if(firstEdgesPlayer.size() == 0)
+            return false;
+
+        //using the three vertecies attached to those edges
+            //remove the inital edge
+            firstVertexes.remove(vertex);
+
+        //check if any have ANY settlements
+        for(Iterator<VertexLocation> it = firstVertexes.iterator(); it.hasNext();){
+            if(settlements.containsKey(it.next()))
+                //if ANY do, return false
+                return false;
+        }
+
+        //check edges adjoining any edges with play roads on them for additional roads belonging to the player
+            //if none of them do, return false
+
+        //check those edges for vertecies with settlements belonging to the player
+            //if yes, return true
+
 
         return false;
     }
