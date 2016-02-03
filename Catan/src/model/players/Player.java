@@ -43,6 +43,11 @@ public class Player
 	/** A list of the pieces the player can still play*/
 	private Pieces pieces;
 
+	public Player()
+	{
+		this.pieces = new Pieces();
+	}
+	
 	public int getSettlementsRemaining() {
 		return pieces.getSettlements();
 	}
