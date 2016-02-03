@@ -278,10 +278,10 @@ public class Map {
     public boolean canPlaceSettlement(VertexLocation vertex, int player){
 
         List<EdgeLocation> firstEdges = findEdges(vertex);
-        List<EdgeLocation> firstEdgesPlayer = new ArrayList<>();
-        Set<VertexLocation> firstVertexes = new HashSet<>();
-        Set<VertexLocation> firstVertexesPlayer = new HashSet<>();
-        List<EdgeLocation> secondEdges = new ArrayList<>();
+        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
+        Set<VertexLocation> firstVertexes = new HashSet<VertexLocation>();
+        Set<VertexLocation> firstVertexesPlayer = new HashSet<VertexLocation>();
+        List<EdgeLocation> secondEdges = new ArrayList<EdgeLocation>();
 
         //get all of the edges attached to the vertex
         //check if any of them have roads belonging to the player
@@ -305,26 +305,26 @@ public class Map {
             firstVertexes.remove(vertex);
 
         //check if any have ANY settlements
-        for(Iterator<VertexLocation> it = firstVertexes.iterator(); it.hasNext();){
-            if(settlements.containsKey(it.next()))
-                //if ANY do, return false
+        for(VertexLocation loc : firstVertexes){
+            if(settlements.containsKey(loc))
                 return false;
         }
 
+
         //check edges adjoining any edges with play roads on them for additional roads belonging to the player
         //collect the vertexes
-        for(int i = 0; i < firstEdgesPlayer.size(); i++){
-            VertexLocation left = findVertexLeft(firstEdgesPlayer.get(i));
-            VertexLocation right = findVertexRight(firstEdgesPlayer.get(i));
+        for(EdgeLocation edge : firstEdgesPlayer){
+            VertexLocation left = findVertexLeft(edge);
+            VertexLocation right = findVertexRight(edge);
 
             if(left != vertex){
                 //if the new vertex is the left vertex
-                secondEdges = findEdges(left, firstEdgesPlayer.get(i));
+                secondEdges = findEdges(left, edge);
                 firstVertexesPlayer.add(left);
 
             }else{
                 //is the new vertex is the right vertex
-                secondEdges = findEdges(right, firstEdgesPlayer.get(i));
+                secondEdges = findEdges(right, edge);
                 firstVertexesPlayer.add(left);
             }
         }
