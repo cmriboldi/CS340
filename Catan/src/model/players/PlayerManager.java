@@ -26,8 +26,9 @@ public class PlayerManager
 		CatanPlayers = catanPlayers;
 	}
 
-	public PlayerTurnTracker turnTracker = null; 
 	
+	
+	public PlayerTurnTracker turnTracker = null; 
 	
 
 	public PlayerTurnTracker getTurnTracker() {
