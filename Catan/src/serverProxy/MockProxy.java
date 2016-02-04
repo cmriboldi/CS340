@@ -10,7 +10,6 @@ import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.CommGame;
 import shared.definitions.CatanColor;
-import shared.definitions.Command;
 import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.GeneralPlayerException;
@@ -20,7 +19,6 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 import test.JsonFileLoader;
-import test.TestJSON;
 
 /**
  * The 'mock' proxy inherits all functions from the ServerProxy interface but will not be used for
@@ -83,7 +81,7 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public void getGameModel(int version) throws ServerException {
+	public CatanModel getGameModel(int version) throws ServerException {
 		String json = null;
 		try {
 			json = JsonFileLoader.readFile("defaultModel.json");
@@ -91,7 +89,7 @@ public class MockProxy implements ServerProxy
 			e1.printStackTrace();
 		}
 		try {
-			catanModel = JSONDeserializer.deserialize(json);
+			return catanModel = JSONDeserializer.deserialize(json);
 		} catch (TurnIndexException e) {
 			e.printStackTrace();
 		} catch (InvalidTurnStatusException e) {
@@ -100,6 +98,7 @@ public class MockProxy implements ServerProxy
 			e.printStackTrace();
 		}
 		Facade.updateView(catanModel);
+		return null;
 	}
 
 	@Override
@@ -245,12 +244,6 @@ public class MockProxy implements ServerProxy
 
 	@Override
 	public CatanModel getGameModel() throws ServerException {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public CatanModel getGameModel(int modelNumber) throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
