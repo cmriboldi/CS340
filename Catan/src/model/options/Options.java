@@ -140,18 +140,11 @@ public class Options
 	 * @param playerIndex index of the player asking to trade.
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canTrade(int playerIndex)
+	public boolean canOfferTrade(int playerIndex)
 	{
 		boolean canTrade = false; 
 		
-		try
-		{
-			canTrade = canPlay(playerIndex) || catanModel.resourceManager.canTrade(playerIndex);
-		} catch (TradeOfferNullException e)
-		{
-			System.out.println("Exception: " + e);
-			e.printStackTrace();
-		}
+		canTrade = canPlay(playerIndex);
 		
 		return canTrade;
 	}
