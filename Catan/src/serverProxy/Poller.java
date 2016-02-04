@@ -36,7 +36,10 @@ public class Poller implements Runnable
 		for(;;)
 		{
 			Thread.sleep((long)(seconds*1000));
-			server.getGameModel(Facade.getCatanModel().getVersion());
+			if(Facade.getCatanModel() == null)
+				server.getGameModel(0);
+			else
+				server.getGameModel(Facade.getCatanModel().getVersion());
 		}
 		
 	}
