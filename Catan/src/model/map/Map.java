@@ -6,6 +6,7 @@ import java.util.*;
 
 //Project Imports
 import com.sun.javafx.geom.Edge;
+import shared.definitions.PortType;
 import shared.locations.*;
 import sun.security.provider.certpath.Vertex;
 
@@ -341,6 +342,40 @@ public class Map {
             }
         }
         return false;
+    }
+
+    public Set<PortType> canMaritimeTrade(int player){
+
+        HashMap<VertexLocation, PortType> filterMap = new HashMap<VertexLocation, PortType>();
+        Set<PortType> openPorts = new HashSet<PortType>();
+
+        //---scan all the port edges and collect the vertexes
+        //--classify the vertexes by port type (4 vertexes per type)
+        Set<EdgeLocation> portKeys = ports.keySet();
+        for(EdgeLocation portEdge : portKeys){
+            VertexLocation leftPort = findVertexLeft(portEdge);
+            VertexLocation rightPort = findVertexRight(portEdge);
+            PortType type = ports.get(portEdge).type;
+
+            filterMap.put(leftPort, type);
+            filterMap.put(rightPort, type);
+        }
+
+        //---look at all the port vertexes and compare with the settlement vertexes
+        Set<VertexLocation> portVertexes = filterMap.keySet();
+        for(VertexLocation portVertex : portVertexes){
+            //if there is a settlement on a portVertex
+            if(settlements.containsKey(portVertex))
+                //...and that settlement belonds to the player
+                if(settlements.get(portVertex).player == player)
+                    //add the port type connected to that port and add it to the return set
+                    openPorts.add(filterMap.get(portVertex));
+
+
+        }
+
+        //if no ports are open then this will be empty
+        return openPorts;
     }
 
 

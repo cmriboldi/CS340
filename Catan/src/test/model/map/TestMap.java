@@ -5,10 +5,12 @@ import model.CatanModel;
 import model.map.Map;
 import model.map.Port;
 import model.map.Road;
+import model.map.Settlement;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import serverProxy.JSONDeserializer;
+import shared.definitions.PortType;
 import shared.exceptions.player.GeneralPlayerException;
 import shared.exceptions.player.InvalidTurnStatusException;
 import shared.exceptions.player.TurnIndexException;
@@ -172,6 +174,47 @@ public class TestMap {
 
         assertEquals(false, map.canPlaceCity(location, player));
     }
+
+    @Test
+    public void canMaritimeTradeValid(){
+        //Ore Settlement
+        Settlement portSettle1 = new Settlement(new VertexLocation(new HexLocation(1, -2), VertexDirection.NorthEast), 0);
+        //Wheat Settlement
+        Settlement portSettle2 = new Settlement(new VertexLocation(new HexLocation(-1, -1), VertexDirection.NorthEast), 0);
+        //Three Settlement
+        Settlement portSettle3 = new Settlement(new VertexLocation(new HexLocation(-2, 0), VertexDirection.NorthEast), 0);
+
+        map.getSettlements().put(portSettle1.location, portSettle1);
+        map.getSettlements().put(portSettle2.location, portSettle2);
+        map.getSettlements().put(portSettle3.location, portSettle3);
+
+        Set<PortType> tradeOptions = map.canMaritimeTrade(0);
+
+        assertEquals(true, tradeOptions.contains(PortType.ORE));
+        assertEquals(true, tradeOptions.contains(PortType.WHEAT));
+        assertEquals(true, tradeOptions.contains(PortType.THREE));
+        assertEquals(3, tradeOptions.size());
+    }
+
+    @Test
+    public void canMaritimeTradeInvalidNoPorts(){
+        //Ore Settlement
+        Settlement portSettle1 = new Settlement(new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast), 3);
+
+        map.getSettlements().put(portSettle1.location, portSettle1);
+
+        Set<PortType> tradeOptions = map.canMaritimeTrade(3);
+
+        assertEquals(0, tradeOptions.size());
+        assertEquals(false, tradeOptions.contains(PortType.BRICK));
+        assertEquals(false, tradeOptions.contains(PortType.ORE));
+        assertEquals(false, tradeOptions.contains(PortType.SHEEP));
+        assertEquals(false, tradeOptions.contains(PortType.WHEAT));
+        assertEquals(false, tradeOptions.contains(PortType.WOOD));
+        assertEquals(false, tradeOptions.contains(PortType.THREE));
+
+    }
+
 
     public static void printMap(Map map){
 
