@@ -242,4 +242,16 @@ public class MockProxy implements ServerProxy
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public CatanModel getGameModel() throws ServerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public CatanModel getGameModel(int modelNumber) throws ServerException {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
