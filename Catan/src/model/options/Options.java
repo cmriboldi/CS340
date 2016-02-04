@@ -177,8 +177,9 @@ public class Options
 	{
 		
 		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
+		System.out.println("Can Play Method"); 
 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("playing")) return true; 
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing")) return true; 
 		else return false; 
 		
 	}
@@ -189,7 +190,7 @@ public class Options
 		
 		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("rolling")) return true; 
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Rolling")) return true; 
 		else return false; 	
 	}
 
@@ -198,7 +199,7 @@ public class Options
 		
 		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("robbing")) return true; 
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing")) return true; 
 		else return false; 	
 	}
 	
@@ -207,7 +208,7 @@ public class Options
 		
 		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("discarding")) return true; 
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Discarding")) return true; 
 		else return false; 	
 	}
 	
@@ -216,7 +217,7 @@ public class Options
 		
 		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("playing")) return true; 
+		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing")) return true; 
 		else return false; 	
 	}
 	
