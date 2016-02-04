@@ -12,7 +12,10 @@ import model.players.PlayerManager;
 import model.players.PlayerTurnTracker;
 import serverProxy.JSONDeserializer;
 import shared.definitions.DevCardType;
+import test.JsonFileLoader;
 import test.TestJSON;
+
+// Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
 
 public class PlayerCanDoTest
 {
@@ -29,6 +32,10 @@ public class PlayerCanDoTest
 		turnTracker = playerManager.getTurnTracker(); 
 		options = cm.options;
 		
+		
+		String json = JsonFileLoader.readFile("json/default.json");
+        CatanModel cm2 = JSONDeserializer.deserialize(json);
+        
 	}
 
 	@After
@@ -46,7 +53,6 @@ public class PlayerCanDoTest
 		assertNotEquals(turnTracker,null);
 		assertNotEquals(playerManager.getCatanPlayers() ,null);
 		assertEquals(playerManager.getCatanPlayers().length ,4);
-
 	}
 	
 	
@@ -73,7 +79,7 @@ public class PlayerCanDoTest
 	}
 	
 	@Test
-	public void testCanPlay()
+	public void testCanPlayDuringRolling()
 	{
 		boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
 		assertFalse(player0CanPlay); // can't play because status is currently rolling
@@ -86,7 +92,7 @@ public class PlayerCanDoTest
 	}
 	
 	@Test
-	public void testCanRoll()
+	public void testCanRollDuringRolling()
 	{
 		boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
 		assertTrue(player0CanRoll);  
@@ -99,7 +105,7 @@ public class PlayerCanDoTest
 	}
 	
 	@Test
-	public void canDiscardCards()
+	public void canDiscardCardsDuringRolling()
 	{
 		boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
 		assertFalse(player0CanDiscard);  
@@ -112,7 +118,7 @@ public class PlayerCanDoTest
 	}
 	
 	@Test
-	public void testCanFinishTurn()
+	public void testCanFinishTurnDuringRolling()
 	{
 		boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
 		assertFalse(player0CanFinish);  
@@ -125,7 +131,7 @@ public class PlayerCanDoTest
 	}
 	
 	@Test
-	public void testCanPlaceRobber()
+	public void testCanPlaceRobberDuringRolling()
 	{
 		boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
 		assertFalse(player0CanPlaceRobber);  
@@ -139,6 +145,272 @@ public class PlayerCanDoTest
 	
 	
 	
+	
+	// --------------------------------------------------------------------------- // 
+	
+	
+	@Test
+	public void testCanPlayDuringPlayForPlayer1()
+	{
+		
+		turnTracker.setStatus("Playing");
+		turnTracker.setTurnIndex(1);
+		boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertFalse(player0CanPlay); // can't play because status is currently rolling
+		boolean player1CanPlay = options.canPlay(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertTrue(player1CanPlay); 
+		boolean player2CanPlay = options.canPlay(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		assertFalse(player2CanPlay);
+		boolean player3CanPlay = options.canPlay(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		assertFalse(player3CanPlay);
+	}
+	
+	@Test
+	public void testCanRollDuringPlayForPlayer1()
+	{
+		turnTracker.setStatus("Playing");
+		turnTracker.setTurnIndex(1);
+		
+		boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertFalse(player0CanRoll);  
+		boolean player1CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player1CanRoll);  
+		boolean player2CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		assertFalse(player2CanRoll); 
+		boolean player3CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		assertFalse(player3CanRoll); 
+	}
+	
+	
+	@Test
+	public void canDiscardCardsDuringPlayForPlayer1()
+	{
+		turnTracker.setStatus("Playing");
+		turnTracker.setTurnIndex(1);
+		
+		boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertFalse(player0CanDiscard);  
+		boolean player1CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player1CanDiscard);  
+		boolean player2CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		assertFalse(player2CanDiscard); 
+		boolean player3CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		assertFalse(player3CanDiscard); 
+	}
+	
+	
+	
+	@Test
+	public void testCanFinishTurnDuringPlayForPlayer1()
+	{
+		turnTracker.setStatus("Playing");
+		turnTracker.setTurnIndex(1);
+		
+		boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertFalse(player0CanFinish);  
+		boolean player1CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertTrue(player1CanFinish);  
+		boolean player2CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		assertFalse(player2CanFinish); 
+		boolean player3CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		assertFalse(player3CanFinish); 
+	}
+	
+	
+	
+	@Test
+	public void testCanPlaceRobberDuringPlayForPlayer1()
+	{
+		turnTracker.setStatus("Playing");
+		turnTracker.setTurnIndex(1);
+		
+		boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertFalse(player0CanPlaceRobber);  
+		boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player1CanPlaceRobber);  
+		boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		assertFalse(player2CanPlaceRobber); 
+		boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		assertFalse(player3CanPlaceRobber); 
+	}
+	
+	
+	// --------------------------------------------------------------------------- // 
+	
+	
+		@Test
+		public void testCanPlayDuringRobbingForPlayer2()
+		{
+			
+			turnTracker.setStatus("Robbing");
+			turnTracker.setTurnIndex(2);
+			boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
+			assertFalse(player0CanPlay); // can't play because status is currently rolling
+			boolean player1CanPlay = options.canPlay(playerManager.getCatanPlayers()[1].getPlayerIndex());
+			assertFalse(player1CanPlay); 
+			boolean player2CanPlay = options.canPlay(playerManager.getCatanPlayers()[2].getPlayerIndex());
+			assertFalse(player2CanPlay);
+			boolean player3CanPlay = options.canPlay(playerManager.getCatanPlayers()[3].getPlayerIndex());
+			assertFalse(player3CanPlay);
+		}
+		
+		@Test
+		public void testCanRollDuringRobbingForPlayer2()
+		{
+			turnTracker.setStatus("Robbing");
+			turnTracker.setTurnIndex(2);
+			
+			boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+			assertFalse(player0CanRoll);  
+			boolean player1CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+			assertFalse(player1CanRoll);  
+			boolean player2CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+			assertFalse(player2CanRoll); 
+			boolean player3CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+			assertFalse(player3CanRoll); 
+		}
+		
+		
+		@Test
+		public void canDiscardCardsDuringRobbingForPlayer2()
+		{
+			turnTracker.setStatus("Robbing");
+			turnTracker.setTurnIndex(2);
+			
+			boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
+			assertFalse(player0CanDiscard);  
+			boolean player1CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[1].getPlayerIndex());
+			assertFalse(player1CanDiscard);  
+			boolean player2CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[2].getPlayerIndex());
+			assertFalse(player2CanDiscard); 
+			boolean player3CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[3].getPlayerIndex());
+			assertFalse(player3CanDiscard); 
+		}
+		
+		
+		
+		@Test
+		public void testCanFinishTurnDuringRobbingForPlayer2()
+		{
+			turnTracker.setStatus("Robbing");
+			turnTracker.setTurnIndex(2);
+			
+			boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
+			assertFalse(player0CanFinish);  
+			boolean player1CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[1].getPlayerIndex());
+			assertFalse(player1CanFinish);  
+			boolean player2CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[2].getPlayerIndex());
+			assertFalse(player2CanFinish); 
+			boolean player3CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[3].getPlayerIndex());
+			assertFalse(player3CanFinish); 
+		}
+		
+		
+		
+		@Test
+		public void testCanPlaceRobberDuringRobbingForPlayer2()
+		{
+			turnTracker.setStatus("Robbing");
+			turnTracker.setTurnIndex(2);
+			
+			boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+			assertFalse(player0CanPlaceRobber);  
+			boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+			assertFalse(player1CanPlaceRobber);  
+			boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+			assertTrue(player2CanPlaceRobber); 
+			boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+			assertFalse(player3CanPlaceRobber); 
+		}
+	
 
+		// --------------------------------------------------------------------------- // 
+		
+		
+			@Test
+			public void testCanPlayDuringDiscardingForPlayer3()
+			{
+				
+				turnTracker.setStatus("Discarding");
+				turnTracker.setTurnIndex(3);
+				boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
+				assertFalse(player0CanPlay); // can't play because status is currently rolling
+				boolean player1CanPlay = options.canPlay(playerManager.getCatanPlayers()[1].getPlayerIndex());
+				assertFalse(player1CanPlay); 
+				boolean player2CanPlay = options.canPlay(playerManager.getCatanPlayers()[2].getPlayerIndex());
+				assertFalse(player2CanPlay);
+				boolean player3CanPlay = options.canPlay(playerManager.getCatanPlayers()[3].getPlayerIndex());
+				assertFalse(player3CanPlay);
+			}
+			
+			@Test
+			public void testCanRollDuringDiscardingForPlayer3()
+			{
+				turnTracker.setStatus("Discarding");
+				turnTracker.setTurnIndex(3);
+				
+				boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+				assertFalse(player0CanRoll);  
+				boolean player1CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+				assertFalse(player1CanRoll);  
+				boolean player2CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+				assertFalse(player2CanRoll); 
+				boolean player3CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+				assertFalse(player3CanRoll); 
+			}
+			
+			
+			@Test
+			public void canDiscardCardsDuringDiscardingForPlayer3()
+			{
+				turnTracker.setStatus("Discarding");
+				turnTracker.setTurnIndex(3);
+				
+				boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
+				assertTrue(player0CanDiscard);  
+				boolean player1CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[1].getPlayerIndex());
+				assertTrue(player1CanDiscard);  
+				boolean player2CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[2].getPlayerIndex());
+				assertTrue(player2CanDiscard); 
+				boolean player3CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[3].getPlayerIndex());
+				assertTrue(player3CanDiscard); 
+			}
+			
+			
+			
+			@Test
+			public void testCanFinishTurnDuringDiscardingForPlayer3()
+			{
+				turnTracker.setStatus("Discarding");
+				turnTracker.setTurnIndex(3);
+				
+				boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
+				assertFalse(player0CanFinish);  
+				boolean player1CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[1].getPlayerIndex());
+				assertFalse(player1CanFinish);  
+				boolean player2CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[2].getPlayerIndex());
+				assertFalse(player2CanFinish); 
+				boolean player3CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[3].getPlayerIndex());
+				assertFalse(player3CanFinish); 
+			}
+			
+			
+			
+			@Test
+			public void testCanPlaceRobberDuringDiscardingForPlayer3()
+			{
+				turnTracker.setStatus("Discarding");
+				turnTracker.setTurnIndex(3);
+				
+				boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+				assertFalse(player0CanPlaceRobber);  
+				boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+				assertFalse(player1CanPlaceRobber);  
+				boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+				assertFalse(player2CanPlaceRobber); 
+				boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+				assertFalse(player3CanPlaceRobber); 
+			}
+		
 
 }

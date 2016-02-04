@@ -199,7 +199,7 @@ public class Options
 		
 		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Discarding")) return true; 
+		if (turnTracker.getStatus().equals("Discarding")) return true; 
 		else return false; 	
 	}
 	
