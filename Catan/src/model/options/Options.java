@@ -176,9 +176,7 @@ public class Options
 	public boolean canPlay(int playerIndex)
 	{
 		
-		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
-		System.out.println("Can Play Method"); 
-		
+		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 		
 		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing")) return true; 
 		else return false; 
 		

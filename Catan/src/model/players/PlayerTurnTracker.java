@@ -38,7 +38,6 @@ public class PlayerTurnTracker
 	}
 
 	public String getStatus() {
-		System.out.println("status: " + status); 
 		return status;
 	}
 

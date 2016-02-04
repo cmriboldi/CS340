@@ -75,8 +75,27 @@ public class PlayerCanDoTest
 	@Test
 	public void canPlay()
 	{
-		boolean player1CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
-		assertFalse(player1CanPlay); // can't play because statusis rolling
+		boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertFalse(player0CanPlay); // can't play because status is currently rolling
+		boolean player1CanPlay = options.canPlay(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player1CanPlay); 
+		boolean player2CanPlay = options.canPlay(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player2CanPlay);
+		boolean player3CanPlay = options.canPlay(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player3CanPlay);
+	}
+	
+	@Test
+	public void canRoll()
+	{
+		boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		assertTrue(player0CanRoll);  
+		boolean player1CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player1CanRoll);  
+		boolean player2CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player2CanRoll); 
+		boolean player3CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		assertFalse(player3CanRoll); 
 	}
 	
 
