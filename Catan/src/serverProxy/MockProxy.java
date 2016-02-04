@@ -1,5 +1,6 @@
 package serverProxy;
 
+import java.io.IOException;
 import java.util.List;
 
 import com.google.gson.JsonArray;
@@ -9,6 +10,7 @@ import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.CommGame;
 import shared.definitions.CatanColor;
+import shared.definitions.Command;
 import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.GeneralPlayerException;
@@ -17,6 +19,8 @@ import shared.exceptions.player.TurnIndexException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
+import test.JsonFileLoader;
+import test.TestJSON;
 
 /**
  * The 'mock' proxy inherits all functions from the ServerProxy interface but will not be used for
@@ -77,15 +81,15 @@ public class MockProxy implements ServerProxy
 		// TODO Auto-generated method stub
 		
 	}
-	
-	@Override
-	public CatanModel getGameModel() throws ServerException {
-		return null;
-	}
 
 	@Override
-	public CatanModel getGameModel(int modelNumber) throws ServerException {
+	public void getGameModel(int version) throws ServerException {
 		String json = null;
+		try {
+			json = JsonFileLoader.readFile("defaultModel.json");
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 		try {
 			catanModel = JSONDeserializer.deserialize(json);
 		} catch (TurnIndexException e) {
@@ -96,7 +100,6 @@ public class MockProxy implements ServerProxy
 			e.printStackTrace();
 		}
 		Facade.updateView(catanModel);
-		return catanModel;
 	}
 
 	@Override
@@ -239,6 +242,4 @@ public class MockProxy implements ServerProxy
 		// TODO Auto-generated method stub
 		
 	}
-	
-
 }

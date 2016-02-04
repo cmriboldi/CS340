@@ -1,32 +1,16 @@
 package serverProxy;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import com.sun.javafx.geom.Edge;
+import com.google.gson.*;
 import model.CatanModel;
-import model.development.DevCardList;
-import model.development.DevCardManager;
-import model.development.PlayerDevCards;
+import model.development.*;
 import model.map.*;
-import model.messagelog.ChatManager;
-import model.messagelog.Line;
-import model.players.Player;
-import model.players.PlayerManager;
-import model.players.PlayerTurnTracker;
-import model.resources.ResourceList;
-import model.resources.ResourceManager;
-import model.resources.TradeOffer;
-import shared.communication.IdNumber;
-import shared.definitions.CatanColor;
-import shared.definitions.PortType;
-import shared.exceptions.player.GeneralPlayerException;
-import shared.exceptions.player.InvalidColorException;
-import shared.exceptions.player.InvalidTurnStatusException;
-import shared.exceptions.player.TurnIndexException;
+import model.messagelog.*;
+import model.players.*;
+import model.resources.*;
+import shared.definitions.*;
+import shared.exceptions.player.*;
 import shared.locations.*;
-import shared.locations.Direction;
+import shared.communication.IdNumber;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -151,7 +135,6 @@ public class JSONDeserializer
 		    	int roadBuilding = newDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
 		    	int soldier = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
 		    	int yearOfPlenty = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
-		    	//<======Set part of devCarManager here=====>//
 		    	newPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
 	    	}
 	    	//Old Dev Cards
@@ -161,7 +144,6 @@ public class JSONDeserializer
 		    	int roadBuilding = oldDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
 		    	int soldier = oldDevCards.getAsJsonPrimitive("soldier").getAsInt();
 		    	int yearOfPlenty = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
-		    	//<======Set other part of devCarManager here=====>//
 		    	oldPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
 	    	}
 	    	//Played Dev Cards
@@ -179,9 +161,11 @@ public class JSONDeserializer
 		this.devCardManager = new DevCardManager(newPlayerDevCards, oldPlayerDevCards, playedDevCards, hasPlayedDevCardsList);
 	}
 	
-	private void SetPlayerManager(JsonArray players)
+	private void SetPlayerManager(JsonArray players, JsonObject turnTracker)
 	{    
 		Player[] catanPlayers = new Player[players.size()];
+		int longestRoad = turnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
+	    int largestArmy = turnTracker.getAsJsonPrimitive("largestArmy").getAsInt();
 		
 	    for(int i = 0; i < players.size(); i++)
 	    {
@@ -215,7 +199,7 @@ public class JSONDeserializer
 		    newPlayer.setName(name);
 		    
 	    	//<========Construct part of player manager here============>	    	
-		    catanPlayers[i] = newPlayer; 
+		    catanPlayers[index] = newPlayer; 
 	    }
 	    //<========Construct player manager here============>
 	    PlayerManager newPlayerManager = new PlayerManager(); 
@@ -380,8 +364,6 @@ public class JSONDeserializer
 	{
 		int currentTurn = turnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 	    String status = turnTracker.getAsJsonPrimitive("status").getAsString();
-	    int longestRoad = turnTracker.getAsJsonPrimitive("longestRoad").getAsInt();
-	    int largestArmy = turnTracker.getAsJsonPrimitive("largestArmy").getAsInt();
 	    
 	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker(currentTurn, status); 
 	    playerManager.setTurnTracker(playerTurnTracker);
@@ -415,11 +397,11 @@ public class JSONDeserializer
 	    
 	    SetResourceManager(bank, players, tradeOffer);
 	    SetDevCardManager(players);
-	    SetPlayerManager(players);
+	    SetPlayerManager(players, turnTracker);
 	    SetMapManager(map);
 	    SetChatManager(chat, log);
 	    SetTurnManager(turnTracker);
 	    
-		return catanModel = new CatanModel(resourceManager, devCardManager, playerManager, mapManager, chatManager);
+		return catanModel = new CatanModel(resourceManager, devCardManager, playerManager, mapManager, chatManager, version);
 	}
 }

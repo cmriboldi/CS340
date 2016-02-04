@@ -27,58 +27,86 @@ public class CatanModel
 	public Options options;
 	public PlayerManager playerManager;
 	public ResourceManager resourceManager;
-	public PlayerTurnTracker turnTracker; 
+	public PlayerTurnTracker turnTracker;
+	public int version;
 
 	public CatanModel()
 	{
 
 	}
 
-	public CatanModel(ResourceManager resourceManager, DevCardManager devCardManager, PlayerManager playerManager, MapManager mapManager, ChatManager chatManager)
+	public CatanModel(ResourceManager resourceManager, DevCardManager devCardManager, PlayerManager playerManager, MapManager mapManager, ChatManager chatManager, int version)
 	{
 		this.cardManager = devCardManager;
 		this.mapManager = mapManager;
 		this.chatManager = chatManager;
 		this.playerManager = playerManager;
 		this.resourceManager = resourceManager;
-		options = new Options(this);
+		this.version = version;
+		this.options = new Options(this);		
 	}
 
-	public void setCardManager(DevCardManager cardManager)
-	{
+	public DevCardManager getCardManager() {
+		return cardManager;
+	}
+
+	public void setCardManager(DevCardManager cardManager) {
 		this.cardManager = cardManager;
 	}
 
-	public void setMapManager(MapManager mapManager)
-	{
+	public MapManager getMapManager() {
+		return mapManager;
+	}
+
+	public void setMapManager(MapManager mapManager) {
 		this.mapManager = mapManager;
 	}
 
-	public void setChatManager(ChatManager chatManager)
-	{
-		this.chatManager = chatManager;
-	}
-	
-	public void setOptions(Options options)
-	{
-		this.options = options;
+	public ChatManager getChatManager() {
+		return chatManager;
 	}
 
-	public void setPlayerManager(PlayerManager playerManager)
-	{
-		this.playerManager = playerManager;
+	public void setChatManager(ChatManager chatManager) {
+		this.chatManager = chatManager;
 	}
-	
-	public void setResourceManager(ResourceManager resourceManager)
-	{
-		this.resourceManager = resourceManager;
+
+	public Options getOptions() {
+		return options;
+	}
+
+	public void setOptions(Options options) {
+		this.options = options;
 	}
 
 	public PlayerManager getPlayerManager() {
 		return playerManager;
 	}
-	
-	
-	
 
+	public void setPlayerManager(PlayerManager playerManager) {
+		this.playerManager = playerManager;
+	}
+
+	public ResourceManager getResourceManager() {
+		return resourceManager;
+	}
+
+	public void setResourceManager(ResourceManager resourceManager) {
+		this.resourceManager = resourceManager;
+	}
+
+	public PlayerTurnTracker getTurnTracker() {
+		return turnTracker;
+	}
+
+	public void setTurnTracker(PlayerTurnTracker turnTracker) {
+		this.turnTracker = turnTracker;
+	}
+
+	public int getVersion() {
+		return version;
+	}
+
+	public void setVersion(int version) {
+		this.version = version;
+	}
 }
