@@ -7,6 +7,7 @@ import org.junit.*;
 import model.CatanModel;
 import model.resources.ResourceManager;
 import serverProxy.JSONDeserializer;
+import test.JsonFileLoader;
 import test.TestJSON;
 
 public class ResourceManagerDeserialTest
@@ -16,7 +17,8 @@ public class ResourceManagerDeserialTest
 	@Before
 	public void setUp() throws Exception
 	{
-		CatanModel cm = JSONDeserializer.deserialize(TestJSON.get());
+		String json = JsonFileLoader.readFile("json/default.json");
+		CatanModel cm = JSONDeserializer.deserialize(json);
 		resManager = cm.resourceManager;
 	}
 
