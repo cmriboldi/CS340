@@ -26,6 +26,7 @@ public class EdgeObject {
 
     /**
      * Independent constructor. Used when EdgeObject is not being stored in a map.
+     *
      * @param x_t
      * @param y_t
      * @param dir
@@ -34,7 +35,7 @@ public class EdgeObject {
         location = new EdgeLocation(new HexLocation(x_t, y_t), dir);
     }
 
-    public EdgeObject(EdgeLocation location_t){
+    public EdgeObject(EdgeLocation location_t) {
         location = location_t;
     }
 }

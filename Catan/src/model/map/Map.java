@@ -76,8 +76,7 @@ public class Map {
      */
     public Map(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, Settlement> settlements_t,
                HashMap<EdgeLocation, Port> ports_t, HashMap<EdgeLocation, Road> roads_t,
-               HexLocation robber_t, int radius_t)
-    {
+               HexLocation robber_t, int radius_t) {
         hexes = hexes_t;
         settlements = settlements_t;
         ports = ports_t;
@@ -94,6 +93,7 @@ public class Map {
 
     /**
      * Identifies and returns the leftmost vertex attached to the given edge
+     *
      * @param edge_t The edge
      * @return The location of the leftmost vertex
      */
@@ -102,15 +102,15 @@ public class Map {
         edge_t = edge_t.getNormalizedLocation();
 
         //If the edge is a NorthWest edge, return the NorthEast vertex of the Hex to the SouthWest
-        if(edge_t.getDir() == EdgeDirection.NorthWest)
+        if (edge_t.getDir() == EdgeDirection.NorthWest)
             return new VertexLocation(edge_t.getHexLoc().getNeighborLoc(EdgeDirection.SouthWest), VertexDirection.NorthEast);
 
         //If the edge is a North edge, return the NorthWest Vertex of the Hex
-        if(edge_t.getDir() == EdgeDirection.North)
+        if (edge_t.getDir() == EdgeDirection.North)
             return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthWest);
 
         //If the edge is a NorthEast edge, return the NorthEast Vertex of the Hex
-        if(edge_t.getDir() == EdgeDirection.NorthEast)
+        if (edge_t.getDir() == EdgeDirection.NorthEast)
             return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthEast);
 
         //Should Never get here
@@ -119,6 +119,7 @@ public class Map {
 
     /**
      * Identifies and returns the rightmost vertex attached to the given edge
+     *
      * @param edge_t The edge
      * @return The location of the rightmost vertex
      */
@@ -127,15 +128,15 @@ public class Map {
         edge_t = edge_t.getNormalizedLocation();
 
         //If the edge is a NorthWest edge, return the NorthWest Vertex of the Hex
-        if(edge_t.getDir() == EdgeDirection.NorthWest)
+        if (edge_t.getDir() == EdgeDirection.NorthWest)
             return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthWest);
 
         //If the edge is a North edge, return the NorthEast Vertex of Hex
-        if(edge_t.getDir() == EdgeDirection.North)
+        if (edge_t.getDir() == EdgeDirection.North)
             return new VertexLocation(edge_t.getHexLoc(), VertexDirection.NorthEast);
 
         //If the edge is a NorthEast edge, return the NorthWest Vertex of the Hex to the SouthEast
-        if(edge_t.getDir() == EdgeDirection.NorthEast)
+        if (edge_t.getDir() == EdgeDirection.NorthEast)
             return new VertexLocation(edge_t.getHexLoc().getNeighborLoc(EdgeDirection.SouthEast), VertexDirection.NorthWest);
 
         //Should Never get here
@@ -143,7 +144,7 @@ public class Map {
     }
 
 
-    public List<EdgeLocation> findEdges(VertexLocation vertex_t){
+    public List<EdgeLocation> findEdges(VertexLocation vertex_t) {
         //Normalize the input vertex
         vertex_t = vertex_t.getNormalizedLocation();
 
@@ -151,7 +152,7 @@ public class Map {
         List<EdgeLocation> edges = new ArrayList<EdgeLocation>();
 
         //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
-        if(vertex_t.getDir() == VertexDirection.NorthEast){
+        if (vertex_t.getDir() == VertexDirection.NorthEast) {
             edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North));
             edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthEast));
             edges.add(new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast), EdgeDirection.NorthWest));
@@ -160,7 +161,7 @@ public class Map {
 
 
         //If the vertex is a NorthWest Vertex, return the local N and NW edges and the NW neighbor's NE edge
-        if(vertex_t.getDir() == VertexDirection.NorthWest){
+        if (vertex_t.getDir() == VertexDirection.NorthWest) {
             edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North));
             edges.add(new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthWest));
             edges.add(new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest), EdgeDirection.NorthEast));
@@ -169,7 +170,7 @@ public class Map {
         return null;
     }
 
-    public List<EdgeLocation> findEdges(VertexLocation vertex_t, EdgeLocation edge_t){
+    public List<EdgeLocation> findEdges(VertexLocation vertex_t, EdgeLocation edge_t) {
         //Normalize the input vertex
         vertex_t = vertex_t.getNormalizedLocation();
 
@@ -181,35 +182,35 @@ public class Map {
         List<EdgeLocation> edges = new ArrayList<EdgeLocation>();
 
         //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
-        if(vertex_t.getDir() == VertexDirection.NorthEast){
+        if (vertex_t.getDir() == VertexDirection.NorthEast) {
             temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
-            if(temp_edge != edge_t)
+            if (temp_edge != edge_t)
                 edges.add(temp_edge);
 
             temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthEast);
-            if(temp_edge != edge_t)
+            if (temp_edge != edge_t)
                 edges.add(temp_edge);
 
             temp_edge = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast), EdgeDirection.NorthWest);
-            if(temp_edge != edge_t)
+            if (temp_edge != edge_t)
                 edges.add(temp_edge);
 
             return edges;
         }
 
         //If the vertex is a NorthWest Vertex, return the local N and NW edges and the NW neighbor's NE edge
-        if(vertex_t.getDir() == VertexDirection.NorthWest){
+        if (vertex_t.getDir() == VertexDirection.NorthWest) {
 
             temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.North);
-            if(temp_edge != edge_t)
+            if (temp_edge != edge_t)
                 edges.add(temp_edge);
 
             temp_edge = new EdgeLocation(vertex_t.getHexLoc(), EdgeDirection.NorthWest);
-            if(temp_edge != edge_t)
+            if (temp_edge != edge_t)
                 edges.add(temp_edge);
 
             temp_edge = new EdgeLocation(vertex_t.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest), EdgeDirection.NorthEast);
-            if(temp_edge != edge_t)
+            if (temp_edge != edge_t)
                 edges.add(temp_edge);
 
             return edges;
@@ -240,20 +241,20 @@ public class Map {
         edge = edge.getNormalizedLocation();
 
         //is there a road already present at edge
-        if(roads.containsKey(edge))
+        if (roads.containsKey(edge))
             return false;
 
         //is there a player settlement adj to the edge
         VertexLocation left = findVertexLeft(edge);
         VertexLocation right = findVertexRight(edge);
 
-        if(settlements.containsKey(left))
-            if(settlements.get(left).player == player){
+        if (settlements.containsKey(left))
+            if (settlements.get(left).player == player) {
                 return true;
             }
 
-        if(settlements.containsKey(right)){
-            if(settlements.get(right).player == player) {
+        if (settlements.containsKey(right)) {
+            if (settlements.get(right).player == player) {
                 return true;
             }
         }
@@ -264,11 +265,11 @@ public class Map {
         adjEdges.addAll(findEdges(right, edge));
 
         //for each edge adj to the edge in question
-        for(int i = 0; i < adjEdges.size(); i++){
+        for (int i = 0; i < adjEdges.size(); i++) {
             //does roads contain each adj edge (does there exist roads next to the edge)
-            if(roads.containsKey(adjEdges.get(i))){
+            if (roads.containsKey(adjEdges.get(i))) {
                 //does that road belong to the given player
-                if(roads.get(adjEdges.get(i)).owner == player)
+                if (roads.get(adjEdges.get(i)).owner == player)
                     return true;
             }
         }
@@ -276,65 +277,65 @@ public class Map {
         return false;
     }
 
-    public boolean canPlaceSettlement(VertexLocation vertex, int player){
+    public boolean canPlaceSettlement(VertexLocation vertex, int player) {
 
         //---check for a player owned edge adjacent to the given vertex
         List<EdgeLocation> firstEdges = findEdges(vertex);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
-        for(EdgeLocation edge_t : firstEdges){
-            if(roads.containsKey(edge_t))
-                if(roads.get(edge_t).owner == player)
+        for (EdgeLocation edge_t : firstEdges) {
+            if (roads.containsKey(edge_t))
+                if (roads.get(edge_t).owner == player)
                     firstEdgesPlayer.add(edge_t);
         }
 
         //-if the player owns no adjoinging edges, return false
-        if(firstEdgesPlayer.size() == 0)
+        if (firstEdgesPlayer.size() == 0)
             return false;
 
         //---check for ANY settlements one edge away from given vertex
         //--collect all the vertexes
         Set<VertexLocation> firstVertex = new HashSet<VertexLocation>();
-        for(EdgeLocation edge_t : firstEdges){
+        for (EdgeLocation edge_t : firstEdges) {
             firstVertex.add(findVertexLeft(edge_t));
             firstVertex.add(findVertexRight(edge_t));
         }
         //--remove the original vertex
         firstVertex.remove(vertex);
         //--check for settlements
-        for(VertexLocation vertex_t : firstVertex){
-            if(settlements.containsKey(vertex_t))
+        for (VertexLocation vertex_t : firstVertex) {
+            if (settlements.containsKey(vertex_t))
                 return false;
         }
 
         //--acquire player owned edges 1 edge away from the given vertex
         //-collect the vertexes connected to player roads
         Set<VertexLocation> firstVertexPlayer = new HashSet<VertexLocation>();
-        for(EdgeLocation edge_t : firstEdgesPlayer){
+        for (EdgeLocation edge_t : firstEdgesPlayer) {
             firstVertexPlayer.add(findVertexLeft(edge_t));
             firstVertexPlayer.add(findVertexRight(edge_t));
         }
         firstVertexPlayer.remove(vertex);
         //-collect second edges connected to player roads via vertex
         Set<EdgeLocation> secondEdges = new HashSet<EdgeLocation>();
-        for(VertexLocation vertex_t : firstVertexPlayer){
+        for (VertexLocation vertex_t : firstVertexPlayer) {
             secondEdges.addAll(findEdges(vertex_t));
         }
         secondEdges.removeAll(firstEdges);
 
         //--if any of the edges 2 edges away from the vertex (connected to the player roads) return true
-        for(EdgeLocation edge_t : secondEdges){
-            if(roads.containsKey(edge_t))
-                if(roads.get(edge_t).owner == player)
+        for (EdgeLocation edge_t : secondEdges) {
+            if (roads.containsKey(edge_t))
+                if (roads.get(edge_t).owner == player)
                     return true;
         }
 
         return false;
     }
 
-    public boolean canPlaceCity(VertexLocation location, int player){
-        if(settlements.containsKey(location)){
-            if(settlements.get(location).player == player){
-                if(settlements.get(location).isCity == false){
+    public boolean canPlaceCity(VertexLocation location, int player) {
+        if (settlements.containsKey(location)) {
+            if (settlements.get(location).player == player) {
+                if (settlements.get(location).isCity == false) {
                     return true;
                 }
             }
@@ -348,12 +349,16 @@ public class Map {
     //----- Function: implicit
     /////////////////////////////////////////////////////////////////////////////////
 
-    public HashMap<EdgeLocation, Road> getRoads(){
+    public HashMap<EdgeLocation, Road> getRoads() {
         return roads;
     }
 
-    public HashMap<VertexLocation, Settlement> getSettlements(){
+    public HashMap<VertexLocation, Settlement> getSettlements() {
         return settlements;
+    }
+
+    public HashMap<EdgeLocation, Port> getPorts() {
+        return ports;
     }
 
 }

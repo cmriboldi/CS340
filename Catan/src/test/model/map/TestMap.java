@@ -3,6 +3,7 @@ package test.model.map;
 import com.sun.javafx.geom.Edge;
 import model.CatanModel;
 import model.map.Map;
+import model.map.Port;
 import model.map.Road;
 import org.junit.Before;
 import org.junit.BeforeClass;
@@ -173,6 +174,7 @@ public class TestMap {
     }
 
     public static void printMap(Map map){
+
         Set<EdgeLocation> roadKeys = map.getRoads().keySet();
         for(Iterator<EdgeLocation> i = roadKeys.iterator(); i.hasNext();){
             EdgeLocation next = i.next();
@@ -186,6 +188,16 @@ public class TestMap {
             VertexLocation next = i.next();
             System.out.println(map.getSettlements().get(next).toString());
         }
+
+        System.out.println();
+
+        Set<EdgeLocation> portKeys = map.getPorts().keySet();
+        for(Iterator<EdgeLocation> i = portKeys.iterator(); i.hasNext();) {
+            EdgeLocation next = i.next();
+            System.out.println(map.getPorts().get(next).toString());
+        }
+
+        System.out.println();
     }
 
 }
