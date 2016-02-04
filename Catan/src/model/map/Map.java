@@ -5,6 +5,7 @@ package model.map;
 import java.util.*;
 
 //Project Imports
+import com.sun.javafx.geom.Edge;
 import shared.locations.*;
 import sun.security.provider.certpath.Vertex;
 
@@ -277,64 +278,67 @@ public class Map {
 
     public boolean canPlaceSettlement(VertexLocation vertex, int player){
 
+        //---check for a player owned edge adjacent to the given vertex
         List<EdgeLocation> firstEdges = findEdges(vertex);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
-        Set<VertexLocation> firstVertexes = new HashSet<VertexLocation>();
-        Set<VertexLocation> firstVertexesPlayer = new HashSet<VertexLocation>();
-        List<EdgeLocation> secondEdges = new ArrayList<EdgeLocation>();
-
-        //get all of the edges attached to the vertex
-        //check if any of them have roads belonging to the player
-        for(int i = 0; i < firstEdges.size(); i++){
-            //grab the first set of vertexies for later
-            firstVertexes.add(findVertexLeft(firstEdges.get(i)));
-            firstVertexes.add(findVertexRight(firstEdges.get(i)));
-
-            if(roads.containsKey(firstEdges.get(i))){
-                //if any do, save then in a separate list
-                if(roads.get(firstEdges.get(i)).owner == player)
-                    firstEdgesPlayer.add(firstEdges.get(i));
-            }
+        for(EdgeLocation edge_t : firstEdges){
+            if(roads.containsKey(edge_t))
+                if(roads.get(edge_t).owner == player)
+                    firstEdgesPlayer.add(edge_t);
         }
-        //if none do, return false
+
+        //-if the player owns no adjoinging edges, return false
         if(firstEdgesPlayer.size() == 0)
             return false;
 
-        //using the three vertexes attached to those edges
-            //remove the initial vertex
-            firstVertexes.remove(vertex);
-
-        //check if any have ANY settlements
-        for(VertexLocation loc : firstVertexes){
-            if(settlements.containsKey(loc))
+        //---check for ANY settlements one edge away from given vertex
+        //--collect all the vertexes
+        Set<VertexLocation> firstVertex = new HashSet<VertexLocation>();
+        for(EdgeLocation edge_t : firstEdges){
+            firstVertex.add(findVertexLeft(edge_t));
+            firstVertex.add(findVertexRight(edge_t));
+        }
+        //--remove the original vertex
+        firstVertex.remove(vertex);
+        //--check for settlements
+        for(VertexLocation vertex_t : firstVertex){
+            if(settlements.containsKey(vertex_t))
                 return false;
         }
 
+        //--acquire player owned edges 1 edge away from the given vertex
+        //-collect the vertexes connected to player roads
+        Set<VertexLocation> firstVertexPlayer = new HashSet<VertexLocation>();
+        for(EdgeLocation edge_t : firstEdgesPlayer){
+            firstVertexPlayer.add(findVertexLeft(edge_t));
+            firstVertexPlayer.add(findVertexRight(edge_t));
+        }
+        firstVertexPlayer.remove(vertex);
+        //-collect second edges connected to player roads via vertex
+        Set<EdgeLocation> secondEdges = new HashSet<EdgeLocation>();
+        for(VertexLocation vertex_t : firstVertexPlayer){
+            secondEdges.addAll(findEdges(vertex_t));
+        }
+        secondEdges.removeAll(firstEdges);
 
-        //check edges adjoining any edges with play roads on them for additional roads belonging to the player
-        //collect the vertexes
-        for(EdgeLocation edge : firstEdgesPlayer){
-            VertexLocation left = findVertexLeft(edge);
-            VertexLocation right = findVertexRight(edge);
-
-            if(left != vertex){
-                //if the new vertex is the left vertex
-                secondEdges = findEdges(left, edge);
-                firstVertexesPlayer.add(left);
-
-            }else{
-                //is the new vertex is the right vertex
-                secondEdges = findEdges(right, edge);
-                firstVertexesPlayer.add(left);
-            }
+        //--if any of the edges 2 edges away from the vertex (connected to the player roads) return true
+        for(EdgeLocation edge_t : secondEdges){
+            if(roads.containsKey(edge_t))
+                if(roads.get(edge_t).owner == player)
+                    return true;
         }
 
-            //if none of them do, return false
+        return false;
+    }
 
-        //check those edges for vertecies with settlements belonging to the player
-            //if yes, return true
-
-
+    public boolean canPlaceCity(VertexLocation location, int player){
+        if(settlements.containsKey(location)){
+            if(settlements.get(location).player == player){
+                if(settlements.get(location).isCity == false){
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

@@ -148,6 +148,29 @@ public class TestMap {
         assertEquals(false, map.canPlaceSettlement(vertex, player));
     }
 
+    @Test
+    public void canBuildCityValid(){
+        VertexLocation location = new VertexLocation(new HexLocation(1,-1), VertexDirection.NorthEast);
+        int player = 3;
+
+        assertEquals(true, map.canPlaceCity(location, player));
+    }
+
+    @Test
+    public void canBuildCityInvalidPlayer(){
+        VertexLocation location = new VertexLocation(new HexLocation(1,-1), VertexDirection.NorthEast);
+        int player = 0;
+
+        assertEquals(false, map.canPlaceCity(location, player));
+    }
+
+    @Test
+    public void canBuildCityInvalidNoSettlement(){
+        VertexLocation location = new VertexLocation(new HexLocation(0,0), VertexDirection.NorthWest);
+        int player = 2;
+
+        assertEquals(false, map.canPlaceCity(location, player));
+    }
 
     public static void printMap(Map map){
         Set<EdgeLocation> roadKeys = map.getRoads().keySet();
