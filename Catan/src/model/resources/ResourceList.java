@@ -187,6 +187,11 @@ public class ResourceList implements Comparable<ResourceList>
 		this.sheep -= rs.sheep;
 	}
 
+	public boolean greaterThanOrEqual(ResourceList rs)
+	{
+		return this.compareTo(rs) >= 0 ? true : false;
+	}
+
 	public boolean greaterThan(ResourceList rs)
 	{
 		return this.compareTo(rs) > 0 ? true : false;
@@ -208,7 +213,7 @@ public class ResourceList implements Comparable<ResourceList>
 
 		int smallestResCount = Math.min(thisCopy.brick,
 				Math.min(thisCopy.ore, Math.min(thisCopy.sheep, Math.min(thisCopy.wheat, thisCopy.wood))));
-
+		
 		if (smallestResCount < 0)
 		{
 			compareValue = -1;
@@ -229,6 +234,13 @@ public class ResourceList implements Comparable<ResourceList>
 		invertedResList.wood *= -1;
 		invertedResList.sheep *= -1;
 		return invertedResList;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "ResourceList [brick=" + brick + ", ore=" + ore + ", wheat=" + wheat + ", wood=" + wood + ", sheep="
+				+ sheep + "]";
 	}
 
 }

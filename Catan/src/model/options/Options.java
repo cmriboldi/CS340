@@ -1,8 +1,11 @@
 package model.options;
 
+import java.util.Set;
+
 import model.CatanModel;
 import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
+import shared.definitions.PortType;
 import shared.exceptions.resources.TradeOfferNullException;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
@@ -109,7 +112,7 @@ public class Options
 	 */
 	public boolean canPlayDevCard(int playerIndex)
 	{
-		return canPlay(playerIndex) && catanModel.cardManager.hasPlayedDevCard(playerIndex);
+		return canPlay(playerIndex) && !catanModel.cardManager.hasPlayedDevCard(playerIndex);
 	}
 	
 	/**
@@ -135,18 +138,14 @@ public class Options
 	}
 
 	/**
-	 * Check if a player can trade
-	 * 
-	 * @param playerIndex index of the player asking to trade.
-	 * @return True if allowed False otherwise
+	 * Will check if the player is offering a trade to the player who is playing or is the player who's turn it is.
+	 * @param toPlayerIndex index of the player receiving the trade offer.
+	 * @param fromPlayerIndex index of the player making the trade offer.
+	 * @return
 	 */
-	public boolean canOfferTrade(int playerIndex)
-	{
-		boolean canTrade = false; 
-		
-		canTrade = canPlay(playerIndex);
-		
-		return canTrade;
+	public boolean canOfferTrade(int toPlayerIndex, int fromPlayerIndex)
+	{	
+		return canPlay(toPlayerIndex) || canPlay(fromPlayerIndex);
 	}
 
 	/**
@@ -156,8 +155,8 @@ public class Options
 	 * @return True if allowed False otherwise
 	 */
 	public boolean canMaritimeTrade(int playerIndex)
-	{
-		return true;
+	{	
+		return catanModel.mapManager.getMap().canMaritimeTrade(playerIndex).size() != 0;
 	}
 
 	/**
