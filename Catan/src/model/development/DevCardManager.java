@@ -33,29 +33,13 @@ public class DevCardManager
 		hasPlayedDevCardsList = new boolean[4];
 	}
 
-	public DevCardManager(PlayerDevCards newDevCards, PlayerDevCards oldDevCards, PlayerDevCards playedDevCards, boolean[] hasPlayedDevCardsList)
+	public DevCardManager(PlayerDevCards newDevCards, PlayerDevCards oldDevCards, PlayerDevCards playedDevCards, boolean[] hasPlayedDevCardsList, DevCardList devCardStack)
 	{
 		this.newDevCards = newDevCards;
 		this.oldDevCards = oldDevCards;
 		this.playedDevCards = playedDevCards;
 		this.hasPlayedDevCardsList = hasPlayedDevCardsList;
-		this.devCardStack = calculateDevCardStack();
-	}
-
-	private DevCardList calculateDevCardStack()
-	{
-//		14 Soldiers
-//		5 Victory Points
-//		2 Monopoly
-//		2 Road Building
-//		2 Year of Plenty
-		
-		DevCardList devStack = new DevCardList(2,5,2,14,2);
-		devStack.minus(this.newDevCards);
-		devStack.minus(this.oldDevCards);
-		devStack.minus(this.playedDevCards);
-		
-		return devStack;
+		this.devCardStack = devCardStack;
 	}
 
 	/**

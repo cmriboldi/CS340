@@ -114,12 +114,25 @@ public class JSONDeserializer
 		this.resourceManager = new ResourceManager(playerResources, bankResources, tradeResourcesOffer, hasPlayerDiscarded);
 	}
 	
-	private void SetDevCardManager(JsonArray players)
+	private void SetDevCardManager(JsonArray players, JsonObject deck)
 	{	
 	    PlayerDevCards newPlayerDevCards = new PlayerDevCards();
 	    PlayerDevCards oldPlayerDevCards = new PlayerDevCards();
 	    PlayerDevCards playedDevCards = new PlayerDevCards();
 	    boolean[] hasPlayedDevCardsList = new boolean[4];
+	    DevCardList devCardStack = new DevCardList();
+	    
+	    int monopolyCount = deck.getAsJsonPrimitive("monopoly").getAsInt();
+	    int monumentCount = deck.getAsJsonPrimitive("monument").getAsInt();
+	    int roadBuilderCount = deck.getAsJsonPrimitive("roadBuilding").getAsInt();
+	    int soldierCount = deck.getAsJsonPrimitive("soldier").getAsInt();
+	    int yearOfPlentyCount = deck.getAsJsonPrimitive("yearOfPlenty").getAsInt();
+	    
+	    devCardStack.setMonopoly(monopolyCount);
+	    devCardStack.setMonument(monumentCount);
+	    devCardStack.setRoadBuilder(roadBuilderCount);
+	    devCardStack.setSoldier(soldierCount);
+	    devCardStack.setYearOfPlenty(yearOfPlentyCount);
 		
 		for(int i = 0; i < players.size(); i++)
 	    {
@@ -158,7 +171,7 @@ public class JSONDeserializer
 	    		hasPlayedDevCardsList[index] = playedDevCard;
 	    	}
 	    }
-		this.devCardManager = new DevCardManager(newPlayerDevCards, oldPlayerDevCards, playedDevCards, hasPlayedDevCardsList);
+		this.devCardManager = new DevCardManager(newPlayerDevCards, oldPlayerDevCards, playedDevCards, hasPlayedDevCardsList, devCardStack);
 	}
 	
 	private void SetPlayerManager(JsonArray players, JsonObject turnTracker)
@@ -174,7 +187,6 @@ public class JSONDeserializer
 	    	
 	    	String name = player.getAsJsonPrimitive("name").getAsString();
 	    	String color = player.getAsJsonPrimitive("color").getAsString();
-	    	// CatanColor catanColor = new CatanColor();                    // TODO
 	    	int playerId = player.getAsJsonPrimitive("playerID").getAsInt();
 	    	int cities = player.getAsJsonPrimitive("cities").getAsInt();
 	    	int settlements = player.getAsJsonPrimitive("settlements").getAsInt();
@@ -191,6 +203,15 @@ public class JSONDeserializer
 				System.out.println(e);
 				e.printStackTrace();
 			}
+	    	if(longestRoad == index)
+	    	{
+	    		newPlayer.setLongestRoad(true);
+	    	}
+	    	if(largestArmy == index)
+	    	{
+	    		newPlayer.setLargestArmy(true);
+	    	}
+	    	
 	    	newPlayer.setId(new IdNumber(playerId));
 	    	newPlayer.setCitiesRemaining(cities);
 	    	newPlayer.setSettlementsRemaining(settlements);
@@ -385,6 +406,7 @@ public class JSONDeserializer
 		
 		JsonElement jelement = new JsonParser().parse(json);
 	    JsonObject  jobject = jelement.getAsJsonObject();
+	    JsonObject deck = jobject.getAsJsonObject("deck");
 	    JsonObject bank = jobject.getAsJsonObject("bank");
 	    JsonObject chat = jobject.getAsJsonObject("chat");
 	    JsonObject log = jobject.getAsJsonObject("log");
@@ -396,7 +418,7 @@ public class JSONDeserializer
 	    int winner = jobject.getAsJsonPrimitive("winner").getAsInt();
 	    
 	    SetResourceManager(bank, players, tradeOffer);
-	    SetDevCardManager(players);
+	    SetDevCardManager(players, deck);
 	    SetPlayerManager(players, turnTracker);
 	    SetMapManager(map);
 	    SetChatManager(chat, log);

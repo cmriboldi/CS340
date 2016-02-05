@@ -8,7 +8,6 @@ import model.CatanModel;
 import model.resources.ResourceManager;
 import serverProxy.JSONDeserializer;
 import test.JsonFileLoader;
-import test.TestJSON;
 
 public class ResourceManagerDeserialTest
 {
