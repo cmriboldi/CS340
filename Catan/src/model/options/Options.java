@@ -1,12 +1,8 @@
 package model.options;
 
-import java.util.Set;
-
 import model.CatanModel;
 import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
-import shared.definitions.PortType;
-import shared.exceptions.resources.TradeOfferNullException;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
@@ -167,48 +163,32 @@ public class Options
 	 */
 	public boolean canPlay(int playerIndex)
 	{
-		
-		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing")) return true; 
-		else return false; 
-		
+		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 		
+		return (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing"));
 	}
 
 	
 	public boolean canRollNumber(int playerIndex)
 	{
-		
-		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
-		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Rolling")) return true; 
-		else return false; 	
+		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 
+		return(playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Rolling"));
 	}
 
 	public boolean canPlaceRobber(int playerIndex)
 	{
-		
-		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
-		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing")) return true; 
-		else return false; 	
+		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 
+		return(playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing"));
 	}
 	
 	public boolean canDiscardCards(int playerIndex)
-	{
-		
-		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
-		
-		if (turnTracker.getStatus().equals("Discarding")) return true; 
-		else return false; 	
+	{	
+		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 
+		return (turnTracker.getStatus().equals("Discarding"));
 	}
 	
 	public boolean canFinishTurn(int playerIndex)
 	{
-		
-		PlayerTurnTracker turnTracker = catanModel.getPlayerManager().getTurnTracker(); 
-		
-		if (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing")) return true; 
-		else return false; 	
+		return canPlay(playerIndex);
 	}
 	
 
@@ -221,7 +201,7 @@ public class Options
 	 */
 	public boolean canPlaceRoad(int playerIndex, EdgeLocation location)
 	{
-		return true;
+		return canPlay(playerIndex) && catanModel.mapManager.getMap().canPlaceRoad(location, playerIndex);
 	}
 
 	/**
@@ -233,7 +213,7 @@ public class Options
 	 */
 	public boolean canPlaceTown(int playerIndex, VertexLocation location)
 	{
-		return true;
+		return canPlay(playerIndex) && catanModel.mapManager.getMap().canPlaceSettlement(location, playerIndex);
 	}
 
 	/**
@@ -245,6 +225,6 @@ public class Options
 	 */
 	public boolean canPlaceCity(int playerIndex, VertexLocation location)
 	{
-		return true;
+		return canPlay(playerIndex) && catanModel.mapManager.getMap().canPlaceCity(location, playerIndex);
 	}
 }

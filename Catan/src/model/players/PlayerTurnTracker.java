@@ -28,6 +28,23 @@ public class PlayerTurnTracker
 	int turnIndex = -1; 
 	
 	String status = null; 
+	
+	public PlayerTurnTracker()
+	{
+		
+	}
+	
+	public PlayerTurnTracker(int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
+	{
+		this.status = status; 
+		this.turnIndex = turnIndex; 
+		
+		if (turnIndex < 0 | turnIndex > 3)
+			throw new TurnIndexException(); 
+		
+		if (!(status.toLowerCase().equals("rolling") | status.toLowerCase().equals("discarding") | status.toLowerCase().equals("robbing") | status.toLowerCase().equals("playing")))       
+			throw new InvalidTurnStatusException(); 
+	}
 
 	public int getTurnIndex() {
 		return turnIndex;
@@ -45,21 +62,6 @@ public class PlayerTurnTracker
 		this.status = status;
 	}
 
-	public PlayerTurnTracker(int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
-	{
-		this.status = status; 
-		this.turnIndex = turnIndex; 
-		
-		if (turnIndex < 0 | turnIndex > 3)
-			throw new TurnIndexException(); 
-		
-		if (!(status.toLowerCase().equals("rolling") | status.toLowerCase().equals("discarding") | status.toLowerCase().equals("robbing") | status.toLowerCase().equals("playing")))       
-			throw new InvalidTurnStatusException(); 
-		
-
-	}
-	
-	
 	/**
 	 * Queue that tracks the turn flow. Index 0 is the player with the current turn. Not that the
 	 * queue is constructed using an ArrayList

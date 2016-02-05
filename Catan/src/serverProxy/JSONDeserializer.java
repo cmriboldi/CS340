@@ -388,7 +388,6 @@ public class JSONDeserializer
 	    
 	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker(currentTurn, status); 
 	    playerManager.setTurnTracker(playerTurnTracker);
-	   
 	}
 	
 	/**

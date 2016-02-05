@@ -16,20 +16,22 @@ public class PlayerManager
 {
 
 	/** An array of the current players logged in to play Catan */
-	public Player[] CatanPlayers;
+	public Player[] catanPlayers;
+	public PlayerTurnTracker turnTracker = null; 
 
+	public PlayerManager()
+	{
+		catanPlayers = new Player[4];
+		turnTracker = new PlayerTurnTracker();
+	}
+	
 	public Player[] getCatanPlayers() {
-		return CatanPlayers;
+		return catanPlayers;
 	}
 
 	public void setCatanPlayers(Player[] catanPlayers) {
-		CatanPlayers = catanPlayers;
+		this.catanPlayers = catanPlayers;
 	}
-
-	
-	
-	public PlayerTurnTracker turnTracker = null; 
-	
 
 	public PlayerTurnTracker getTurnTracker() {
 		return turnTracker;
@@ -37,6 +39,11 @@ public class PlayerManager
 
 	public void setTurnTracker(PlayerTurnTracker turnTracker) {
 		this.turnTracker = turnTracker;
+	}
+
+	public void setStatus(String status)
+	{
+		this.turnTracker.setStatus(status);
 	}
 
 

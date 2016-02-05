@@ -13,6 +13,7 @@ import serverProxy.JSONDeserializer;
 import shared.definitions.Cost;
 import shared.definitions.DevCardType;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
+import shared.locations.*;
 import test.JsonFileLoader;
 
 public class OptionsTest
@@ -166,6 +167,103 @@ public class OptionsTest
 		
 	}
 	
+	@Test
+	public void testCanPlayMethods()
+	{	
+		assertEquals(options.canPlay(0), true);
+		assertEquals(options.canPlay(1), false);
+		assertEquals(options.canPlay(2), false);
+		assertEquals(options.canPlay(3), false);
+		
+		//Test canRoll
+		assertEquals(options.canRollNumber(0), false);
+		assertEquals(options.canRollNumber(1), false);
+		assertEquals(options.canRollNumber(2), false);
+		assertEquals(options.canRollNumber(3), false);
+		
+		cm.playerManager.setStatus("Rolling");
+		
+		assertEquals(options.canRollNumber(0), true);
+		assertEquals(options.canRollNumber(1), false);
+		assertEquals(options.canRollNumber(2), false);
+		assertEquals(options.canRollNumber(3), false);
+		
+		//Test canRob
+		assertEquals(options.canPlaceRobber(0), false);
+		assertEquals(options.canPlaceRobber(1), false);
+		assertEquals(options.canPlaceRobber(2), false);
+		assertEquals(options.canPlaceRobber(3), false);
+		
+		cm.playerManager.setStatus("Robbing");
+		
+		assertEquals(options.canPlaceRobber(0), true);
+		assertEquals(options.canPlaceRobber(1), false);
+		assertEquals(options.canPlaceRobber(2), false);
+		assertEquals(options.canPlaceRobber(3), false);
+		
+		//Test canDiscard
+		assertEquals(options.canDiscardCards(0), false);
+		assertEquals(options.canDiscardCards(1), false);
+		assertEquals(options.canDiscardCards(2), false);
+		assertEquals(options.canDiscardCards(3), false);
+		
+		cm.playerManager.setStatus("Discarding");
+		
+		assertEquals(options.canDiscardCards(0), true);
+		assertEquals(options.canDiscardCards(1), true);
+		assertEquals(options.canDiscardCards(2), true);
+		assertEquals(options.canDiscardCards(3), true);
+		
+		//Test canFinishTurn
+		assertEquals(options.canFinishTurn(0), false);
+		assertEquals(options.canFinishTurn(1), false);
+		assertEquals(options.canFinishTurn(2), false);
+		assertEquals(options.canFinishTurn(3), false);
+		
+		cm.playerManager.setStatus("Playing");
+		
+		assertEquals(options.canFinishTurn(0), true);
+		assertEquals(options.canFinishTurn(1), false);
+		assertEquals(options.canFinishTurn(2), false);
+		assertEquals(options.canFinishTurn(3), false);
+	}
+	
+	@Test
+	public void testCanPlaceMethods()
+	{
+		HexLocation hexLocation = new HexLocation(0,2);
+		VertexLocation pieceVertexLocation1 = new VertexLocation(hexLocation, VertexDirection.NorthEast);
+		
+		assertEquals(options.canPlaceTown(0, pieceVertexLocation1),false);
+		assertEquals(options.canPlaceTown(1, pieceVertexLocation1),false);
+		assertEquals(options.canPlaceTown(2, pieceVertexLocation1),false);
+		assertEquals(options.canPlaceTown(3, pieceVertexLocation1),false);
+		
+		VertexLocation pieceVertexLocation2 = new VertexLocation(hexLocation, VertexDirection.West);
+		
+		assertEquals(options.canPlaceTown(0, pieceVertexLocation2),false);
+		assertEquals(options.canPlaceTown(1, pieceVertexLocation2),false);
+		assertEquals(options.canPlaceTown(2, pieceVertexLocation2),false);
+		assertEquals(options.canPlaceTown(3, pieceVertexLocation2),false);
+		
+		EdgeLocation pieceEdgeLocation = new EdgeLocation(hexLocation, EdgeDirection.NorthWest);
+		
+		assertEquals(options.canPlaceRoad(0, pieceEdgeLocation),false); //nft
+		
+		cm.mapManager.placeRoad(pieceEdgeLocation, 0);
+		
+		assertEquals(options.canPlaceRoad(0, pieceEdgeLocation),false); //nft
+		
+		assertEquals(options.canPlaceTown(0, pieceVertexLocation2),false); //nft
+		assertEquals(options.canPlaceTown(1, pieceVertexLocation2),false);
+		assertEquals(options.canPlaceTown(2, pieceVertexLocation2),false);
+		assertEquals(options.canPlaceTown(3, pieceVertexLocation2),false);
+		
+		assertEquals(options.canPlaceCity(0, pieceVertexLocation1), true);
+		assertEquals(options.canPlaceCity(1, pieceVertexLocation1), false);
+		assertEquals(options.canPlaceCity(2, pieceVertexLocation1), false);
+		assertEquals(options.canPlaceCity(3, pieceVertexLocation1), false);
+	}
 	
 
 }
