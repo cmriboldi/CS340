@@ -89,7 +89,7 @@ public class MockProxy implements ServerProxy
 			e1.printStackTrace();
 		}
 		try {
-			return catanModel = JSONDeserializer.deserialize(json);
+			catanModel = JSONDeserializer.deserialize(json);
 		} catch (TurnIndexException e) {
 			e.printStackTrace();
 		} catch (InvalidTurnStatusException e) {
