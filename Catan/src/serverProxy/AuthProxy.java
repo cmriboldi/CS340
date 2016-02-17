@@ -73,14 +73,14 @@ public class AuthProxy
 				}
 				br.close();
 			}
-//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-//			{
-//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-//			}
-//			else
-//			{
-//				throw new ServerException("No Response from Server");
-//			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -505,14 +505,14 @@ public class AuthProxy
 				br.close();
 				return sb.toString();
 			}
-//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-//			{
-//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-//			}
-//			else
-//			{
-//				throw new ServerException("No Response from Server");
-//			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -561,14 +561,14 @@ public class AuthProxy
 				br.close();
 				return sb.toString();
 			}
-//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-//			{
-//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-//			}
-//			else
-//			{
-//				throw new ServerException("No Response from Server");
-//			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{

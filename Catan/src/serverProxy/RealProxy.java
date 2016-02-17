@@ -89,14 +89,14 @@ public class RealProxy implements ServerProxy
 //				this.name = userjson.get("name").toString().replace("\"", "");
 //				this.playerID = userjson.get("playerID").getAsInt();
 			}
-//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-//			{
-//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-//			}
-//			else
-//			{
-//				throw new ServerException("No Response from Server");
-//			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -352,14 +352,14 @@ public class RealProxy implements ServerProxy
 				
 				return sb.toString();
 			}
-//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-//			{
-//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-//			}
-//			else
-//			{
-//				throw new ServerException("No Response from Server");
-//			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
@@ -407,14 +407,14 @@ public class RealProxy implements ServerProxy
 				br.close();
 				return sb.toString();
 			}
-//			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
-//			{
-//				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
-//			}
-//			else
-//			{
-//				throw new ServerException("No Response from Server");
-//			}
+			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
+			{
+				throw new ServerException("Server Response Code: " + conn.getResponseCode() + " " + conn.getResponseMessage());
+			}
+			else
+			{
+				throw new ServerException("No Response from Server");
+			}
 		} 
 		catch (MalformedURLException e) 
 		{
