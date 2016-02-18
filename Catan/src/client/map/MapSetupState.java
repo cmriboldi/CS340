@@ -23,7 +23,10 @@ import shared.locations.VertexLocation;
  */
 public class MapSetupState extends MapControllerState
 {
-	protected void initFromModel()
+	/**
+	 * Initializes the MapControllerState from the Model passed in.
+	 */
+	public void initFromModel()
 	{
 
 	}

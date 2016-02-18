@@ -17,7 +17,10 @@ import shared.locations.*;
  */
 public class MapControllerState
 {
-	protected void initFromModel()
+	/**
+	 * Initializes the MapControllerState from the Model passed in.
+	 */
+	public void initFromModel()
 	{
 
 	}
