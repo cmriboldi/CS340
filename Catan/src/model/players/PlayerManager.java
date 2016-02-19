@@ -1,5 +1,6 @@
 package model.players;
 
+import shared.definitions.CatanColor;
 import shared.exceptions.player.*;
 
 /**
@@ -44,6 +45,22 @@ public class PlayerManager
 	public void setStatus(String status)
 	{
 		this.turnTracker.setStatus(status);
+	}
+	
+	
+	public CatanColor getPlayerColor(String nameCheck) throws PlayerNameNotFoundException
+	{
+		
+		for (int i = 0; i < catanPlayers.length; i++)
+		{
+			Player player = catanPlayers[i]; 
+			if (player.getName().equals(nameCheck)) 
+			{
+				return player.getColor();
+			}
+		}
+		
+		throw new PlayerNameNotFoundException();
 	}
 
 
