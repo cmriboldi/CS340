@@ -3,7 +3,10 @@ package client.catan;
 import java.awt.*;
 import javax.swing.*;
 
-import client.map.*;
+import client.map.presenters.IMapController;
+import client.map.presenters.MapController;
+import client.map.view.MapView;
+import client.map.view.RobView;
 
 @SuppressWarnings("serial")
 public class MidPanel extends JPanel

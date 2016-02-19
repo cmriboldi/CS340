@@ -9,6 +9,7 @@ import java.awt.image.*;
 import javax.swing.*;
 
 import client.base.*;
+import client.map.presenters.IMapController;
 import client.utils.*;
 import shared.definitions.*;
 import shared.locations.*;

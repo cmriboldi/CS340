@@ -1,4 +1,4 @@
-package client.map;
+package client.map.view;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -6,6 +6,8 @@ import javax.swing.*;
 
 import client.base.*;
 import client.data.*;
+import client.map.MapComponent;
+import client.map.presenters.IMapController;
 import shared.definitions.*;
 import shared.locations.*;
 

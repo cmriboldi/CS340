@@ -1,4 +1,4 @@
-package client.map;
+package client.map.presenters;
 
 import client.base.*;
 import client.data.*;

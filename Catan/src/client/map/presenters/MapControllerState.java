@@ -1,17 +1,12 @@
-package client.map;
+package client.map.presenters;
 
 import client.data.RobPlayerInfo;
-import shared.definitions.PieceType;
-import shared.locations.EdgeLocation;
-import shared.locations.HexLocation;
-import shared.locations.VertexLocation;
+import shared.definitions.*;
+import shared.locations.*;
 
 /**
- * This is the state that is the currentMapState when it’s player’s turn. In this state almost all
- * of the methods in the MapController will actually place settlements and roads (of course
- * depending on if they can.). The initFromModel() method will paint the entire board and allow
- * piece placement, the playing of development cards, and the offering of trades. This state will
- * transition the the MapInactiveState when the player ends their turn.
+ * The MapControllerState contains the state of the MapController. Depending on the state most
+ * methods behave differently.
  * 
  * @author Christian Riboldi
  * @author Clayton Condie
@@ -20,7 +15,7 @@ import shared.locations.VertexLocation;
  * @author Joshua Van Steeter
  * @version 1.0 Build Feb, 2016.
  */
-public class MapPlayingState extends MapControllerState
+public class MapControllerState
 {
 	/**
 	 * Initializes the MapControllerState from the Model passed in.

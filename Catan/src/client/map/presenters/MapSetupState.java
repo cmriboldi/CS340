@@ -1,4 +1,4 @@
-package client.map;
+package client.map.presenters;
 
 import client.data.RobPlayerInfo;
 import shared.definitions.PieceType;

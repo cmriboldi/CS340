@@ -2,11 +2,11 @@ package client.catan;
 
 import javax.swing.*;
 
+import client.map.presenters.IMapController;
 import shared.definitions.PieceType;
 import client.points.*;
 import client.resources.*;
 import client.base.*;
-import client.map.*;
 import client.devcards.*;
 
 @SuppressWarnings("serial")

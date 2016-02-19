@@ -1,7 +1,9 @@
-package client.map;
+package client.map.presenters;
 
 import java.util.*;
 
+import client.map.view.IMapView;
+import client.map.view.IRobView;
 import shared.definitions.*;
 import shared.locations.*;
 import client.base.*;
