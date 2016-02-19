@@ -1,6 +1,8 @@
 package client.roll;
 
 import client.base.*;
+import clientfacade.Facade;
+import serverProxy.ServerException;
 
 
 /**
@@ -37,6 +39,12 @@ public class RollController extends Controller implements IRollController {
 	@Override
 	public void rollDice() {
 
+		try {
+			this.resultView.setRollValue(Facade.roll());
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getResultView().showModal();
 	}
 

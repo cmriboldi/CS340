@@ -1,5 +1,6 @@
 package model.messagelog;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ChatManager
@@ -31,10 +32,50 @@ public class ChatManager
 	 * @param string with action taken message
 	 * @return
 	 */
-	public void LogAction(String message, String source)
+	public void logAction(String message, String source)
 	{
 		Line line = new Line(message, source);
 		gameHistory.add(line);
+	}
+	
+	public List<String> chatMessages()
+	{
+		List<String> messages = new ArrayList<String>();
+		for(int i = 0; i < chatMessages.size(); i++)
+		{
+			messages.add(chatMessages.get(i).getMessage());
+		}
+		return messages;
+	}
+	
+	public List<String> chatSources()
+	{
+		List<String> sources = new ArrayList<String>();
+		for(int i = 0; i < chatMessages.size(); i++)
+		{
+			sources.add(chatMessages.get(i).getSource());
+		}
+		return sources;
+	}
+	
+	public List<String> historyMessages()
+	{
+		List<String> messages = new ArrayList<String>();
+		for(int i = 0; i < gameHistory.size(); i++)
+		{
+			messages.add(gameHistory.get(i).getMessage());
+		}
+		return messages;
+	}
+	
+	public List<String> historySources()
+	{
+		List<String> sources = new ArrayList<String>();
+		for(int i = 0; i < gameHistory.size(); i++)
+		{
+			sources.add(gameHistory.get(i).getSource());
+		}
+		return sources;
 	}
 
 	public List<Line> getChatMessages() {

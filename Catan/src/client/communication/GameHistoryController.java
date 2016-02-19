@@ -1,16 +1,16 @@
 package client.communication;
 
 import java.util.*;
-import java.util.List;
 
 import client.base.*;
+import clientfacade.Facade;
 import shared.definitions.*;
 
 
 /**
  * Game history controller implementation
  */
-public class GameHistoryController extends Controller implements IGameHistoryController {
+public class GameHistoryController extends Controller implements IGameHistoryController, Observer {
 
 	public GameHistoryController(IGameHistoryView view) {
 		
@@ -42,6 +42,25 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		getView().setEntries(entries);
 	
 		//</temp>
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		List<String> historyMessages = Facade.getHistoryMessages();
+		List<String> historySources = Facade.getHistorySources();
+		List<LogEntry> entries = new ArrayList<LogEntry>();
+		
+		for(int i = 0; (i < historyMessages.size()) && (i < historySources.size()); i++)
+		{
+			String message = historyMessages.get(i);
+			String source = historySources.get(i);
+			
+			CatanColor color = Facade.getColorByName(source);			
+			LogEntry entry = new LogEntry(color,message);
+			entries.add(entry);
+		}
+		
+		this.getView().setEntries(entries);
 	}
 	
 }

@@ -1,11 +1,14 @@
 package clientfacade;
 
 import java.util.List;
+import java.util.Observable;
 
 import model.CatanModel;
 import model.resources.ResourceList;
-import serverProxy.JSONDeserializer;
+import serverProxy.RealProxy;
+import serverProxy.ServerException;
 import shared.communication.*;
+import shared.definitions.CatanColor;
 
 /**
  * The Facade class controls all interations between the GUI and the CatanModel
@@ -17,10 +20,12 @@ import shared.communication.*;
  * @author Joshua Van Steeter
  * @version 1.0 Build Jan, 2016.
  */
-public class Facade
+public class Facade extends Observable
 {
 	private static Facade _instance;
-	private Facade(){}
+	private Facade(){
+		this.proxy = new RealProxy();
+	}
 	private static Facade instance() {
 		
 		if (_instance == null)
@@ -31,11 +36,14 @@ public class Facade
 	
 	
 	private CatanModel catanModel;
+	private RealProxy proxy;
 	
 	
 	private void _updateView(CatanModel catanModel)
 	{
 		this.catanModel = catanModel;
+		this.setChanged();
+		this.notifyObservers(this.catanModel);
 	}	
 	public static void updateView(CatanModel catanModel)
 	{
@@ -168,9 +176,23 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	private void _roll()
+	private int _roll() throws ServerException
 	{
-
+		int maximum = 100; 
+		int die1 = (int)(Math.random() * maximum);
+		int die2 = (int)(Math.random() * maximum);
+		die1 = (die1%6) + 1;
+		die2 = (die2%6) + 1;
+		int total = die1+die2;
+		
+		this.catanModel = proxy.rollNumber(catanModel.getPlayerManager().getTurnTracker().getTurnIndex(), total);
+		this.setChanged();
+		this.notifyObservers();	
+		return total;
+	}
+	public static int roll() throws ServerException
+	{
+		return _instance._roll();
 	}
 
 	/**
@@ -209,9 +231,64 @@ public class Facade
 	 * @return
 	 * @throws ServerException
 	 */
-	private void _chat(String message)
+	private void _chat(String message) throws ServerException
 	{
-
+		this.catanModel = proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message);
+		this.setChanged();
+		this.notifyObservers();
+	}
+	public static void chat(String message) throws ServerException
+	{
+		_instance._chat(message);
+	}
+	
+	private List<String> _getChatMessages()
+	{
+		List<String> messages = this.catanModel.chatManager.chatMessages();
+		return messages;
+	}
+	public static List<String> getChatMessages()
+	{
+		return _instance._getChatMessages();
+	}
+	
+	private List<String> _getChatSources()
+	{
+		List<String> sources = this.catanModel.chatManager.chatSources();
+		return sources;
+	}
+	public static List<String> getChatSources()
+	{
+		return _instance._getChatSources();
+	}
+	
+	private List<String> _getHistoryMessages()
+	{
+		List<String> messages = this.catanModel.chatManager.historyMessages();
+		return messages;
+	}
+	public static List<String> getHistoryMessages()
+	{
+		return _instance._getHistoryMessages();
+	}
+	
+	private List<String> _getHistorySources()
+	{
+		List<String> sources = this.catanModel.chatManager.historySources();
+		return sources;
+	}
+	public static List<String> getHistorySources()
+	{
+		return _instance._getHistorySources();
+	}
+	
+	private CatanColor _getColorByName(String name)
+	{
+		return catanModel.playerManager.getPlayerColor(name);
+	}
+	public static CatanColor getColorByName(String name)
+	{
+		return _instance._getColorByName(name);
 	}
 
 	/**

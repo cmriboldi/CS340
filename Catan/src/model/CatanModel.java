@@ -44,6 +44,32 @@ public class CatanModel
 		this.version = version;
 		this.options = new Options(this);		
 	}
+	
+	
+
+	public DevCardManager getCardManager() {
+		return cardManager;
+	}
+
+	public MapManager getMapManager() {
+		return mapManager;
+	}
+
+	public ChatManager getChatManager() {
+		return chatManager;
+	}
+
+	public Options getOptions() {
+		return options;
+	}
+
+	public PlayerManager getPlayerManager() {
+		return playerManager;
+	}
+
+	public ResourceManager getResourceManager() {
+		return resourceManager;
+	}
 
 	public void setCardManager(DevCardManager cardManager) {
 		this.cardManager = cardManager;
