@@ -44,5 +44,16 @@ public interface ILoginView extends IOverlayView
 	 */
 	String getRegisterPasswordRepeat();
 	
+	/**
+	 * Set the error label on an unsuccessful login attempt
+	 * @param message to be displayed on GUI
+	 */
+	void setLoginErrorMessage(String message);
+	
+	/**
+	 * Set the error label on an unsuccessful register attempt
+	 * @param message
+	 */
+	void setRegisterErrorMessage(String message);
 }
 

@@ -2,6 +2,8 @@ package client.login;
 
 import client.base.*;
 import client.misc.*;
+import clientfacade.Facade;
+import serverProxy.ServerException;
 
 import java.net.*;
 import java.io.*;
@@ -69,25 +71,65 @@ public class LoginController extends Controller implements ILoginController {
 	}
 
 	@Override
-	public void signIn() {
-		
+	public void signIn() 
+	{	
 		// TODO: log in user
+		System.out.println("Attempting to login");
 		
-
-		// If log in succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+		try 
+		{
+			String username = ((ILoginView) getView()).getLoginUsername();
+			String password = ((ILoginView) getView()).getLoginPassword();
+			Facade.login(username, password);
+			// If log in succeeded
+			System.out.println("Yet I got here in the code");
+			getLoginView().closeModal();
+			loginAction.execute();
+		} 
+		catch (ServerException e) 
+		{
+			System.out.println("Threw the error");
+			((ILoginView) getView()).setLoginErrorMessage("INVALID CREDENTIALS");
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void register() {
-		
-		// TODO: register new user (which, if successful, also logs them in)
-		
-		// If register succeeded
-		getLoginView().closeModal();
-		loginAction.execute();
+	public void register() 
+	{	
+		System.out.println("Attempting to Register");
+		try 
+		{
+			String username = ((ILoginView) getView()).getRegisterUsername();
+			String password = ((ILoginView) getView()).getRegisterPassword();
+			String passwordAgain = ((ILoginView) getView()).getRegisterPasswordRepeat();
+			if(!password.equals(passwordAgain))
+			{
+				((ILoginView) getView()).setRegisterErrorMessage("PASSWORDS DO NOT MATCH");
+				return;
+			}
+			if(username.equals(""))
+			{
+				((ILoginView) getView()).setRegisterErrorMessage("USERNAME CANNOT BE BLANK");
+				return;
+			}
+			if(password.equals(""))
+			{
+				((ILoginView) getView()).setRegisterErrorMessage("PASSWORD CANNOT BE BLANK");
+				return;
+			}
+			Facade.register(username, password);
+			// If register in succeeded
+			System.out.println("Yet I got here in the register code");
+			getLoginView().closeModal();
+			loginAction.execute();
+		} 
+		catch (ServerException e) 
+		{
+			System.out.println("Threw the error");
+			((ILoginView) getView()).setRegisterErrorMessage("USERNAME ALREADY IN USE");
+			e.printStackTrace();
+		}
 	}
-
 }
 

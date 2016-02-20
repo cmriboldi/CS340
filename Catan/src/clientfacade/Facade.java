@@ -9,6 +9,7 @@ import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.communication.*;
 import shared.definitions.CatanColor;
+import shared.exceptions.player.PlayerNameNotFoundException;
 
 /**
  * The Facade class controls all interations between the GUI and the CatanModel
@@ -69,20 +70,6 @@ public class Facade extends Observable
 	 * @throws InvalidCredentials
 	 */
 	private CommUser _authenticateUser(String userName, String password)
-	{
-		return null;
-	}
-
-	/**
-	 * Registers a new user
-	 * 
-	 * @param userName
-	 * @param password
-	 * @param passConfirm
-	 * @return User object associated with the new registered user
-	 * @throws ServerException
-	 */
-	private CommUser _registerUser(String userName, String password, String passConfirm)
 	{
 		return null;
 	}
@@ -282,11 +269,11 @@ public class Facade extends Observable
 		return _instance._getHistorySources();
 	}
 	
-	private CatanColor _getColorByName(String name)
+	private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException
 	{
 		return catanModel.playerManager.getPlayerColor(name);
 	}
-	public static CatanColor getColorByName(String name)
+	public static CatanColor getColorByName(String name) throws PlayerNameNotFoundException
 	{
 		return _instance._getColorByName(name);
 	}
@@ -302,6 +289,16 @@ public class Facade extends Observable
 	private void _log(int index, String message)
 	{
 
+	}
+	
+	private void _login(String username, String password) throws ServerException
+	{
+		proxy.userLogin(username, password);
+	}
+	
+	public static void login(String username, String password) throws ServerException
+	{
+		instance()._login(username, password);
 	}
 
 	/**
@@ -363,5 +360,23 @@ public class Facade extends Observable
 	{
 		
 	}
+	
+	/**
+	 * Registers a new user
+	 * 
+	 * @param userName
+	 * @param password
+	 * @param passConfirm
+	 * @return User object associated with the new registered user
+	 * @throws ServerException
+	 */
+	private void _register(String username, String password) throws ServerException
+	{
+		proxy.userRegister(username, password);
+	}
 
+	public static void register(String username, String password) throws ServerException
+	{
+		instance()._register(username, password);
+	}
 }

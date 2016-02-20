@@ -50,6 +50,7 @@ public class RealProxy implements ServerProxy
 	public void userLogin(String username, String password) throws ServerException 
 	{
 		login("/user/login", username, password);
+		System.out.println("User Successfully Logged in");
 	}
 
 	@Override
