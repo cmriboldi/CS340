@@ -5,6 +5,7 @@ import java.util.*;
 import client.base.*;
 import clientfacade.Facade;
 import shared.definitions.*;
+import shared.exceptions.player.PlayerNameNotFoundException;
 
 
 /**
@@ -54,8 +55,13 @@ public class GameHistoryController extends Controller implements IGameHistoryCon
 		{
 			String message = historyMessages.get(i);
 			String source = historySources.get(i);
-			
-			CatanColor color = Facade.getColorByName(source);			
+
+			CatanColor color = null;
+			try {
+				color = Facade.getColorByName(source);
+			} catch (PlayerNameNotFoundException e) {
+				e.printStackTrace();
+			}
 			LogEntry entry = new LogEntry(color,message);
 			entries.add(entry);
 		}
