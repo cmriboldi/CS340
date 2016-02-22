@@ -277,6 +277,16 @@ public class Facade extends Observable
 	{
 		return _instance._getColorByName(name);
 	}
+	
+	private void _joinGame(int gameId, CatanColor color) throws ServerException
+	{
+		proxy.joinGame(gameId, color);
+	}
+	
+	public void joinGame(int gameId, CatanColor color) throws ServerException
+	{
+		_joinGame(gameId, color);
+	}
 
 	/**
 	 * Logs a players move in the log
