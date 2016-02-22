@@ -10,6 +10,7 @@ import clientfacade.Facade;
 import model.CatanModel;
 import serverProxy.ServerException;
 import shared.definitions.CatanColor;
+import shared.exceptions.player.PlayerNameNotFoundException;
 
 
 /**
@@ -47,8 +48,13 @@ public class ChatController extends Controller implements IChatController, Obser
 		{
 			String message = chatMessages.get(i);
 			String source = chatSources.get(i);
-			
-			CatanColor color = Facade.getColorByName(source);			
+
+			CatanColor color = null;
+			try {
+				color = Facade.getColorByName(source);
+			} catch (PlayerNameNotFoundException e) {
+				e.printStackTrace();
+			}
 			LogEntry entry = new LogEntry(color,message);
 			entries.add(entry);
 		}
