@@ -12,9 +12,9 @@ package shared.communication;
  */
 public class CommPlayer
 {
-	private String color;
-	private String name;
 	private int id;
+	private String name;
+	private String color;
 
 	public CommPlayer()
 	{

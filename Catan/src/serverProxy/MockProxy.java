@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.google.gson.JsonArray;
 
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 import clientfacade.Facade;
 import model.CatanModel;
 import model.resources.ResourceList;
@@ -50,7 +52,7 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public List<CommGame> listGames() throws ServerException {
+	public GameInfo[] listGames() throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -245,6 +247,12 @@ public class MockProxy implements ServerProxy
 	@Override
 	public CatanModel getGameModel() throws ServerException {
 		// TODO Auto-generated method stub
+		return null;
+	}
+	
+	@Override
+	public PlayerInfo getLocalPlayerInfo()
+	{
 		return null;
 	}
 }

@@ -8,12 +8,15 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.net.URLDecoder;
 //import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
 
 import com.google.gson.*;
 
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.*;
@@ -37,8 +40,7 @@ import shared.locations.*;
 public class RealProxy implements ServerProxy
 {
 	private String urlBase;
-//	private String name;
-//	private int playerID;
+	private PlayerInfo localPlayerInfo;
 	private AuthProxy authProxy;
 	
 	public RealProxy()
@@ -50,7 +52,6 @@ public class RealProxy implements ServerProxy
 	public void userLogin(String username, String password) throws ServerException 
 	{
 		login("/user/login", username, password);
-		System.out.println("User Successfully Logged in");
 	}
 
 	@Override
@@ -85,10 +86,12 @@ public class RealProxy implements ServerProxy
 				cookie = cookie.replace("catan.user=", "");
 				cookie = cookie.replace(";Path=/;", "");
 				authProxy = new AuthProxy(cookie);
-//				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
-//				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
-//				this.name = userjson.get("name").toString().replace("\"", "");
-//				this.playerID = userjson.get("playerID").getAsInt();
+				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
+				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
+				PlayerInfo localPlayerInfo = new PlayerInfo();
+				localPlayerInfo.setName(userjson.get("name").toString().replace("\"", ""));
+				localPlayerInfo.setId(userjson.get("playerID").getAsInt());
+				this.localPlayerInfo = localPlayerInfo;
 			}
 			else if(conn.getResponseCode() != HttpURLConnection.HTTP_OK)
 			{
@@ -114,11 +117,11 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public List<CommGame> listGames() throws ServerException 
+	public GameInfo[] listGames() throws ServerException 
 	{
 		String response = (String) get("/games/list");
 		JsonArray json = new Gson().fromJson(response, JsonArray.class);
-		List<CommGame> games = new ArrayList<CommGame>();
+		GameInfo[] games = new GameInfo[json.size()];
 		for(int i = 0; i < json.size(); i++)
 		{
 			JsonObject game = (JsonObject) json.get(i);
@@ -126,14 +129,14 @@ public class RealProxy implements ServerProxy
 			int id = game.get("id").getAsInt();
 			JsonArray players = game.getAsJsonArray("players");
 			
-			CommPlayer[] playerArray = new CommPlayer[4];
+			List<PlayerInfo> playerList = new ArrayList<PlayerInfo>();
 			for(int j = 0; j < players.size(); j++)
 			{
-				CommPlayer player = new Gson().fromJson(players.get(j), CommPlayer.class);
-				playerArray[j] = player;
+				PlayerInfo player = new Gson().fromJson(players.get(j), PlayerInfo.class);
+				playerList.add(player);
 			}
-			CommGame newGame = new CommGame(title,id,playerArray);
-			games.add(newGame);
+			GameInfo newGame = new GameInfo(id,title,playerList);
+			games[i] = newGame;
 		}
 		return games;
 	}
@@ -324,6 +327,12 @@ public class RealProxy implements ServerProxy
 	{
 		ChangeLogLevelJSON data = new ChangeLogLevelJSON(logLevel.toString());
 		post("/util/changeLogLevel", data);
+	}
+	
+	@Override
+	public PlayerInfo getLocalPlayerInfo()
+	{
+		return localPlayerInfo;
 	}
 	
 	private Object get(String urlPath) throws ServerException

@@ -5,12 +5,12 @@ import client.misc.*;
 import clientfacade.Facade;
 import serverProxy.ServerException;
 
-import java.net.*;
-import java.io.*;
-import java.util.*;
-import java.lang.reflect.*;
-import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
+//import java.net.*;
+//import java.io.*;
+//import java.util.*;
+//import java.lang.reflect.*;
+//import com.google.gson.*;
+//import com.google.gson.reflect.TypeToken;
 
 
 /**
@@ -82,14 +82,15 @@ public class LoginController extends Controller implements ILoginController {
 			String password = ((ILoginView) getView()).getLoginPassword();
 			Facade.login(username, password);
 			// If log in succeeded
-			System.out.println("Yet I got here in the code");
 			getLoginView().closeModal();
 			loginAction.execute();
 		} 
 		catch (ServerException e) 
 		{
-			System.out.println("Threw the error");
-			((ILoginView) getView()).setLoginErrorMessage("INVALID CREDENTIALS");
+			//((ILoginView) getView()).setLoginErrorMessage("INVALID CREDENTIALS");
+			messageView.setTitle("Login Failed");
+			messageView.setMessage("INVALID CREDENTIALS");
+			messageView.showModal();
 			e.printStackTrace();
 		}
 	}
@@ -105,17 +106,26 @@ public class LoginController extends Controller implements ILoginController {
 			String passwordAgain = ((ILoginView) getView()).getRegisterPasswordRepeat();
 			if(!password.equals(passwordAgain))
 			{
-				((ILoginView) getView()).setRegisterErrorMessage("PASSWORDS DO NOT MATCH");
+				//((ILoginView) getView()).setRegisterErrorMessage("PASSWORDS DO NOT MATCH");
+				messageView.setTitle("Register Failed");
+				messageView.setMessage("PASSWORDS DO NOT MATCH");
+				messageView.showModal();
 				return;
 			}
 			if(username.equals(""))
 			{
-				((ILoginView) getView()).setRegisterErrorMessage("USERNAME CANNOT BE BLANK");
+				//((ILoginView) getView()).setRegisterErrorMessage("USERNAME CANNOT BE BLANK");
+				messageView.setTitle("Register Failed");
+				messageView.setMessage("USERNAME CANNOT BE BLANK");
+				messageView.showModal();
 				return;
 			}
 			if(password.equals(""))
 			{
-				((ILoginView) getView()).setRegisterErrorMessage("PASSWORD CANNOT BE BLANK");
+				//((ILoginView) getView()).setRegisterErrorMessage("PASSWORD CANNOT BE BLANK");
+				messageView.setTitle("Register Failed");
+				messageView.setMessage("PASSWORD CANNOT BE BLANK");
+				messageView.showModal();
 				return;
 			}
 			Facade.register(username, password);
@@ -126,8 +136,9 @@ public class LoginController extends Controller implements ILoginController {
 		} 
 		catch (ServerException e) 
 		{
-			System.out.println("Threw the error");
-			((ILoginView) getView()).setRegisterErrorMessage("USERNAME ALREADY IN USE");
+			messageView.setTitle("Register Failed");
+			messageView.setMessage("USERNAME ALREADY IN USE");
+			messageView.showModal();
 			e.printStackTrace();
 		}
 	}

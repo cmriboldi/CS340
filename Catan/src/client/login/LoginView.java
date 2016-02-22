@@ -185,17 +185,17 @@ public class LoginView extends OverlayView implements ILoginView
         return registerPanel.txtPasswordAgain.getText();
     }
     
-    @Override
-    public void setLoginErrorMessage(String message)
-    {
-    	signInPanel.lblError.setText(message);
-    }
+//    @Override
+//    public void setLoginErrorMessage(String message)
+//    {
+//    	signInPanel.lblError.setText(message);
+//    }
     
-    @Override
-    public void setRegisterErrorMessage(String message)
-    {
-    	registerPanel.lblError.setText(message);
-    }
+//    @Override
+//    public void setRegisterErrorMessage(String message)
+//    {
+//    	registerPanel.lblError.setText(message);
+//    }
 
     private class SignInPanel extends JPanel
     {
@@ -205,7 +205,7 @@ public class LoginView extends OverlayView implements ILoginView
         private JTextField txtUsername = null;
         private JLabel lblPassword = null;
         private JTextField txtPassword = null;
-        private JLabel lblError = null;
+        //private JLabel lblError = null;
         private JButton btnSignIn = null;
 
         public SignInPanel()
@@ -228,8 +228,8 @@ public class LoginView extends OverlayView implements ILoginView
             txtUsername = new JTextField(NUM_TXT_COLS);
             lblPassword = new JLabel("Password");
             txtPassword = new JPasswordField(NUM_TXT_COLS);
-            lblError = new JLabel("");
-            lblError.setForeground(Color.RED);
+//            lblError = new JLabel("");
+//            lblError.setForeground(Color.RED);
 
             btnSignIn = new JButton("Sign in");
         }
@@ -262,7 +262,7 @@ public class LoginView extends OverlayView implements ILoginView
             Font btnFont = btnSignIn.getFont();
             btnFont = btnFont.deriveFont(btnFont.getStyle(), BUTTON_TEXT_SIZE);
             btnSignIn.setFont(btnFont);
-            this.add(lblError);
+//            this.add(lblError);
             this.add(btnSignIn);
         }
 
@@ -289,7 +289,7 @@ public class LoginView extends OverlayView implements ILoginView
         private JTextField txtPassword = null;
         private JLabel lblPasswordAgain = null;
         private JTextField txtPasswordAgain = null;
-        private JLabel lblError = null;
+//        private JLabel lblError = null;
         private JButton btnRegister = null;
 
         public RegisterPanel()
@@ -315,8 +315,8 @@ public class LoginView extends OverlayView implements ILoginView
             txtPassword = new JPasswordField(NUM_TXT_COLS);
             lblPasswordAgain = new JLabel("Password (Again)");
             txtPasswordAgain = new JPasswordField(NUM_TXT_COLS);
-            lblError = new JLabel("");
-            lblError.setForeground(Color.RED);
+//            lblError = new JLabel("");
+//            lblError.setForeground(Color.RED);
 
             btnRegister = new JButton("Register");
         }
@@ -364,7 +364,7 @@ public class LoginView extends OverlayView implements ILoginView
             btnFont = btnFont.deriveFont(btnFont.getStyle(), BUTTON_TEXT_SIZE);
             btnRegister.setFont(btnFont);
 
-            this.add(lblError);
+//            this.add(lblError);
             this.add(btnRegister);
         }
 

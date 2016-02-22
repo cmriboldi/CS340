@@ -3,6 +3,8 @@ package clientfacade;
 import java.util.List;
 import java.util.Observable;
 
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 import model.CatanModel;
 import model.resources.ResourceList;
 import serverProxy.RealProxy;
@@ -73,16 +75,30 @@ public class Facade extends Observable
 	{
 		return null;
 	}
+	
+	private PlayerInfo _getLocalPlayerInfo()
+	{
+		return proxy.getLocalPlayerInfo();
+	}
+	
+	public static PlayerInfo getLocalPlayerInfo()
+	{
+		return instance()._getLocalPlayerInfo();
+	}
 
+	private GameInfo[] _listGames() throws ServerException
+	{
+		return proxy.listGames();
+	}
+	
 	/**
 	 * Generates a game list for the Client
-	 * 
 	 * @return A list of all the current games
 	 * @throws ServerException
 	 */
-	private List<CommGame> _listGames()
+	public static GameInfo[] listGames() throws ServerException
 	{
-		return null;
+		return instance()._listGames();
 	}
 
 	/**
@@ -287,6 +303,7 @@ public class Facade extends Observable
 	{
 		_joinGame(gameId, color);
 	}
+	
 
 	/**
 	 * Logs a players move in the log

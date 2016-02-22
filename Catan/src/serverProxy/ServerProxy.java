@@ -4,6 +4,8 @@ import java.util.List;
 
 import com.google.gson.JsonArray;
 
+import client.data.GameInfo;
+import client.data.PlayerInfo;
 import model.CatanModel;
 import model.resources.ResourceList;
 import shared.communication.*;
@@ -48,7 +50,7 @@ public interface ServerProxy
 	 * @return a list of game communication objects of available games
 	 * @throws ServerException 
 	 */
-	public List<CommGame> listGames() throws ServerException;
+	public GameInfo[] listGames() throws ServerException;
 
 	/**
 	 * Creates a new game.
@@ -359,4 +361,11 @@ public interface ServerProxy
 	 * @throws ServerException If an error occurred throw an error with a detailed message
 	 */
 	public void changeLogLevel(LogLevel logLevel) throws ServerException;
+	
+	/**
+	 * Gets the information about the player that is currently logged in
+	 * 
+	 * @return info on logged in player
+	 */
+	public PlayerInfo getLocalPlayerInfo();
 }

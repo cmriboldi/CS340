@@ -4,6 +4,8 @@ import shared.definitions.CatanColor;
 import client.base.*;
 import client.data.*;
 import client.misc.*;
+import clientfacade.Facade;
+import serverProxy.ServerException;
 
 
 /**
@@ -25,13 +27,25 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	 * @param messageView Message view (used to display error messages that occur while the user is joining a game)
 	 */
 	public JoinGameController(IJoinGameView view, INewGameView newGameView, 
-								ISelectColorView selectColorView, IMessageView messageView) {
+								ISelectColorView selectColorView, IMessageView messageView) 
+	{
 
 		super(view);
 
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
+		
+		try 
+		{
+			GameInfo[] games = Facade.listGames();
+			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+		} 
+		catch (ServerException e) 
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -124,7 +138,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	}
 
 	@Override
-	public void joinGame(CatanColor color) {
+	public void joinGame(CatanColor color) 
+	{
 		
 		// If join succeeded
 		getSelectColorView().closeModal();

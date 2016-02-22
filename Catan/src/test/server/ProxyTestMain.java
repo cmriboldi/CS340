@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.google.gson.JsonArray;
 
+import client.data.GameInfo;
 import model.CatanModel;
 import model.resources.ResourceList;
 import serverProxy.JSONDeserializer;
@@ -64,23 +65,23 @@ public class ProxyTestMain
 			System.out.println("Successful!");
 			
 			System.out.println("Print List of Games");
-			List<CommGame> games = server.listGames();
-			for(CommGame game : games)
-			{
-				System.out.println("Title: " + game.getTitle() + " id: " + game.getId() + " players:");
-				CommPlayer[] players = game.getPlayers();
-				for(CommPlayer player : players)
-				{
-					if(player != null)
-					{
-						System.out.println("\tColor: " + player.getColor() + " name: " + player.getName() + " id: " + player.getId());
-					}
-					else
-					{
-						System.out.println("\tEmpty Player spot");
-					}
-				}
-			}
+			GameInfo[] games = server.listGames();
+//			for(CommGame game : games)
+//			{
+//				System.out.println("Title: " + game.getTitle() + " id: " + game.getId() + " players:");
+//				CommPlayer[] players = game.getPlayers();
+//				for(CommPlayer player : players)
+//				{
+//					if(player != null)
+//					{
+//						System.out.println("\tColor: " + player.getColor() + " name: " + player.getName() + " id: " + player.getId());
+//					}
+//					else
+//					{
+//						System.out.println("\tEmpty Player spot");
+//					}
+//				}
+//			}
 			
 			System.out.println("Saving current game");
 			server.saveGame(3, "test save");
