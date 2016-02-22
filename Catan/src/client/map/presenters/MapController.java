@@ -52,7 +52,7 @@ public class MapController extends Controller implements IMapController, Observe
 	protected void initFromModel() {
 
 		//Acquire new model
-		CatanModel model = Facade.getCatanModel();
+		//CatanModel model = Facade.getCatanModel();
 
 		//initialize from said model
 		/*
@@ -64,14 +64,14 @@ public class MapController extends Controller implements IMapController, Observe
 		 */
 
 		//Add the hexes from the CatanModel
-		HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
+		/*HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
 		for(HexLocation hexLoc : hexes.keySet())
 		{
 			getView().addHex(hexLoc, HexType.valueOf(hexes.get(hexLoc).getResource()));
-		}
+		}*/
 
 		//Add the settlements from the CatanModel
-		HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
+		/*HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
 		for(VertexLocation verLoc : settlements.keySet())
 		{
 			Settlement settlement = settlements.get(verLoc);
@@ -79,13 +79,13 @@ public class MapController extends Controller implements IMapController, Observe
 			CatanColor settlementColor = CatanColor.BLUE;
 
 			getView().placeSettlement(verLoc, settlementColor);
-		}
+		}*/
 
 
 
 
 		//<temp>
-		/*
+
 
 		Random rand = new Random();
 
@@ -147,7 +147,7 @@ public class MapController extends Controller implements IMapController, Observe
 		getView().addNumber(new HexLocation(2, -1), 11);
 		getView().addNumber(new HexLocation(2, 0), 12);
 
-		*/
+
 		//</temp>
 	}
 
