@@ -5,10 +5,8 @@ package model.map;
 import java.util.*;
 
 //Project Imports
-import com.sun.javafx.geom.Edge;
 import shared.definitions.PortType;
 import shared.locations.*;
-import sun.security.provider.certpath.Vertex;
 
 /**
  * The Map class contains all information dealing with the map.

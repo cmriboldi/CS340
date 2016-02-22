@@ -48,13 +48,23 @@ public class ChatController extends Controller implements IChatController, Obser
 		{
 			String message = chatMessages.get(i);
 			String source = chatSources.get(i);
+<<<<<<< Updated upstream
 
+=======
+			
+>>>>>>> Stashed changes
 			CatanColor color = null;
 			try {
 				color = Facade.getColorByName(source);
 			} catch (PlayerNameNotFoundException e) {
+<<<<<<< Updated upstream
 				e.printStackTrace();
 			}
+=======
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}			
+>>>>>>> Stashed changes
 			LogEntry entry = new LogEntry(color,message);
 			entries.add(entry);
 		}

@@ -1,8 +1,6 @@
 package model.map;
 
 //Project Imports
-
-import com.sun.javafx.geom.Edge;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;

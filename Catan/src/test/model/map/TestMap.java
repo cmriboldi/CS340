@@ -1,6 +1,5 @@
 package test.model.map;
 
-import com.sun.javafx.geom.Edge;
 import model.CatanModel;
 import model.map.Map;
 import model.map.Port;
@@ -15,7 +14,6 @@ import shared.exceptions.player.GeneralPlayerException;
 import shared.exceptions.player.InvalidTurnStatusException;
 import shared.exceptions.player.TurnIndexException;
 import shared.locations.*;
-import sun.security.provider.certpath.Vertex;
 import test.TestJSON;
 
 import java.util.Iterator;
