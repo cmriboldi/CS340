@@ -78,5 +78,30 @@ public class MapManager implements IMapManager {
 
     }
 
+    @Override
+    public HashMap<HexLocation, Hex> getHexes() {
+        return map.getHexes();
+    }
+
+    @Override
+    public HashMap<VertexLocation, Settlement> getSettlements() {
+        return map.getSettlements();
+    }
+
+    @Override
+    public HashMap<EdgeLocation, Port> getPorts() {
+        return map.getPorts();
+    }
+
+    @Override
+    public HashMap<EdgeLocation, Road> getRoads() {
+        return map.getRoads();
+    }
+
+    @Override
+    public HexLocation getRobber() {
+        return map.getRobber();
+    }
+
 
 }

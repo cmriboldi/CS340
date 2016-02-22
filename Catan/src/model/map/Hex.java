@@ -56,4 +56,6 @@ public class Hex {
         number = number_t;
         location = null;
     }
+
+    public String getResource(){return resource;}
 }

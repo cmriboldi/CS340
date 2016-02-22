@@ -4,6 +4,10 @@ import java.util.*;
 
 import client.map.view.IMapView;
 import client.map.view.IRobView;
+import clientfacade.Facade;
+import model.CatanModel;
+import model.map.Hex;
+import model.map.Settlement;
 import shared.definitions.*;
 import shared.locations.*;
 import client.base.*;
@@ -13,7 +17,7 @@ import client.data.*;
 /**
  * Implementation for the map controller
  */
-public class MapController extends Controller implements IMapController {
+public class MapController extends Controller implements IMapController, Observer {
 	
 	private IRobView robView;
 	private MapControllerState currentState;
@@ -38,11 +42,51 @@ public class MapController extends Controller implements IMapController {
 	private void setRobView(IRobView robView) {
 		this.robView = robView;
 	}
-	
+
+	@Override
+	public void update(Observable o, Object arg) {
+
+	}
+
+
 	protected void initFromModel() {
-		
+
+		//Acquire new model
+		CatanModel model = Facade.getCatanModel();
+
+		//initialize from said model
+		/*
+		1. Build Hexes, tile numbers, resources
+		2. Place settlements
+		3. Place roads
+		4. Place ports
+		5. Place robber
+		 */
+
+		//Add the hexes from the CatanModel
+		HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
+		for(HexLocation hexLoc : hexes.keySet())
+		{
+			getView().addHex(hexLoc, HexType.valueOf(hexes.get(hexLoc).getResource()));
+		}
+
+		//Add the settlements from the CatanModel
+		HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
+		for(VertexLocation verLoc : settlements.keySet())
+		{
+			Settlement settlement = settlements.get(verLoc);
+			//--- Grab the color of the player who owns said settlement
+			CatanColor settlementColor = CatanColor.BLUE;
+
+			getView().placeSettlement(verLoc, settlementColor);
+		}
+
+
+
+
 		//<temp>
-		
+		/*
+
 		Random rand = new Random();
 
 		for (int x = 0; x <= 3; ++x) {
@@ -102,7 +146,8 @@ public class MapController extends Controller implements IMapController {
 		getView().addNumber(new HexLocation(2, -2), 10);
 		getView().addNumber(new HexLocation(2, -1), 11);
 		getView().addNumber(new HexLocation(2, 0), 12);
-		
+
+		*/
 		//</temp>
 	}
 
@@ -178,6 +223,5 @@ public class MapController extends Controller implements IMapController {
 	{
 		this.currentState = currentState;
 	}
-	
 }
 

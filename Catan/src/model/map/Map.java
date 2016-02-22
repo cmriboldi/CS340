@@ -396,4 +396,8 @@ public class Map {
         return ports;
     }
 
+    public HashMap<HexLocation, Hex> getHexes() {   return hexes;   }
+
+    public HexLocation getRobber()  {return robber;}
+
 }

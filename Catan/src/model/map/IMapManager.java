@@ -1,6 +1,7 @@
 package model.map;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import model.resources.ResourceList;
 import shared.exceptions.map.IllegalPlacementException;
@@ -74,5 +75,20 @@ public interface IMapManager
 	 * @param hex
 	 */
 	public void placeRobber(HexLocation hex);
+
+
+	public HashMap<HexLocation, Hex> getHexes();
+
+	public HashMap<VertexLocation, Settlement> getSettlements();
+
+	public HashMap<EdgeLocation, Port> getPorts();
+
+	public HashMap<EdgeLocation, Road> getRoads();
+
+	public HexLocation getRobber();
+
+
+
+
 
 }
