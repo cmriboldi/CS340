@@ -78,44 +78,36 @@ public class Facade extends Observable {
         this.notifyObservers();
     }
 
-
     public static void chat(String message) throws ServerException {
         _instance._chat(message);
     }
-
 
     private List<String> _getChatMessages() {
         List<String> messages = this.catanModel.chatManager.chatMessages();
         return messages;
     }
 
-
     public static List<String> getChatMessages() {
         return _instance._getChatMessages();
     }
-
 
     private List<String> _getChatSources() {
         List<String> sources = this.catanModel.chatManager.chatSources();
         return sources;
     }
 
-
     public static List<String> getChatSources() {
         return _instance._getChatSources();
     }
-
 
     private List<String> _getHistoryMessages() {
         List<String> messages = this.catanModel.chatManager.historyMessages();
         return messages;
     }
 
-
     public static List<String> getHistoryMessages() {
         return _instance._getHistoryMessages();
     }
-
 
     private List<String> _getHistorySources() {
         List<String> sources = this.catanModel.chatManager.historySources();
@@ -125,7 +117,6 @@ public class Facade extends Observable {
     public static List<String> getHistorySources() {
         return _instance._getHistorySources();
     }
-
 
     private CatanModel _getCatanModel() {
         return this.catanModel;
