@@ -169,8 +169,7 @@ public class Facade extends Observable
 	/**
 	 * Advances a player through the phases of his turn, and updates a players options
 	 *
-	 * @param Index of player
-	 * @return
+	 * @param index of player
 	 * @throws ServerException
 	 */
 	private void _advancePhase(int index)
@@ -217,10 +216,10 @@ public class Facade extends Observable
 	/**
 	 * Set up a trade between players
 	 *
-	 * @param index of trading player
-	 * @param index of tradee player
-	 * @param List of giving resources
-	 * @param List of asking resources
+	 * @param traderIndex of trading player
+	 * @param tradeeIndex of tradee player
+	 * @param toGive of giving resources
+	 * @param toAsk of asking resources
 	 * @return
 	 * @throws ServerException
 	 */
@@ -233,8 +232,8 @@ public class Facade extends Observable
 	 * Trades a players resources through an available port
 	 *
 	 * @param index of player trading
-	 * @param List of giving resources
-	 * @param List of getting resources
+	 * @param toGive of giving resources
+	 * @param toGet of getting resources
 	 * @return
 	 * @throws ServerException
 	 */
@@ -396,9 +395,8 @@ public class Facade extends Observable
 	/**
 	 * Registers a new user
 	 *
-	 * @param userName
+	 * @param username
 	 * @param password
-	 * @param passConfirm
 	 * @return User object associated with the new registered user
 	 * @throws ServerException
 	 */
