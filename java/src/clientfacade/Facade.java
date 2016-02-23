@@ -31,9 +31,9 @@ public class Facade extends Observable {
     private RealProxy proxy;
 
 
-    /**********************************************************************************
-     * Constructors
-     **********************************************************************************/
+    //**********************************************************************************
+    // Constructors
+    //**********************************************************************************
     private Facade() {
         this.proxy = new RealProxy();
     }
@@ -46,9 +46,9 @@ public class Facade extends Observable {
         return _instance;
     }
 
-    /**********************************************************************************
-     * Observable Functions
-     **********************************************************************************/
+    //**********************************************************************************
+    // Observable Functions
+    //**********************************************************************************
     private void _updateView(CatanModel catanModel) {
         this.catanModel = catanModel;
         this.setChanged();
@@ -63,9 +63,70 @@ public class Facade extends Observable {
         instance().addObserver(obs);
     }
 
-    /**********************************************************************************
-     * Not Organized Yet
-     **********************************************************************************/
+    //**********************************************************************************
+    // Chat Functions
+    //**********************************************************************************
+
+    /**
+     * Chat a message to other players
+     * @param message
+     * @throws ServerException
+     */
+    private void _chat(String message) throws ServerException {
+        this.catanModel = proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message);
+        this.setChanged();
+        this.notifyObservers();
+    }
+
+
+    public static void chat(String message) throws ServerException {
+        _instance._chat(message);
+    }
+
+
+    private List<String> _getChatMessages() {
+        List<String> messages = this.catanModel.chatManager.chatMessages();
+        return messages;
+    }
+
+
+    public static List<String> getChatMessages() {
+        return _instance._getChatMessages();
+    }
+
+
+    private List<String> _getChatSources() {
+        List<String> sources = this.catanModel.chatManager.chatSources();
+        return sources;
+    }
+
+
+    public static List<String> getChatSources() {
+        return _instance._getChatSources();
+    }
+
+
+    private List<String> _getHistoryMessages() {
+        List<String> messages = this.catanModel.chatManager.historyMessages();
+        return messages;
+    }
+
+
+    public static List<String> getHistoryMessages() {
+        return _instance._getHistoryMessages();
+    }
+
+
+    private List<String> _getHistorySources() {
+        List<String> sources = this.catanModel.chatManager.historySources();
+        return sources;
+    }
+
+    public static List<String> getHistorySources() {
+        return _instance._getHistorySources();
+    }
+
+
     private CatanModel _getCatanModel() {
         return this.catanModel;
     }
@@ -143,6 +204,10 @@ public class Facade extends Observable {
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
 
+    //**********************************************************************************
+    // Game Phase Control
+    //**********************************************************************************
+
     /**
      * Generates a new map for a new game
      *
@@ -210,23 +275,27 @@ public class Facade extends Observable {
         return _instance._roll();
     }
 
+
+    //**********************************************************************************
+    // Trade Functions
+    //**********************************************************************************
+
     /**
      * Set up a trade between players
-     *
      * @param traderIndex of trading player
      * @param tradeeIndex of tradee player
      * @param toGive      of giving resources
      * @param toAsk       of asking resources
-     * @return
      * @throws ServerException
      */
     private void _domesticTrade(int traderIndex, int tradeeIndex, ResourceList toGive, ResourceList toAsk) {
+
+
 
     }
 
     /**
      * Trades a players resources through an available port
-     *
      * @param index  of player trading
      * @param toGive of giving resources
      * @param toGet  of getting resources
@@ -235,60 +304,12 @@ public class Facade extends Observable {
      */
     private void _portTrade(int index, ResourceList toGive, ResourceList toGet) {
 
+
+
     }
 
-    /**
-     * Chat a message to other players
-     *
-     * @param message
-     * @return
-     * @throws ServerException
-     */
-    private void _chat(String message) throws ServerException {
-        this.catanModel = proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message);
-        this.setChanged();
-        this.notifyObservers();
-    }
 
-    public static void chat(String message) throws ServerException {
-        _instance._chat(message);
-    }
 
-    private List<String> _getChatMessages() {
-        List<String> messages = this.catanModel.chatManager.chatMessages();
-        return messages;
-    }
-
-    public static List<String> getChatMessages() {
-        return _instance._getChatMessages();
-    }
-
-    private List<String> _getChatSources() {
-        List<String> sources = this.catanModel.chatManager.chatSources();
-        return sources;
-    }
-
-    public static List<String> getChatSources() {
-        return _instance._getChatSources();
-    }
-
-    private List<String> _getHistoryMessages() {
-        List<String> messages = this.catanModel.chatManager.historyMessages();
-        return messages;
-    }
-
-    public static List<String> getHistoryMessages() {
-        return _instance._getHistoryMessages();
-    }
-
-    private List<String> _getHistorySources() {
-        List<String> sources = this.catanModel.chatManager.historySources();
-        return sources;
-    }
-
-    public static List<String> getHistorySources() {
-        return _instance._getHistorySources();
-    }
 
     private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException {
         return catanModel.playerManager.getPlayerColor(name);
@@ -322,7 +343,6 @@ public class Facade extends Observable {
      * Buys a development card for a specific player
      *
      * @param index of player buying dev card
-     * @return
      */
     private void _buyDevCard(int index) {
 
@@ -332,7 +352,6 @@ public class Facade extends Observable {
      * Builds a road for a specific player
      *
      * @param index of player building road
-     * @return
      */
     private void _buildRoad(int index) {
 
@@ -342,7 +361,6 @@ public class Facade extends Observable {
      * Builds a town for a specific player
      *
      * @param index of player building town
-     * @return
      */
     private void _buildTown(int index) {
 
@@ -352,7 +370,6 @@ public class Facade extends Observable {
      * Builds a city for a specific player
      *
      * @param index of player building city
-     * @return
      */
     private void _buildCity(int index) {
 
@@ -362,7 +379,6 @@ public class Facade extends Observable {
      * Places the robber in a hex specified by a specific player
      *
      * @param index of player using robber
-     * @return
      */
     private void _placeRobber(int index) {
 
@@ -383,4 +399,11 @@ public class Facade extends Observable {
     public static void register(String username, String password) throws ServerException {
         instance()._register(username, password);
     }
+
+    //**********************************************************************************
+    // Not Organized Yet
+    //**********************************************************************************
+
+
+
 }
