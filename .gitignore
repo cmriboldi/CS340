@@ -1,4 +1,7 @@
 **/.*
 **/bin/
+**/build/
+**/dist/
+**/demo/saves/*
 **/Catan.iml
 !/.gitignore
