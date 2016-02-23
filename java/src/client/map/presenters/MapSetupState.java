@@ -21,78 +21,95 @@ import shared.locations.VertexLocation;
  * @author Joshua Van Steeter
  * @version 1.0 Build Feb, 2016.
  */
-public class MapSetupState extends MapControllerState
+public class MapSetupState implements MapControllerState
 {
 	/**
 	 * Initializes the MapControllerState from the Model passed in.
 	 */
 	public void initFromModel()
 	{
-
+		//TODO
 	}
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
+		//TODO
 		return true;
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
+		//TODO
 		return true;
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
-		return true;
+		return false;
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc)
 	{
-		return true;
+		return false;
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-
+		// do nothing
 	}
 
 	public void placeSettlement(VertexLocation vertLoc)
 	{
-
+		//TODO Clayton
 	}
 
 	public void placeCity(VertexLocation vertLoc)
 	{
-
+		// do nothing
 	}
 
 	public void placeRobber(HexLocation hexLoc)
 	{
-
+		// do nothing
 	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
-
+		// ??? Not sure what this does. 
 	}
 
 	public void cancelMove()
 	{
-
+		// ??? not sure what this does
 	}
 
 	public void playSoldierCard()
 	{
-
+		// do nothing
 	}
 
 	public void playRoadBuildingCard()
 	{
-
+		// do nothing	
 	}
 
 	public void robPlayer(RobPlayerInfo victim)
 	{
+		// do nothing
+	}
 
+	@Override
+	public boolean canPlaySoldier() {
+		return false;
+	}
+
+	@Override
+	public boolean canPlayRoadBuildingCard() {
+		return false;
+	}
+
+	@Override
+	public boolean canRobPlayer() {
+		return false;
 	}
 }

@@ -14,7 +14,7 @@ import shared.definitions.Cost;
 import shared.definitions.DevCardType;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 import shared.locations.*;
-import test.JsonFileLoader;
+import serverProxy.JsonFileLoader;
 
 public class OptionsTest
 {

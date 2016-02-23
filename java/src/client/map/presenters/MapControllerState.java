@@ -15,63 +15,55 @@ import shared.locations.*;
  * @author Joshua Van Steeter
  * @version 1.0 Build Feb, 2016.
  */
-public class MapControllerState {
+public interface MapControllerState {
     /**
      * Initializes the MapControllerState from the Model passed in.
      */
-    public void initFromModel() {
+    public void initFromModel(); 
+    
+    
+    // ===================== NECESSARY CanDos ====================== // 
 
-    }
+    public boolean canPlaceRoad(EdgeLocation edgeLoc);
+    
+    public boolean canPlaceSettlement(VertexLocation vertLoc);
 
-    public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-        return true;
-    }
+    public boolean canPlaceCity(VertexLocation vertLoc);
 
-    public boolean canPlaceSettlement(VertexLocation vertLoc) {
-        return true;
-    }
+    public boolean canPlaceRobber(HexLocation hexLoc);
+    
+    
+    // ===================== USE MAYBE CanDos ====================== // 
+    
+    public boolean canPlaySoldier();
+    
+    public boolean canPlayRoadBuildingCard(); 
+    
+    public boolean canRobPlayer(); 
 
-    public boolean canPlaceCity(VertexLocation vertLoc) {
-        return true;
-    }
+    // ============================================================= // 
 
-    public boolean canPlaceRobber(HexLocation hexLoc) {
-        return true;
-    }
+    
+   
+    
 
-    public void placeRoad(EdgeLocation edgeLoc) {
-        int cat = (int) 2.0;
-    }
+    public void placeRoad(EdgeLocation edgeLoc);
 
-    public void placeSettlement(VertexLocation vertLoc) {
+    public void placeSettlement(VertexLocation vertLoc);
 
-    }
+    public void placeCity(VertexLocation vertLoc);
 
-    public void placeCity(VertexLocation vertLoc) {
+    public void placeRobber(HexLocation hexLoc);
 
-    }
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected);
 
-    public void placeRobber(HexLocation hexLoc) {
+    public void cancelMove();
 
-    }
+    public void playSoldierCard();
 
-    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+    public void playRoadBuildingCard();
 
-    }
-
-    public void cancelMove() {
-
-    }
-
-    public void playSoldierCard() {
-
-    }
-
-    public void playRoadBuildingCard() {
-
-    }
-
-    public void robPlayer(RobPlayerInfo victim) {
-
-    }
+    public void robPlayer(RobPlayerInfo victim);
+    
+    
 }

@@ -12,7 +12,7 @@ import model.players.PlayerManager;
 import model.players.PlayerTurnTracker;
 import serverProxy.JSONDeserializer;
 import shared.definitions.DevCardType;
-import test.JsonFileLoader;
+import serverProxy.JsonFileLoader;
 import test.TestJSON;
 
 // Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']

@@ -7,7 +7,7 @@ import org.junit.*;
 import model.CatanModel;
 import model.resources.ResourceManager;
 import serverProxy.JSONDeserializer;
-import test.JsonFileLoader;
+import serverProxy.JsonFileLoader;
 
 public class ResourceManagerDeserialTest
 {
