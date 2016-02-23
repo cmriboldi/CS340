@@ -31,6 +31,8 @@ public class MapController extends Controller implements IMapController, Observe
 
         setRobView(robView);
 
+        Facade.addObserverStatic(this);
+
         initFromModel();
     }
 
@@ -113,7 +115,6 @@ public class MapController extends Controller implements IMapController, Observe
             //Add the Robber
             HexLocation robber = model.getMapManager().getRobber();
             getView().placeRobber(robber);
-
 
         } else {
             //<temp>

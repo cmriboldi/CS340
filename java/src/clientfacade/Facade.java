@@ -70,7 +70,6 @@ public class Facade extends Observable
 	 * @param userName
 	 * @param password
 	 * @return The authenticated User object
-	 * @throws InvalidCredentials
 	 */
 	private CommUser _authenticateUser(String userName, String password)
 	{
@@ -79,7 +78,7 @@ public class Facade extends Observable
 
 	public static void addObserverStatic(Observer obs)
 	{
-		_instance.addObserver(obs);
+		instance().addObserver(obs);
 	}
 
 	private void _addObserverStatic(Observer obs)
