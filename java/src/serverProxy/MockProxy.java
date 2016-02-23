@@ -10,7 +10,6 @@ import client.data.PlayerInfo;
 import clientfacade.Facade;
 import model.CatanModel;
 import model.resources.ResourceList;
-import shared.communication.CommGame;
 import shared.definitions.CatanColor;
 import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
@@ -57,7 +56,7 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name)
+	public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name)
 			throws ServerException {
 		// TODO Auto-generated method stub
 		return null;

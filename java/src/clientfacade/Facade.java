@@ -62,10 +62,10 @@ public class Facade extends Observable
 	{
 		return instance()._getCatanModel();
 	}
-	
+
 	/**
 	 * Validates user credentials
-	 * 
+	 *
 	 * @param userName
 	 * @param password
 	 * @return The authenticated User object
@@ -75,7 +75,9 @@ public class Facade extends Observable
 	{
 		return null;
 	}
-	
+
+	///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
+
 	private PlayerInfo _getLocalPlayerInfo()
 	{
 		return proxy.getLocalPlayerInfo();
@@ -101,29 +103,43 @@ public class Facade extends Observable
 		return instance()._listGames();
 	}
 
-	/**
-	 * Creates a new game with a specific user
-	 * 
-	 * @param userName
-	 * @return
-	 * @throws ServerException
-	 */
-	private void _createGame(String userName)
+	private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
 	{
-		
+		return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
+	}
+
+	/**
+	 * Creates a new game with a specific title
+	 *
+	 * @param randomTiles
+	 * @param randomNumbers
+	 * @param randomPorts
+	 * @param title
+     * @return
+     */
+	public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
+	{
+		return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
+	}
+
+	private void _joinGame(int gameId, CatanColor color) throws ServerException
+	{
+		proxy.joinGame(gameId, color);
 	}
 
 	/**
 	 * Joins a new game from the game list
-	 * 
-	 * @param userName
-	 * @return The CatanModel of the game
+	 *
+	 * @param gameId
+	 * @param color
 	 * @throws ServerException
-	 */
-	private CatanModel _joinGame(String userName)
+     */
+	public static void joinGame(int gameId, CatanColor color) throws ServerException
 	{
-		return null;
+		instance()._joinGame(gameId, color);
 	}
+
+	////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
 
 	/**
 	 * Generates a new map for a new game
@@ -152,7 +168,7 @@ public class Facade extends Observable
 
 	/**
 	 * Advances a player through the phases of his turn, and updates a players options
-	 * 
+	 *
 	 * @param Index of player
 	 * @return
 	 * @throws ServerException
@@ -200,7 +216,7 @@ public class Facade extends Observable
 
 	/**
 	 * Set up a trade between players
-	 * 
+	 *
 	 * @param index of trading player
 	 * @param index of tradee player
 	 * @param List of giving resources
@@ -215,7 +231,7 @@ public class Facade extends Observable
 
 	/**
 	 * Trades a players resources through an available port
-	 * 
+	 *
 	 * @param index of player trading
 	 * @param List of giving resources
 	 * @param List of getting resources
@@ -293,17 +309,6 @@ public class Facade extends Observable
 	{
 		return _instance._getColorByName(name);
 	}
-	
-	private void _joinGame(int gameId, CatanColor color) throws ServerException
-	{
-		proxy.joinGame(gameId, color);
-	}
-	
-	public void joinGame(int gameId, CatanColor color) throws ServerException
-	{
-		_joinGame(gameId, color);
-	}
-	
 
 	/**
 	 * Logs a players move in the log
@@ -330,7 +335,7 @@ public class Facade extends Observable
 
 	/**
 	 * Buys a development card for a specific player
-	 * 
+	 *
 	 * @param index of player buying dev card
 	 * @return
 	 * @throws InvalidAction
@@ -342,7 +347,7 @@ public class Facade extends Observable
 
 	/**
 	 * Builds a road for a specific player
-	 * 
+	 *
 	 * @param index of player building road
 	 * @return
 	 * @throws InvalidAction
@@ -354,7 +359,7 @@ public class Facade extends Observable
 
 	/**
 	 * Builds a town for a specific player
-	 * 
+	 *
 	 * @param index of player building town
 	 * @return
 	 * @throws InvalidAction
@@ -366,7 +371,7 @@ public class Facade extends Observable
 
 	/**
 	 * Builds a city for a specific player
-	 * 
+	 *
 	 * @param index of player building city
 	 * @return
 	 * @throws InvalidAction
@@ -378,7 +383,7 @@ public class Facade extends Observable
 
 	/**
 	 * Places the robber in a hex specified by a specific player
-	 * 
+	 *
 	 * @param index of player using robber
 	 * @return
 	 * @throws InvalidAction
@@ -387,10 +392,10 @@ public class Facade extends Observable
 	{
 		
 	}
-	
+
 	/**
 	 * Registers a new user
-	 * 
+	 *
 	 * @param userName
 	 * @param password
 	 * @param passConfirm

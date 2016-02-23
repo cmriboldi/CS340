@@ -36,16 +36,16 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
 		
-//		try
-//		{
-//			GameInfo[] games = Facade.listGames();
-//			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
-//			((IJoinGameView)this.getView()).setGames(games, localPlayer);
-//		}
-//		catch (ServerException e)
-//		{
-//			e.printStackTrace();
-//		}
+		try
+		{
+			GameInfo[] games = Facade.listGames();
+			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+		}
+		catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -102,8 +102,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	}
 
 	@Override
-	public void start() {
-		
+	public void start()
+	{
 		getJoinGameView().showModal();
 	}
 
@@ -120,32 +120,89 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	}
 
 	@Override
-	public void createNewGame() {
-		
-		getNewGameView().closeModal();
+	public void createNewGame()
+	{
+		try
+		{
+			INewGameView view = this.getNewGameView();
+			Facade.createGame(view.getRandomlyPlaceHexes(), view.getRandomlyPlaceNumbers(), view.getUseRandomPorts(), view.getTitle());
+			GameInfo[] games = Facade.listGames();
+			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+			getNewGameView().closeModal();
+		}
+		catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
-	public void startJoinGame(GameInfo game) {
-
+	public void startJoinGame(GameInfo game)
+	{
+		System.out.println("Joining a game: " + game.toString());
+		IAction joinAction = new JoinAction(game);
+		this.setJoinAction(joinAction);
 		getSelectColorView().showModal();
 	}
 
 	@Override
-	public void cancelJoinGame() {
-	
+	public void cancelJoinGame()
+	{
+		try
+		{
+			GameInfo[] games = Facade.listGames();
+			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+		}
+		catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 		getJoinGameView().closeModal();
 	}
 
 	@Override
-	public void joinGame(CatanColor color) 
+	public void joinGame(CatanColor color)
 	{
-		
+		System.out.println("JoinGame has been called");
 		// If join succeeded
 		getSelectColorView().closeModal();
 		getJoinGameView().closeModal();
+		((JoinAction)getJoinAction()).setColor(color);
 		joinAction.execute();
 	}
 
+	private class JoinAction implements IAction
+	{
+		private GameInfo game;
+		private CatanColor color;
+
+		private JoinAction(GameInfo game)
+		{
+			this.game = game;
+		}
+
+		private void setColor(CatanColor color)
+		{
+			this.color = color;
+		}
+
+		@Override
+		public void execute()
+		{
+			try
+			{
+				Facade.joinGame(game.getId(), color);
+			}
+			catch (ServerException e)
+			{
+				messageView.setTitle("Server Error");
+				messageView.setMessage("GAME NOT JOINED");
+				messageView.showModal();
+				e.printStackTrace();
+			}
+		}
+	}
 }
 

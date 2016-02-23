@@ -133,7 +133,10 @@ public class RealProxy implements ServerProxy
 			for(int j = 0; j < players.size(); j++)
 			{
 				PlayerInfo player = new Gson().fromJson(players.get(j), PlayerInfo.class);
-				playerList.add(player);
+				if(player.getName() != "")
+				{
+					playerList.add(player);
+				}
 			}
 			GameInfo newGame = new GameInfo(id,title,playerList);
 			games[i] = newGame;
@@ -142,19 +145,19 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public CommGame createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException 
+	public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
 	{
-		CreateGameJSON json = new CreateGameJSON(randomTiles, randomNumbers, randomPorts, name);
+		CreateGameJSON json = new CreateGameJSON(randomTiles, randomNumbers, randomPorts, title);
 		String response = (String) post("/games/create", json);
 		JsonObject game = new Gson().fromJson(response, JsonObject.class);
-		CommPlayer[] players = new CommPlayer[4];
+		List<PlayerInfo> players = new ArrayList<>();
 		JsonArray playersArray = game.getAsJsonArray("players");
 		for(int i = 0; i < playersArray.size(); i++)
 		{
-			CommPlayer player = new Gson().fromJson(playersArray.get(i), CommPlayer.class);
-			players[i] = player;
+			PlayerInfo player = new Gson().fromJson(playersArray.get(i), PlayerInfo.class);
+			players.add(player);
 		}
-		CommGame newGame = new CommGame(game.get("title").toString(), Integer.parseInt(game.get("id").toString()), players);
+		GameInfo newGame = new GameInfo(Integer.parseInt(game.get("id").toString()), game.get("title").toString(), players);
 		return newGame;
 	}
 
