@@ -35,6 +35,7 @@ public class Hex {
 
     /**
      * Most independent constructor, used when there is no map to store the HexLocation
+     *
      * @param x_t
      * @param y_t
      * @param resource_t
@@ -42,20 +43,27 @@ public class Hex {
      */
     public Hex(int x_t, int y_t, String resource_t, int number_t) {
         location = new HexLocation(x_t, y_t);
-		number = number_t;
+        number = number_t;
         resource = resource_t;
     }
 
     /**
      * Constructor dependant on an outside Map storing the HexLocation
+     *
      * @param resource_t
      * @param number_t
      */
-    public Hex(String resource_t, int number_t){
+    public Hex(String resource_t, int number_t) {
         resource = resource_t;
         number = number_t;
         location = null;
     }
 
-    public String getResource(){return resource;}
+    public String getResource() {
+        return resource;
+    }
+
+    public int getNumber() {
+        return number;
+    }
 }

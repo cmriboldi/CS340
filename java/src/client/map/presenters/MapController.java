@@ -8,6 +8,7 @@ import clientfacade.Facade;
 import com.sun.javafx.geom.Edge;
 import model.CatanModel;
 import model.map.Hex;
+import model.map.Port;
 import model.map.Road;
 import model.map.Settlement;
 import shared.definitions.*;
@@ -54,6 +55,8 @@ public class MapController extends Controller implements IMapController, Observe
 
     protected void initFromModel() {
 
+        //CLEAR THE VIEW
+
         //Acquire new model
         CatanModel model = Facade.getCatanModel();
 
@@ -67,20 +70,22 @@ public class MapController extends Controller implements IMapController, Observe
 			5. Place robber
 			 */
 
-            //Add the hexes from the CatanModel
+            //Add the hexes from the CatanModel, and add the tile numbers
+            //POTENTIAL NEED: HANDLE ROBBER TILE
             HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
             for (HexLocation hexLoc : hexes.keySet()) {
-                getView().addHex(hexLoc, HexType.valueOf(hexes.get(hexLoc).getResource()));
+                Hex hex = hexes.get(hexLoc);
+                getView().addHex(hexLoc, HexType.valueOf(hex.getResource()));
+                getView().addNumber(hexLoc, hex.getNumber());
             }
 
-            //Add the settlements from the CatanModel
+            //Add the settlements AND cities from the CatanModel
+            //NEEDS TO INCORPORATE CITY FUNCTIONS
             HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
             for (VertexLocation verLoc : settlements.keySet()) {
                 Settlement settlement = settlements.get(verLoc);
                 int playerId = settlement.getPlayer();
-                //--- Grab the color of the player who owns said settlement
                 CatanColor settlementColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
-
                 getView().placeSettlement(verLoc, settlementColor);
             }
 
@@ -91,14 +96,25 @@ public class MapController extends Controller implements IMapController, Observe
                 Road road = roads.get(edge);
                 int playerId = road.getOwner();
                 CatanColor roadColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
-
                 getView().placeRoad(edge, roadColor);
             }
+
+            //Add the ports from the CatanModel
+            HashMap<EdgeLocation, Port> ports = model.getMapManager().getPorts();
+            for (EdgeLocation edge : ports.keySet()) {
+                Port port = ports.get(edge);
+                PortType portType = port.getType();
+                getView().addPort(edge, portType);
+            }
+
+            //Add the Robber
+            HexLocation robber = model.getMapManager().getRobber();
+            getView().placeRobber(robber);
 
 
         } else {
             //<temp>
-		/*
+        /*
 
 		    Random rand = new Random();
 

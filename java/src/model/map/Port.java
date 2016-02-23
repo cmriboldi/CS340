@@ -22,14 +22,18 @@ public class Port extends EdgeObject {
         ratio = ratio_t;
     }
 
-    public Port(EdgeLocation location_t, PortType type_t, int ratio_t){
+    public Port(EdgeLocation location_t, PortType type_t, int ratio_t) {
         super(location_t);
         type = type_t;
         ratio = ratio_t;
     }
 
-    public String toString(){
+    public String toString() {
 
         return "Port-" + location.getNormalizedLocation().toString() + " type[" + type + "] ratio[" + ratio + "]";
+    }
+
+    public PortType getType() {
+        return type;
     }
 }
