@@ -5,8 +5,10 @@ import java.util.*;
 import client.map.view.IMapView;
 import client.map.view.IRobView;
 import clientfacade.Facade;
+import com.sun.javafx.geom.Edge;
 import model.CatanModel;
 import model.map.Hex;
+import model.map.Road;
 import model.map.Settlement;
 import shared.definitions.*;
 import shared.locations.*;
@@ -18,81 +20,92 @@ import client.data.*;
  * Implementation for the map controller
  */
 public class MapController extends Controller implements IMapController, Observer {
-	
-	private IRobView robView;
-	private MapControllerState currentState;
-	
-	public MapController(IMapView view, IRobView robView) {
-		
-		super(view);
-		
-		setRobView(robView);
-		
-		initFromModel();
-	}
-	
-	public IMapView getView() {
-		
-		return (IMapView)super.getView();
-	}
-	
-	private IRobView getRobView() {
-		return robView;
-	}
-	private void setRobView(IRobView robView) {
-		this.robView = robView;
-	}
 
-	@Override
-	public void update(Observable o, Object arg) {
+    private IRobView robView;
+    private MapControllerState currentState;
 
-	}
+    public MapController(IMapView view, IRobView robView) {
+
+        super(view);
+
+        setRobView(robView);
+
+        initFromModel();
+    }
+
+    public IMapView getView() {
+
+        return (IMapView) super.getView();
+    }
+
+    private IRobView getRobView() {
+        return robView;
+    }
+
+    private void setRobView(IRobView robView) {
+        this.robView = robView;
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+
+    }
 
 
-	protected void initFromModel() {
+    protected void initFromModel() {
 
-		//Acquire new model
-		//CatanModel model = Facade.getCatanModel();
+        //Acquire new model
+        CatanModel model = Facade.getCatanModel();
 
-		//initialize from said model
+        if (model != null) {
+            //initialize from said model
+            /*
+            1. Build Hexes, tile numbers, resources
+			2. Place settlements
+			3. Place roads
+			4. Place ports
+			5. Place robber
+			 */
+
+            //Add the hexes from the CatanModel
+            HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
+            for (HexLocation hexLoc : hexes.keySet()) {
+                getView().addHex(hexLoc, HexType.valueOf(hexes.get(hexLoc).getResource()));
+            }
+
+            //Add the settlements from the CatanModel
+            HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
+            for (VertexLocation verLoc : settlements.keySet()) {
+                Settlement settlement = settlements.get(verLoc);
+                int playerId = settlement.getPlayer();
+                //--- Grab the color of the player who owns said settlement
+                CatanColor settlementColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
+
+                getView().placeSettlement(verLoc, settlementColor);
+            }
+
+            //Add the roads from the CatanModel
+            HashMap<EdgeLocation, Road> roads = model.getMapManager().getRoads();
+            for (EdgeLocation edge : roads.keySet()) {
+
+                Road road = roads.get(edge);
+                int playerId = road.getOwner();
+                CatanColor roadColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
+
+                getView().placeRoad(edge, roadColor);
+            }
+
+
+        } else {
+            //<temp>
 		/*
-		1. Build Hexes, tile numbers, resources
-		2. Place settlements
-		3. Place roads
-		4. Place ports
-		5. Place robber
-		 */
 
-		//Add the hexes from the CatanModel
-		/*HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
-		for(HexLocation hexLoc : hexes.keySet())
-		{
-			getView().addHex(hexLoc, HexType.valueOf(hexes.get(hexLoc).getResource()));
-		}*/
+		    Random rand = new Random();
 
-		//Add the settlements from the CatanModel
-		/*HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
-		for(VertexLocation verLoc : settlements.keySet())
-		{
-			Settlement settlement = settlements.get(verLoc);
-			//--- Grab the color of the player who owns said settlement
-			CatanColor settlementColor = CatanColor.BLUE;
+        for (int x = 0; x <= 3; ++x) {
 
-			getView().placeSettlement(verLoc, settlementColor);
-		}*/
-
-
-
-
-		//<temp>
-
-
-		Random rand = new Random();
-
-		for (int x = 0; x <= 3; ++x) {
-			
-			int maxY = 3 - x;			
-			for (int y = -3; y <= maxY; ++y) {				
+			int maxY = 3 - x;
+			for (int y = -3; y <= maxY; ++y) {
 				int r = rand.nextInt(HexType.values().length);
 				HexType hexType = HexType.values()[r];
 				HexLocation hexLoc = new HexLocation(x, y);
@@ -106,7 +119,7 @@ public class MapController extends Controller implements IMapController, Observe
 				getView().placeSettlement(new VertexLocation(hexLoc,  VertexDirection.NorthWest), CatanColor.GREEN);
 				getView().placeCity(new VertexLocation(hexLoc,  VertexDirection.NorthEast), CatanColor.PURPLE);
 			}
-			
+
 			if (x != 0) {
 				int minY = x - 3;
 				for (int y = minY; y <= 3; ++y) {
@@ -125,7 +138,7 @@ public class MapController extends Controller implements IMapController, Observe
 				}
 			}
 		}
-		
+
 		PortType portType = PortType.BRICK;
 		getView().addPort(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), portType);
 		getView().addPort(new EdgeLocation(new HexLocation(0, -3), EdgeDirection.South), portType);
@@ -133,9 +146,9 @@ public class MapController extends Controller implements IMapController, Observe
 		getView().addPort(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), portType);
 		getView().addPort(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), portType);
 		getView().addPort(new EdgeLocation(new HexLocation(3, 0), EdgeDirection.NorthWest), portType);
-		
+
 		getView().placeRobber(new HexLocation(0, 0));
-		
+
 		getView().addNumber(new HexLocation(-2, 0), 2);
 		getView().addNumber(new HexLocation(-2, 1), 3);
 		getView().addNumber(new HexLocation(-2, 2), 4);
@@ -147,81 +160,82 @@ public class MapController extends Controller implements IMapController, Observe
 		getView().addNumber(new HexLocation(2, -1), 11);
 		getView().addNumber(new HexLocation(2, 0), 12);
 
+		*/
+            //</temp>
+        }
 
-		//</temp>
-	}
 
-	public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-		
-		return true;
-	}
+    }
 
-	public boolean canPlaceSettlement(VertexLocation vertLoc) {
-		
-		return true;
-	}
+    public boolean canPlaceRoad(EdgeLocation edgeLoc) {
 
-	public boolean canPlaceCity(VertexLocation vertLoc) {
-		
-		return true;
-	}
+        return true;
+    }
 
-	public boolean canPlaceRobber(HexLocation hexLoc) {
-		
-		return true;
-	}
+    public boolean canPlaceSettlement(VertexLocation vertLoc) {
 
-	public void placeRoad(EdgeLocation edgeLoc) {
-		
-		getView().placeRoad(edgeLoc, CatanColor.ORANGE);
-	}
+        return true;
+    }
 
-	public void placeSettlement(VertexLocation vertLoc) {
-		
-		getView().placeSettlement(vertLoc, CatanColor.ORANGE);
-	}
+    public boolean canPlaceCity(VertexLocation vertLoc) {
 
-	public void placeCity(VertexLocation vertLoc) {
-		
-		getView().placeCity(vertLoc, CatanColor.ORANGE);
-	}
+        return true;
+    }
 
-	public void placeRobber(HexLocation hexLoc) {
-		
-		getView().placeRobber(hexLoc);
-		
-		getRobView().showModal();
-	}
-	
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {	
-		
-		getView().startDrop(pieceType, CatanColor.ORANGE, true);
-	}
-	
-	public void cancelMove() {
-		
-	}
-	
-	public void playSoldierCard() {	
-		
-	}
-	
-	public void playRoadBuildingCard() {	
-		
-	}
-	
-	public void robPlayer(RobPlayerInfo victim) {	
-		
-	}
+    public boolean canPlaceRobber(HexLocation hexLoc) {
 
-	public MapControllerState getCurrentState()
-	{
-		return currentState;
-	}
+        return true;
+    }
 
-	public void setCurrentState(MapControllerState currentState)
-	{
-		this.currentState = currentState;
-	}
+    public void placeRoad(EdgeLocation edgeLoc) {
+
+        getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+    }
+
+    public void placeSettlement(VertexLocation vertLoc) {
+
+        getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+    }
+
+    public void placeCity(VertexLocation vertLoc) {
+
+        getView().placeCity(vertLoc, CatanColor.ORANGE);
+    }
+
+    public void placeRobber(HexLocation hexLoc) {
+
+        getView().placeRobber(hexLoc);
+
+        getRobView().showModal();
+    }
+
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
+
+        getView().startDrop(pieceType, CatanColor.ORANGE, true);
+    }
+
+    public void cancelMove() {
+
+    }
+
+    public void playSoldierCard() {
+
+    }
+
+    public void playRoadBuildingCard() {
+
+    }
+
+    public void robPlayer(RobPlayerInfo victim) {
+
+    }
+
+    public MapControllerState getCurrentState() {
+        return currentState;
+    }
+
+    public void setCurrentState(MapControllerState currentState) {
+        this.currentState = currentState;
+    }
 }
 
