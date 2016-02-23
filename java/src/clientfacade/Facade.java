@@ -59,6 +59,9 @@ public class Facade extends Observable {
         instance()._updateView(catanModel);
     }
 
+    public static void addObserverStatic(Observer obs) {
+        instance().addObserver(obs);
+    }
 
     /**********************************************************************************
      * Not Organized Yet
@@ -80,14 +83,6 @@ public class Facade extends Observable {
      */
     private CommUser _authenticateUser(String userName, String password) {
         return null;
-    }
-
-    public static void addObserverStatic(Observer obs) {
-        instance().addObserver(obs);
-    }
-
-    private void _addObserverStatic(Observer obs) {
-        addObserver(obs);
     }
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
