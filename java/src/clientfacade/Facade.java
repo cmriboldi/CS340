@@ -8,6 +8,8 @@ import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.CatanModel;
 import model.resources.ResourceList;
+import serverProxy.MockProxy;
+import serverProxy.Poller;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.communication.*;
@@ -72,58 +74,80 @@ public class Facade extends Observable {
      * @param message
      * @throws ServerException
      */
-    private void _chat(String message) throws ServerException {
+    private void _chat(String message) throws ServerException
+    {
         this.catanModel = proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message);
         this.setChanged();
         this.notifyObservers();
     }
 
-    public static void chat(String message) throws ServerException {
+    public static void chat(String message) throws ServerException
+    {
         _instance._chat(message);
     }
 
-    private List<String> _getChatMessages() {
+    private List<String> _getChatMessages()
+    {
         List<String> messages = this.catanModel.chatManager.chatMessages();
         return messages;
     }
 
-    public static List<String> getChatMessages() {
+    public static List<String> getChatMessages()
+    {
         return _instance._getChatMessages();
     }
 
-    private List<String> _getChatSources() {
+    private List<String> _getChatSources()
+    {
         List<String> sources = this.catanModel.chatManager.chatSources();
         return sources;
     }
 
-    public static List<String> getChatSources() {
+    public static List<String> getChatSources()
+    {
         return _instance._getChatSources();
     }
 
-    private List<String> _getHistoryMessages() {
+    private List<String> _getHistoryMessages()
+    {
         List<String> messages = this.catanModel.chatManager.historyMessages();
         return messages;
     }
 
-    public static List<String> getHistoryMessages() {
+    public static List<String> getHistoryMessages()
+    {
         return _instance._getHistoryMessages();
     }
 
-    private List<String> _getHistorySources() {
+    private List<String> _getHistorySources()
+    {
         List<String> sources = this.catanModel.chatManager.historySources();
         return sources;
     }
 
-    public static List<String> getHistorySources() {
+    public static List<String> getHistorySources()
+    {
         return _instance._getHistorySources();
     }
 
-    private CatanModel _getCatanModel() {
+    private CatanModel _getCatanModel()
+    {
         return this.catanModel;
     }
 
-    public static CatanModel getCatanModel() {
+    public static CatanModel getCatanModel()
+    {
         return instance()._getCatanModel();
+    }
+
+    private void _startPoller()
+    {
+        (new Thread(new Poller(proxy))).start();
+    }
+
+    public static void startPoller()
+    {
+        instance()._startPoller();
     }
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
@@ -182,6 +206,26 @@ public class Facade extends Observable {
      */
     public static void joinGame(int gameId, CatanColor color) throws ServerException {
         instance()._joinGame(gameId, color);
+    }
+
+    private CatanModel _getGameModel() throws ServerException
+    {
+        return proxy.getGameModel();
+    }
+
+    public static CatanModel getGameModel() throws ServerException
+    {
+        return instance()._getGameModel();
+    }
+
+    private CatanModel _getGameModel(int modelNumber) throws ServerException
+    {
+        return proxy.getGameModel(modelNumber);
+    }
+
+    public static CatanModel getGameModel(int modelNumber) throws ServerException
+    {
+        return instance()._getGameModel(modelNumber);
     }
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////

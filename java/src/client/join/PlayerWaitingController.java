@@ -20,8 +20,8 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	}
 
 	@Override
-	public void start() {
-
+	public void start()
+	{
 		getView().showModal();
 	}
 

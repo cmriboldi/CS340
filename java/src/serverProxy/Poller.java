@@ -31,24 +31,18 @@ public class Poller implements Runnable
 	 * @throws InterruptedException 
 	 * @throws ServerException 
 	 */
-	public void start(long seconds) throws InterruptedException, ServerException
+	public void start(int seconds) throws InterruptedException, ServerException
 	{
 		for(;;)
 		{
+			System.out.println("Polling server");
+
 			Thread.sleep((long)(seconds*1000));
 			if(Facade.getCatanModel() == null)
 				server.getGameModel(0);
 			else
 				server.getGameModel(Facade.getCatanModel().getVersion());
 		}
-		
-	}
-
-	/**
-	 * Stop the poller from polling the server.
-	 */
-	public void stop()
-	{
 		
 	}
 

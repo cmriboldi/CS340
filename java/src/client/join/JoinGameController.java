@@ -17,6 +17,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	private ISelectColorView selectColorView;
 	private IMessageView messageView;
 	private IAction joinAction;
+	private GameInfo gameToJoin;
 	
 	/**
 	 * JoinGameController constructor
@@ -139,9 +140,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void startJoinGame(GameInfo game)
 	{
-		System.out.println("Joining a game: " + game.toString());
-		IAction joinAction = new JoinAction(game);
-		this.setJoinAction(joinAction);
+		this.gameToJoin = game;
 		getSelectColorView().showModal();
 	}
 
@@ -164,43 +163,21 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void joinGame(CatanColor color)
 	{
-		System.out.println("JoinGame has been called");
 		// If join succeeded
-		getSelectColorView().closeModal();
-		getJoinGameView().closeModal();
-		((JoinAction)getJoinAction()).setColor(color);
-		joinAction.execute();
-	}
-
-	private class JoinAction implements IAction
-	{
-		private GameInfo game;
-		private CatanColor color;
-
-		private JoinAction(GameInfo game)
+		try
 		{
-			this.game = game;
+			Facade.joinGame(this.gameToJoin.getId(), color);
+			Facade.startPoller();
+			getSelectColorView().closeModal();
+			getJoinGameView().closeModal();
+			joinAction.execute();
 		}
-
-		private void setColor(CatanColor color)
+		catch (ServerException e)
 		{
-			this.color = color;
-		}
-
-		@Override
-		public void execute()
-		{
-			try
-			{
-				Facade.joinGame(game.getId(), color);
-			}
-			catch (ServerException e)
-			{
-				messageView.setTitle("Server Error");
-				messageView.setMessage("GAME NOT JOINED");
-				messageView.showModal();
-				e.printStackTrace();
-			}
+			messageView.setTitle("Server Error");
+			messageView.setMessage("GAME NOT JOINED");
+			messageView.showModal();
+			e.printStackTrace();
 		}
 	}
 }

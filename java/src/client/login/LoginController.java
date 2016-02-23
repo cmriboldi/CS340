@@ -94,8 +94,7 @@ public class LoginController extends Controller implements ILoginController {
 
 	@Override
 	public void register() 
-	{	
-		System.out.println("Attempting to Register");
+	{
 		try 
 		{
 			String username = ((ILoginView) getView()).getRegisterUsername();
@@ -124,7 +123,6 @@ public class LoginController extends Controller implements ILoginController {
 			}
 			Facade.register(username, password);
 			// If register in succeeded
-			System.out.println("Yet I got here in the register code");
 			getLoginView().closeModal();
 			loginAction.execute();
 		} 
