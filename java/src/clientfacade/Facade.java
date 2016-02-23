@@ -126,17 +126,6 @@ public class Facade extends Observable {
         return instance()._getCatanModel();
     }
 
-    /**
-     * Validates user credentials
-     *
-     * @param userName
-     * @param password
-     * @return The authenticated User object
-     */
-    private CommUser _authenticateUser(String userName, String password) {
-        return null;
-    }
-
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
 
     private PlayerInfo _getLocalPlayerInfo() {
@@ -161,7 +150,8 @@ public class Facade extends Observable {
         return instance()._listGames();
     }
 
-    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
+    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
+    {
         return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 
@@ -174,7 +164,8 @@ public class Facade extends Observable {
      * @param title
      * @return
      */
-    public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
+    public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
+    {
         return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 

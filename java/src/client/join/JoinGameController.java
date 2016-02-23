@@ -35,17 +35,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
-		
-		try
-		{
-			GameInfo[] games = Facade.listGames();
-			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
-			((IJoinGameView)this.getView()).setGames(games, localPlayer);
-		}
-		catch (ServerException e)
-		{
-			e.printStackTrace();
-		}
 	}
 	
 	public IJoinGameView getJoinGameView() {
@@ -104,6 +93,16 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void start()
 	{
+		try
+		{
+			GameInfo[] games = Facade.listGames();
+			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+		}
+		catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 		getJoinGameView().showModal();
 	}
 

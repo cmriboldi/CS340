@@ -74,8 +74,6 @@ public class LoginController extends Controller implements ILoginController {
 	public void signIn() 
 	{	
 		// TODO: log in user
-		System.out.println("Attempting to login");
-		
 		try 
 		{
 			String username = ((ILoginView) getView()).getLoginUsername();
@@ -87,7 +85,6 @@ public class LoginController extends Controller implements ILoginController {
 		} 
 		catch (ServerException e) 
 		{
-			//((ILoginView) getView()).setLoginErrorMessage("INVALID CREDENTIALS");
 			messageView.setTitle("Login Failed");
 			messageView.setMessage("INVALID CREDENTIALS");
 			messageView.showModal();
@@ -106,7 +103,6 @@ public class LoginController extends Controller implements ILoginController {
 			String passwordAgain = ((ILoginView) getView()).getRegisterPasswordRepeat();
 			if(!password.equals(passwordAgain))
 			{
-				//((ILoginView) getView()).setRegisterErrorMessage("PASSWORDS DO NOT MATCH");
 				messageView.setTitle("Register Failed");
 				messageView.setMessage("PASSWORDS DO NOT MATCH");
 				messageView.showModal();
@@ -114,7 +110,6 @@ public class LoginController extends Controller implements ILoginController {
 			}
 			if(username.equals(""))
 			{
-				//((ILoginView) getView()).setRegisterErrorMessage("USERNAME CANNOT BE BLANK");
 				messageView.setTitle("Register Failed");
 				messageView.setMessage("USERNAME CANNOT BE BLANK");
 				messageView.showModal();
@@ -122,7 +117,6 @@ public class LoginController extends Controller implements ILoginController {
 			}
 			if(password.equals(""))
 			{
-				//((ILoginView) getView()).setRegisterErrorMessage("PASSWORD CANNOT BE BLANK");
 				messageView.setTitle("Register Failed");
 				messageView.setMessage("PASSWORD CANNOT BE BLANK");
 				messageView.showModal();
