@@ -80,19 +80,22 @@ public class MapController extends Controller implements IMapController, Observe
             }
 
             //Add the settlements AND cities from the CatanModel
-            //NEEDS TO INCORPORATE CITY FUNCTIONS
             HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
             for (VertexLocation verLoc : settlements.keySet()) {
                 Settlement settlement = settlements.get(verLoc);
                 int playerId = settlement.getPlayer();
                 CatanColor settlementColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
-                getView().placeSettlement(verLoc, settlementColor);
+                boolean isCity = settlement.isCity();
+
+                if(isCity)
+                    getView().placeCity(verLoc, settlementColor);
+                else
+                    getView().placeSettlement(verLoc, settlementColor);
             }
 
             //Add the roads from the CatanModel
             HashMap<EdgeLocation, Road> roads = model.getMapManager().getRoads();
             for (EdgeLocation edge : roads.keySet()) {
-
                 Road road = roads.get(edge);
                 int playerId = road.getOwner();
                 CatanColor roadColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();

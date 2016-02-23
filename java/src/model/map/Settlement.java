@@ -13,17 +13,21 @@ public class Settlement extends VertexObject {
      */
     boolean isCity;
 
-    public Settlement(int x_t, int y_t, VertexDirection dir, int player_t){
+    public Settlement(int x_t, int y_t, VertexDirection dir, int player_t) {
         super(x_t, y_t, dir, player_t);
         isCity = false;
     }
 
-    public Settlement(VertexLocation location_t, int player_t){
+    public Settlement(VertexLocation location_t, int player_t) {
         super(location_t, player_t);
         isCity = false;
     }
 
-    public String toString(){
+    public String toString() {
         return "Settlement-" + location.toString() + " isCity[" + isCity + "] player[" + player + "]";
+    }
+
+    public boolean isCity() {
+        return isCity;
     }
 }
