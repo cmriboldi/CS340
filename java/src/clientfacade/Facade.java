@@ -347,7 +347,6 @@ public class Facade extends Observable
 	 *
 	 * @param index of player buying dev card
 	 * @return
-	 * @throws InvalidAction
 	 */
 	private void _buyDevCard(int index)
 	{
@@ -359,7 +358,6 @@ public class Facade extends Observable
 	 *
 	 * @param index of player building road
 	 * @return
-	 * @throws InvalidAction
 	 */
 	private void _buildRoad(int index)
 	{
@@ -371,7 +369,6 @@ public class Facade extends Observable
 	 *
 	 * @param index of player building town
 	 * @return
-	 * @throws InvalidAction
 	 */
 	private void _buildTown(int index)
 	{
@@ -383,7 +380,6 @@ public class Facade extends Observable
 	 *
 	 * @param index of player building city
 	 * @return
-	 * @throws InvalidAction
 	 */
 	private void _buildCity(int index)
 	{
@@ -395,7 +391,6 @@ public class Facade extends Observable
 	 *
 	 * @param index of player using robber
 	 * @return
-	 * @throws InvalidAction
 	 */
 	private void _placeRobber(int index)
 	{
