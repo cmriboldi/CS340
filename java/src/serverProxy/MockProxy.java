@@ -20,7 +20,6 @@ import shared.exceptions.player.TurnIndexException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
-import test.JsonFileLoader;
 
 /**
  * The 'mock' proxy inherits all functions from the ServerProxy interface but will not be used for
