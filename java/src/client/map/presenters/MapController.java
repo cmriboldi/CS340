@@ -87,7 +87,7 @@ public class MapController extends Controller implements IMapController, Observe
                 CatanColor settlementColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
                 boolean isCity = settlement.isCity();
 
-                if(isCity)
+                if (isCity)
                     getView().placeCity(verLoc, settlementColor);
                 else
                     getView().placeSettlement(verLoc, settlementColor);
@@ -187,66 +187,55 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-
-        return true;
+        return currentState.canPlaceRoad(edgeLoc);
     }
 
     public boolean canPlaceSettlement(VertexLocation vertLoc) {
-
-        return true;
+        return currentState.canPlaceSettlement(vertLoc);
     }
 
     public boolean canPlaceCity(VertexLocation vertLoc) {
-
-        return true;
+        return currentState.canPlaceCity(vertLoc);
     }
 
     public boolean canPlaceRobber(HexLocation hexLoc) {
-
-        return true;
+        return currentState.canPlaceRobber(hexLoc);
     }
 
     public void placeRoad(EdgeLocation edgeLoc) {
-
-        getView().placeRoad(edgeLoc, CatanColor.ORANGE);
+        currentState.placeRoad(edgeLoc);
     }
 
     public void placeSettlement(VertexLocation vertLoc) {
-
-        getView().placeSettlement(vertLoc, CatanColor.ORANGE);
+        currentState.placeSettlement(vertLoc);
     }
 
     public void placeCity(VertexLocation vertLoc) {
-
-        getView().placeCity(vertLoc, CatanColor.ORANGE);
+        currentState.placeCity(vertLoc);
     }
 
     public void placeRobber(HexLocation hexLoc) {
-
-        getView().placeRobber(hexLoc);
-
-        getRobView().showModal();
+        currentState.placeRobber(hexLoc);
     }
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
-
-        getView().startDrop(pieceType, CatanColor.ORANGE, true);
+        currentState.startMove(pieceType, isFree, allowDisconnected);
     }
 
     public void cancelMove() {
-
+        currentState.cancelMove();
     }
 
     public void playSoldierCard() {
-
+        currentState.playSoldierCard();
     }
 
     public void playRoadBuildingCard() {
-
+        currentState.playRoadBuildingCard();
     }
 
     public void robPlayer(RobPlayerInfo victim) {
-
+        currentState.robPlayer(victim);
     }
 
     public MapControllerState getCurrentState() {
