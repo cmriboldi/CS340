@@ -36,16 +36,16 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		setSelectColorView(selectColorView);
 		setMessageView(messageView);
 		
-		try 
-		{
-			GameInfo[] games = Facade.listGames();
-			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
-			((IJoinGameView)this.getView()).setGames(games, localPlayer);
-		} 
-		catch (ServerException e) 
-		{
-			e.printStackTrace();
-		}
+//		try
+//		{
+//			GameInfo[] games = Facade.listGames();
+//			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+//			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+//		}
+//		catch (ServerException e)
+//		{
+//			e.printStackTrace();
+//		}
 	}
 	
 	public IJoinGameView getJoinGameView() {
