@@ -99,7 +99,6 @@ public class AuthProxy
 	public CatanModel getGameModel() throws ServerException 
 	{
 		String response = (String) get("/game/model");
-		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" + response);
 		CatanModel model;
 		try 
 		{

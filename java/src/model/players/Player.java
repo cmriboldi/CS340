@@ -38,7 +38,7 @@ public class Player
 	private int playerIndex;
 
 	/** A unique ID to distinguish from other players */
-	private IdNumber id;
+	private int id;
 	
 	/** A list of the pieces the player can still play*/
 	private Pieces pieces;
@@ -172,7 +172,7 @@ public class Player
 	/**
 	 * @return the id
 	 */
-	public IdNumber getId()
+	public int getId()
 	{
 		return id;
 	}
@@ -180,7 +180,7 @@ public class Player
 	/**
 	 * @param id the id to set
 	 */
-	public void setId(IdNumber id)
+	public void setId(int id)
 	{
 		this.id = id;
 	}

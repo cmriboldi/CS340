@@ -74,23 +74,26 @@ public class JSONDeserializer
 	    //Get player resources
 		for(int i = 0; i < players.size(); i++)
 		{
-			JsonObject player = players.get(i).getAsJsonObject();
-			JsonObject resource = player.getAsJsonObject("resources");
-			int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
-			
-			boolean discarded = player.getAsJsonPrimitive("discarded").getAsBoolean();
-			hasPlayerDiscarded[i] = discarded;
-			
-			ResourceList resources;
-			
-			int brick = resource.getAsJsonPrimitive("brick").getAsInt();
-		    int ore = resource.getAsJsonPrimitive("ore").getAsInt();
-		    int sheep = resource.getAsJsonPrimitive("sheep").getAsInt();
-		    int wheat = resource.getAsJsonPrimitive("wheat").getAsInt();
-		    int wood = resource.getAsJsonPrimitive("wood").getAsInt();
-		    
-		    resources = new ResourceList(brick,ore,sheep,wheat,wood);
-			playerResources[index] = resources;
+			if(!players.get(i).isJsonNull())
+			{
+				JsonObject player = players.get(i).getAsJsonObject();
+				JsonObject resource = player.getAsJsonObject("resources");
+				int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
+
+				boolean discarded = player.getAsJsonPrimitive("discarded").getAsBoolean();
+				hasPlayerDiscarded[i] = discarded;
+
+				ResourceList resources;
+
+				int brick = resource.getAsJsonPrimitive("brick").getAsInt();
+				int ore = resource.getAsJsonPrimitive("ore").getAsInt();
+				int sheep = resource.getAsJsonPrimitive("sheep").getAsInt();
+				int wheat = resource.getAsJsonPrimitive("wheat").getAsInt();
+				int wood = resource.getAsJsonPrimitive("wood").getAsInt();
+
+				resources = new ResourceList(brick, ore, sheep, wheat, wood);
+				playerResources[index] = resources;
+			}
 		}
 		
         if(tradeOffer != null) //This is null if there is no current trade offers
@@ -136,40 +139,43 @@ public class JSONDeserializer
 		
 		for(int i = 0; i < players.size(); i++)
 	    {
-	    	JsonObject player = players.get(i).getAsJsonObject();
-	    	int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
-	    	
-	    	JsonObject newDevCards = player.getAsJsonObject("newDevCards");
-	    	JsonObject oldDevCards = player.getAsJsonObject("oldDevCards");
-	    	//New Dev Cards
-	    	{
-		    	int monopoly = newDevCards.getAsJsonPrimitive("monopoly").getAsInt();
-		    	int monument = newDevCards.getAsJsonPrimitive("monument").getAsInt();
-		    	int roadBuilding = newDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
-		    	int soldier = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
-		    	int yearOfPlenty = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
-		    	newPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
-	    	}
-	    	//Old Dev Cards
-	    	{
-	    		int monopoly = oldDevCards.getAsJsonPrimitive("monopoly").getAsInt();
-		    	int monument = oldDevCards.getAsJsonPrimitive("monument").getAsInt();
-		    	int roadBuilding = oldDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
-		    	int soldier = oldDevCards.getAsJsonPrimitive("soldier").getAsInt();
-		    	int yearOfPlenty = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
-		    	oldPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
-	    	}
-	    	//Played Dev Cards
-	    	{
-	    		int monuments = player.getAsJsonPrimitive("monuments").getAsInt();
-		    	int soldiers = player.getAsJsonPrimitive("soldiers").getAsInt();
-		    	playedDevCards.setDevCardsForPlayer(index, new DevCardList(0,monuments,0,soldiers,0));
-	    	}
-	    	//Has Played Dev Cards List
-	    	{
-	    		boolean playedDevCard = player.getAsJsonPrimitive("playedDevCard").getAsBoolean();
-	    		hasPlayedDevCardsList[index] = playedDevCard;
-	    	}
+			if(!players.get(i).isJsonNull())
+			{
+				JsonObject player = players.get(i).getAsJsonObject();
+				int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
+
+				JsonObject newDevCards = player.getAsJsonObject("newDevCards");
+				JsonObject oldDevCards = player.getAsJsonObject("oldDevCards");
+				//New Dev Cards
+				{
+					int monopoly = newDevCards.getAsJsonPrimitive("monopoly").getAsInt();
+					int monument = newDevCards.getAsJsonPrimitive("monument").getAsInt();
+					int roadBuilding = newDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
+					int soldier = newDevCards.getAsJsonPrimitive("soldier").getAsInt();
+					int yearOfPlenty = newDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
+					newPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
+				}
+				//Old Dev Cards
+				{
+					int monopoly = oldDevCards.getAsJsonPrimitive("monopoly").getAsInt();
+					int monument = oldDevCards.getAsJsonPrimitive("monument").getAsInt();
+					int roadBuilding = oldDevCards.getAsJsonPrimitive("roadBuilding").getAsInt();
+					int soldier = oldDevCards.getAsJsonPrimitive("soldier").getAsInt();
+					int yearOfPlenty = oldDevCards.getAsJsonPrimitive("yearOfPlenty").getAsInt();
+					oldPlayerDevCards.setDevCardsForPlayer(index, new DevCardList(monopoly, monument, roadBuilding, soldier, yearOfPlenty));
+				}
+				//Played Dev Cards
+				{
+					int monuments = player.getAsJsonPrimitive("monuments").getAsInt();
+					int soldiers = player.getAsJsonPrimitive("soldiers").getAsInt();
+					playedDevCards.setDevCardsForPlayer(index, new DevCardList(0, monuments, 0, soldiers, 0));
+				}
+				//Has Played Dev Cards List
+				{
+					boolean playedDevCard = player.getAsJsonPrimitive("playedDevCard").getAsBoolean();
+					hasPlayedDevCardsList[index] = playedDevCard;
+				}
+			}
 	    }
 		this.devCardManager = new DevCardManager(newPlayerDevCards, oldPlayerDevCards, playedDevCards, hasPlayedDevCardsList, devCardStack);
 	}
@@ -182,45 +188,43 @@ public class JSONDeserializer
 		
 	    for(int i = 0; i < players.size(); i++)
 	    {
-	    	JsonObject player = players.get(i).getAsJsonObject();
-	    	int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
-	    	
-	    	String name = player.getAsJsonPrimitive("name").getAsString();
-	    	String color = player.getAsJsonPrimitive("color").getAsString();
-	    	int playerId = player.getAsJsonPrimitive("playerID").getAsInt();
-	    	int cities = player.getAsJsonPrimitive("cities").getAsInt();
-	    	int settlements = player.getAsJsonPrimitive("settlements").getAsInt();
-	    	int roads = player.getAsJsonPrimitive("roads").getAsInt();
-	    	int victoryPoints = player.getAsJsonPrimitive("victoryPoints").getAsInt();
-	    	
-	    	Player newPlayer = new Player();
-	    	newPlayer.setPoints(victoryPoints);
-	    	try
+			if(!players.get(i).isJsonNull())
 			{
-				newPlayer.setColor(color);
-			} catch (InvalidColorException e)
-			{
-				System.out.println(e);
-				e.printStackTrace();
+				JsonObject player = players.get(i).getAsJsonObject();
+				int index = player.getAsJsonPrimitive("playerIndex").getAsInt();
+
+				String name = player.getAsJsonPrimitive("name").getAsString();
+				String color = player.getAsJsonPrimitive("color").getAsString();
+				int playerId = player.getAsJsonPrimitive("playerID").getAsInt();
+				int cities = player.getAsJsonPrimitive("cities").getAsInt();
+				int settlements = player.getAsJsonPrimitive("settlements").getAsInt();
+				int roads = player.getAsJsonPrimitive("roads").getAsInt();
+				int victoryPoints = player.getAsJsonPrimitive("victoryPoints").getAsInt();
+
+				Player newPlayer = new Player();
+				newPlayer.setPoints(victoryPoints);
+				try {
+					newPlayer.setColor(color);
+				} catch (InvalidColorException e) {
+					e.printStackTrace();
+				}
+				if (longestRoad == index) {
+					newPlayer.setLongestRoad(true);
+				}
+				if (largestArmy == index) {
+					newPlayer.setLargestArmy(true);
+				}
+
+				newPlayer.setId(playerId);
+				newPlayer.setCitiesRemaining(cities);
+				newPlayer.setSettlementsRemaining(settlements);
+				newPlayer.setRoadsRemaining(roads);
+				newPlayer.setPlayerIndex(index);
+				newPlayer.setName(name);
+
+				//<========Construct part of player manager here============>
+				catanPlayers[index] = newPlayer;
 			}
-	    	if(longestRoad == index)
-	    	{
-	    		newPlayer.setLongestRoad(true);
-	    	}
-	    	if(largestArmy == index)
-	    	{
-	    		newPlayer.setLargestArmy(true);
-	    	}
-	    	
-	    	newPlayer.setId(new IdNumber(playerId));
-	    	newPlayer.setCitiesRemaining(cities);
-	    	newPlayer.setSettlementsRemaining(settlements);
-	    	newPlayer.setRoadsRemaining(roads);
-		    newPlayer.setPlayerIndex(index);
-		    newPlayer.setName(name);
-		    
-	    	//<========Construct part of player manager here============>	    	
-		    catanPlayers[index] = newPlayer; 
 	    }
 	    //<========Construct player manager here============>
 	    PlayerManager newPlayerManager = new PlayerManager(); 

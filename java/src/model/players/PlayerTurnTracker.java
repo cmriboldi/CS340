@@ -42,7 +42,8 @@ public class PlayerTurnTracker
 		if (turnIndex < 0 | turnIndex > 3)
 			throw new TurnIndexException(); 
 		
-		if (!(status.toLowerCase().equals("rolling") | status.toLowerCase().equals("discarding") | status.toLowerCase().equals("robbing") | status.toLowerCase().equals("playing")))       
+		if (!(status.toLowerCase().equals("rolling") | status.toLowerCase().equals("discarding") | status.toLowerCase().equals("robbing") | status.toLowerCase().equals("playing")
+				| status.toLowerCase().equals("firstround")))
 			throw new InvalidTurnStatusException(); 
 	}
 
