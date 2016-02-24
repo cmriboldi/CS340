@@ -47,7 +47,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 					PlayerInfo playerInfo = new PlayerInfo();
 					playerInfo.setId(players[i].getId());
 					playerInfo.setName(players[i].getName());
-					playerInfo.setColor(players[i].getColor().toString());
+					playerInfo.setColor(players[i].getColor());
 					playersList.add(playerInfo);
 				}
 

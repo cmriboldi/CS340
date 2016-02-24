@@ -67,22 +67,12 @@ public class PlayerInfo
 		this.name = name;
 	}
 	
-	public String getColor()
-	{
-		return color;
-	}
-
-	public CatanColor getCatanColor()
+	public CatanColor getColor()
 	{
 		return CatanColor.toCatanColor(color);
 	}
 	
-	public void setColor(String color)
-	{
-		this.color = color;
-	}
-
-	public void setCatanColor(CatanColor color)
+	public void setColor(CatanColor color)
 	{
 		this.color = color.toString();
 	}

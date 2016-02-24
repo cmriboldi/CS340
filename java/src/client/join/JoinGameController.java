@@ -168,7 +168,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			if(player.getColor() != null && !Facade.getLocalPlayerInfo().equals(player))
 			{
 				System.out.println("Player color: " + player.getColor());
-				getSelectColorView().setColorEnabled(player.getCatanColor(), false);
+				getSelectColorView().setColorEnabled(player.getColor(), false);
 			}
 		}
 		getSelectColorView().showModal();

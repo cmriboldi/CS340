@@ -135,7 +135,7 @@ public class PlayerWaitingView extends OverlayView implements IPlayerWaitingView
 			JPanel playerPanel = new JPanel();
 			playerPanel.setLayout(new FlowLayout(FlowLayout.LEFT)); //left justify the text in the panel
 			playerPanel.setPreferredSize(new Dimension(200,50));
-			playerPanel.setBackground(value[i].getCatanColor().getJavaColor()); //set the background color of the player
+			playerPanel.setBackground(value[i].getColor().getJavaColor()); //set the background color of the player
 			JLabel playerLabel = new JLabel(builtString, SwingConstants.LEFT); //justify the text left
 			FontUtils.setFont(playerLabel, LABEL_TEXT_SIZE);
 			playerPanel.add(playerLabel);
