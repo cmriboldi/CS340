@@ -302,10 +302,6 @@ public class Facade extends Observable {
         return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 
-    private void _joinGame(int gameId, CatanColor color) throws ServerException {
-        proxy.joinGame(gameId, color);
-    }
-
     /**
      * Joins a new game from the game list
      *
@@ -315,6 +311,10 @@ public class Facade extends Observable {
      */
     public static void joinGame(int gameId, CatanColor color) throws ServerException {
         instance()._joinGame(gameId, color);
+    }
+
+    private void _joinGame(int gameId, CatanColor color) throws ServerException {
+        proxy.joinGame(gameId, color);
     }
 
     private CatanModel _getGameModel() throws ServerException {
