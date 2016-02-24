@@ -59,6 +59,10 @@ public class Facade extends Observable {
         instance()._updateView(catanModel);
     }
 
+    /**
+     *
+     * @param obs The Object observing the Facade
+     */
     public static void addObserverStatic(Observer obs) {
         instance().addObserver(obs);
     }
@@ -83,6 +87,10 @@ public class Facade extends Observable {
         _instance._chat(message);
     }
 
+    /**
+     *
+     * @return
+     */
     private List<String> _getChatMessages() {
         return this.catanModel.chatManager.chatMessages();
     }
@@ -91,6 +99,10 @@ public class Facade extends Observable {
         return _instance._getChatMessages();
     }
 
+    /**
+     *
+     * @return
+     */
     private List<String> _getChatSources() {
         return this.catanModel.chatManager.chatSources();
     }
@@ -99,6 +111,10 @@ public class Facade extends Observable {
         return _instance._getChatSources();
     }
 
+    /**
+     *
+     * @return
+     */
     private List<String> _getHistoryMessages() {
         return this.catanModel.chatManager.historyMessages();
     }
@@ -107,6 +123,10 @@ public class Facade extends Observable {
         return _instance._getHistoryMessages();
     }
 
+    /**
+     *
+     * @return
+     */
     private List<String> _getHistorySources() {
         return this.catanModel.chatManager.historySources();
     }
@@ -263,6 +283,10 @@ public class Facade extends Observable {
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
 
+    /**
+     *
+     * @return
+     */
     private PlayerInfo _getLocalPlayerInfo() {
         return proxy.getLocalPlayerInfo();
     }
@@ -271,22 +295,18 @@ public class Facade extends Observable {
         return instance()._getLocalPlayerInfo();
     }
 
-    private GameInfo[] _listGames() throws ServerException {
-        return proxy.listGames();
-    }
-
     /**
      * Generates a game list for the Client
      *
      * @return A list of all the current games
      * @throws ServerException
      */
-    public static GameInfo[] listGames() throws ServerException {
-        return instance()._listGames();
+    private GameInfo[] _listGames() throws ServerException {
+        return proxy.listGames();
     }
 
-    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
-        return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
+    public static GameInfo[] listGames() throws ServerException {
+        return instance()._listGames();
     }
 
     /**
@@ -300,6 +320,10 @@ public class Facade extends Observable {
      */
     public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
         return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
+    }
+
+    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
+        return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 
     /**
@@ -317,6 +341,11 @@ public class Facade extends Observable {
         proxy.joinGame(gameId, color);
     }
 
+    /**
+     *
+     * @return
+     * @throws ServerException
+     */
     private CatanModel _getGameModel() throws ServerException {
         return proxy.getGameModel();
     }
@@ -325,6 +354,12 @@ public class Facade extends Observable {
         return instance()._getGameModel();
     }
 
+    /**
+     *
+     * @param modelNumber
+     * @return
+     * @throws ServerException
+     */
     private CatanModel _getGameModel(int modelNumber) throws ServerException {
         return proxy.getGameModel(modelNumber);
     }
@@ -333,6 +368,11 @@ public class Facade extends Observable {
         return instance()._getGameModel(modelNumber);
     }
 
+    /**
+     *
+     * @return
+     * @throws ServerException
+     */
     private String[] _listAI() throws ServerException {
         return proxy.listAI();
     }
