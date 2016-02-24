@@ -1,8 +1,11 @@
 package model.options;
 
+import java.util.Set;
+
 import model.CatanModel;
 import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
+import shared.definitions.PortType;
 import shared.locations.EdgeLocation;
 import shared.locations.VertexLocation;
 
@@ -150,9 +153,9 @@ public class Options
 	 * @param playerIndex index
 	 * @return True if allowed False otherwise
 	 */
-	public boolean canMaritimeTrade(int playerIndex)
+	public Set<PortType> canMaritimeTrade(int playerIndex)
 	{	
-		return catanModel.mapManager.getMap().canMaritimeTrade(playerIndex).size() != 0;
+		return catanModel.mapManager.getMap().canMaritimeTrade(playerIndex);
 	}
 
 	/**

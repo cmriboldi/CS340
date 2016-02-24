@@ -142,4 +142,9 @@ public class Banker
 		return playerResources.canPlayerAfford(playerIndex, product.getCost());
 	}
 
+	public boolean canPlayerAfford(int playerIndex, ResourceList resourceList)
+	{
+		return playerResources.canPlayerAfford(playerIndex, resourceList);
+	}
+
 }

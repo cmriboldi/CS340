@@ -167,4 +167,9 @@ public class ResourceManager
 		this.hasPlayerDiscarded = hasPlayerDiscarded;
 	}
 
+	public boolean canAfford(int playerIndex, ResourceList resourceList)
+	{
+		return banker.canPlayerAfford(playerIndex, resourceList);
+	}
+
 };
