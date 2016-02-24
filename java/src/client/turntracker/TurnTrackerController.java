@@ -3,6 +3,7 @@ package client.turntracker;
 import java.util.Observable;
 import java.util.Observer;
 
+import model.players.Player;
 import shared.definitions.CatanColor;
 import client.base.*;
 import clientfacade.Facade;
@@ -40,10 +41,23 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		int currentTurn = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
+		TurnTrackerView trackerView = (TurnTrackerView) getView(); //TODO
+		
+		int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
+		Player player0 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0];
+		Player player1 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1];
+		Player player2 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2];
+		Player player3 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3];
+		
+		boolean player0Turn = false; 
+		if (player0.getPlayerIndex() == currentTurnIndex)
+		{
+			player0Turn = true; 
+		}
+		
+		trackerView.updatePlayer(0, player0.getPoints(), player0Turn, false, false);//player0.get, longestRoad
 		
 		
-		TurnTrackerView tracker = (TurnTrackerView) getView(); 
 		//Facade.getCatanModel().getPlayerManager().getTurnTracker()
 		
 	}

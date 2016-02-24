@@ -55,6 +55,10 @@ public class PointsController extends Controller implements IPointsController, O
 		int player2Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2].getPoints();
 		int player3Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3].getPoints();
 		
+		//getView()
+		
+		
+		
 	}
 	
 }

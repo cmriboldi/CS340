@@ -29,6 +29,8 @@ public class PlayerTurnTracker
 	
 	String status = null; 
 	
+	
+	
 	public PlayerTurnTracker()
 	{
 		

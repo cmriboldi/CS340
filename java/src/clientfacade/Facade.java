@@ -30,6 +30,7 @@ import serverProxy.ServerException;
 import shared.definitions.CatanColor;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.PlayerNameNotFoundException;
+import shared.locations.EdgeLocation;
 
 import java.util.List;
 import java.util.Observable;
@@ -191,11 +192,17 @@ public class Facade extends Observable {
      * Builds a road for a specific player
      *
      * @param index of player building road
+     * @throws ServerException 
      */
-    private void _buildRoad(int index) {
-
+    private void _buildRoad(int index, EdgeLocation edge, boolean free) throws ServerException {
+    	proxy.buildRoad(index, edge, free);
     }
 
+    public static void buildRoad (int index, EdgeLocation edge, boolean free)
+    {
+    	instance().buildRoad(index, edge, free);
+    }
+    
     /**
      * Builds a town for a specific player
      *

@@ -57,17 +57,30 @@ public class MapPlayingState implements MapControllerState
 
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-		//TODO Clayton do this
+		//TODO
+		// ask the canDo if I CAN build a road. 
+		// build a road through the server proxy
+		///Facade.
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+
+		Facade.buildRoad(localPlayerId,edgeLoc, false);
+		
+		
+	
 	}
 
 	public void placeSettlement(VertexLocation vertLoc)
 	{
 		//TODO
+		// ask the canDo if I CAN place Settlement
+		// placeSettlement Through the server proxy
 	}
 
 	public void placeCity(VertexLocation vertLoc)
 	{
 		//TODO
+		// ask the canDo if I CAN place Settlement
+		// placeSettlement Through the server proxy
 	}
 
 	public void placeRobber(HexLocation hexLoc)
