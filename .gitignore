@@ -5,3 +5,5 @@
 **/demo/saves/*
 **/Catan.iml
 !/.gitignore
+[pull]
+rebase = true
