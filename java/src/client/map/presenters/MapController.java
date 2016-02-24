@@ -12,6 +12,7 @@ import model.map.Port;
 import model.map.Road;
 import model.map.Settlement;
 import shared.definitions.*;
+import shared.exceptions.map.InvalidMapStateException;
 import shared.locations.*;
 import client.base.*;
 import client.data.*;
@@ -52,6 +53,40 @@ public class MapController extends Controller implements IMapController, Observe
     @Override
     public void update(Observable o, Object arg) {
         initFromModel();
+        
+        try {
+			determineState();
+		} catch (InvalidMapStateException e) {
+			e.printStackTrace();
+		} 
+        
+    }
+    
+ // Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
+    
+    public void determineState() throws InvalidMapStateException
+    {
+    	int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
+    	int indexOfPlayingClient = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex(); 
+    	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
+    	
+    	
+    	if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding"))
+    	{
+    		currentState = new MapInactiveState(); 
+    	}
+    	else if (status.equals("FirstRound") | status.equals("SecondRound"))
+    	{
+    		currentState = new MapSetupState(); 
+    	}
+    	else if (status.equals("Rolling") | status.equals("Robbing") | status.equals("Playing") | status.equals("Robbing"))
+    	{
+    		currentState = new MapPlayingState(); 
+    	}
+    	else
+    	{
+    		throw new InvalidMapStateException(); 
+    	}
     }
 
 
