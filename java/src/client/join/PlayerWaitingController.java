@@ -62,7 +62,10 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 			if(playersList.size() < 4)
 				getView().showModal();
 			else
-				getView().closeModal();
+			{
+				if(getView().isModalShowing())
+					getView().closeModal();
+			}
 		}
 		catch (ServerException e)
 		{
