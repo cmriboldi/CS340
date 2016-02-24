@@ -132,117 +132,6 @@ public class Facade extends Observable
         return _instance._getHistorySources();
     }
 
-    private CatanModel _getCatanModel()
-    {
-        return this.catanModel;
-    }
-
-    public static CatanModel getCatanModel()
-    {
-        return instance()._getCatanModel();
-    }
-
-    private void _startPoller()
-    {
-        (new Thread(new Poller(proxy))).start();
-    }
-
-    public static void startPoller()
-    {
-        instance()._startPoller();
-    }
-
-    ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
-
-    private PlayerInfo _getLocalPlayerInfo() {
-        return proxy.getLocalPlayerInfo();
-    }
-
-    public static PlayerInfo getLocalPlayerInfo() {
-        return instance()._getLocalPlayerInfo();
-    }
-
-    private GameInfo[] _listGames() throws ServerException {
-        return proxy.listGames();
-    }
-
-    /**
-     * Generates a game list for the Client
-     *
-     * @return A list of all the current games
-     * @throws ServerException
-     */
-    public static GameInfo[] listGames() throws ServerException {
-        return instance()._listGames();
-    }
-
-    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
-    {
-        return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
-    }
-
-    /**
-     * Creates a new game with a specific title
-     *
-     * @param randomTiles
-     * @param randomNumbers
-     * @param randomPorts
-     * @param title
-     * @return
-     */
-    public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
-    {
-        return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
-    }
-
-    private void _joinGame(int gameId, CatanColor color) throws ServerException {
-        proxy.joinGame(gameId, color);
-    }
-
-    /**
-     * Joins a new game from the game list
-     *
-     * @param gameId
-     * @param color
-     * @throws ServerException
-     */
-    public static void joinGame(int gameId, CatanColor color) throws ServerException
-	{
-        instance()._joinGame(gameId, color);
-    }
-
-    private CatanModel _getGameModel() throws ServerException
-    {
-        return proxy.getGameModel();
-    }
-
-    public static CatanModel getGameModel() throws ServerException
-    {
-        return instance()._getGameModel();
-    }
-
-    private CatanModel _getGameModel(int modelNumber) throws ServerException
-    {
-        return proxy.getGameModel(modelNumber);
-    }
-
-    public static CatanModel getGameModel(int modelNumber) throws ServerException
-    {
-        return instance()._getGameModel(modelNumber);
-    }
-
-	private String[] _listAI() throws ServerException
-	{
-		return proxy.listAI();
-	}
-
-	public static String[] listAI() throws ServerException
-	{
-		return instance()._listAI();
-	}
-
-    ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
-
     //**********************************************************************************
     // Game Phase Control
     //**********************************************************************************
@@ -349,6 +238,101 @@ public class Facade extends Observable
 
 
 
+    ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
+
+    private PlayerInfo _getLocalPlayerInfo() {
+        return proxy.getLocalPlayerInfo();
+    }
+
+    public static PlayerInfo getLocalPlayerInfo() {
+        return instance()._getLocalPlayerInfo();
+    }
+
+    private GameInfo[] _listGames() throws ServerException {
+        return proxy.listGames();
+    }
+
+    /**
+     * Generates a game list for the Client
+     *
+     * @return A list of all the current games
+     * @throws ServerException
+     */
+    public static GameInfo[] listGames() throws ServerException {
+        return instance()._listGames();
+    }
+
+    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
+    {
+        return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
+    }
+
+    /**
+     * Creates a new game with a specific title
+     *
+     * @param randomTiles
+     * @param randomNumbers
+     * @param randomPorts
+     * @param title
+     * @return
+     */
+    public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
+    {
+        return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
+    }
+
+    private void _joinGame(int gameId, CatanColor color) throws ServerException {
+        proxy.joinGame(gameId, color);
+    }
+
+    /**
+     * Joins a new game from the game list
+     *
+     * @param gameId
+     * @param color
+     * @throws ServerException
+     */
+    public static void joinGame(int gameId, CatanColor color) throws ServerException
+	{
+        instance()._joinGame(gameId, color);
+    }
+
+    private CatanModel _getGameModel() throws ServerException
+    {
+        return proxy.getGameModel();
+    }
+
+    public static CatanModel getGameModel() throws ServerException
+    {
+        return instance()._getGameModel();
+    }
+
+    private CatanModel _getGameModel(int modelNumber) throws ServerException
+    {
+        return proxy.getGameModel(modelNumber);
+    }
+
+    public static CatanModel getGameModel(int modelNumber) throws ServerException
+    {
+        return instance()._getGameModel(modelNumber);
+    }
+
+	private String[] _listAI() throws ServerException
+	{
+		return proxy.listAI();
+	}
+
+	public static String[] listAI() throws ServerException
+	{
+		return instance()._listAI();
+	}
+
+    ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
+
+
+
+
+
 
     private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException {
         return catanModel.playerManager.getPlayerColor(name);
@@ -443,6 +427,25 @@ public class Facade extends Observable
     // Not Organized Yet
     //**********************************************************************************
 
+    private CatanModel _getCatanModel()
+    {
+        return this.catanModel;
+    }
+
+    public static CatanModel getCatanModel()
+    {
+        return instance()._getCatanModel();
+    }
+
+    private void _startPoller()
+    {
+        (new Thread(new Poller(proxy))).start();
+    }
+
+    public static void startPoller()
+    {
+        instance()._startPoller();
+    }
 
 
 }
