@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import clientfacade.Facade;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -32,20 +33,20 @@ public class MapPlayingState implements MapControllerState
 
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		//TODO Clayton. Check UI placement location
-		return true;
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		return Facade.getCatanModel().getOptions().canPlaceRoad(localPlayerId, edgeLoc); 
 	}
 
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		//TODO Clayton
-		return true;
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc); 
 	}
 
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
-		//TODO Clayton
-		return true;
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		return Facade.getCatanModel().getOptions().canPlaceCity(localPlayerId, vertLoc); 
 	}
 
 	public boolean canPlaceRobber(HexLocation hexLoc)
