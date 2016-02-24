@@ -26,7 +26,8 @@ import shared.exceptions.player.PlayerNameNotFoundException;
  * @author Joshua Van Steeter
  * @version 1.0 Build Jan, 2016.
  */
-public class Facade extends Observable {
+public class Facade extends Observable
+{
     private static Facade _instance;
 
     private CatanModel catanModel;
@@ -36,7 +37,8 @@ public class Facade extends Observable {
     //**********************************************************************************
     // Constructors
     //**********************************************************************************
-    private Facade() {
+    private Facade()
+    {
         this.proxy = new RealProxy();
     }
 
@@ -204,7 +206,8 @@ public class Facade extends Observable {
      * @param color
      * @throws ServerException
      */
-    public static void joinGame(int gameId, CatanColor color) throws ServerException {
+    public static void joinGame(int gameId, CatanColor color) throws ServerException
+	{
         instance()._joinGame(gameId, color);
     }
 
@@ -227,6 +230,16 @@ public class Facade extends Observable {
     {
         return instance()._getGameModel(modelNumber);
     }
+
+	private String[] _listAI() throws ServerException
+	{
+		return proxy.listAI();
+	}
+
+	public static String[] listAI() throws ServerException
+	{
+		return instance()._listAI();
+	}
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
 

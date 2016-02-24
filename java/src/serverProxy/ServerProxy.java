@@ -179,7 +179,7 @@ public interface ServerProxy
 	 * @return A list of support AI player types
 	 * @throws ServerException 
 	 */
-	public List<String> listAI() throws ServerException;
+	public String[] listAI() throws ServerException;
 
 	/**
 	 * Sends a chat message.

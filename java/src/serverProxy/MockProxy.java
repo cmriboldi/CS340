@@ -126,7 +126,7 @@ public class MockProxy implements ServerProxy
 	}
 
 	@Override
-	public List<String> listAI() throws ServerException {
+	public String[] listAI() throws ServerException {
 		// TODO Auto-generated method stub
 		return null;
 	}

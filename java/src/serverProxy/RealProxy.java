@@ -218,7 +218,7 @@ public class RealProxy implements ServerProxy
 	}
 
 	@Override
-	public List<String> listAI() throws ServerException 
+	public String[] listAI() throws ServerException
 	{
 		return authProxy.listAI();
 	}

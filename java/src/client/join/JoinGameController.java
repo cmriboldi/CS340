@@ -102,6 +102,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		}
 		catch (ServerException e)
 		{
+			messageView.setTitle("Server Error");
+			messageView.setMessage("SERVER NOT RESPONDING");
+			messageView.showModal();
 			e.printStackTrace();
 		}
 		getJoinGameView().showModal();
@@ -133,6 +136,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		}
 		catch (ServerException e)
 		{
+			messageView.setTitle("Server Error");
+			messageView.setMessage("SERVER NOT RESPONDING");
+			messageView.showModal();
 			e.printStackTrace();
 		}
 	}
@@ -155,6 +161,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		}
 		catch (ServerException e)
 		{
+			messageView.setTitle("Server Error");
+			messageView.setMessage("SERVER NOT RESPONDING");
+			messageView.showModal();
 			e.printStackTrace();
 		}
 		getJoinGameView().closeModal();

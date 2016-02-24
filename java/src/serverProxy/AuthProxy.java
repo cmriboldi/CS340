@@ -99,6 +99,7 @@ public class AuthProxy
 	public CatanModel getGameModel() throws ServerException 
 	{
 		String response = (String) get("/game/model");
+		System.out.println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n" + response);
 		CatanModel model;
 		try 
 		{
@@ -177,14 +178,14 @@ public class AuthProxy
 		post("/game/addAI", add);
 	}
 	
-	public List<String> listAI() throws ServerException 
+	public String[] listAI() throws ServerException
 	{
 		String response = (String) get("/game/listAI");
 		JsonArray json = new Gson().fromJson(response, JsonArray.class);
-		List<String> AIs = new ArrayList<String>();
+		String[] AIs = new String[json.size()];
 		for(int i = 0; i < json.size(); i++)
 		{
-			AIs.add(json.get(i).getAsString());
+			AIs[i] = json.get(i).getAsString();
 		}
 		return AIs;
 	}
