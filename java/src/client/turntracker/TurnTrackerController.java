@@ -42,6 +42,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		int currentTurn = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
 		
+		
+		TurnTrackerView tracker = (TurnTrackerView) getView(); 
 		//Facade.getCatanModel().getPlayerManager().getTurnTracker()
 		
 	}
