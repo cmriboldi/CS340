@@ -26,8 +26,7 @@ import shared.exceptions.player.PlayerNameNotFoundException;
  * @author Joshua Van Steeter
  * @version 1.0 Build Jan, 2016.
  */
-public class Facade extends Observable
-{
+public class Facade extends Observable {
     private static Facade _instance;
 
     private CatanModel catanModel;
@@ -37,8 +36,7 @@ public class Facade extends Observable
     //**********************************************************************************
     // Constructors
     //**********************************************************************************
-    private Facade()
-    {
+    private Facade() {
         this.proxy = new RealProxy();
     }
 
@@ -73,64 +71,96 @@ public class Facade extends Observable
 
     /**
      * Chat a message to other players
+     *
      * @param message
      * @throws ServerException
      */
-    private void _chat(String message) throws ServerException
-    {
+    private void _chat(String message) throws ServerException {
         this.catanModel = proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message);
         this.setChanged();
         this.notifyObservers();
     }
 
-    public static void chat(String message) throws ServerException
-    {
+    public static void chat(String message) throws ServerException {
         _instance._chat(message);
     }
 
-    private List<String> _getChatMessages()
-    {
+    private List<String> _getChatMessages() {
         List<String> messages = this.catanModel.chatManager.chatMessages();
         return messages;
     }
 
-    public static List<String> getChatMessages()
-    {
+    public static List<String> getChatMessages() {
         return _instance._getChatMessages();
     }
 
-    private List<String> _getChatSources()
-    {
+    private List<String> _getChatSources() {
         List<String> sources = this.catanModel.chatManager.chatSources();
         return sources;
     }
 
-    public static List<String> getChatSources()
-    {
+    public static List<String> getChatSources() {
         return _instance._getChatSources();
     }
 
-    private List<String> _getHistoryMessages()
-    {
+    private List<String> _getHistoryMessages() {
         List<String> messages = this.catanModel.chatManager.historyMessages();
         return messages;
     }
 
-    public static List<String> getHistoryMessages()
-    {
+    public static List<String> getHistoryMessages() {
         return _instance._getHistoryMessages();
     }
 
-    private List<String> _getHistorySources()
-    {
+    private List<String> _getHistorySources() {
         List<String> sources = this.catanModel.chatManager.historySources();
         return sources;
     }
 
-    public static List<String> getHistorySources()
-    {
+    public static List<String> getHistorySources() {
         return _instance._getHistorySources();
     }
+
+    //**********************************************************************************
+    // Map Interaction Functions
+    //**********************************************************************************
+
+    /**
+     * Builds a road for a specific player
+     *
+     * @param index of player building road
+     */
+    private void _buildRoad(int index) {
+
+    }
+
+    /**
+     * Builds a town for a specific player
+     *
+     * @param index of player building town
+     */
+    private void _buildTown(int index) {
+
+    }
+
+    /**
+     * Builds a city for a specific player
+     *
+     * @param index of player building city
+     */
+    private void _buildCity(int index) {
+
+    }
+
+    /**
+     * Places the robber in a hex specified by a specific player
+     *
+     * @param index of player using robber
+     */
+    private void _placeRobber(int index) {
+
+    }
+
 
     //**********************************************************************************
     // Game Phase Control
@@ -149,6 +179,7 @@ public class Facade extends Observable
 
     }
 
+
     /**
      * Get the current game model for the Client
      *
@@ -158,6 +189,7 @@ public class Facade extends Observable
     private CatanModel _getModel() {
         return null;
     }
+
 
     /**
      * Advances a player through the phases of his turn, and updates a players options
@@ -172,7 +204,6 @@ public class Facade extends Observable
     /**
      * Advances the turn from one player to another, and updates a players options
      *
-     * @return
      * @throws ServerException
      */
     private void _advanceTurn() {
@@ -210,6 +241,7 @@ public class Facade extends Observable
 
     /**
      * Set up a trade between players
+     *
      * @param traderIndex of trading player
      * @param tradeeIndex of tradee player
      * @param toGive      of giving resources
@@ -219,11 +251,11 @@ public class Facade extends Observable
     private void _domesticTrade(int traderIndex, int tradeeIndex, ResourceList toGive, ResourceList toAsk) {
 
 
-
     }
 
     /**
      * Trades a players resources through an available port
+     *
      * @param index  of player trading
      * @param toGive of giving resources
      * @param toGet  of getting resources
@@ -233,9 +265,7 @@ public class Facade extends Observable
     private void _portTrade(int index, ResourceList toGive, ResourceList toGet) {
 
 
-
     }
-
 
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
@@ -262,8 +292,7 @@ public class Facade extends Observable
         return instance()._listGames();
     }
 
-    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
-    {
+    private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
         return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 
@@ -276,8 +305,7 @@ public class Facade extends Observable
      * @param title
      * @return
      */
-    public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException
-    {
+    public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
         return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 
@@ -292,46 +320,35 @@ public class Facade extends Observable
      * @param color
      * @throws ServerException
      */
-    public static void joinGame(int gameId, CatanColor color) throws ServerException
-	{
+    public static void joinGame(int gameId, CatanColor color) throws ServerException {
         instance()._joinGame(gameId, color);
     }
 
-    private CatanModel _getGameModel() throws ServerException
-    {
+    private CatanModel _getGameModel() throws ServerException {
         return proxy.getGameModel();
     }
 
-    public static CatanModel getGameModel() throws ServerException
-    {
+    public static CatanModel getGameModel() throws ServerException {
         return instance()._getGameModel();
     }
 
-    private CatanModel _getGameModel(int modelNumber) throws ServerException
-    {
+    private CatanModel _getGameModel(int modelNumber) throws ServerException {
         return proxy.getGameModel(modelNumber);
     }
 
-    public static CatanModel getGameModel(int modelNumber) throws ServerException
-    {
+    public static CatanModel getGameModel(int modelNumber) throws ServerException {
         return instance()._getGameModel(modelNumber);
     }
 
-	private String[] _listAI() throws ServerException
-	{
-		return proxy.listAI();
-	}
+    private String[] _listAI() throws ServerException {
+        return proxy.listAI();
+    }
 
-	public static String[] listAI() throws ServerException
-	{
-		return instance()._listAI();
-	}
+    public static String[] listAI() throws ServerException {
+        return instance()._listAI();
+    }
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
-
-
-
-
 
 
     private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException {
@@ -371,41 +388,6 @@ public class Facade extends Observable
 
     }
 
-    /**
-     * Builds a road for a specific player
-     *
-     * @param index of player building road
-     */
-    private void _buildRoad(int index) {
-
-    }
-
-    /**
-     * Builds a town for a specific player
-     *
-     * @param index of player building town
-     */
-    private void _buildTown(int index) {
-
-    }
-
-    /**
-     * Builds a city for a specific player
-     *
-     * @param index of player building city
-     */
-    private void _buildCity(int index) {
-
-    }
-
-    /**
-     * Places the robber in a hex specified by a specific player
-     *
-     * @param index of player using robber
-     */
-    private void _placeRobber(int index) {
-
-    }
 
     /**
      * Registers a new user
@@ -427,23 +409,19 @@ public class Facade extends Observable
     // Not Organized Yet
     //**********************************************************************************
 
-    private CatanModel _getCatanModel()
-    {
+    private CatanModel _getCatanModel() {
         return this.catanModel;
     }
 
-    public static CatanModel getCatanModel()
-    {
+    public static CatanModel getCatanModel() {
         return instance()._getCatanModel();
     }
 
-    private void _startPoller()
-    {
+    private void _startPoller() {
         (new Thread(new Poller(proxy))).start();
     }
 
-    public static void startPoller()
-    {
+    public static void startPoller() {
         instance()._startPoller();
     }
 
