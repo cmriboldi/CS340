@@ -8,6 +8,7 @@ import serverProxy.Poller;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.definitions.CatanColor;
+import shared.definitions.ResourceType;
 import shared.exceptions.player.PlayerNameNotFoundException;
 
 import java.util.List;
@@ -275,9 +276,14 @@ public class Facade extends Observable {
      * @return
      * @throws ServerException
      */
-    private void _portTrade(int index, ResourceList toGive, ResourceList toGet) {
-
-
+    private void _portTrade(int index, ResourceType toGive, ResourceType toGet) throws ServerException {
+    	this.catanModel = proxy.maritimeTrade(getLocalPlayerInfo().getId(), index, toGive, toGet);
+        this.setChanged();
+        this.notifyObservers();
+    }
+    
+    public static void portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {
+    	_instance._portTrade(ratio, toGive, toGet);
     }
 
 

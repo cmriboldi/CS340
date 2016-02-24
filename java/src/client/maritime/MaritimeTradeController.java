@@ -12,6 +12,7 @@ import java.util.Vector;
 import client.base.*;
 import clientfacade.Facade;
 import model.resources.ResourceList;
+import serverProxy.ServerException;
 
 
 /**
@@ -23,6 +24,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	private ResourceType[] enabledGetResources = new ResourceType[]{ResourceType.BRICK,ResourceType.ORE,ResourceType.SHEEP,ResourceType.WHEAT,ResourceType.WOOD};
 	private ResourceType[] enabledGiveResources = new ResourceType[]{ResourceType.BRICK,ResourceType.ORE,ResourceType.SHEEP,ResourceType.WHEAT,ResourceType.WOOD};
 	private Map<ResourceType, Integer> ratioMap = null;
+	private ResourceType giveResourceType;
+	private ResourceType getResourceType;
+	private int tradeRatio;
 	
 	public MaritimeTradeController(IMaritimeTradeView tradeView, IMaritimeTradeOverlay tradeOverlay) {
 		
@@ -56,18 +60,27 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void makeTrade() {
-
+		try
+		{
+			Facade.portTrade(tradeRatio, giveResourceType, getResourceType);
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
 	public void cancelTrade() {
-
+		getResourceType = null;
+		giveResourceType = null;
+		tradeRatio = -1;
 		getTradeOverlay().closeModal();
 	}
 
 	@Override
 	public void setGetResource(ResourceType resource) {
+		getResourceType = resource;
 		tradeOverlay.selectGetOption(resource, 1);
 		tradeOverlay.setTradeEnabled(true);
 	}
@@ -78,7 +91,12 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		System.out.println("getTradeOverlay is: "+ getTradeOverlay());
 		System.out.println("ratioMap.get(resource) is: "+ ratioMap.get(resource));
 		System.out.println("enabledGetResources is: "+ enabledGetResources);
+		
+		tradeRatio = ratioMap.get(resource);
+		giveResourceType = resource;
+		
 //		if(ratioMap != null && ratioMap.get(resource) != null) {
+//			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
 			getTradeOverlay().selectGiveOption(resource, 4);
 //		}
 		getTradeOverlay().showGetOptions(enabledGetResources);
@@ -86,12 +104,15 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void unsetGetValue() {
+		getResourceType = null;
 		getTradeOverlay().showGetOptions(enabledGetResources);
 		getTradeOverlay().setTradeEnabled(false);
 	}
 
 	@Override
 	public void unsetGiveValue() {
+		giveResourceType = null;
+		tradeRatio = -1;
 		getTradeOverlay().hideGetOptions();
 		getTradeOverlay().showGiveOptions(enabledGiveResources);
 	}
