@@ -1,14 +1,19 @@
 package client.discard;
 
 import shared.definitions.*;
+
+import java.util.Observable;
+import java.util.Observer;
+
 import client.base.*;
 import client.misc.*;
+import clientfacade.Facade;
 
 
 /**
  * Discard controller implementation
  */
-public class DiscardController extends Controller implements IDiscardController {
+public class DiscardController extends Controller implements IDiscardController, Observer {
 
 	private IWaitView waitView;
 	
@@ -20,9 +25,9 @@ public class DiscardController extends Controller implements IDiscardController 
 	 */
 	public DiscardController(IDiscardView view, IWaitView waitView) {
 		
-		super(view);
-		
+		super(view);		
 		this.waitView = waitView;
+		Facade.addObserverStatic(this);
 	}
 
 	public IDiscardView getDiscardView() {
@@ -47,6 +52,12 @@ public class DiscardController extends Controller implements IDiscardController 
 	public void discard() {
 		
 		getDiscardView().closeModal();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		
+		
 	}
 
 }

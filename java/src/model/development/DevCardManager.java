@@ -130,5 +130,10 @@ public class DevCardManager
 	{
 		return newDevCards.hasDevCard(playerIndex, devCard) || oldDevCards.hasDevCard(playerIndex, devCard);
 	}
+
+	public Integer playerDevCardCount(int playerIndex, DevCardType devCard) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

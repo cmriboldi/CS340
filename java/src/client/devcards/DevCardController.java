@@ -1,13 +1,21 @@
 package client.devcards;
 
+import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
 import client.base.*;
+import clientfacade.Facade;
+import serverProxy.ServerException;
 
 
 /**
  * "Dev card" controller implementation
  */
-public class DevCardController extends Controller implements IDevCardController {
+public class DevCardController extends Controller implements IDevCardController, Observer {
 
 	private IBuyDevCardView buyCardView;
 	private IAction soldierAction;
@@ -29,6 +37,8 @@ public class DevCardController extends Controller implements IDevCardController 
 		this.buyCardView = buyCardView;
 		this.soldierAction = soldierAction;
 		this.roadAction = roadAction;
+		
+		Facade.addObserverStatic(this);
 	}
 
 	public IPlayDevCardView getPlayCardView() {
@@ -41,26 +51,49 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void startBuyCard() {
-		
-		getBuyCardView().showModal();
+		if(Facade.getOptions().canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			getBuyCardView().showModal();
+		}
+		else
+		{
+			
+		}
 	}
 
 	@Override
-	public void cancelBuyCard() {
-		
+	public void cancelBuyCard() {		
 		getBuyCardView().closeModal();
 	}
 
 	@Override
 	public void buyCard() {
-		
-		getBuyCardView().closeModal();
+		if(Facade.getOptions().canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			try {
+				Facade.buyDevCard();
+			} catch (ServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			getBuyCardView().closeModal();
+		}
+		else
+		{
+			
+		}
 	}
 
 	@Override
 	public void startPlayCard() {
-		
-		getPlayCardView().showModal();
+		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			getPlayCardView().showModal();
+		}
+		else
+		{
+			
+		}
 	}
 
 	@Override
@@ -71,28 +104,105 @@ public class DevCardController extends Controller implements IDevCardController 
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		
+		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			try {
+				Facade.playMonopolyCard(resource);
+			} catch (ServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			getPlayCardView().closeModal();
+		}
+		else
+		{
+			
+		}
 	}
 
 	@Override
 	public void playMonumentCard() {
-		
+		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			try {
+				Facade.playMonumentCard();
+			} catch (ServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			getPlayCardView().closeModal();
+		}
+		else
+		{
+			
+		}
 	}
 
 	@Override
 	public void playRoadBuildCard() {
-		
-		roadAction.execute();
+		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			getPlayCardView().closeModal();
+			roadAction.execute();
+		}
+		else
+		{
+			
+		}
 	}
 
 	@Override
 	public void playSoldierCard() {
+		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			getPlayCardView().closeModal();
+			soldierAction.execute();
+		}
+		else
+		{
+			
+		}
 		
-		soldierAction.execute();
 	}
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
+		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		{
+			try {
+				Facade.playYearOfPlentyCard(resource1, resource2);
+			} catch (ServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			getPlayCardView().closeModal();
+		}
+		else
+		{
+			
+		}
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		List<DevCardType> cards = Facade.getPlayerDevTypes();
+		List<Integer> cardAmounts = Facade.getPlayerDevAmounts();
+		List<Boolean> cardPlayables = Facade.getPlayerDevPlayables();
+		
+		
+		for(int i = 0; (i < cards.size()) && (i < cardAmounts.size()) && (i < cardPlayables.size()); i++)
+		{
+			getPlayCardView().setCardAmount(cards.get(i), cardAmounts.get(i));
+			if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+			{
+				getPlayCardView().setCardEnabled(cards.get(i), cardPlayables.get(i));
+			}
+			else
+			{
+				getPlayCardView().setCardEnabled(cards.get(i), false);
+			}
+			
+		}
 		
 	}
 

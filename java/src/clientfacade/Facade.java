@@ -1,5 +1,25 @@
 package clientfacade;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import client.data.GameInfo;
+import client.data.PlayerInfo;
+import model.CatanModel;
+import model.options.Options;
+import model.resources.ResourceList;
+import serverProxy.RealProxy;
+import serverProxy.ServerException;
+import shared.communication.*;
+import shared.definitions.CatanColor;
+import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
+import shared.exceptions.player.PlayerNameNotFoundException;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.CatanModel;
@@ -26,10 +46,11 @@ import java.util.Observer;
  * @version 1.0 Build Jan, 2016.
  */
 public class Facade extends Observable {
-    private static Facade _instance;
+	private static Facade _instance;
 
     private CatanModel catanModel;
     private RealProxy proxy;
+    private Options options;
 
 
     //**********************************************************************************
@@ -37,6 +58,7 @@ public class Facade extends Observable {
     //**********************************************************************************
     private Facade() {
         this.proxy = new RealProxy();
+        this.options = new Options(this.catanModel);
     }
 
     private static Facade instance() {
@@ -46,26 +68,51 @@ public class Facade extends Observable {
 
         return _instance;
     }
+    
+    private CatanModel _getCatanModel() {
+        return this.catanModel;
+    }
 
-    //**********************************************************************************
+    public static CatanModel getCatanModel() {
+        return instance()._getCatanModel();
+    }
+    
+    private Options _getOptions() {
+    	return this.options;
+    }
+    
+    public static Options getOptions() {
+    	return instance()._getOptions();
+    }
+    
+    private RealProxy _getProxy() {
+    	return this.proxy;
+    }
+    
+    public static RealProxy getProxy() {
+    	return instance()._getProxy();
+    }
+
+  //**********************************************************************************
     // Observable Functions
     //**********************************************************************************
     private void _updateView(CatanModel catanModel) {
         this.catanModel = catanModel;
+        this.options.setCatanModel(this.catanModel);
         this.setChanged();
-        this.notifyObservers(this.catanModel);
+        this.notifyObservers();
     }
 
     public static void updateView(CatanModel catanModel) {
         instance()._updateView(catanModel);
     }
-
-    /**
-     *
-     * @param obs The Object observing the Facade
-     */
+    
+    private void _addObserver(Observer obs) {
+    	this.addObserver(obs);
+    }
+    
     public static void addObserverStatic(Observer obs) {
-        instance().addObserver(obs);
+        instance()._addObserver(obs);
     }
 
     //**********************************************************************************
@@ -238,14 +285,15 @@ public class Facade extends Observable {
         die2 = (die2 % 6) + 1;
         int total = die1 + die2;
 
-        this.catanModel = proxy.rollNumber(catanModel.getPlayerManager().getTurnTracker().getTurnIndex(), total);
+        this.catanModel = this.proxy.rollNumber(this._getLocalPlayerInfo().getPlayerIndex(), total);
+        this.options = new Options(this.catanModel);
         this.setChanged();
         this.notifyObservers();
         return total;
     }
 
     public static int roll() throws ServerException {
-        return _instance._roll();
+        return instance()._roll();
     }
 
 
@@ -285,13 +333,147 @@ public class Facade extends Observable {
     public static void portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {
     	_instance._portTrade(ratio, toGive, toGet);
     }
+    
+  //**********************************************************************************
+    // DevCardFunctions
+    //**********************************************************************************
+    /**
+     * Buys a development card for a specific player
+     *
+     * @param index of player buying dev card
+     * @throws ServerException 
+     */
+    private void _buyDevCard() throws ServerException {
+    	this.catanModel = this.proxy.buyDevCard(this._getLocalPlayerInfo().getPlayerIndex());
+    	this.options.setCatanModel(this.catanModel);
+    	this.setChanged();
+        this.notifyObservers(); 
+    }
+    
+    public static void buyDevCard() throws ServerException
+    {
+    	instance()._buyDevCard();
+    }
+    
+    private void _playMonumentCard() throws ServerException
+    {
+    	this.catanModel = this.proxy.monument(this._getLocalPlayerInfo().getPlayerIndex());
+    	this.options.setCatanModel(this.catanModel);
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    public static void playMonumentCard() throws ServerException
+    {
+    	instance()._playMonumentCard();
+    }
+    
+    private void _playMonopolyCard(ResourceType resource) throws ServerException
+    {
+    	this.catanModel = this.proxy.monopoly(this._getLocalPlayerInfo().getPlayerIndex(), resource);
+    	this.options.setCatanModel(this.catanModel);
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    public static void playMonopolyCard(ResourceType resource) throws ServerException
+    {
+    	instance()._playMonopolyCard(resource);
+    }
+    
+    private void _playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException
+    {
+    	this.catanModel = this.proxy.yearOfPlenty(this._getLocalPlayerInfo().getPlayerIndex(), resource1, resource2);
+    	this.options.setCatanModel(this.catanModel);
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    public static void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException
+    {
+    	instance()._playYearOfPlentyCard(resource1, resource2);
+    }
+    
+    private void _playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException
+    {
+    	this.catanModel = this.proxy.roadBuilding(this._getLocalPlayerInfo().getPlayerIndex(), spot1, spot2);
+    	this.options.setCatanModel(this.catanModel);
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    public static void playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException
+    {
+    	instance()._playRoadBuildCard(spot1, spot2);
+    }
+    
+    private void _playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException
+    {
+    	this.catanModel = proxy.soldier(this._getLocalPlayerInfo().getPlayerIndex(), victimIndex, hexLocation);
+    	this.options.setCatanModel(this.catanModel);
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    public static void playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException
+    {
+    	instance()._playSoldierCard(victimIndex, hexLocation);
+    }
+    
+    private List<DevCardType> _getPlayerDevTypes()
+    {
+    	List<DevCardType> types = new ArrayList<DevCardType>();
+    	types.add(DevCardType.MONOPOLY);
+    	types.add(DevCardType.MONUMENT);
+    	types.add(DevCardType.ROAD_BUILD);
+    	types.add(DevCardType.SOLDIER);
+    	types.add(DevCardType.YEAR_OF_PLENTY);   	
+    	return types;
+    }
+    
+    public static List<DevCardType> getPlayerDevTypes()
+    {
+    	return instance()._getPlayerDevTypes();
+    }
+    
+    private List<Integer> _getPlayerDevAmounts()
+    {
+    	List<Integer> amounts = new ArrayList<Integer>();
+    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
+    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
+    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
+    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
+    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+    	return amounts;
+    }
+    
+    public static List<Integer> getPlayerDevAmounts()
+    {
+    	return instance()._getPlayerDevAmounts();
+    }
+    
+    private List<Boolean> _getPlayerDevPlayables()
+    {
+    	List<Boolean> play = new ArrayList<Boolean>();
+    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
+    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
+    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
+    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
+    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+    	return play;
+    }
+    
+    public static List<Boolean> getPlayerDevPlayables()
+    {
+    	return instance()._getPlayerDevPlayables();
+    }
 
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
 
     private void _addAI(String AIType) throws ServerException
     {
-        proxy.addAI(AIType);
+        this.proxy.addAI(AIType);
     }
 
     public static void addAI(String AIType) throws ServerException
@@ -304,7 +486,7 @@ public class Facade extends Observable {
      * @return
      */
     private PlayerInfo _getLocalPlayerInfo() {
-        return proxy.getLocalPlayerInfo();
+        return this.proxy.getLocalPlayerInfo();
     }
 
     public static PlayerInfo getLocalPlayerInfo() {
@@ -318,7 +500,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private GameInfo[] _listGames() throws ServerException {
-        return proxy.listGames();
+        return this.proxy.listGames();
     }
 
     public static GameInfo[] listGames() throws ServerException {
@@ -339,7 +521,7 @@ public class Facade extends Observable {
     }
 
     private GameInfo _createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
-        return proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
+        return this.proxy.createGame(randomTiles, randomNumbers, randomPorts, title);
     }
 
     /**
@@ -354,7 +536,7 @@ public class Facade extends Observable {
     }
 
     private void _joinGame(int gameId, CatanColor color) throws ServerException {
-        proxy.joinGame(gameId, color);
+        this.proxy.joinGame(gameId, color);
     }
 
     /**
@@ -363,7 +545,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private CatanModel _getGameModel() throws ServerException {
-        return proxy.getGameModel();
+        return this.proxy.getGameModel();
     }
 
     public static CatanModel getGameModel() throws ServerException {
@@ -377,7 +559,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private CatanModel _getGameModel(int modelNumber) throws ServerException {
-        return proxy.getGameModel(modelNumber);
+        return this.proxy.getGameModel(modelNumber);
     }
 
     public static CatanModel getGameModel(int modelNumber) throws ServerException {
@@ -390,7 +572,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private String[] _listAI() throws ServerException {
-        return proxy.listAI();
+        return this.proxy.listAI();
     }
 
     public static String[] listAI() throws ServerException {
@@ -407,42 +589,20 @@ public class Facade extends Observable {
      * @throws PlayerNameNotFoundException
      */
     private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException {
-        return catanModel.playerManager.getPlayerColor(name);
+        return this.catanModel.playerManager.getPlayerColor(name);
     }
 
     public static CatanColor getColorByName(String name) throws PlayerNameNotFoundException {
-        return _instance._getColorByName(name);
-    }
-
-    /**
-     * Logs a players move in the log
-     *
-     * @param index   of player taking action
-     * @param message
-     * @return
-     * @throws ServerException
-     */
-    private void _log(int index, String message) {
-
+        return instance()._getColorByName(name);
     }
 
     private void _login(String username, String password) throws ServerException {
-        proxy.userLogin(username, password);
+        this.proxy.userLogin(username, password);
     }
 
     public static void login(String username, String password) throws ServerException {
         instance()._login(username, password);
     }
-
-    /**
-     * Buys a development card for a specific player
-     *
-     * @param index of player buying dev card
-     */
-    private void _buyDevCard(int index) {
-
-    }
-
 
     /**
      * Registers a new user
@@ -453,7 +613,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _register(String username, String password) throws ServerException {
-        proxy.userRegister(username, password);
+        this.proxy.userRegister(username, password);
     }
 
     public static void register(String username, String password) throws ServerException {
@@ -466,21 +626,9 @@ public class Facade extends Observable {
 
     /**
      *
-     * @return
-     */
-    private CatanModel _getCatanModel() {
-        return this.catanModel;
-    }
-
-    public static CatanModel getCatanModel() {
-        return instance()._getCatanModel();
-    }
-
-    /**
-     *
      */
     private void _startPoller() {
-        (new Thread(new Poller(proxy))).start();
+        (new Thread(new Poller(this.proxy))).start();
     }
 
     public static void startPoller() {

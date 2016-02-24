@@ -28,6 +28,11 @@ public class Options
 	{
 		this.catanModel = catanModel; 
 	}
+	
+	public void setCatanModel(CatanModel catanModel)
+	{
+		this.catanModel = catanModel;
+	}
 
 	/**
 	 * Check if a player can afford a road

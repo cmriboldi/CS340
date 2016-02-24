@@ -84,7 +84,7 @@ public class MockProxy implements ServerProxy
 	public CatanModel getGameModel(int version) throws ServerException {
 		String json = null;
 		try {
-			json = JsonFileLoader.readFile("defaultModel.json");
+			json = JsonLoader.readFile("json/default.json");
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
