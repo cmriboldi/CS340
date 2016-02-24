@@ -384,6 +384,12 @@ public class Facade extends Observable {
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
 
 
+    /**
+     *
+     * @param name
+     * @return
+     * @throws PlayerNameNotFoundException
+     */
     private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException {
         return catanModel.playerManager.getPlayerColor(name);
     }
@@ -442,6 +448,10 @@ public class Facade extends Observable {
     // Not Organized Yet
     //**********************************************************************************
 
+    /**
+     *
+     * @return
+     */
     private CatanModel _getCatanModel() {
         return this.catanModel;
     }
@@ -450,6 +460,9 @@ public class Facade extends Observable {
         return instance()._getCatanModel();
     }
 
+    /**
+     *
+     */
     private void _startPoller() {
         (new Thread(new Poller(proxy))).start();
     }
