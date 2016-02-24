@@ -1,20 +1,18 @@
 package clientfacade;
 
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.CatanModel;
 import model.resources.ResourceList;
-import serverProxy.MockProxy;
 import serverProxy.Poller;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
-import shared.communication.*;
 import shared.definitions.CatanColor;
 import shared.exceptions.player.PlayerNameNotFoundException;
+
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 
 /**
  * The Facade class controls all interations between the GUI and the CatanModel
@@ -86,8 +84,7 @@ public class Facade extends Observable {
     }
 
     private List<String> _getChatMessages() {
-        List<String> messages = this.catanModel.chatManager.chatMessages();
-        return messages;
+        return this.catanModel.chatManager.chatMessages();
     }
 
     public static List<String> getChatMessages() {
@@ -95,8 +92,7 @@ public class Facade extends Observable {
     }
 
     private List<String> _getChatSources() {
-        List<String> sources = this.catanModel.chatManager.chatSources();
-        return sources;
+        return this.catanModel.chatManager.chatSources();
     }
 
     public static List<String> getChatSources() {
@@ -104,8 +100,7 @@ public class Facade extends Observable {
     }
 
     private List<String> _getHistoryMessages() {
-        List<String> messages = this.catanModel.chatManager.historyMessages();
-        return messages;
+        return this.catanModel.chatManager.historyMessages();
     }
 
     public static List<String> getHistoryMessages() {
@@ -113,8 +108,7 @@ public class Facade extends Observable {
     }
 
     private List<String> _getHistorySources() {
-        List<String> sources = this.catanModel.chatManager.historySources();
-        return sources;
+        return this.catanModel.chatManager.historySources();
     }
 
     public static List<String> getHistorySources() {
@@ -172,7 +166,6 @@ public class Facade extends Observable {
      * @param randomNumbers
      * @param randomHexes
      * @param randomPorts
-     * @return
      * @throws ServerException
      */
     private void _newMap(boolean randomNumbers, boolean randomHexes, boolean randomPorts) {
