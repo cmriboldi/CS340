@@ -51,13 +51,13 @@ public class MapPlayingState implements MapControllerState
 
 	public boolean canPlaceRobber(HexLocation hexLoc)
 	{
-		//TODO 
-		return true;
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		return Facade.getCatanModel().getOptions().canPlaceRobber(localPlayerId); 	
 	}
 
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-		//TODO
+		//TODO Clayton do this
 	}
 
 	public void placeSettlement(VertexLocation vertLoc)

@@ -55,7 +55,7 @@ public class MapSetupState implements MapControllerState
 
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-		// do nothing
+		//TODO 
 	}
 
 	public void placeSettlement(VertexLocation vertLoc)
