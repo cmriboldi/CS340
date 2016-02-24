@@ -20,17 +20,16 @@ public class PlayerInfo
 	private int id;
 	private int playerIndex;
 	private String name;
-	private CatanColor color;
+	private String color;
 	
 	public PlayerInfo()
 	{
 		setId(-1);
 		setPlayerIndex(-1);
 		setName("");
-		setColor(CatanColor.WHITE);
 	}
 	
-	public PlayerInfo(int id, String name, CatanColor color)
+	public PlayerInfo(int id, String name, String color)
 	{
 		this.id = id;
 		setPlayerIndex(-1);
@@ -68,14 +67,24 @@ public class PlayerInfo
 		this.name = name;
 	}
 	
-	public CatanColor getColor()
+	public String getColor()
 	{
 		return color;
 	}
+
+	public CatanColor getCatanColor()
+	{
+		return CatanColor.toCatanColor(color);
+	}
 	
-	public void setColor(CatanColor color)
+	public void setColor(String color)
 	{
 		this.color = color;
+	}
+
+	public void setCatanColor(CatanColor color)
+	{
+		this.color = color.toString();
 	}
 
 	@Override
@@ -98,6 +107,15 @@ public class PlayerInfo
 		final PlayerInfo other = (PlayerInfo) obj;
 		
 		return this.id == other.id;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "{id: " + id +
+				", playerIndex: " + 0 +
+				", name: " + name +
+				", color: " + color.toString() + "}";
 	}
 }
 

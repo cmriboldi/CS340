@@ -26,8 +26,32 @@ public enum CatanColor
 		return color;
 	}
 	
-	
-	
+	public static CatanColor toCatanColor(String color)
+	{
+		switch(color.toLowerCase())
+		{
+			case "red":
+				return RED;
+			case "orange":
+				return ORANGE;
+			case "yellow":
+				return YELLOW;
+			case "blue":
+				return BLUE;
+			case "green":
+				return GREEN;
+			case "purple":
+				return PURPLE;
+			case "puce":
+				return PUCE;
+			case "white":
+				return WHITE;
+			case "brown":
+				return BROWN;
+			default:
+				return null;
+		}
+	}
 
 	public String toString()
 	{

@@ -98,7 +98,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		{
 			GameInfo[] games = Facade.listGames();
 			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
-			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+			getJoinGameView().setGames(games, localPlayer);
 		}
 		catch (ServerException e)
 		{
@@ -117,9 +117,22 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	}
 
 	@Override
-	public void cancelCreateNewGame() {
-		
-		getNewGameView().closeModal();
+	public void cancelCreateNewGame()
+	{
+		try
+		{
+			GameInfo[] games = Facade.listGames();
+			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+			getNewGameView().closeModal();
+		}
+		catch (ServerException e)
+		{
+			messageView.setTitle("Server Error");
+			messageView.setMessage("SERVER NOT RESPONDING");
+			messageView.showModal();
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -147,6 +160,17 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public void startJoinGame(GameInfo game)
 	{
 		this.gameToJoin = game;
+		for(PlayerInfo player : game.getPlayers())
+		{
+			System.out.println("There are " + game.getPlayers().size() + " players");
+			System.out.println("Looping");
+			System.out.println("Player color: " + player.toString());
+			if(player.getColor() != null && !Facade.getLocalPlayerInfo().equals(player))
+			{
+				System.out.println("Player color: " + player.getColor());
+				getSelectColorView().setColorEnabled(player.getCatanColor(), false);
+			}
+		}
 		getSelectColorView().showModal();
 	}
 
@@ -158,6 +182,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			GameInfo[] games = Facade.listGames();
 			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
 			((IJoinGameView)this.getView()).setGames(games, localPlayer);
+			getJoinGameView().closeModal();
 		}
 		catch (ServerException e)
 		{
@@ -166,7 +191,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			messageView.showModal();
 			e.printStackTrace();
 		}
-		getJoinGameView().closeModal();
 	}
 
 	@Override
@@ -178,6 +202,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			Facade.joinGame(this.gameToJoin.getId(), color);
 			Facade.startPoller();
 			getSelectColorView().closeModal();
+			getSelectColorView().setColorEnabled(color, false);
 			getJoinGameView().closeModal();
 			joinAction.execute();
 		}

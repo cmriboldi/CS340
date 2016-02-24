@@ -283,6 +283,16 @@ public class Facade extends Observable {
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
 
+    private void _addAI(String AIType) throws ServerException
+    {
+        proxy.addAI(AIType);
+    }
+
+    public static void addAI(String AIType) throws ServerException
+    {
+        instance()._addAI(AIType);
+    }
+
     /**
      *
      * @return

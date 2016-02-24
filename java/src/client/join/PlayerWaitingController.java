@@ -21,6 +21,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public PlayerWaitingController(IPlayerWaitingView view)
 	{
 		super(view);
+		Facade.addObserverStatic(this);
 	}
 
 	@Override
@@ -38,7 +39,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 			CatanModel catan = Facade.getGameModel();
 			Player[] players = catan.getPlayerManager().getCatanPlayers();
 			List<PlayerInfo> playersList = new ArrayList<>();
-			System.out.println("There are " + players.length + " players");
 			for(int i = 0; i < players.length; i++)
 			{
 				//System.out.println("Player " + i + " name: " + players[i].getName());
@@ -47,7 +47,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 					PlayerInfo playerInfo = new PlayerInfo();
 					playerInfo.setId(players[i].getId());
 					playerInfo.setName(players[i].getName());
-					playerInfo.setColor(players[i].getColor());
+					playerInfo.setColor(players[i].getColor().toString());
 					playersList.add(playerInfo);
 				}
 
@@ -59,7 +59,10 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 				playersInfo[i] = playersList.get(i);
 			}
 			getView().setPlayers(playersInfo);
-			getView().showModal();
+			if(playersList.size() < 4)
+				getView().showModal();
+			else
+				getView().closeModal();
 		}
 		catch (ServerException e)
 		{
@@ -70,13 +73,23 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void addAI()
 	{
-		getView().closeModal();
+		try
+		{
+			Facade.addAI(getView().getSelectedAI());
+			start();
+			//getView().closeModal();
+		}
+		catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void update(Observable o, Object arg)
 	{
-
+		System.out.println("Update being called");
+		start();
 	}
 }
 
