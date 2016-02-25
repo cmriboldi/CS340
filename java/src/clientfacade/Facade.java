@@ -10,9 +10,9 @@ import client.data.PlayerInfo;
 import model.CatanModel;
 import model.options.Options;
 import model.resources.ResourceList;
+import serverProxy.Poller;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
-import shared.communication.*;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
@@ -20,6 +20,7 @@ import shared.exceptions.player.PlayerNameNotFoundException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
+<<<<<<< bdde1574ac2be610eac45b1715920dd64f32eff9
 import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.CatanModel;
@@ -36,6 +37,8 @@ import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+=======
+>>>>>>> [STASH]
 /**
  * The Facade class controls all interations between the GUI and the CatanModel
  *
@@ -97,15 +100,20 @@ public class Facade extends Observable {
   //**********************************************************************************
     // Observable Functions
     //**********************************************************************************
-    private void _updateView(CatanModel catanModel) {
+    private void _updateView()
+    {
+    	this.setChanged();
+    	this.notifyObservers();
+    }
+    
+    private void _setView(CatanModel catanModel) {
         this.catanModel = catanModel;
         this.options.setCatanModel(this.catanModel);
-        this.setChanged();
-        this.notifyObservers();
+        this._updateView();
     }
 
-    public static void updateView(CatanModel catanModel) {
-        instance()._updateView(catanModel);
+    public static void setView(CatanModel catanModel) {
+        instance()._setView(catanModel);
     }
     
     private void _addObserver(Observer obs) {
@@ -127,13 +135,11 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _chat(String message) throws ServerException {
-        this.catanModel = proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message);
-        this.setChanged();
-        this.notifyObservers();
+        this._setView(this.proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message));
     }
 
     public static void chat(String message) throws ServerException {
-        _instance._chat(message);
+        instance()._chat(message);
     }
 
     /**
@@ -145,7 +151,7 @@ public class Facade extends Observable {
     }
 
     public static List<String> getChatMessages() {
-        return _instance._getChatMessages();
+        return instance()._getChatMessages();
     }
 
     /**
@@ -157,7 +163,7 @@ public class Facade extends Observable {
     }
 
     public static List<String> getChatSources() {
-        return _instance._getChatSources();
+        return instance()._getChatSources();
     }
 
     /**
@@ -169,7 +175,7 @@ public class Facade extends Observable {
     }
 
     public static List<String> getHistoryMessages() {
-        return _instance._getHistoryMessages();
+        return instance()._getHistoryMessages();
     }
 
     /**
@@ -181,7 +187,7 @@ public class Facade extends Observable {
     }
 
     public static List<String> getHistorySources() {
-        return _instance._getHistorySources();
+        return instance()._getHistorySources();
     }
 
     //**********************************************************************************
@@ -292,10 +298,7 @@ public class Facade extends Observable {
         die2 = (die2 % 6) + 1;
         int total = die1 + die2;
 
-        this.catanModel = this.proxy.rollNumber(this._getLocalPlayerInfo().getPlayerIndex(), total);
-        this.options = new Options(this.catanModel);
-        this.setChanged();
-        this.notifyObservers();
+        _setView(proxy.rollNumber(this._getLocalPlayerInfo().getPlayerIndex(), total));
         return total;
     }
 
@@ -333,12 +336,11 @@ public class Facade extends Observable {
      */
     private void _portTrade(int index, ResourceType toGive, ResourceType toGet) throws ServerException {
     	this.catanModel = proxy.maritimeTrade(getLocalPlayerInfo().getId(), index, toGive, toGet);
-        this.setChanged();
-        this.notifyObservers();
+        this._updateView();
     }
     
     public static void portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {
-    	_instance._portTrade(ratio, toGive, toGet);
+    	instance()._portTrade(ratio, toGive, toGet);
     }
     
   //**********************************************************************************
@@ -353,8 +355,7 @@ public class Facade extends Observable {
     private void _buyDevCard() throws ServerException {
     	this.catanModel = this.proxy.buyDevCard(this._getLocalPlayerInfo().getPlayerIndex());
     	this.options.setCatanModel(this.catanModel);
-    	this.setChanged();
-        this.notifyObservers(); 
+    	this._updateView();
     }
     
     public static void buyDevCard() throws ServerException
@@ -366,8 +367,7 @@ public class Facade extends Observable {
     {
     	this.catanModel = this.proxy.monument(this._getLocalPlayerInfo().getPlayerIndex());
     	this.options.setCatanModel(this.catanModel);
-    	this.setChanged();
-    	this.notifyObservers();
+    	this._updateView();
     }
     
     public static void playMonumentCard() throws ServerException
@@ -379,8 +379,7 @@ public class Facade extends Observable {
     {
     	this.catanModel = this.proxy.monopoly(this._getLocalPlayerInfo().getPlayerIndex(), resource);
     	this.options.setCatanModel(this.catanModel);
-    	this.setChanged();
-    	this.notifyObservers();
+    	this._updateView();
     }
     
     public static void playMonopolyCard(ResourceType resource) throws ServerException

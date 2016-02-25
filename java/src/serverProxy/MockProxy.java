@@ -97,7 +97,7 @@ public class MockProxy implements ServerProxy
 		} catch (GeneralPlayerException e) {
 			e.printStackTrace();
 		}
-		Facade.updateView(catanModel);
+		Facade.setView(catanModel);
 		return null;
 	}
 
