@@ -251,7 +251,7 @@ public class JSONDeserializer
 		for (int i = 0; i < hexes.size(); i++) {
 			JsonObject hex = hexes.get(i).getAsJsonObject();
 			JsonObject location = hex.getAsJsonObject("location");
-			String resource = "desert";
+			String resource = "DESERT";
 			int number = 0;
 
 			int x = location.getAsJsonPrimitive("x").getAsInt();
@@ -264,7 +264,7 @@ public class JSONDeserializer
 			}
 
 			//compile into Map structure
-			Hex entry = new Hex(x, y, resource, number);
+			Hex entry = new Hex(x, y, resource.toUpperCase(), number);
 			hexes_r.put(entry.location, entry);
 		}
 
