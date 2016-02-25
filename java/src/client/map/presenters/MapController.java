@@ -56,6 +56,9 @@ public class MapController extends Controller implements IMapController, Observe
 
     @Override
     public void update(Observable o, Object arg) {
+
+        System.out.println("LOG::MapController.update()::start");
+
         initFromModel();
         
         try {
@@ -97,11 +100,13 @@ public class MapController extends Controller implements IMapController, Observe
     protected void initFromModel() {
 
         //CLEAR THE VIEW
+        System.out.println("LOG::MapController.initFromModel()::start");
 
         //Acquire new model
         CatanModel model = Facade.getCatanModel();
 
         if (model != null) {
+            System.out.println("LOG::MapController.initFromModel(): model is not null");
             //initialize from said model
             /*
             1. Build Hexes, tile numbers, resources
@@ -111,14 +116,16 @@ public class MapController extends Controller implements IMapController, Observe
 			5. Place robber
 			 */
 
+
             //Add the hexes from the CatanModel, and add the tile numbers
             //POTENTIAL NEED: HANDLE ROBBER TILE
             HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
             for (HexLocation hexLoc : hexes.keySet()) {
                 Hex hex = hexes.get(hexLoc);
                 getView().addHex(hexLoc, hex.getResource());
-                getView().addNumber(hexLoc, hex.getNumber());
+                //getView().addNumber(hexLoc, hex.getNumber());
             }
+
 
             //Add the settlements AND cities from the CatanModel
             HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
@@ -155,10 +162,12 @@ public class MapController extends Controller implements IMapController, Observe
             HexLocation robber = model.getMapManager().getRobber();
             getView().placeRobber(robber);
 
+
+
         } else {
             //<temp>
-        /*
 
+/*
 		    Random rand = new Random();
 
         for (int x = 0; x <= 3; ++x) {
@@ -218,8 +227,8 @@ public class MapController extends Controller implements IMapController, Observe
 		getView().addNumber(new HexLocation(2, -2), 10);
 		getView().addNumber(new HexLocation(2, -1), 11);
 		getView().addNumber(new HexLocation(2, 0), 12);
+*/
 
-		*/
             //</temp>
         }
 
