@@ -185,23 +185,26 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void update(Observable o, Object arg) {
-		List<DevCardType> cards = Facade.getPlayerDevTypes();
-		List<Integer> cardAmounts = Facade.getPlayerDevAmounts();
-		List<Boolean> cardPlayables = Facade.getPlayerDevPlayables();
-		
-		
-		for(int i = 0; (i < cards.size()) && (i < cardAmounts.size()) && (i < cardPlayables.size()); i++)
+		if(Facade.getCatanModel() != null)
 		{
-			getPlayCardView().setCardAmount(cards.get(i), cardAmounts.get(i));
-			if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
-			{
-				getPlayCardView().setCardEnabled(cards.get(i), cardPlayables.get(i));
-			}
-			else
-			{
-				getPlayCardView().setCardEnabled(cards.get(i), false);
-			}
+			List<DevCardType> cards = Facade.getPlayerDevTypes();
+			List<Integer> cardAmounts = Facade.getPlayerDevAmounts();
+			List<Boolean> cardPlayables = Facade.getPlayerDevPlayables();
 			
+			
+			for(int i = 0; (i < cards.size()) && (i < cardAmounts.size()) && (i < cardPlayables.size()); i++)
+			{
+				getPlayCardView().setCardAmount(cards.get(i), cardAmounts.get(i));
+				if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+				{
+					getPlayCardView().setCardEnabled(cards.get(i), cardPlayables.get(i));
+				}
+				else
+				{
+					getPlayCardView().setCardEnabled(cards.get(i), false);
+				}
+				
+			}
 		}
 		
 	}
