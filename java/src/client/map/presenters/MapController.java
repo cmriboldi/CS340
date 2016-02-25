@@ -11,6 +11,7 @@ import model.map.Hex;
 import model.map.Port;
 import model.map.Road;
 import model.map.Settlement;
+import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.exceptions.map.InvalidMapStateException;
 import shared.locations.*;
@@ -239,11 +240,21 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void placeRoad(EdgeLocation edgeLoc) {
-        currentState.placeRoad(edgeLoc);
+        try {
+			currentState.placeRoad(edgeLoc);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public void placeSettlement(VertexLocation vertLoc) {
-        currentState.placeSettlement(vertLoc);
+        try {
+			currentState.placeSettlement(vertLoc);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     public void placeCity(VertexLocation vertLoc) {

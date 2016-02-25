@@ -56,24 +56,23 @@ public class MapPlayingState implements MapControllerState
 		return Facade.getCatanModel().getOptions().canPlaceRobber(localPlayerId); 	
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc) throws ServerException {
-		//TODO
-		// ask the canDo if I CAN build a road. 
-		// build a road through the server proxy
-		///Facade.
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-
+	public void placeRoad(EdgeLocation edgeLoc) throws ServerException
+	{
+		// Doesn't need to check the canDo method? 
+		int localPlayerId = 0;
+		try {
+			localPlayerId = Facade.getLocalPlayerInfo().getId();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Facade.buildRoad(localPlayerId,edgeLoc, false);
-		
-		
-	
 	}
 
-	public void placeSettlement(VertexLocation vertLoc)
+	public void placeSettlement(VertexLocation vertLoc) throws ServerException
 	{
-		//TODO
-		// ask the canDo if I CAN place Settlement
-		// placeSettlement Through the server proxy
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		Facade.buildTown(localPlayerId, vertLoc, false);
 	}
 
 	public void placeCity(VertexLocation vertLoc)

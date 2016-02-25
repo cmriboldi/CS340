@@ -2,6 +2,7 @@ package client.map.presenters;
 
 import client.base.*;
 import client.data.*;
+import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -64,8 +65,9 @@ public interface IMapController extends IController
 	 * 
 	 * @param edgeLoc
 	 *            The road location
+	 * @throws ServerException 
 	 */
-	void placeRoad(EdgeLocation edgeLoc);
+	void placeRoad(EdgeLocation edgeLoc) throws ServerException;
 	
 	/**
 	 * This method is called when the user clicks the mouse to place a
@@ -73,8 +75,9 @@ public interface IMapController extends IController
 	 * 
 	 * @param vertLoc
 	 *            The settlement location
+	 * @throws ServerException 
 	 */
-	void placeSettlement(VertexLocation vertLoc);
+	void placeSettlement(VertexLocation vertLoc) throws ServerException;
 	
 	/**
 	 * This method is called when the user clicks the mouse to place a city.

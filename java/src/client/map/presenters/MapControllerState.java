@@ -50,7 +50,7 @@ public interface MapControllerState {
 
     public void placeRoad(EdgeLocation edgeLoc) throws ServerException;
 
-    public void placeSettlement(VertexLocation vertLoc);
+    public void placeSettlement(VertexLocation vertLoc) throws ServerException;
 
     public void placeCity(VertexLocation vertLoc);
 

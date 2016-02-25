@@ -19,6 +19,7 @@ import shared.definitions.ResourceType;
 import shared.exceptions.player.PlayerNameNotFoundException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 
 
 /**
@@ -198,10 +199,18 @@ public class Facade extends Observable {
      * Builds a town for a specific player
      *
      * @param index of player building town
+     * @throws ServerException 
      */
-    private void _buildTown(int index) {
+    private void _buildTown(int playerIndex, VertexLocation vert, boolean free) throws ServerException {
+    	proxy.buildSettlement(playerIndex, vert, free);
 
     }
+    
+    public static void buildTown (int playerIndex, VertexLocation vertex, boolean free) throws ServerException
+    {
+    	instance()._buildTown(playerIndex, vertex, free);
+    }
+    
 
     /**
      * Builds a city for a specific player
