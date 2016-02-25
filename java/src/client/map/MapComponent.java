@@ -12,7 +12,6 @@ import javax.swing.*;
 import client.base.*;
 import client.map.presenters.IMapController;
 import client.utils.*;
-import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -566,21 +565,26 @@ public class MapComponent extends JComponent
 						case ROAD:
 						try {
 							getController().placeRoad(dropEdgeLoc);
-						} catch (ServerException e2) {
+						} catch (Exception e1) {
 							// TODO Auto-generated catch block
-							e2.printStackTrace();
+							e1.printStackTrace();
 						}
 							break;
 						case SETTLEMENT:
 						try {
 							getController().placeSettlement(dropVertLoc);
-						} catch (ServerException e1) {
+						} catch (Exception e1) {
 							// TODO Auto-generated catch block
 							e1.printStackTrace();
 						}
 							break;
 						case CITY:
+						try {
 							getController().placeCity(dropVertLoc);
+						} catch (Exception e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 							break;
 						case ROBBER:
 							getController().placeRobber(dropHexLoc);

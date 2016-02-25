@@ -257,7 +257,7 @@ public class MapController extends Controller implements IMapController, Observe
 		}
     }
 
-    public void placeCity(VertexLocation vertLoc) {
+    public void placeCity(VertexLocation vertLoc) throws ServerException {
         currentState.placeCity(vertLoc);
     }
 

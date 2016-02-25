@@ -52,7 +52,7 @@ public interface MapControllerState {
 
     public void placeSettlement(VertexLocation vertLoc) throws ServerException;
 
-    public void placeCity(VertexLocation vertLoc);
+    public void placeCity(VertexLocation vertLoc) throws ServerException;
 
     public void placeRobber(HexLocation hexLoc);
 

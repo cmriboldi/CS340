@@ -9,7 +9,6 @@ import client.base.*;
 import client.data.*;
 import client.map.MapComponent;
 import client.map.presenters.IMapController;
-import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -141,7 +140,7 @@ public class MapView extends PanelView implements IMapView
 			closeModal();
 			try {
 				getController().placeRoad(edgeLoc);
-			} catch (ServerException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -154,7 +153,7 @@ public class MapView extends PanelView implements IMapView
 			closeModal();
 			try {
 				getController().placeSettlement(vertLoc);
-			} catch (ServerException e) {
+			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
@@ -165,7 +164,12 @@ public class MapView extends PanelView implements IMapView
 		{
 			
 			closeModal();
-			getController().placeCity(vertLoc);
+			try {
+				getController().placeCity(vertLoc);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		@Override

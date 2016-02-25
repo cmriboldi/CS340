@@ -186,10 +186,12 @@ public class Facade extends Observable {
      * @param index of player building road
      * @throws ServerException 
      */
+    //PRIVATE METHOD
     private void _buildRoad(int index, EdgeLocation edge, boolean free) throws ServerException {
     	this._setView(this.proxy.buildRoad(index, edge, free));
     }
-
+    
+    //PUBLIC METHOD
     public static void buildRoad (int index, EdgeLocation edge, boolean free) throws ServerException
     {
     	instance()._buildRoad(index, edge, free);
@@ -201,11 +203,13 @@ public class Facade extends Observable {
      * @param index of player building town
      * @throws ServerException 
      */
+    //PRIVATE METHOD
     private void _buildTown(int playerIndex, VertexLocation vert, boolean free) throws ServerException {
     	proxy.buildSettlement(playerIndex, vert, free);
 
     }
     
+    //PUBLIC METHOD
     public static void buildTown (int playerIndex, VertexLocation vertex, boolean free) throws ServerException
     {
     	instance()._buildTown(playerIndex, vertex, free);
@@ -216,10 +220,21 @@ public class Facade extends Observable {
      * Builds a city for a specific player
      *
      * @param index of player building city
+     * @throws ServerException 
      */
-    private void _buildCity(int index) {
+    //PRIVATE METHOD
+    private void _buildCity(int playerIndex, VertexLocation vertex) throws ServerException {
+    	proxy.buildCity(playerIndex, vertex); 
 
     }
+    
+    //PUBLIC METHOD
+    public static void buildCity (int playerIndex, VertexLocation vertex) throws ServerException
+    {
+    	instance()._buildCity(playerIndex, vertex);
+    }
+    
+    
 
     /**
      * Places the robber in a hex specified by a specific player

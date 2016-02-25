@@ -84,8 +84,9 @@ public interface IMapController extends IController
 	 * 
 	 * @param vertLoc
 	 *            The city location
+	 * @throws ServerException 
 	 */
-	void placeCity(VertexLocation vertLoc);
+	void placeCity(VertexLocation vertLoc) throws ServerException;
 	
 	/**
 	 * This method is called when the user clicks the mouse to place the robber.

@@ -69,14 +69,27 @@ public class MapPlayingState implements MapControllerState
 		Facade.buildRoad(localPlayerId,edgeLoc, false);
 	}
 
-	public void placeSettlement(VertexLocation vertLoc) throws ServerException
+	public void placeSettlement(VertexLocation vertLoc) 
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		Facade.buildTown(localPlayerId, vertLoc, false);
+		try {
+			Facade.buildTown(localPlayerId, vertLoc, false);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	public void placeCity(VertexLocation vertLoc)
 	{
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		try {
+			Facade.buildCity (localPlayerId, vertLoc);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		//TODO
 		// ask the canDo if I CAN place Settlement
 		// placeSettlement Through the server proxy
