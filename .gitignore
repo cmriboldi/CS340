@@ -3,6 +3,7 @@
 **/build/
 **/dist/
 **/out/
+**/*.log
 **/*.class
 **/demo/saves/*
 **/Catan.iml
