@@ -113,7 +113,7 @@ public class MapController extends Controller implements IMapController, Observe
             HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
             for (HexLocation hexLoc : hexes.keySet()) {
                 Hex hex = hexes.get(hexLoc);
-                getView().addHex(hexLoc, HexType.valueOf(hex.getResource()));
+                getView().addHex(hexLoc, hex.getResource());
                 getView().addNumber(hexLoc, hex.getNumber());
             }
 

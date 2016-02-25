@@ -2,6 +2,7 @@ package model.map;
 
 //Project Imports
 
+import shared.definitions.HexType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
@@ -21,6 +22,8 @@ public class Hex {
      * String, possible enumeration, of the resource this hex provides
      */
     String resource;
+
+    HexType resourceHexType;
 
     /**
      * The representation of the number tile associated with this hex
@@ -44,7 +47,8 @@ public class Hex {
     public Hex(int x_t, int y_t, String resource_t, int number_t) {
         location = new HexLocation(x_t, y_t);
         number = number_t;
-        resource = resource_t;
+        resource = resource_t; /*Depreciated*/
+        resourceHexType = HexType.valueOf(resource);
     }
 
     /**
@@ -59,8 +63,8 @@ public class Hex {
         location = null;
     }
 
-    public String getResource() {
-        return resource;
+    public HexType getResource() {
+        return resourceHexType;
     }
 
     public int getNumber() {
