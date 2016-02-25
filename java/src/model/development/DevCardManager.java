@@ -132,8 +132,7 @@ public class DevCardManager
 	}
 
 	public Integer playerDevCardCount(int playerIndex, DevCardType devCard) {
-		// TODO Auto-generated method stub
-		return null;
+		return newDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard) + oldDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard);
 	}
 	
 }
