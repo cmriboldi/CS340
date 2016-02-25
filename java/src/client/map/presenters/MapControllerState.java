@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -47,7 +48,7 @@ public interface MapControllerState {
    
     
 
-    public void placeRoad(EdgeLocation edgeLoc);
+    public void placeRoad(EdgeLocation edgeLoc) throws ServerException;
 
     public void placeSettlement(VertexLocation vertLoc);
 

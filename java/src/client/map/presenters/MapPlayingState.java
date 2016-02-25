@@ -2,6 +2,7 @@ package client.map.presenters;
 
 import client.data.RobPlayerInfo;
 import clientfacade.Facade;
+import serverProxy.ServerException;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -55,8 +56,7 @@ public class MapPlayingState implements MapControllerState
 		return Facade.getCatanModel().getOptions().canPlaceRobber(localPlayerId); 	
 	}
 
-	public void placeRoad(EdgeLocation edgeLoc)
-	{
+	public void placeRoad(EdgeLocation edgeLoc) throws ServerException {
 		//TODO
 		// ask the canDo if I CAN build a road. 
 		// build a road through the server proxy
