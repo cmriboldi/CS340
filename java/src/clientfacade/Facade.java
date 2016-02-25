@@ -75,8 +75,11 @@ public class Facade extends Observable {
     //**********************************************************************************
     private void _updateView()
     {
-    	this.setChanged();
-    	this.notifyObservers();
+    	if(this.catanModel != null)
+    	{
+    		this.setChanged();
+    		this.notifyObservers();
+    	}
     }
     
     private void _setView(CatanModel catanModel) {
@@ -107,7 +110,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _chat(String message) throws ServerException {
-        this._setView(this.proxy.sendChat(catanModel.playerManager.getTurnTracker().getTurnIndex(), message));
+        this._setView(this.proxy.sendChat(this._getLocalPlayerInfo().getPlayerIndex(), message));
     }
 
     public static void chat(String message) throws ServerException {
@@ -358,7 +361,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _portTrade(int index, ResourceType toGive, ResourceType toGet) throws ServerException {
-    	this._setView(this.proxy.maritimeTrade(getLocalPlayerInfo().getId(), index, toGive, toGet));
+    	this._setView(this.proxy.maritimeTrade(this._getLocalPlayerInfo().getId(), index, toGive, toGet));
     }
     
     public static void portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {
@@ -505,6 +508,20 @@ public class Facade extends Observable {
     public static PlayerInfo getLocalPlayerInfo() {
         return instance()._getLocalPlayerInfo();
     }
+    
+    private int _getLocalPlayerIndex() {
+    	int playerIndex = _getLocalPlayerInfo().getPlayerIndex();
+    	if(playerIndex < 0 || playerIndex >= 3) {
+    		playerIndex = _getCatanModel().playerManager.getIndexFromId(this.proxy.getLocalPlayerInfo().getId());
+    		_getLocalPlayerInfo().setPlayerIndex(playerIndex);
+    	}
+        return playerIndex;
+    }
+
+    public static int getLocalPlayerIndex() {
+        return instance()._getLocalPlayerIndex();
+    }
+    
 
     /**
      * Generates a game list for the Client
@@ -550,6 +567,7 @@ public class Facade extends Observable {
 
     private void _joinGame(int gameId, CatanColor color) throws ServerException {
         this.proxy.joinGame(gameId, color);
+        this.catanModel = this.proxy.getGameModel();
     }
 
     /**

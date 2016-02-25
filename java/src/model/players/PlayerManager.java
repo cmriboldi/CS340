@@ -63,5 +63,19 @@ public class PlayerManager
 		throw new PlayerNameNotFoundException();
 	}
 
+	public int getIndexFromId(int id)
+	{
+		int playerIndex = -1;
+		for (int i = 0; i < catanPlayers.length; i++)
+		{
+			Player player = catanPlayers[i]; 
+			if(player.getId() == id)
+			{
+				playerIndex = player.getPlayerIndex();
+			}
+		}
+		return playerIndex;
+	}
+
 
 }

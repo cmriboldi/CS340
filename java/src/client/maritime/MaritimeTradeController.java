@@ -22,7 +22,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	private IMaritimeTradeOverlay tradeOverlay;
 	private ResourceType[] enabledGetResources = new ResourceType[]{ResourceType.BRICK,ResourceType.ORE,ResourceType.SHEEP,ResourceType.WHEAT,ResourceType.WOOD};
-	private ResourceType[] enabledGiveResources = new ResourceType[]{ResourceType.BRICK,ResourceType.ORE,ResourceType.SHEEP,ResourceType.WHEAT,ResourceType.WOOD};
+	private ResourceType[] enabledGiveResources = new ResourceType[]{};
 	private Map<ResourceType, Integer> ratioMap = null;
 	private ResourceType giveResourceType;
 	private ResourceType getResourceType;
@@ -33,7 +33,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		super(tradeView);
 		ratioMap = new HashMap<ResourceType, Integer>();
 		setTradeOverlay(tradeOverlay);
-		System.out.println("We have arrived at Ports");
 
 		Facade.addObserverStatic(this);
 	}
@@ -87,11 +86,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 	@Override
 	public void setGiveResource(ResourceType resource) {
-		System.out.println("called setGiveResource");
-		System.out.println("getTradeOverlay is: "+ getTradeOverlay());
-		System.out.println("ratioMap.get(resource) is: "+ ratioMap.get(resource));
-		System.out.println("enabledGetResources is: "+ enabledGetResources);
-		
 		giveResourceType = resource;
 		
 		if(ratioMap != null && ratioMap.get(resource) != null) {
@@ -120,14 +114,10 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		System.out.println("We have arrived at Ports");
-		System.out.println("");
-		
 		Vector<ResourceType> enabledResources = new Vector<ResourceType>();
-		int localPlayer = Facade.getLocalPlayerInfo().getPlayerIndex();
+		int localPlayer = Facade.getLocalPlayerIndex();
 		ratioMap = new HashMap<ResourceType, Integer>();
 		
-
 		if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(4,0,0,0,0))) {
 			enabledResources.add(ResourceType.BRICK);
 			ratioMap.put(ResourceType.BRICK, 4);
