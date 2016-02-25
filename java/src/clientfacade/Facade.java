@@ -241,9 +241,23 @@ public class Facade extends Observable {
      *
      * @param index of player using robber
      */
-    private void _placeRobber(int index) {
-
+    // PRIVATE METHOD
+    private void _placeRobber(int playerIndex, int victimIndex, HexLocation hex) {
+    	try {
+			proxy.robPlayer(playerIndex, victimIndex, hex);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
     }
+    
+    
+    //PUBLIC METHOD
+    public static void placeRobber (int playerIndex, int victimIndex, HexLocation hex) 
+    {
+    	instance()._placeRobber(playerIndex, victimIndex, hex);
+    }
+    
 
 
     //**********************************************************************************

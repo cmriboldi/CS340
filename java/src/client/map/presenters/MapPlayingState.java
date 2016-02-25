@@ -89,16 +89,25 @@ public class MapPlayingState implements MapControllerState
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
-		//TODO
-		// ask the canDo if I CAN place Settlement
-		// placeSettlement Through the server proxy
+
 	}
 
 	public void placeRobber(HexLocation hexLoc)
 	{
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		
+		//JOSH's Code goes here
+		
+		//Facade.placeRobber(localPlayerId, victimIndex, hexLoc); // not called here because needs to be done
+																	//because it's getting called by rob view
+
+	}
+	
+	public void robPlayer(RobPlayerInfo victim)
+	{
 		//TODO
 	}
+
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
@@ -120,11 +129,7 @@ public class MapPlayingState implements MapControllerState
 		//TODO
 	}
 
-	public void robPlayer(RobPlayerInfo victim)
-	{
-		//TODO
-	}
-
+	
 	@Override
 	public boolean canPlaySoldier() {
 		//TODO

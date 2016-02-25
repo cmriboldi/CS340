@@ -27,6 +27,9 @@ public class MapController extends Controller implements IMapController, Observe
     private IRobView robView;
     private MapControllerState currentState;
 
+    
+    
+    
     public MapController(IMapView view, IRobView robView) {
 
         super(view);
@@ -261,9 +264,7 @@ public class MapController extends Controller implements IMapController, Observe
         currentState.placeCity(vertLoc);
     }
 
-    public void placeRobber(HexLocation hexLoc) {
-        currentState.placeRobber(hexLoc);
-    }
+  
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
         currentState.startMove(pieceType, isFree, allowDisconnected);
@@ -292,5 +293,12 @@ public class MapController extends Controller implements IMapController, Observe
     public void setCurrentState(MapControllerState currentState) {
         this.currentState = currentState;
     }
+
+	@Override
+	public void placeRobber(HexLocation hexLoc) {
+		currentState.placeRobber(hexLoc);
+	}
+			
+
 }
 

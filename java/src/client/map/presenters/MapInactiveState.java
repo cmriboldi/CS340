@@ -65,10 +65,6 @@ public class MapInactiveState implements MapControllerState
 		// do nothing
 	}
 
-	public void placeRobber(HexLocation hexLoc)
-	{
-		// do nothing
-	}
 
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
@@ -90,10 +86,7 @@ public class MapInactiveState implements MapControllerState
 		// do nothing
 	}
 
-	public void robPlayer(RobPlayerInfo victim)
-	{
-		// do nothing
-	}
+
 
 	@Override
 	public boolean canPlaySoldier() {
@@ -108,5 +101,17 @@ public class MapInactiveState implements MapControllerState
 	@Override
 	public boolean canRobPlayer() {
 		return false;
+	}
+
+	@Override
+	public void placeRobber(HexLocation hexLoc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void robPlayer(RobPlayerInfo victim) {
+		// TODO Auto-generated method stub
+		
 	}
 }

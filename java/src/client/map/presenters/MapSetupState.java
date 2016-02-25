@@ -68,11 +68,6 @@ public class MapSetupState implements MapControllerState
 		// do nothing
 	}
 
-	public void placeRobber(HexLocation hexLoc)
-	{
-		// do nothing
-	}
-
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
 		// ??? Not sure what this does. 
@@ -93,11 +88,8 @@ public class MapSetupState implements MapControllerState
 		// do nothing	
 	}
 
-	public void robPlayer(RobPlayerInfo victim)
-	{
-		// do nothing
-	}
 
+	
 	@Override
 	public boolean canPlaySoldier() {
 		return false;
@@ -111,5 +103,17 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public boolean canRobPlayer() {
 		return false;
+	}
+
+	@Override
+	public void placeRobber(HexLocation hexLoc) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void robPlayer(RobPlayerInfo victim) {
+		// TODO Auto-generated method stub
+		
 	}
 }
