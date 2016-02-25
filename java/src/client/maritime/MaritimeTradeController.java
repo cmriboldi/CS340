@@ -92,13 +92,13 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		System.out.println("ratioMap.get(resource) is: "+ ratioMap.get(resource));
 		System.out.println("enabledGetResources is: "+ enabledGetResources);
 		
-		tradeRatio = ratioMap.get(resource);
 		giveResourceType = resource;
 		
-//		if(ratioMap != null && ratioMap.get(resource) != null) {
-//			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
+		if(ratioMap != null && ratioMap.get(resource) != null) {
+			tradeRatio = ratioMap.get(resource);
+			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
 			getTradeOverlay().selectGiveOption(resource, 4);
-//		}
+		}
 		getTradeOverlay().showGetOptions(enabledGetResources);
 	}
 

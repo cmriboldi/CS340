@@ -132,7 +132,11 @@ public class DevCardManager
 	}
 
 	public Integer playerDevCardCount(int playerIndex, DevCardType devCard) {
-		return newDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard) + oldDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard);
+		int unusedCardsCount = 0;
+		if(playerIndex < 4 && playerIndex >= 0) {
+			unusedCardsCount = newDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard) + oldDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard);
+		}
+		return unusedCardsCount;
 	}
 	
 }

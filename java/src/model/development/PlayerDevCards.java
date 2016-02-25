@@ -84,7 +84,11 @@ public class PlayerDevCards
 	 */
 	public boolean hasDevCard(int playerIndex, DevCardType devCard)
 	{
-		return playerDevCards[playerIndex].hasDevCard(devCard);
+		boolean hasCard = false;
+		if(playerIndex < 4 && playerIndex >= 0) {
+			hasCard = playerDevCards[playerIndex].hasDevCard(devCard);
+		}
+		return hasCard;
 	}
 
 	
