@@ -6,11 +6,13 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.*;
 import java.awt.image.*;
+
 import javax.swing.*;
 
 import client.base.*;
 import client.map.presenters.IMapController;
 import client.utils.*;
+import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -562,10 +564,20 @@ public class MapComponent extends JComponent
 					switch (dropType)
 					{
 						case ROAD:
+						try {
 							getController().placeRoad(dropEdgeLoc);
+						} catch (ServerException e2) {
+							// TODO Auto-generated catch block
+							e2.printStackTrace();
+						}
 							break;
 						case SETTLEMENT:
+						try {
 							getController().placeSettlement(dropVertLoc);
+						} catch (ServerException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
 							break;
 						case CITY:
 							getController().placeCity(dropVertLoc);

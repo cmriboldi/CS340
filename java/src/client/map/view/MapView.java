@@ -2,12 +2,14 @@ package client.map.view;
 
 import java.awt.*;
 import java.awt.event.*;
+
 import javax.swing.*;
 
 import client.base.*;
 import client.data.*;
 import client.map.MapComponent;
 import client.map.presenters.IMapController;
+import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
 
@@ -137,7 +139,12 @@ public class MapView extends PanelView implements IMapView
 		{
 			
 			closeModal();
-			getController().placeRoad(edgeLoc);
+			try {
+				getController().placeRoad(edgeLoc);
+			} catch (ServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		@Override
@@ -145,7 +152,12 @@ public class MapView extends PanelView implements IMapView
 		{
 			
 			closeModal();
-			getController().placeSettlement(vertLoc);
+			try {
+				getController().placeSettlement(vertLoc);
+			} catch (ServerException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 		
 		@Override
