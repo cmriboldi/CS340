@@ -118,11 +118,11 @@ public class MapController extends Controller implements IMapController, Observe
 
 
             //Add the hexes from the CatanModel, and add the tile numbers
-            //POTENTIAL NEED: HANDLE ROBBER TILE
             HashMap<HexLocation, Hex> hexes = model.getMapManager().getHexes();
             for (HexLocation hexLoc : hexes.keySet()) {
                 Hex hex = hexes.get(hexLoc);
                 getView().addHex(hexLoc, hex.getResource());
+                System.out.println("LOG::MapController.initFromModel::loadingHex\n\thexLoc: " + hexLoc.toString() + "\n\tresource: " + hex.getResource() + "\n\tnumber: " + hex.getResource());
                 //getView().addNumber(hexLoc, hex.getNumber());
             }
 
