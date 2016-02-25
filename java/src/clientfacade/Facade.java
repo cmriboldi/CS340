@@ -36,7 +36,6 @@ public class Facade extends Observable {
 
     private CatanModel catanModel;
     private RealProxy proxy;
-    private Options options;
 
 
     //**********************************************************************************
@@ -44,7 +43,6 @@ public class Facade extends Observable {
     //**********************************************************************************
     private Facade() {
         this.proxy = new RealProxy();
-        this.options = new Options(this.catanModel);
     }
 
     private static Facade instance() {
@@ -61,14 +59,6 @@ public class Facade extends Observable {
 
     public static CatanModel getCatanModel() {
         return instance()._getCatanModel();
-    }
-    
-    private Options _getOptions() {
-    	return this.options;
-    }
-    
-    public static Options getOptions() {
-    	return instance()._getOptions();
     }
     
     private RealProxy _getProxy() {
@@ -90,7 +80,6 @@ public class Facade extends Observable {
     
     private void _setView(CatanModel catanModel) {
         this.catanModel = catanModel;
-        this.options.setCatanModel(this.catanModel);
         this._updateView();
     }
 

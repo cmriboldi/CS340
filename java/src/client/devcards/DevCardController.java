@@ -51,7 +51,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void startBuyCard() {
-		if(Facade.getOptions().canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			getBuyCardView().showModal();
 		}
@@ -68,7 +68,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void buyCard() {
-		if(Facade.getOptions().canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
 				Facade.buyDevCard();
@@ -86,7 +86,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void startPlayCard() {
-		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			getPlayCardView().showModal();
 		}
@@ -104,7 +104,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
 				Facade.playMonopolyCard(resource);
@@ -122,7 +122,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonumentCard() {
-		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
 				Facade.playMonumentCard();
@@ -140,7 +140,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playRoadBuildCard() {
-		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			getPlayCardView().closeModal();
 			roadAction.execute();
@@ -153,7 +153,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playSoldierCard() {
-		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			getPlayCardView().closeModal();
 			soldierAction.execute();
@@ -167,7 +167,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
 				Facade.playYearOfPlentyCard(resource1, resource2);
@@ -193,7 +193,7 @@ public class DevCardController extends Controller implements IDevCardController,
 		for(int i = 0; (i < cards.size()) && (i < cardAmounts.size()) && (i < cardPlayables.size()); i++)
 		{
 			getPlayCardView().setCardAmount(cards.get(i), cardAmounts.get(i));
-			if(Facade.getOptions().canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
+			if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 			{
 				getPlayCardView().setCardEnabled(cards.get(i), cardPlayables.get(i));
 			}
