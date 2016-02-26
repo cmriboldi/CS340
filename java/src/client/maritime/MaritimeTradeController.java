@@ -114,6 +114,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(!Facade.hasGameStarted())
+			return;
+
 		Vector<ResourceType> enabledResources = new Vector<ResourceType>();
 		int localPlayer = Facade.getLocalPlayerIndex();
 		ratioMap = new HashMap<ResourceType, Integer>();
