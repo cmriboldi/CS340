@@ -65,6 +65,8 @@ public class DiscardController extends Controller implements IDiscardController,
 				else if(wood >= woodTotal)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, false, true);
 				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
+				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
 				else
@@ -77,6 +79,8 @@ public class DiscardController extends Controller implements IDiscardController,
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, true);
 				else if(brick >= brickTotal)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, false, true);
+				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
 				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
@@ -91,6 +95,8 @@ public class DiscardController extends Controller implements IDiscardController,
 				else if(sheep >= sheepTotal)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, false, true);
 				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
+				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
 				else
@@ -104,6 +110,8 @@ public class DiscardController extends Controller implements IDiscardController,
 				else if(wheat >= wheatTotal)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, false, true);
 				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
+				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
 				else
@@ -116,6 +124,8 @@ public class DiscardController extends Controller implements IDiscardController,
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, true);
 				else if(ore >= oreTotal)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, false, true);
+				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
 				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
@@ -137,6 +147,8 @@ public class DiscardController extends Controller implements IDiscardController,
 				else if(wood <= 0)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
 				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
+				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
 				else
@@ -149,6 +161,8 @@ public class DiscardController extends Controller implements IDiscardController,
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, true);
 				else if(brick <= 0)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
+				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
 				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
@@ -163,6 +177,8 @@ public class DiscardController extends Controller implements IDiscardController,
 				else if(sheep <= 0)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
 				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
+				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
 				else
@@ -176,6 +192,8 @@ public class DiscardController extends Controller implements IDiscardController,
 				else if(wheat <= 0)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
 				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
+				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
 				else
@@ -188,6 +206,8 @@ public class DiscardController extends Controller implements IDiscardController,
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, true);
 				else if(ore <= 0)
 					getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
+				
+				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
 				
 				if(wood+brick+sheep+wheat+ore >= amount)
 					getDiscardView().setDiscardButtonEnabled(true);
@@ -223,7 +243,7 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(Facade.getTurnStatus() == "discarding" && !getDiscardView().isModalShowing())
+		if((Facade.getTurnStatus() == "discarding") && (!getDiscardView().isModalShowing()))
 		{		
 			woodTotal = Facade.getResourceAmount(ResourceType.WOOD);
 			brickTotal = Facade.getResourceAmount(ResourceType.BRICK);
