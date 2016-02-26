@@ -208,7 +208,7 @@ public class Facade extends Observable {
      */
     //PRIVATE METHOD
     private void _buildTown(int playerIndex, VertexLocation vert, boolean free) throws ServerException {
-    	proxy.buildSettlement(playerIndex, vert, free);
+    	this._setView(this.proxy.buildSettlement(playerIndex, vert, free));
 
     }
     
@@ -227,7 +227,7 @@ public class Facade extends Observable {
      */
     //PRIVATE METHOD
     private void _buildCity(int playerIndex, VertexLocation vertex) throws ServerException {
-    	proxy.buildCity(playerIndex, vertex); 
+    	this._setView(this.proxy.buildCity(playerIndex, vertex)); 
 
     }
     
