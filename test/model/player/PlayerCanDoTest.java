@@ -12,7 +12,7 @@ import model.players.PlayerManager;
 import model.players.PlayerTurnTracker;
 import serverProxy.JSONDeserializer;
 import shared.definitions.DevCardType;
-import serverProxy.JsonFileLoader;
+import serverProxy.JsonLoader;
 import test.TestJSON;
 
 // Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
@@ -33,7 +33,7 @@ public class PlayerCanDoTest
 		options = cm.options;
 		
 		
-		String json = JsonFileLoader.readFile("json/default.json");
+		String json = JsonLoader.readFile("json/default.json");
         CatanModel cm2 = JSONDeserializer.deserialize(json);
         
 	}

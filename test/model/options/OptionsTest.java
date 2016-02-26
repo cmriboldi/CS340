@@ -14,7 +14,7 @@ import shared.definitions.Cost;
 import shared.definitions.DevCardType;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 import shared.locations.*;
-import serverProxy.JsonFileLoader;
+import serverProxy.JsonLoader;
 
 public class OptionsTest
 {
@@ -25,7 +25,7 @@ public class OptionsTest
 	@Before
 	public void setUp() throws Exception
 	{
-		String json = JsonFileLoader.readFile("json/empty.json");
+		String json = JsonLoader.readFile("json/empty.json");
         cm = JSONDeserializer.deserialize(json);
         options = cm.options;
 	}
