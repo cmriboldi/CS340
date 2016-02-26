@@ -296,6 +296,18 @@ public class Facade extends Observable {
         return instance()._roll();
     }
     
+    private Boolean _isMyTurn()
+    {
+    	if(this.catanModel.playerManager.turnTracker.getTurnIndex() == this._getLocalPlayerIndex())
+    		return true;
+    	return false;
+    }
+    
+    public static Boolean isMyturn()
+    {
+    	return instance()._isMyTurn();
+    }
+    
     private String _getTurnStatus()
     {
     	return this.catanModel.playerManager.turnTracker.getStatus();

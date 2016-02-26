@@ -54,8 +54,6 @@ public interface MapControllerState {
 
     public void placeCity(VertexLocation vertLoc) throws ServerException;
 
-    
-    //placeRobber(HexLocation hexLoc, int victimIndex)
     public void placeRobber(HexLocation hexLoc);
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected);

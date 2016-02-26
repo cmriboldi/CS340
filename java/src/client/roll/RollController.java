@@ -1,5 +1,8 @@
 package client.roll;
 
+import java.util.Observable;
+import java.util.Observer;
+
 import client.base.*;
 import clientfacade.Facade;
 import serverProxy.ServerException;
@@ -8,7 +11,7 @@ import serverProxy.ServerException;
 /**
  * Implementation for the roll controller
  */
-public class RollController extends Controller implements IRollController {
+public class RollController extends Controller implements IRollController, Observer {
 
 	private IRollResultView resultView;
 
@@ -23,6 +26,7 @@ public class RollController extends Controller implements IRollController {
 		super(view);
 		
 		setResultView(resultView);
+		Facade.addObserverStatic(this);
 	}
 	
 	public IRollResultView getResultView() {
@@ -46,6 +50,16 @@ public class RollController extends Controller implements IRollController {
 			e.printStackTrace();
 		}
 		getResultView().showModal();
+	}
+
+	@Override
+	public void update(Observable o, Object arg) {
+		if(Facade.getTurnStatus() == "rolling" && Facade.isMyturn())
+		{
+			if(!getRollView().isModalShowing())
+				getRollView().showModal();
+		}
+		
 	}
 
 }
