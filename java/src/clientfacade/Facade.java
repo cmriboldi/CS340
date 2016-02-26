@@ -540,7 +540,7 @@ public class Facade extends Observable {
 
     private void _joinGame(int gameId, CatanColor color) throws ServerException {
         this.proxy.joinGame(gameId, color);
-        this.catanModel = this.proxy.getGameModel();
+        this._setView(this.catanModel = this.proxy.getGameModel());
     }
 
     /**
