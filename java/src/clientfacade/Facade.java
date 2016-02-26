@@ -9,7 +9,6 @@ import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.CatanModel;
 import model.options.Options;
-import model.players.Player;
 import model.resources.ResourceList;
 import serverProxy.Poller;
 import serverProxy.RealProxy;
@@ -26,7 +25,7 @@ import shared.locations.VertexLocation;
 /**
  * The Facade class controls all interations between the GUI and the CatanModel
  *
- * @author Christian Ribol
+ * @author Christian Riboldi
  * @author Clayton Condie
  * @author Jacob Brewer
  * @author Joshua Powers
@@ -546,35 +545,6 @@ public class Facade extends Observable {
 
     public static String[] listAI() throws ServerException {
         return instance()._listAI();
-    }
-
-    /**
-     * Will return false if either the player has not joined a game yet, or the joined game does not
-     * have four players yet.  Otherwise return true.
-     *
-     * @return Whether game has started.
-     */
-    public static boolean hasGameStarted()
-    {
-        return instance()._hasGameStarted();
-    }
-
-    private boolean _hasGameStarted()
-    {
-        if(this.catanModel == null)
-        {
-            return false;
-        }
-
-        Player[] players = this.catanModel.getPlayerManager().getCatanPlayers();
-        for(int i = 0; i < players.length; i++)
-        {
-            if(players[i] == null)
-            {
-                return false;
-            }
-        }
-        return true;
     }
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
