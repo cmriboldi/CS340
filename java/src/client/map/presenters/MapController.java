@@ -319,7 +319,7 @@ public class MapController extends Controller implements IMapController, Observe
         int oceanTileCount = 6 * radius;
         for (int i = 0; i < oceanTileCount; i++) {
             //create a oceanHex
-            oceanTiles.add(new Hex(currentX, currentY, "OCEAN", 0));
+            oceanTiles.add(new Hex(currentX, currentY, "WATER", 0));
 
             //alter X
             if (xWait == 0) {
