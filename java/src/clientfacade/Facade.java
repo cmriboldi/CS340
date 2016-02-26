@@ -297,7 +297,7 @@ public class Facade extends Observable {
     
     public static String getTurnStatus()
 	{
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
