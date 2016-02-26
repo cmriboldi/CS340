@@ -33,7 +33,7 @@ import shared.locations.VertexLocation;
  * @version 1.0 Build Jan, 2016.
  */
 public class Facade extends Observable {
-	private static Facade _instance;
+    private static Facade _instance;
 
     private CatanModel catanModel;
     private RealProxy proxy;
@@ -53,7 +53,7 @@ public class Facade extends Observable {
 
         return _instance;
     }
-    
+
     private CatanModel _getCatanModel() {
         return this.catanModel;
     }
@@ -61,27 +61,25 @@ public class Facade extends Observable {
     public static CatanModel getCatanModel() {
         return instance()._getCatanModel();
     }
-    
+
     private RealProxy _getProxy() {
-    	return this.proxy;
-    }
-    
-    public static RealProxy getProxy() {
-    	return instance()._getProxy();
+        return this.proxy;
     }
 
-  //**********************************************************************************
+    public static RealProxy getProxy() {
+        return instance()._getProxy();
+    }
+
+    //**********************************************************************************
     // Observable Functions
     //**********************************************************************************
-    private void _updateView()
-    {
-    	if(this.catanModel != null)
-    	{
-    		this.setChanged();
-    		this.notifyObservers();
-    	}
+    private void _updateView() {
+        if (this.catanModel != null) {
+            this.setChanged();
+            this.notifyObservers();
+        }
     }
-    
+
     private void _setView(CatanModel catanModel) {
         this.catanModel = catanModel;
         this._updateView();
@@ -90,11 +88,11 @@ public class Facade extends Observable {
     public static void setView(CatanModel catanModel) {
         instance()._setView(catanModel);
     }
-    
+
     private void _addObserver(Observer obs) {
-    	this.addObserver(obs);
+        this.addObserver(obs);
     }
-    
+
     public static void addObserverStatic(Observer obs) {
         instance()._addObserver(obs);
     }
@@ -118,7 +116,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @return
      */
     private List<String> _getChatMessages() {
@@ -130,7 +127,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @return
      */
     private List<String> _getChatSources() {
@@ -142,7 +138,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @return
      */
     private List<String> _getHistoryMessages() {
@@ -154,7 +149,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @return
      */
     private List<String> _getHistorySources() {
@@ -164,19 +158,18 @@ public class Facade extends Observable {
     public static List<String> getHistorySources() {
         return instance()._getHistorySources();
     }
-    
+
     /**
-    *
-    * @param name
-    * @return
-    * @throws PlayerNameNotFoundException
-    */
+     * @param name
+     * @return
+     * @throws PlayerNameNotFoundException
+     */
     private CatanColor _getColorByName(String name) throws PlayerNameNotFoundException {
-    	return this.catanModel.playerManager.getPlayerColor(name);
+        return this.catanModel.playerManager.getPlayerColor(name);
     }
 
     public static CatanColor getColorByName(String name) throws PlayerNameNotFoundException {
-    	return instance()._getColorByName(name);
+        return instance()._getColorByName(name);
     }
 
     //**********************************************************************************
@@ -187,80 +180,71 @@ public class Facade extends Observable {
      * Builds a road for a specific player
      *
      * @param index of player building road
-     * @throws ServerException 
+     * @throws ServerException
      */
     //PRIVATE METHOD
     private void _buildRoad(int index, EdgeLocation edge, boolean free) throws ServerException {
-    	this._setView(this.proxy.buildRoad(index, edge, free));
+        this._setView(this.proxy.buildRoad(index, edge, free));
     }
-    
+
     //PUBLIC METHOD
-    public static void buildRoad (int index, EdgeLocation edge, boolean free) throws ServerException
-    {
-    	instance()._buildRoad(index, edge, free);
+    public static void buildRoad(int index, EdgeLocation edge, boolean free) throws ServerException {
+        instance()._buildRoad(index, edge, free);
     }
-    
+
     /**
      * Builds a town for a specific player
      *
-     * @param index of player building town
-     * @throws ServerException 
+     * @throws ServerException
      */
     //PRIVATE METHOD
     private void _buildTown(int playerIndex, VertexLocation vert, boolean free) throws ServerException {
-    	this._setView(this.proxy.buildSettlement(playerIndex, vert, free));
+        this._setView(this.proxy.buildSettlement(playerIndex, vert, free));
 
     }
-    
+
     //PUBLIC METHOD
-    public static void buildTown (int playerIndex, VertexLocation vertex, boolean free) throws ServerException
-    {
-    	instance()._buildTown(playerIndex, vertex, free);
+    public static void buildTown(int playerIndex, VertexLocation vertex, boolean free) throws ServerException {
+        instance()._buildTown(playerIndex, vertex, free);
     }
-    
+
 
     /**
      * Builds a city for a specific player
      *
-     * @param index of player building city
-     * @throws ServerException 
+     * @throws ServerException
      */
     //PRIVATE METHOD
     private void _buildCity(int playerIndex, VertexLocation vertex) throws ServerException {
-    	this._setView(this.proxy.buildCity(playerIndex, vertex)); 
+        this._setView(this.proxy.buildCity(playerIndex, vertex));
 
     }
-    
+
     //PUBLIC METHOD
-    public static void buildCity (int playerIndex, VertexLocation vertex) throws ServerException
-    {
-    	instance()._buildCity(playerIndex, vertex);
+    public static void buildCity(int playerIndex, VertexLocation vertex) throws ServerException {
+        instance()._buildCity(playerIndex, vertex);
     }
-    
-    
+
 
     /**
      * Places the robber in a hex specified by a specific player
      *
-     * @param index of player using robber
      */
     // PRIVATE METHOD
     private void _placeRobber(int playerIndex, int victimIndex, HexLocation hex) {
-    	try {
-			proxy.robPlayer(playerIndex, victimIndex, hex);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
+        try {
+            proxy.robPlayer(playerIndex, victimIndex, hex);
+        } catch (ServerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
-    
-    
+
+
     //PUBLIC METHOD
-    public static void placeRobber (int playerIndex, int victimIndex, HexLocation hex) 
-    {
-    	instance()._placeRobber(playerIndex, victimIndex, hex);
+    public static void placeRobber(int playerIndex, int victimIndex, HexLocation hex) {
+        instance()._placeRobber(playerIndex, victimIndex, hex);
     }
-    
 
 
     //**********************************************************************************
@@ -361,144 +345,124 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _portTrade(int index, ResourceType toGive, ResourceType toGet) throws ServerException {
-    	this._setView(this.proxy.maritimeTrade(this._getLocalPlayerInfo().getId(), index, toGive, toGet));
+        this._setView(this.proxy.maritimeTrade(this._getLocalPlayerInfo().getId(), index, toGive, toGet));
     }
-    
+
     public static void portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {
-    	instance()._portTrade(ratio, toGive, toGet);
+        instance()._portTrade(ratio, toGive, toGet);
     }
-    
-  //**********************************************************************************
+
+    //**********************************************************************************
     // DevCardFunctions
     //**********************************************************************************
+
     /**
      * Buys a development card for a specific player
      *
-     * @param index of player buying dev card
-     * @throws ServerException 
+     * @throws ServerException
      */
     private void _buyDevCard() throws ServerException {
-    	this._setView(this.proxy.buyDevCard(this._getLocalPlayerInfo().getPlayerIndex()));
+        this._setView(this.proxy.buyDevCard(this._getLocalPlayerInfo().getPlayerIndex()));
     }
-    
-    public static void buyDevCard() throws ServerException
-    {
-    	instance()._buyDevCard();
+
+    public static void buyDevCard() throws ServerException {
+        instance()._buyDevCard();
     }
-    
-    private void _playMonumentCard() throws ServerException
-    {
-    	this._setView(this.proxy.monument(this._getLocalPlayerInfo().getPlayerIndex()));
+
+    private void _playMonumentCard() throws ServerException {
+        this._setView(this.proxy.monument(this._getLocalPlayerInfo().getPlayerIndex()));
     }
-    
-    public static void playMonumentCard() throws ServerException
-    {
-    	instance()._playMonumentCard();
+
+    public static void playMonumentCard() throws ServerException {
+        instance()._playMonumentCard();
     }
-    
-    private void _playMonopolyCard(ResourceType resource) throws ServerException
-    {
-    	this._setView(this.proxy.monopoly(this._getLocalPlayerInfo().getPlayerIndex(), resource));
+
+    private void _playMonopolyCard(ResourceType resource) throws ServerException {
+        this._setView(this.proxy.monopoly(this._getLocalPlayerInfo().getPlayerIndex(), resource));
     }
-    
-    public static void playMonopolyCard(ResourceType resource) throws ServerException
-    {
-    	instance()._playMonopolyCard(resource);
+
+    public static void playMonopolyCard(ResourceType resource) throws ServerException {
+        instance()._playMonopolyCard(resource);
     }
-    
-    private void _playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException
-    {
-    	this._setView(this.proxy.yearOfPlenty(this._getLocalPlayerInfo().getPlayerIndex(), resource1, resource2));
+
+    private void _playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException {
+        this._setView(this.proxy.yearOfPlenty(this._getLocalPlayerInfo().getPlayerIndex(), resource1, resource2));
     }
-    
-    public static void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException
-    {
-    	instance()._playYearOfPlentyCard(resource1, resource2);
+
+    public static void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException {
+        instance()._playYearOfPlentyCard(resource1, resource2);
     }
-    
-    private void _playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException
-    {
-    	this._setView(this.proxy.roadBuilding(this._getLocalPlayerInfo().getPlayerIndex(), spot1, spot2));
+
+    private void _playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException {
+        this._setView(this.proxy.roadBuilding(this._getLocalPlayerInfo().getPlayerIndex(), spot1, spot2));
     }
-    
-    public static void playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException
-    {
-    	instance()._playRoadBuildCard(spot1, spot2);
+
+    public static void playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException {
+        instance()._playRoadBuildCard(spot1, spot2);
     }
-    
-    private void _playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException
-    {
-    	this._setView(proxy.soldier(this._getLocalPlayerInfo().getPlayerIndex(), victimIndex, hexLocation));
+
+    private void _playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException {
+        this._setView(proxy.soldier(this._getLocalPlayerInfo().getPlayerIndex(), victimIndex, hexLocation));
     }
-    
-    public static void playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException
-    {
-    	instance()._playSoldierCard(victimIndex, hexLocation);
+
+    public static void playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException {
+        instance()._playSoldierCard(victimIndex, hexLocation);
     }
-    
-    private List<DevCardType> _getPlayerDevTypes()
-    {
-    	List<DevCardType> types = new ArrayList<DevCardType>();
-    	types.add(DevCardType.MONOPOLY);
-    	types.add(DevCardType.MONUMENT);
-    	types.add(DevCardType.ROAD_BUILD);
-    	types.add(DevCardType.SOLDIER);
-    	types.add(DevCardType.YEAR_OF_PLENTY);   	
-    	return types;
+
+    private List<DevCardType> _getPlayerDevTypes() {
+        List<DevCardType> types = new ArrayList<DevCardType>();
+        types.add(DevCardType.MONOPOLY);
+        types.add(DevCardType.MONUMENT);
+        types.add(DevCardType.ROAD_BUILD);
+        types.add(DevCardType.SOLDIER);
+        types.add(DevCardType.YEAR_OF_PLENTY);
+        return types;
     }
-    
-    public static List<DevCardType> getPlayerDevTypes()
-    {
-    	return instance()._getPlayerDevTypes();
+
+    public static List<DevCardType> getPlayerDevTypes() {
+        return instance()._getPlayerDevTypes();
     }
-    
-    private List<Integer> _getPlayerDevAmounts()
-    {
-    	List<Integer> amounts = new ArrayList<Integer>();
-    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
-    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
-    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
-    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
-    	amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
-    	return amounts;
+
+    private List<Integer> _getPlayerDevAmounts() {
+        List<Integer> amounts = new ArrayList<Integer>();
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+        return amounts;
     }
-    
-    public static List<Integer> getPlayerDevAmounts()
-    {
-    	return instance()._getPlayerDevAmounts();
+
+    public static List<Integer> getPlayerDevAmounts() {
+        return instance()._getPlayerDevAmounts();
     }
-    
-    private List<Boolean> _getPlayerDevPlayables()
-    {
-    	List<Boolean> play = new ArrayList<Boolean>();
-    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
-    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
-    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
-    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
-    	play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
-    	return play;
+
+    private List<Boolean> _getPlayerDevPlayables() {
+        List<Boolean> play = new ArrayList<Boolean>();
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+        return play;
     }
-    
-    public static List<Boolean> getPlayerDevPlayables()
-    {
-    	return instance()._getPlayerDevPlayables();
+
+    public static List<Boolean> getPlayerDevPlayables() {
+        return instance()._getPlayerDevPlayables();
     }
 
 
     ///////////////////////////// Joshua Van Steeter's section of the Facade ////////////////////////////
 
-    private void _addAI(String AIType) throws ServerException
-    {
-    	this.proxy.addAI(AIType);
+    private void _addAI(String AIType) throws ServerException {
+        this.proxy.addAI(AIType);
     }
 
-    public static void addAI(String AIType) throws ServerException
-    {
+    public static void addAI(String AIType) throws ServerException {
         instance()._addAI(AIType);
     }
 
     /**
-     *
      * @return
      */
     private PlayerInfo _getLocalPlayerInfo() {
@@ -508,20 +472,20 @@ public class Facade extends Observable {
     public static PlayerInfo getLocalPlayerInfo() {
         return instance()._getLocalPlayerInfo();
     }
-    
+
     private int _getLocalPlayerIndex() {
-    	int playerIndex = _getLocalPlayerInfo().getPlayerIndex();
-    	if(playerIndex < 0 || playerIndex >= 3) {
-    		playerIndex = _getCatanModel().playerManager.getIndexFromId(this.proxy.getLocalPlayerInfo().getId());
-    		_getLocalPlayerInfo().setPlayerIndex(playerIndex);
-    	}
+        int playerIndex = _getLocalPlayerInfo().getPlayerIndex();
+        if (playerIndex < 0 || playerIndex >= 3) {
+            playerIndex = _getCatanModel().playerManager.getIndexFromId(this.proxy.getLocalPlayerInfo().getId());
+            _getLocalPlayerInfo().setPlayerIndex(playerIndex);
+        }
         return playerIndex;
     }
 
     public static int getLocalPlayerIndex() {
         return instance()._getLocalPlayerIndex();
     }
-    
+
 
     /**
      * Generates a game list for the Client
@@ -571,7 +535,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @return
      * @throws ServerException
      */
@@ -584,7 +547,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @param modelNumber
      * @return
      * @throws ServerException
@@ -598,7 +560,6 @@ public class Facade extends Observable {
     }
 
     /**
-     *
      * @return
      * @throws ServerException
      */
