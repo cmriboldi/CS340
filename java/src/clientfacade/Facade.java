@@ -350,7 +350,7 @@ public class Facade extends Observable {
     /**
      * Trades a players resources through an available port
      *
-     * @param index  of player trading
+     * @param ratio  of player trading
      * @param toGive of giving resources
      * @param toGet  of getting resources
      * @return
@@ -609,6 +609,35 @@ public class Facade extends Observable {
         return true;
     }
 
+    /**
+     * Returns the number of players that have already joined the game.
+     * Used to check the poll if another player has joined.
+     *
+     * @return Number of non null players in the model
+     */
+    public static int howManyPlayers(CatanModel model)
+    {
+        return instance()._howManyPlayers(model);
+    }
+
+    private int _howManyPlayers(CatanModel model)
+    {
+        if(this.catanModel == null)
+        {
+            return 0;
+        }
+
+        int count = 0;
+        Player[] players = model.getPlayerManager().getCatanPlayers();
+        for(int i = 0; i < players.length; i++)
+        {
+            if(players[i] != null)
+            {
+                count++;
+            }
+        }
+        return count;
+    }
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
 

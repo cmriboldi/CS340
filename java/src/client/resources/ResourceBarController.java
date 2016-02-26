@@ -75,6 +75,9 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void update(Observable o, Object arg)
 	{
+		if(!Facade.hasGameStarted())
+			return;
+
 		int playerIndex = Facade.getLocalPlayerIndex();
 		ResourceList rs = Facade.getCatanModel().resourceManager.getResourcesForPlayer(playerIndex);
 		

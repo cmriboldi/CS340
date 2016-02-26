@@ -1,6 +1,7 @@
 package serverProxy;
 
 import clientfacade.Facade;
+import model.CatanModel;
 
 /**
  * The poller will poll the server regularly and commit any changes to the game model.
@@ -36,12 +37,25 @@ public class Poller implements Runnable
 		for(;;)
 		{
 			if(Facade.getCatanModel() == null)
+			{
 				Facade.setView(server.getGameModel());
+			}
 			else
-				Facade.setView(server.getGameModel(Facade.getCatanModel().getVersion()));
+			{
+				CatanModel model = server.getGameModel(Facade.getCatanModel().getVersion());
+				if(model == null)
+				{
+					model = server.getGameModel();
+					if(Facade.howManyPlayers(model) != Facade.howManyPlayers(Facade.getCatanModel()))
+					{
+						Facade.setView(model);
+					}
+				}
+				else
+					Facade.setView(model);
+			}
 			Thread.sleep((long)(seconds*1000));
 		}
-		
 	}
 
 	@Override

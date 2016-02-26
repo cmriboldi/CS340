@@ -36,6 +36,18 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		try
 		{
 			getView().setAIChoices(Facade.listAI());
+			setPlayers();
+		}
+		catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+	}
+
+	private void setPlayers()
+	{
+		try
+		{
 			CatanModel catan = Facade.getGameModel();
 			Player[] players = catan.getPlayerManager().getCatanPlayers();
 			List<PlayerInfo> playersList = new ArrayList<>();
@@ -50,7 +62,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 					playerInfo.setColor(players[i].getColor());
 					playersList.add(playerInfo);
 				}
-
 			}
 
 			PlayerInfo[] playersInfo = new PlayerInfo[playersList.size()];
@@ -92,7 +103,7 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	public void update(Observable o, Object arg)
 	{
 		System.out.println("Update being called");
-		start();
+		setPlayers();
 	}
 }
 
