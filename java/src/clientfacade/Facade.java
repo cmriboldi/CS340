@@ -356,8 +356,8 @@ public class Facade extends Observable {
      * @return
      * @throws ServerException
      */
-    private void _portTrade(int index, ResourceType toGive, ResourceType toGet) throws ServerException {
-        this._setView(this.proxy.maritimeTrade(this._getLocalPlayerInfo().getId(), index, toGive, toGet));
+    private void _portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {
+        this._setView(this.proxy.maritimeTrade(this._getLocalPlayerIndex(), ratio, toGive, toGet));
     }
 
     public static void portTrade(int ratio, ResourceType toGive, ResourceType toGet) throws ServerException {

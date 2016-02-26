@@ -54,6 +54,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	public void startTrade() {
 		getTradeOverlay().showGiveOptions(enabledGiveResources);
 		getTradeOverlay().setTradeEnabled(false);
+		getTradeOverlay().hideGetOptions();
 		getTradeOverlay().showModal();
 	}
 
@@ -91,7 +92,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		if(ratioMap != null && ratioMap.get(resource) != null) {
 			tradeRatio = ratioMap.get(resource);
 			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
-			getTradeOverlay().selectGiveOption(resource, 4);
 		}
 		getTradeOverlay().showGetOptions(enabledGetResources);
 	}
@@ -178,23 +178,23 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				}
 				break;
 			case THREE:
-				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(3,0,0,0,0)) && !ratioMap.containsKey(ResourceType.BRICK) ) {
+				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(3,0,0,0,0))) {
 					enabledResources.add(ResourceType.BRICK);
 					ratioMap.put(ResourceType.BRICK, 3);
 				}
-				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,3,0,0,0)) && !ratioMap.containsKey(ResourceType.ORE) ) {
+				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,3,0,0,0))) {
 					enabledResources.add(ResourceType.ORE);
 					ratioMap.put(ResourceType.ORE, 3);
 				}
-				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,0,3,0,0)) && !ratioMap.containsKey(ResourceType.SHEEP) ) {
+				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,0,3,0,0))) {
 					enabledResources.add(ResourceType.SHEEP);
 					ratioMap.put(ResourceType.SHEEP, 3);
 				}
-				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,0,0,3,0)) && !ratioMap.containsKey(ResourceType.WHEAT) ) {
+				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,0,0,3,0))) {
 					enabledResources.add(ResourceType.WHEAT);
 					ratioMap.put(ResourceType.WHEAT, 3);
 				}
-				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,0,0,0,3)) && !ratioMap.containsKey(ResourceType.WOOD) ) {
+				if(Facade.getCatanModel().resourceManager.canAfford(localPlayer, new ResourceList(0,0,0,0,3))) {
 					enabledResources.add(ResourceType.WOOD);
 					ratioMap.put(ResourceType.WOOD, 3);
 				}
@@ -203,7 +203,6 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			
 			enabledGiveResources = new ResourceType[enabledResources.size()];
 			enabledResources.toArray(enabledGiveResources);
-//			getTradeOverlay().showGiveOptions(enabledGiveResources);
 			
 		}
 		

@@ -12,6 +12,7 @@ public class MaritimeTradeJSON
 	public MaritimeTradeJSON(int playerIndex, int ratio, String inputResource, String outputResource)
 	{
 		this.type = "maritimeTrade";
+		this.ratio = ratio;
 		this.playerIndex = playerIndex;
 		this.inputResource = inputResource;
 		this.outputResource = outputResource;
