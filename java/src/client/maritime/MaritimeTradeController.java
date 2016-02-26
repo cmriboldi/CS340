@@ -203,7 +203,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			
 			enabledGiveResources = new ResourceType[enabledResources.size()];
 			enabledResources.toArray(enabledGiveResources);
-			getTradeOverlay().showGiveOptions(enabledGiveResources);
+//			getTradeOverlay().showGiveOptions(enabledGiveResources);
 			
 		}
 		

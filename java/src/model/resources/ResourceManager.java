@@ -171,5 +171,14 @@ public class ResourceManager
 	{
 		return banker.canPlayerAfford(playerIndex, resourceList);
 	}
+	
+	public ResourceList getResourcesForPlayer(int playerIndex)
+	{
+		return banker.getResourcesForPlayer(playerIndex);
+	}
+	
+	public int getResourceCount(int playerIndex, ResourceType resource) {
+		return banker.getResourceCount(playerIndex, resource);
+	}
 
 };

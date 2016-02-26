@@ -2,6 +2,7 @@ package model.resources;
 
 import shared.definitions.Cost;
 import shared.definitions.PieceType;
+import shared.definitions.ResourceType;
 import shared.exceptions.resources.*;
 
 /**
@@ -145,6 +146,16 @@ public class Banker
 	public boolean canPlayerAfford(int playerIndex, ResourceList resourceList)
 	{
 		return playerResources.canPlayerAfford(playerIndex, resourceList);
+	}
+
+	public ResourceList getResourcesForPlayer(int playerIndex)
+	{
+		return playerResources.getResourcesForPlayer(playerIndex);
+	}
+
+	public int getResourceCount(int playerIndex, ResourceType resource)
+	{
+		return playerResources.getResourceCount(playerIndex, resource);
 	}
 
 }
