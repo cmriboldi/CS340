@@ -333,7 +333,11 @@ public class MapController extends Controller implements IMapController, Observe
                 } else {
                     currentX--;
                     if (currentX == -radius)
+                    {
+                        xWait = radius;
                         xBehaviorPos = true;
+                    }
+
                 }
             } else {
                 xWait--;
@@ -351,7 +355,11 @@ public class MapController extends Controller implements IMapController, Observe
                 } else {
                     currentY--;
                     if (currentY == -radius)
+                    {
+                        yWait = radius;
                         yBehaviorPos = true;
+                    }
+
                 }
             } else {
                 yWait--;
