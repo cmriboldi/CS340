@@ -226,48 +226,59 @@ public class DiscardController extends Controller implements IDiscardController,
 			oreTotal = Facade.getResourceAmount(ResourceType.ORE);
 			total = woodTotal+brickTotal+sheepTotal+wheatTotal+oreTotal;
 			amount = total/2;
-
-			getDiscardView().setStateMessage("0/"+Integer.toString(amount));
-			getDiscardView().setDiscardButtonEnabled(false);
 			
-			getDiscardView().setResourceMaxAmount(ResourceType.WOOD, woodTotal);
-			getDiscardView().setResourceMaxAmount(ResourceType.BRICK, brickTotal);
-			getDiscardView().setResourceMaxAmount(ResourceType.SHEEP, sheepTotal);
-			getDiscardView().setResourceMaxAmount(ResourceType.WHEAT, wheatTotal);
-			getDiscardView().setResourceMaxAmount(ResourceType.ORE, oreTotal);
-			
-			getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, wood);
-			getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, brick);
-			getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, sheep);
-			getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, wheat);
-			getDiscardView().setResourceDiscardAmount(ResourceType.ORE, ore);
-			
-			if(woodTotal > 0)
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
+			if(total > 7)
+			{
+				getDiscardView().setStateMessage("0/"+Integer.toString(amount));
+				getDiscardView().setDiscardButtonEnabled(false);
+				
+				getDiscardView().setResourceMaxAmount(ResourceType.WOOD, woodTotal);
+				getDiscardView().setResourceMaxAmount(ResourceType.BRICK, brickTotal);
+				getDiscardView().setResourceMaxAmount(ResourceType.SHEEP, sheepTotal);
+				getDiscardView().setResourceMaxAmount(ResourceType.WHEAT, wheatTotal);
+				getDiscardView().setResourceMaxAmount(ResourceType.ORE, oreTotal);
+				
+				getDiscardView().setResourceDiscardAmount(ResourceType.WOOD, wood);
+				getDiscardView().setResourceDiscardAmount(ResourceType.BRICK, brick);
+				getDiscardView().setResourceDiscardAmount(ResourceType.SHEEP, sheep);
+				getDiscardView().setResourceDiscardAmount(ResourceType.WHEAT, wheat);
+				getDiscardView().setResourceDiscardAmount(ResourceType.ORE, ore);
+				
+				if(woodTotal > 0)
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, true, false);
+				else
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, false, false);
+				
+				if(brickTotal > 0)
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
+				else
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
+				
+				if(sheepTotal > 0)
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
+				else
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
+				
+				if(wheatTotal > 0)
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
+				else
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
+				
+				if(oreTotal > 0)
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
+				else
+					getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
+				
+				getWaitView().showModal();
+			}
 			else
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.WOOD, false, false);
-			
-			if(brickTotal > 0)
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
-			else
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.BRICK, true, false);
-			
-			if(sheepTotal > 0)
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
-			else
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.SHEEP, true, false);
-			
-			if(wheatTotal > 0)
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
-			else
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.WHEAT, true, false);
-			
-			if(oreTotal > 0)
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
-			else
-				getDiscardView().setResourceAmountChangeEnabled(ResourceType.ORE, true, false);
-			
-			getDiscardView().showModal();
+			{
+				getWaitView().showModal();
+			}
+		}
+		else
+		{
+			getWaitView().closeModal();
 		}
 	}
 

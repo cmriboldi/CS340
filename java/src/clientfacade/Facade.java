@@ -109,7 +109,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _chat(String message) throws ServerException {
-        this._setView(this.proxy.sendChat(this._getLocalPlayerInfo().getPlayerIndex(), message));
+        this._setView(this.proxy.sendChat(this._getLocalPlayerIndex(), message));
     }
 
     public static void chat(String message) throws ServerException {
@@ -227,26 +227,6 @@ public class Facade extends Observable {
     }
 
 
-    /**
-     * Places the robber in a hex specified by a specific player
-     */
-    // PRIVATE METHOD
-    private void _placeRobber(int playerIndex, int victimIndex, HexLocation hex) {
-        try {
-            proxy.robPlayer(playerIndex, victimIndex, hex);
-        } catch (ServerException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-
-    //PUBLIC METHOD
-    public static void placeRobber(int playerIndex, int victimIndex, HexLocation hex) {
-        instance()._placeRobber(playerIndex, victimIndex, hex);
-    }
-
-
     //**********************************************************************************
     // Game Phase Control
     //**********************************************************************************
@@ -308,7 +288,7 @@ public class Facade extends Observable {
         die2 = (die2 % 6) + 1;
         int total = die1 + die2;
 
-        this._setView(this.proxy.rollNumber(this._getLocalPlayerInfo().getPlayerIndex(), total));
+        this._setView(this.proxy.rollNumber(this._getLocalPlayerIndex(), total));
         return total;
     }
 
@@ -362,7 +342,7 @@ public class Facade extends Observable {
      * @throws ServerException
      */
     private void _buyDevCard() throws ServerException {
-        this._setView(this.proxy.buyDevCard(this._getLocalPlayerInfo().getPlayerIndex()));
+        this._setView(this.proxy.buyDevCard(this._getLocalPlayerIndex()));
     }
 
     public static void buyDevCard() throws ServerException {
@@ -370,7 +350,7 @@ public class Facade extends Observable {
     }
 
     private void _playMonumentCard() throws ServerException {
-        this._setView(this.proxy.monument(this._getLocalPlayerInfo().getPlayerIndex()));
+        this._setView(this.proxy.monument(this._getLocalPlayerIndex()));
     }
 
     public static void playMonumentCard() throws ServerException {
@@ -378,7 +358,7 @@ public class Facade extends Observable {
     }
 
     private void _playMonopolyCard(ResourceType resource) throws ServerException {
-        this._setView(this.proxy.monopoly(this._getLocalPlayerInfo().getPlayerIndex(), resource));
+        this._setView(this.proxy.monopoly(this._getLocalPlayerIndex(), resource));
     }
 
     public static void playMonopolyCard(ResourceType resource) throws ServerException {
@@ -386,7 +366,7 @@ public class Facade extends Observable {
     }
 
     private void _playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException {
-        this._setView(this.proxy.yearOfPlenty(this._getLocalPlayerInfo().getPlayerIndex(), resource1, resource2));
+        this._setView(this.proxy.yearOfPlenty(this._getLocalPlayerIndex(), resource1, resource2));
     }
 
     public static void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) throws ServerException {
@@ -394,7 +374,7 @@ public class Facade extends Observable {
     }
 
     private void _playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException {
-        this._setView(this.proxy.roadBuilding(this._getLocalPlayerInfo().getPlayerIndex(), spot1, spot2));
+        this._setView(this.proxy.roadBuilding(this._getLocalPlayerIndex(), spot1, spot2));
     }
 
     public static void playRoadBuildCard(EdgeLocation spot1, EdgeLocation spot2) throws ServerException {
@@ -402,7 +382,7 @@ public class Facade extends Observable {
     }
 
     private void _playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException {
-        this._setView(proxy.soldier(this._getLocalPlayerInfo().getPlayerIndex(), victimIndex, hexLocation));
+        this._setView(proxy.soldier(this._getLocalPlayerIndex(), victimIndex, hexLocation));
     }
 
     public static void playSoldierCard(int victimIndex, HexLocation hexLocation) throws ServerException {
@@ -425,11 +405,11 @@ public class Facade extends Observable {
 
     private List<Integer> _getPlayerDevAmounts() {
         List<Integer> amounts = new ArrayList<Integer>();
-        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
-        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
-        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
-        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
-        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerIndex(), DevCardType.MONOPOLY));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerIndex(), DevCardType.MONUMENT));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerIndex(), DevCardType.ROAD_BUILD));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerIndex(), DevCardType.SOLDIER));
+        amounts.add(this.catanModel.cardManager.playerDevCardCount(this._getLocalPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
         return amounts;
     }
 
@@ -439,11 +419,11 @@ public class Facade extends Observable {
 
     private List<Boolean> _getPlayerDevPlayables() {
         List<Boolean> play = new ArrayList<Boolean>();
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONOPOLY));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.MONUMENT));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.ROAD_BUILD));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.SOLDIER));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerInfo().getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.MONOPOLY));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.MONUMENT));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.ROAD_BUILD));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.SOLDIER));
+        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
         return play;
     }
 
