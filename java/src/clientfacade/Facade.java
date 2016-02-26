@@ -500,10 +500,10 @@ public class Facade extends Observable {
     /**
      * Creates a new game with a specific title
      *
-     * @param randomTiles
-     * @param randomNumbers
-     * @param randomPorts
-     * @param title
+     * @param randomTiles boolean representing whether the new game should have random tiles
+     * @param randomNumbers boolean representing whether the new game should have random Number tiles
+     * @param randomPorts boolean representing whether the new game should have random Port locations
+     * @param title string creates the human readable title
      * @return
      */
     public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
