@@ -295,21 +295,35 @@ public class Facade extends Observable {
         return instance()._roll();
     }
     
+    private String _getTurnStatus()
+    {
+    	return this.catanModel.playerManager.turnTracker.getStatus();
+    }
+    
     public static String getTurnStatus()
 	{
+		return instance()._getTurnStatus();
+	}
+    
+    private int _getResourceAmount(ResourceType type)
+    {
+    	return 0;
+    }
+
+	public static int getResourceAmount(ResourceType type)
+	{
+		return instance()._getResourceAmount(type);
+	}
+	
+	private void _discard(int wood, int brick, int sheep, int wheat, int ore) throws ServerException
+	{
 		
-		return null;
+		this._setView(this.proxy.discardCards(this._getLocalPlayerIndex(), new ResourceList(brick,ore,sheep,wheat,wood)));
 	}
 
-	public static int getResourceAmount(ResourceType wood)
+	public static void discard(int wood, int brick, int sheep, int wheat, int ore) throws ServerException
 	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public static void discard(int wood, int brick, int sheep, int wheat, int ore)
-	{
-		// TODO Auto-generated method stub
+		instance()._discard(wood, brick, sheep, wheat, ore);
 		
 	}
 

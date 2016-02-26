@@ -8,6 +8,7 @@ import java.util.Observer;
 import client.base.*;
 import client.misc.*;
 import clientfacade.Facade;
+import serverProxy.ServerException;
 
 
 /**
@@ -199,7 +200,12 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	@Override
 	public void discard() {
-		Facade.discard(wood,brick,sheep,wheat,ore);
+		try {
+			Facade.discard(wood,brick,sheep,wheat,ore);
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		getDiscardView().closeModal();
 		total = 0;
 		amount = 0;
