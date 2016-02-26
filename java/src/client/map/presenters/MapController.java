@@ -27,9 +27,7 @@ public class MapController extends Controller implements IMapController, Observe
     private IRobView robView;
     private MapControllerState currentState;
 
-    
-    
-    
+
     public MapController(IMapView view, IRobView robView) {
 
         super(view);
@@ -60,40 +58,32 @@ public class MapController extends Controller implements IMapController, Observe
         System.out.println("LOG::MapController.update()::start");
 
         initFromModel();
-        
+
         try {
-			determineState();
-		} catch (InvalidMapStateException e) {
-			e.printStackTrace();
-		} 
-        
+            determineState();
+        } catch (InvalidMapStateException e) {
+            e.printStackTrace();
+        }
+
     }
-    
- // Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
-    
-    public void determineState() throws InvalidMapStateException
-    {
-    	int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
-    	int indexOfPlayingClient = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex(); 
-    	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
-    	
-    	
-    	if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding"))
-    	{
-    		currentState = new MapInactiveState(); 
-    	}
-    	else if (status.equals("FirstRound") | status.equals("SecondRound"))
-    	{
-    		currentState = new MapSetupState(); 
-    	}
-    	else if (status.equals("Rolling") | status.equals("Robbing") | status.equals("Playing") | status.equals("Robbing"))
-    	{
-    		currentState = new MapPlayingState(); 
-    	}
-    	else
-    	{
-    		throw new InvalidMapStateException(); 
-    	}
+
+    // Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
+
+    public void determineState() throws InvalidMapStateException {
+        int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
+        int indexOfPlayingClient = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
+        String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus();
+
+
+        if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding")) {
+            currentState = new MapInactiveState();
+        } else if (status.equals("FirstRound") | status.equals("SecondRound")) {
+            currentState = new MapSetupState();
+        } else if (status.equals("Rolling") | status.equals("Robbing") | status.equals("Playing") | status.equals("Robbing")) {
+            currentState = new MapPlayingState();
+        } else {
+            throw new InvalidMapStateException();
+        }
     }
 
 
@@ -126,13 +116,20 @@ public class MapController extends Controller implements IMapController, Observe
                 //getView().addNumber(hexLoc, hex.getNumber());
             }
 
+            //Generate and add the ocean tiles
+            HashSet<Hex> oceanTiles = genOcean(model.getMapManager().getMapRadius());
+            for(Hex tile : oceanTiles)
+            {
+                getView().addHex(tile.location, tile.getResource());
+            }
+
 
             //Add the settlements AND cities from the CatanModel
             HashMap<VertexLocation, Settlement> settlements = model.getMapManager().getSettlements();
             for (VertexLocation verLoc : settlements.keySet()) {
                 Settlement settlement = settlements.get(verLoc);
                 int playerId = settlement.getPlayer();
-                CatanColor settlementColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerId].getColor();
+                CatanColor settlementColor = model.getPlayerManager().getCatanPlayers()[playerId].getColor();
                 boolean isCity = settlement.isCity();
 
                 if (isCity)
@@ -168,7 +165,7 @@ public class MapController extends Controller implements IMapController, Observe
             //<temp>
 
 /*
-		    Random rand = new Random();
+            Random rand = new Random();
 
         for (int x = 0; x <= 3; ++x) {
 
@@ -253,27 +250,26 @@ public class MapController extends Controller implements IMapController, Observe
 
     public void placeRoad(EdgeLocation edgeLoc) {
         try {
-			currentState.placeRoad(edgeLoc);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            currentState.placeRoad(edgeLoc);
+        } catch (ServerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void placeSettlement(VertexLocation vertLoc) {
         try {
-			currentState.placeSettlement(vertLoc);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            currentState.placeSettlement(vertLoc);
+        } catch (ServerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
     }
 
     public void placeCity(VertexLocation vertLoc) throws ServerException {
         currentState.placeCity(vertLoc);
     }
 
-  
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
         currentState.startMove(pieceType, isFree, allowDisconnected);
@@ -303,11 +299,67 @@ public class MapController extends Controller implements IMapController, Observe
         this.currentState = currentState;
     }
 
-	@Override
-	public void placeRobber(HexLocation hexLoc) {
-		currentState.placeRobber(hexLoc);
-	}
-			
+    @Override
+    public void placeRobber(HexLocation hexLoc) {
+        currentState.placeRobber(hexLoc);
+    }
+
+    private HashSet<Hex> genOcean(int radius) {
+        HashSet<Hex> oceanTiles = new HashSet<Hex>();
+
+        int xWait = 0;
+        int yWait = radius;
+
+        boolean xBehaviorPos = false;
+        boolean yBehaviorPos = false;
+
+        int currentX = 0;
+        int currentY = radius;
+
+        int oceanTileCount = 6 * radius;
+        for (int i = 0; i < oceanTileCount; i++) {
+            //create a oceanHex
+            oceanTiles.add(new Hex(currentX, currentY, "OCEAN", 0));
+
+            //alter X
+            if (xWait == 0) {
+                //change x based on current xBehavior
+                if (xBehaviorPos) {
+                    currentX++;
+                    if (currentX == radius) {
+                        xWait = radius;
+                        xBehaviorPos = false;
+                    }
+                } else {
+                    currentX--;
+                    if (currentX == -radius)
+                        xBehaviorPos = true;
+                }
+            } else {
+                xWait--;
+            }
+
+            //alterY
+            if (yWait == 0) {
+                //change y based on current xBehavior
+                if (yBehaviorPos) {
+                    currentY++;
+                    if (currentY == radius) {
+                        yWait = radius;
+                        yBehaviorPos = false;
+                    }
+                } else {
+                    currentY--;
+                    if (currentY == -radius)
+                        yBehaviorPos = true;
+                }
+            } else {
+                yWait--;
+            }
+        }
+
+        return oceanTiles;
+    }
 
 }
 

@@ -78,6 +78,10 @@ public class MapManager implements IMapManager {
 
     }
 
+    public int getMapRadius() {
+        return map.getRadius();
+    }
+
     @Override
     public HashMap<HexLocation, Hex> getHexes() {
         return map.getHexes();

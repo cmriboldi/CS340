@@ -342,7 +342,7 @@ public class Map {
         return false;
     }
 
-    public Set<PortType> canMaritimeTrade(int player){
+    public Set<PortType> canMaritimeTrade(int player) {
 
         HashMap<VertexLocation, PortType> filterMap = new HashMap<VertexLocation, PortType>();
         Set<PortType> openPorts = new HashSet<PortType>();
@@ -350,7 +350,7 @@ public class Map {
         //---scan all the port edges and collect the vertexes
         //--classify the vertexes by port type (4 vertexes per type)
         Set<EdgeLocation> portKeys = ports.keySet();
-        for(EdgeLocation portEdge : portKeys){
+        for (EdgeLocation portEdge : portKeys) {
             VertexLocation leftPort = findVertexLeft(portEdge);
             VertexLocation rightPort = findVertexRight(portEdge);
             PortType type = ports.get(portEdge).type;
@@ -361,11 +361,11 @@ public class Map {
 
         //---look at all the port vertexes and compare with the settlement vertexes
         Set<VertexLocation> portVertexes = filterMap.keySet();
-        for(VertexLocation portVertex : portVertexes){
+        for (VertexLocation portVertex : portVertexes) {
             //if there is a settlement on a portVertex
-            if(settlements.containsKey(portVertex))
+            if (settlements.containsKey(portVertex))
                 //...and that settlement belonds to the player
-                if(settlements.get(portVertex).player == player)
+                if (settlements.get(portVertex).player == player)
                     //add the port type connected to that port and add it to the return set
                     openPorts.add(filterMap.get(portVertex));
 
@@ -394,8 +394,16 @@ public class Map {
         return ports;
     }
 
-    public HashMap<HexLocation, Hex> getHexes() {   return hexes;   }
+    public HashMap<HexLocation, Hex> getHexes() {
+        return hexes;
+    }
 
-    public HexLocation getRobber()  {return robber;}
+    public HexLocation getRobber() {
+        return robber;
+    }
+
+    public int getRadius() {
+        return radius;
+    }
 
 }
