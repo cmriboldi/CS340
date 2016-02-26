@@ -308,7 +308,7 @@ public class Facade extends Observable {
     
     private int _getResourceAmount(ResourceType type)
     {
-    	return 0;
+    	return this.catanModel.resourceManager.getResourceCount(this._getLocalPlayerIndex(), type);
     }
 
 	public static int getResourceAmount(ResourceType type)
