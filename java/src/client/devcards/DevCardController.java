@@ -184,7 +184,11 @@ public class DevCardController extends Controller implements IDevCardController,
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg)
+	{
+		if(!Facade.hasGameStarted())
+			return;
+
 		if(Facade.getCatanModel() != null)
 		{
 			List<DevCardType> cards = Facade.getPlayerDevTypes();
