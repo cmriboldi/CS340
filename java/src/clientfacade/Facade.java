@@ -228,7 +228,6 @@ public class Facade extends Observable {
 
     /**
      * Places the robber in a hex specified by a specific player
-     *
      */
     // PRIVATE METHOD
     private void _placeRobber(int playerIndex, int victimIndex, HexLocation hex) {
@@ -462,9 +461,6 @@ public class Facade extends Observable {
         instance()._addAI(AIType);
     }
 
-    /**
-     * @return
-     */
     private PlayerInfo _getLocalPlayerInfo() {
         return this.proxy.getLocalPlayerInfo();
     }
