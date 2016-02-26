@@ -294,6 +294,24 @@ public class Facade extends Observable {
     public static int roll() throws ServerException {
         return instance()._roll();
     }
+    
+    public static String getTurnStatus()
+	{
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public static int getResourceAmount(ResourceType wood)
+	{
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static void discard(int wood, int brick, int sheep, int wheat, int ore)
+	{
+		// TODO Auto-generated method stub
+		
+	}
 
 
     //**********************************************************************************
@@ -586,24 +604,5 @@ public class Facade extends Observable {
     public static void startPoller() {
         instance()._startPoller();
     }
-
-	public static String getTurnStatus()
-	{
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	public static int getResourceAmount(ResourceType wood)
-	{
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	public static void discard(int wood, int brick, int sheep, int wheat, int ore)
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }
