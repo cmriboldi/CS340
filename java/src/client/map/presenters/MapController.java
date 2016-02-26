@@ -55,7 +55,7 @@ public class MapController extends Controller implements IMapController, Observe
     @Override
     public void update(Observable o, Object arg) {
 
-        System.out.println("LOG::MapController.update()::start");
+        //System.out.println("LOG::MapController.update()::start");
 
         initFromModel();
 
@@ -90,13 +90,13 @@ public class MapController extends Controller implements IMapController, Observe
     protected void initFromModel() {
 
         //CLEAR THE VIEW
-        System.out.println("LOG::MapController.initFromModel()::start");
+        //System.out.println("LOG::MapController.initFromModel()::start");
 
         //Acquire new model
         CatanModel model = Facade.getCatanModel();
 
         if (model != null) {
-            System.out.println("LOG::MapController.initFromModel(): model is not null");
+            //System.out.println("LOG::MapController.initFromModel(): model is not null");
             //initialize from said model
             /*
             1. Build Hexes, tile numbers, resources
@@ -112,14 +112,13 @@ public class MapController extends Controller implements IMapController, Observe
             for (HexLocation hexLoc : hexes.keySet()) {
                 Hex hex = hexes.get(hexLoc);
                 getView().addHex(hexLoc, hex.getResource());
-                System.out.println("LOG::MapController.initFromModel::loadingHex\n\thexLoc: " + hexLoc.toString() + "\n\tresource: " + hex.getResource() + "\n\tnumber: " + hex.getResource());
+                //System.out.println("LOG::MapController.initFromModel::loadingHex\n\thexLoc: " + hexLoc.toString() + "\n\tresource: " + hex.getResource() + "\n\tnumber: " + hex.getResource());
                 //getView().addNumber(hexLoc, hex.getNumber());
             }
 
             //Generate and add the ocean tiles
             HashSet<Hex> oceanTiles = genOcean(model.getMapManager().getMapRadius());
-            for(Hex tile : oceanTiles)
-            {
+            for (Hex tile : oceanTiles) {
                 getView().addHex(tile.location, tile.getResource());
             }
 
@@ -158,7 +157,6 @@ public class MapController extends Controller implements IMapController, Observe
             //Add the Robber
             HexLocation robber = model.getMapManager().getRobber();
             getView().placeRobber(robber);
-
 
 
         } else {
@@ -332,8 +330,7 @@ public class MapController extends Controller implements IMapController, Observe
                     }
                 } else {
                     currentX--;
-                    if (currentX == -radius)
-                    {
+                    if (currentX == -radius) {
                         xWait = radius;
                         xBehaviorPos = true;
                     }
@@ -354,8 +351,7 @@ public class MapController extends Controller implements IMapController, Observe
                     }
                 } else {
                     currentY--;
-                    if (currentY == -radius)
-                    {
+                    if (currentY == -radius) {
                         yWait = radius;
                         yBehaviorPos = true;
                     }
