@@ -504,7 +504,7 @@ public class Facade extends Observable {
      * @param randomNumbers boolean representing whether the new game should have random Number tiles
      * @param randomPorts boolean representing whether the new game should have random Port locations
      * @param title string creates the human readable title
-     * @return
+     * @return Game infor from the proxy
      */
     public static GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String title) throws ServerException {
         return instance()._createGame(randomTiles, randomNumbers, randomPorts, title);
@@ -517,8 +517,8 @@ public class Facade extends Observable {
     /**
      * Joins a new game from the game list
      *
-     * @param gameId
-     * @param color
+     * @param gameId The gameId from the join game menu
+     * @param color CatanColor represntation of the color the player would like to join with
      * @throws ServerException
      */
     public static void joinGame(int gameId, CatanColor color) throws ServerException {
@@ -531,7 +531,7 @@ public class Facade extends Observable {
     }
 
     /**
-     * @return
+     * @return CatanModel from the proxy
      * @throws ServerException
      */
     private CatanModel _getGameModel() throws ServerException {
@@ -543,8 +543,8 @@ public class Facade extends Observable {
     }
 
     /**
-     * @param modelNumber
-     * @return
+     * @param modelNumber retrieves the CatanModel from the proxy associated with this modelNumber
+     * @return the CatanModel from the proxy
      * @throws ServerException
      */
     private CatanModel _getGameModel(int modelNumber) throws ServerException {
@@ -556,7 +556,7 @@ public class Facade extends Observable {
     }
 
     /**
-     * @return
+     * @return A list of AI types from the proxy
      * @throws ServerException
      */
     private String[] _listAI() throws ServerException {
@@ -580,9 +580,8 @@ public class Facade extends Observable {
     /**
      * Registers a new user
      *
-     * @param username
-     * @param password
-     * @return User object associated with the new registered user
+     * @param username the users username identifier
+     * @param password the password assicated with the given username
      * @throws ServerException
      */
     private void _register(String username, String password) throws ServerException {
