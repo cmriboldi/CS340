@@ -7,6 +7,7 @@ import java.util.Observer;
 
 import client.data.GameInfo;
 import client.data.PlayerInfo;
+import client.data.RobPlayerInfo;
 import model.CatanModel;
 import model.options.Options;
 import model.players.Player;
@@ -338,6 +339,37 @@ public class Facade extends Observable {
 	{
 		instance()._discard(wood, brick, sheep, wheat, ore);
 		
+	}
+	
+	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
+	{
+		List<Integer> indexes = this.catanModel.mapManager.getPlayersOnHex(HexLocation hexLoc);
+		
+		RobPlayerInfo[] robInfo = new RobPlayerInfo[indexes.size()];
+		
+		for(int i = 0; i < indexes.size(); i++)
+		{
+			Player p = this.catanModel.playerManager.getPlayerByIndex(indexes.get(i));
+			int id = p.getId();
+			int playerIndex = p.getPlayerIndex();
+			String name = p.getName();
+			CatanColor color = p.getColor();
+			int resources = this.catanModel.playerManager.getTotalResourceCount(playerIndex);
+			
+			RobPlayerInfo Info = new RobPlayerInfo();
+			Info.setId(id);
+			Info.setPlayerIndex(playerIndex);
+			Info.setName(name);
+			Info.setColor(color);
+			Info.setNumCards(resources);
+			robInfo[i] = Info;
+		}
+		return robInfo;
+	}
+	
+	public static RobPlayerInfo[] getPlayersOnHex(HexLocation hexLoc)
+	{
+		return instance()._getPlayersOnHex(hexLoc);
 	}
 
 

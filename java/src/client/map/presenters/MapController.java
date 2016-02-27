@@ -299,7 +299,7 @@ public class MapController extends Controller implements IMapController, Observe
 
     @Override
     public void placeRobber(HexLocation hexLoc) {
-        currentState.placeRobber(hexLoc);
+        currentState.placeRobber(hexLoc, getRobView());
     }
 
     private HashSet<Hex> genOcean(int radius) {

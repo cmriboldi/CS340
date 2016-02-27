@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import client.map.view.IRobView;
 import clientfacade.Facade;
 import serverProxy.ServerException;
 import shared.definitions.PieceType;
@@ -100,15 +101,10 @@ public class MapPlayingState implements MapControllerState
 	}
 
 	@Override
-	public void placeRobber(HexLocation hexLoc)
+	public void placeRobber(HexLocation hexLoc, IRobView RobView)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
 		
-		//JOSH's Code goes here
-		
-		//Facade.placeRobber(localPlayerId, victimIndex, hexLoc); // not called here because needs to be done
-																	//because it's getting called by rob view
-
+		RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
 	}
 	
 	@Override

@@ -76,6 +76,11 @@ public class PlayerManager
 		}
 		return playerIndex;
 	}
+	
+	public Player getPlayerByIndex(int index)
+	{
+		return catanPlayers[index];
+	}
 
 
 }

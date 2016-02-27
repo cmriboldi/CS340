@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import client.map.view.IRobView;
 import serverProxy.ServerException;
 import shared.definitions.*;
 import shared.locations.*;
@@ -54,7 +55,7 @@ public interface MapControllerState {
 
     public void placeCity(VertexLocation vertLoc) throws ServerException;
 
-    public void placeRobber(HexLocation hexLoc);
+    public void placeRobber(HexLocation hexLoc, IRobView RobView);
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected);
 

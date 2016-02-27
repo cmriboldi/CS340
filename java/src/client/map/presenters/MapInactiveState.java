@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import client.map.view.IRobView;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -115,7 +116,7 @@ public class MapInactiveState implements MapControllerState
 	}*/
 
 	@Override
-	public void placeRobber(HexLocation hexLoc) {
+	public void placeRobber(HexLocation hexLoc, IRobView RobView) {
 		// TODO Auto-generated method stub
 		
 	}
