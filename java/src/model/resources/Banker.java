@@ -158,4 +158,9 @@ public class Banker
 		return playerResources.getResourceCount(playerIndex, resource);
 	}
 
+	public int getTotalResourceCount(int playerIndex)
+	{
+		return playerResources.getTotalResourceCount(playerIndex);
+	}
+
 }

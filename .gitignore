@@ -4,6 +4,7 @@
 **/dist/
 **/out/
 *.log
+*.lck
 *.class
 **/demo/saves/*
 **/Catan.iml

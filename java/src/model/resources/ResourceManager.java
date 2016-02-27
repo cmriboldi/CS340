@@ -180,5 +180,9 @@ public class ResourceManager
 	public int getResourceCount(int playerIndex, ResourceType resource) {
 		return banker.getResourceCount(playerIndex, resource);
 	}
+	
+	public int getTotalResourceCount(int playerIndex) {
+		return banker.getTotalResourceCount(playerIndex);
+	}
 
 };

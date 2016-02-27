@@ -72,8 +72,9 @@ public class PlayerResources
 		return playerResources[playerIndex].getResourceTypeCount(resource);
 	}
 
-	public int getResourceTypeCount(int playerIndex, ResourceType resource)
+	public int getTotalResourceCount(int playerIndex)
 	{
-		return playerResources[playerIndex].getResourceTypeCount(resource);
+		return playerResources[playerIndex].getResourceCount();
 	}
+	
 }
