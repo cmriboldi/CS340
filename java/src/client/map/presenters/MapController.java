@@ -56,6 +56,7 @@ public class MapController extends Controller implements IMapController, Observe
     public void update(Observable o, Object arg) {
 
         //System.out.println("LOG::MapController.update()::start");
+    	System.out.println("(((Map Update)))"); 
 
         initFromModel();
 
@@ -65,8 +66,12 @@ public class MapController extends Controller implements IMapController, Observe
             e.printStackTrace();
         }
 
+        System.out.println("CLASS:" + currentState.getClass().toString()); 
+
     }
 
+    
+    
     // Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
 
     public void determineState() throws InvalidMapStateException {
@@ -74,7 +79,9 @@ public class MapController extends Controller implements IMapController, Observe
         int indexOfPlayingClient = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
         String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus();
 
+    	System.out.println("@@Determining State"); 
 
+        
         if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding")) {
             currentState = new MapInactiveState();
         } else if (status.equals("FirstRound") | status.equals("SecondRound")) {
@@ -96,6 +103,8 @@ public class MapController extends Controller implements IMapController, Observe
         CatanModel model = Facade.getCatanModel();
 
         if (model != null) {
+        	
+        	System.out.println("@@@NEW MAP!"); 
             //System.out.println("LOG::MapController.initFromModel(): model is not null");
             //initialize from said model
             /*
@@ -231,10 +240,12 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
+    	System.out.println("MAP CONTROLLER --->  canPlaceRoad"); 
         return currentState.canPlaceRoad(edgeLoc);
     }
 
     public boolean canPlaceSettlement(VertexLocation vertLoc) {
+    	System.out.println("MAP CONTROLLER --->  canPlaceSettlement"); 
         return currentState.canPlaceSettlement(vertLoc);
     }
 
@@ -247,6 +258,8 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void placeRoad(EdgeLocation edgeLoc) {
+    	System.out.println("MAP CONTROLLER --->  PLACE ROAD"); 
+
         try {
             currentState.placeRoad(edgeLoc);
         } catch (ServerException e) {
@@ -256,6 +269,7 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void placeSettlement(VertexLocation vertLoc) {
+    	System.out.println("MAP CONTROLLER --->  PLACE SETTLEMENT"); 
         try {
             currentState.placeSettlement(vertLoc);
         } catch (ServerException e) {

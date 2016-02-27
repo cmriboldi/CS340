@@ -554,6 +554,7 @@ public class MapComponent extends JComponent
 		@Override
 		public void mouseClicked(MouseEvent e)
 		{
+			System.out.println(" Map Click"); 
 			
 			if(dropType != null)
 			{
@@ -564,6 +565,7 @@ public class MapComponent extends JComponent
 					{
 						case ROAD:
 						try {
+							System.out.println("Drop type road"); 
 							getController().placeRoad(dropEdgeLoc);
 						} catch (Exception e1) {
 							// TODO Auto-generated catch block

@@ -46,7 +46,7 @@ public interface MapControllerState {
     // ============================================================= // 
 
     
-   
+   public String stateName = ""; 
     
 
     public void placeRoad(EdgeLocation edgeLoc) throws ServerException;

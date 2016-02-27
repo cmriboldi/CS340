@@ -40,6 +40,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 
 	@Override
 	public void buildRoad() {
+		System.out.println("Build Road Resource Bar"); 
 		executeElementAction(ResourceBarElement.ROAD);
 	}
 
