@@ -45,9 +45,7 @@ public interface MapControllerState {
 
     // ============================================================= // 
 
-    
-   public String stateName = ""; 
-    
+        
 
     public void placeRoad(EdgeLocation edgeLoc) throws ServerException;
 
@@ -57,15 +55,19 @@ public interface MapControllerState {
 
     public void placeRobber(HexLocation hexLoc, IRobView RobView);
 
-    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected);
-
-    public void cancelMove();
-
     public void playSoldierCard();
 
     public void playRoadBuildingCard();
 
     public void robPlayer(RobPlayerInfo victim);
+    
+    
+    
+    // The weird ones
+    
+    public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected);
+
+    public void cancelMove();
     
     
 }
