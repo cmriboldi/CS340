@@ -435,6 +435,12 @@ public class DomesticTradeOverlay extends OverlayView implements IDomesticTradeO
 	public void setCancelEnabled(boolean enabled) {
 		this.cancelButton.setEnabled(enabled);
 	}
+	
+	@Override
+	public void unsetResource(ResourceType resourceType, boolean enable) {
+		upDownPanelByResourceType.get(resourceType).setVisible(enable);
+		resourceCounts.get(resourceType).setText("0");
+	}
 
 }
 

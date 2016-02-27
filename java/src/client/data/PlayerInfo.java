@@ -37,6 +37,14 @@ public class PlayerInfo
 		this.color = color;
 	}
 	
+	public PlayerInfo(int id, int playerIndex, String name, String color)
+	{
+		this.id = id;
+		this.playerIndex = playerIndex;
+		this.name = name;
+		this.color = color;
+	}
+	
 	public int getId()
 	{
 		return id;

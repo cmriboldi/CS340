@@ -56,10 +56,7 @@ public interface IDomesticTradeOverlay extends IOverlayView
 	 * @param canDecrease
 	 *            Whether or not the resource's amount may be decreased
 	 */
-	void
-			setResourceAmountChangeEnabled(ResourceType resource,
-										   boolean canIncrease,
-										   boolean canDecrease);
+	void setResourceAmountChangeEnabled(ResourceType resource, boolean canIncrease, boolean canDecrease);
 	
 	/**
 	 * Enables or disables the ability to select resources to trade.
@@ -92,6 +89,16 @@ public interface IDomesticTradeOverlay extends IOverlayView
 	 *            Whether or not the user may cancel the trade operation
 	 */
 	void setCancelEnabled(boolean enabled);
+	
+	/**
+	 * Enables or disables the arrow buttons.
+	 * 
+	 * @param resourceType
+	 * @param enabled
+	 * 
+	 *            Whether or not to display the arrows to select amounts.
+	 */
+	void unsetResource(ResourceType resourceType, boolean enabled);
 	
 }
 

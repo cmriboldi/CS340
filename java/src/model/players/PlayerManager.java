@@ -1,5 +1,9 @@
 package model.players;
 
+import java.util.ArrayList;
+
+import client.data.PlayerInfo;
+import clientfacade.Facade;
 import shared.definitions.CatanColor;
 import shared.exceptions.player.*;
 
@@ -80,6 +84,22 @@ public class PlayerManager
 	public Player getPlayerByIndex(int index)
 	{
 		return catanPlayers[index];
+	}
+
+	public PlayerInfo[] getOpponentsInfo()
+	{
+		int localPlayer = Facade.getLocalPlayerIndex();
+		
+		ArrayList<PlayerInfo> playersInfo = new ArrayList<PlayerInfo>();
+		for(int i = 0; i < catanPlayers.length; i++) {
+			if(catanPlayers[i].getPlayerIndex() != localPlayer) {
+				playersInfo.add((new PlayerInfo(catanPlayers[i].getId(), catanPlayers[i].getPlayerIndex(), catanPlayers[i].getName(), catanPlayers[i].getColor().toString())));
+			}
+		}
+		
+		PlayerInfo[] arrPlayerInfo = new PlayerInfo[playersInfo.size()];
+		playersInfo.toArray(arrPlayerInfo);
+		return arrPlayerInfo;
 	}
 
 
