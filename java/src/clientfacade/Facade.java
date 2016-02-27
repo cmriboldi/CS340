@@ -341,7 +341,7 @@ public class Facade extends Observable {
 		
 	}
 	
-	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
+	/*private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
 	{
 		List<Integer> indexes = this.catanModel.mapManager.getPlayersOnHex(HexLocation hexLoc);
 		
@@ -370,7 +370,7 @@ public class Facade extends Observable {
 	public static RobPlayerInfo[] getPlayersOnHex(HexLocation hexLoc)
 	{
 		return instance()._getPlayersOnHex(hexLoc);
-	}
+	}*/
 
 
     //**********************************************************************************
