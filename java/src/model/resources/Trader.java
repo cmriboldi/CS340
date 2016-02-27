@@ -58,7 +58,7 @@ public class Trader
 		
 		for(int index = 0; index < 4; index++)
 		{
-			int resourceCount = playerResources.getResourceTypeCount(index, resource);
+			int resourceCount = playerResources.getResourceCount(index, resource);
 			switch (resource)
 			{
 			case BRICK:
