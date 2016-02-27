@@ -36,11 +36,11 @@ public interface MapControllerState {
     
     // ===================== USE MAYBE CanDos ====================== // 
     
-    public boolean canPlaySoldier();
+    //public boolean canPlaySoldier(); 
     
-    public boolean canPlayRoadBuildingCard(); 
+    //public boolean canPlayRoadBuildingCard(); 
     
-    public boolean canRobPlayer(); 
+    //public boolean canRobPlayer(); 
 
     // ============================================================= // 
 

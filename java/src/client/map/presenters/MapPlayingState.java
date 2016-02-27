@@ -31,31 +31,36 @@ public class MapPlayingState implements MapControllerState
 	{
 		//TODO Clayton
 	}
-
+	
+	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
 		return Facade.getCatanModel().getOptions().canPlaceRoad(localPlayerId, edgeLoc); 
 	}
 
+	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
 		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc); 
 	}
 
+	@Override
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
 		return Facade.getCatanModel().getOptions().canPlaceCity(localPlayerId, vertLoc); 
 	}
 
+	@Override
 	public boolean canPlaceRobber(HexLocation hexLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
 		return Facade.getCatanModel().getOptions().canPlaceRobber(localPlayerId); 	
 	}
 
+	@Override
 	public void placeRoad(EdgeLocation edgeLoc) throws ServerException
 	{
 		// Doesn't need to check the canDo method? 
@@ -69,6 +74,7 @@ public class MapPlayingState implements MapControllerState
 		Facade.buildRoad(localPlayerId,edgeLoc, false);
 	}
 
+	@Override
 	public void placeSettlement(VertexLocation vertLoc) 
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
@@ -80,6 +86,7 @@ public class MapPlayingState implements MapControllerState
 		}
 	}
 
+	@Override
 	public void placeCity(VertexLocation vertLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
@@ -92,6 +99,7 @@ public class MapPlayingState implements MapControllerState
 
 	}
 
+	@Override
 	public void placeRobber(HexLocation hexLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
@@ -103,33 +111,38 @@ public class MapPlayingState implements MapControllerState
 
 	}
 	
+	@Override
 	public void robPlayer(RobPlayerInfo victim)
 	{
 		//TODO
 	}
 
 
+	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
 		//TODO
 	}
 
+	@Override
 	public void cancelMove()
 	{
 		//TODO
 	}
 
+	@Override
 	public void playSoldierCard()
 	{
 		//TODO
 	}
 
+	@Override
 	public void playRoadBuildingCard()
 	{
 		//TODO
 	}
 
-	
+	/*
 	@Override
 	public boolean canPlaySoldier() {
 		//TODO
@@ -146,5 +159,5 @@ public class MapPlayingState implements MapControllerState
 	public boolean canRobPlayer() {
 		// TODO
 		return false;
-	}
+	}*/
 }

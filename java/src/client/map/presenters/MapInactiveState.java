@@ -25,69 +25,80 @@ public class MapInactiveState implements MapControllerState
 	/**
 	 * Initializes the MapControllerState from the Model passed in.
 	 */
+	@Override
 	public void initFromModel()
 	{
 		//TODO
 	}
 
+	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
 		return false;
 	}
 
+	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
 		return false;
 	}
 
+	@Override
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
 		return false;
 	}
 
+	@Override
 	public boolean canPlaceRobber(HexLocation hexLoc)
 	{
 		return false;
 	}
 
+	@Override
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
 		// do nothing
 	}
 
+	@Override
 	public void placeSettlement(VertexLocation vertLoc)
 	{
 		// do nothing
 	}
 
+	@Override
 	public void placeCity(VertexLocation vertLoc)
 	{
 		// do nothing
 	}
 
-
+	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
 		// do nothing
 	}
 
+	@Override
 	public void cancelMove()
 	{
 		// do nothing
 	}
 
+	@Override
 	public void playSoldierCard()
 	{
 		// do nothing
 	}
 
+	@Override
 	public void playRoadBuildingCard()
 	{
 		// do nothing
 	}
 
 
-
+	/*
 	@Override
 	public boolean canPlaySoldier() {
 		return false;
@@ -101,7 +112,7 @@ public class MapInactiveState implements MapControllerState
 	@Override
 	public boolean canRobPlayer() {
 		return false;
-	}
+	}*/
 
 	@Override
 	public void placeRobber(HexLocation hexLoc) {

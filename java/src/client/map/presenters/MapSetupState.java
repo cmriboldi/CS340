@@ -26,70 +26,82 @@ public class MapSetupState implements MapControllerState
 	/**
 	 * Initializes the MapControllerState from the Model passed in.
 	 */
+	@Override
 	public void initFromModel()
 	{
 		//TODO
 	}
 
+	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
 		//TODO
 		return true;
 	}
 
+	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
 		//TODO
 		return true;
 	}
 
+	@Override
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
 		return false;
 	}
 
+	@Override
 	public boolean canPlaceRobber(HexLocation hexLoc)
 	{
 		return false;
 	}
 
+	@Override
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
 		// TODO 
 	}
 
+	@Override
 	public void placeSettlement(VertexLocation vertLoc)
 	{
 		//TODO Clayton
 	}
 
+	@Override
 	public void placeCity(VertexLocation vertLoc)
 	{
 		// do nothing
 	}
 
+	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
 		// ??? Not sure what this does. 
 	}
 
+	@Override
 	public void cancelMove()
 	{
 		// ??? not sure what this does
 	}
 
+	@Override
 	public void playSoldierCard()
 	{
 		// do nothing
 	}
 
+	@Override
 	public void playRoadBuildingCard()
 	{
 		// do nothing	
 	}
 
 
-	
+	/*
 	@Override
 	public boolean canPlaySoldier() {
 		return false;
@@ -103,7 +115,7 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public boolean canRobPlayer() {
 		return false;
-	}
+	}*/
 
 	@Override
 	public void placeRobber(HexLocation hexLoc) {
