@@ -170,7 +170,7 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-    	System.out.println("MAP CONTROLLER --->  canPlaceRoad"); 
+        System.out.format("\tMapController:: canPlaceRoad: edgeLoc {%s}%n", edgeLoc);
         return currentState.canPlaceRoad(edgeLoc);
     }
 
