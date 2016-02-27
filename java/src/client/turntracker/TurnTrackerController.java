@@ -53,6 +53,9 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void update(Observable o, Object arg) {
 		
+		if (!Facade.hasGameStarted())
+			return; 
+		
 		System.out.println("(((Update TurnTracker)))"); 
 		
 		// ================================= INITIALIZE ======================================= // 
