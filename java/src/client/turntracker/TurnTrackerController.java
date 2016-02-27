@@ -19,6 +19,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		super(view);
 		
+		Facade.addObserverStatic(this);
+		
 		System.out.println("1. turn tracker -- new contorller");
 		initFromModel();
 	}
@@ -51,7 +53,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void update(Observable o, Object arg) {
 		
-		System.out.println("------------->> Update TurnTracker"); 
+		System.out.println("(((Update TurnTracker)))"); 
 		
 		TurnTrackerView trackerView = (TurnTrackerView) getView(); //TODO
 
