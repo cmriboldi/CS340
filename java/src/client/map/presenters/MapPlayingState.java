@@ -5,6 +5,7 @@ import client.map.view.IMapView;
 import client.map.view.IRobView;
 import clientfacade.Facade;
 import serverProxy.ServerException;
+import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -125,7 +126,7 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
 	{
-		//getView().startDrop()
+		mapView.startDrop(pieceType, Facade.getLocalPlayerInfo().getColor(), true);
 	}
 
 	@Override
