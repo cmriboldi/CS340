@@ -538,6 +538,9 @@ public class Facade extends Observable {
     }
 
     private int _getLocalPlayerIndex() {
+        if(catanModel == null)
+            return -1;
+
         int playerIndex = _getLocalPlayerInfo().getPlayerIndex();
         if (playerIndex < 0 || playerIndex >= 3) {
             playerIndex = _getCatanModel().playerManager.getIndexFromId(this.proxy.getLocalPlayerInfo().getId());
