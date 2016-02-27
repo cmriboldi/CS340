@@ -46,7 +46,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		
 		System.out.println("2. turn tracker -- initFromModel");
-		getView().setLocalPlayerColor(CatanColor.RED);
+		getView().setLocalPlayerColor(CatanColor.WHITE);
 		//</temp>
 	}
 
@@ -70,8 +70,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 		int localPlayerIndex = Facade.getLocalPlayerIndex(); 
 		CatanColor localColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getColor(); 
-		
-		System.out.println("Local Color: " + localColor.getClass().toString());
+		getView().setLocalPlayerColor(localColor);
+
 		
 		
 		
