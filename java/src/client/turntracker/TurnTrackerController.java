@@ -66,6 +66,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		Player player2 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2];
 		Player player3 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3];
 		
+
+		
 		trackerView.initializePlayer(0, player0.getName(), player0.getColor());
 		trackerView.initializePlayer(1, player1.getName(), player1.getColor());
 		trackerView.initializePlayer(2, player2.getName(), player2.getColor());
@@ -104,6 +106,18 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		trackerView.updatePlayer(1, player1.getPoints(), player1Turn, player1LargestArmy, player1LongestRoad);
 		trackerView.updatePlayer(2, player2.getPoints(), player2Turn, player2LargestArmy, player2LongestRoad);
 		trackerView.updatePlayer(3, player3.getPoints(), player3Turn, player3LargestArmy, player3LongestRoad);
+		
+		
+		//int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex(); 
+		if (localPlayerIndex == currentTurnIndex && 
+				Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus().equals("Playing"))
+		{
+			getView().updateGameState("Finish Turn", true);
+		}
+		else
+		{
+			getView().updateGameState("Waiting for Christian ... ", false);
+		}
 		
 		
 		
