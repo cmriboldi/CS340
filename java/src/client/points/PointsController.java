@@ -46,8 +46,12 @@ public class PointsController extends Controller implements IPointsController, O
 	private void initFromModel() {
 		int localPlayerIndex = Facade.getLocalPlayerIndex();
 
-		if(localPlayerIndex != -1)
-			getPointsView().setPoints(Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getPoints());
+		int player0Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0].getPoints();
+		int player1Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1].getPoints();
+		int player2Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2].getPoints();
+		int player3Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3].getPoints();
+
+		getPointsView().setPoints(Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getPoints());
 	}
 
 	@Override
@@ -56,13 +60,7 @@ public class PointsController extends Controller implements IPointsController, O
 		if(!Facade.hasGameStarted())
 			return;
 
-		// TODO Auto-generated method stub
-		int player0Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0].getPoints();
-		int player1Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1].getPoints();
-		int player2Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2].getPoints();
-		int player3Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3].getPoints();
-		
-		//getView()
+		initFromModel();
 	}
 	
 }
