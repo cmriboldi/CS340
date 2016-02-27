@@ -286,7 +286,7 @@ public class JSONDeserializer
 			//compile into Map structure
 			HexLocation hexLocation = new HexLocation(x, y);
 			EdgeLocation edgeLocation = new EdgeLocation(hexLocation, EdgeDirection.valueOf(Direction.shortToLong(direction)));
-			edgeLocation = edgeLocation.getNormalizedLocation();
+			//edgeLocation = edgeLocation.getNormalizedLocation();
 			Port entry = new Port(edgeLocation, PortType.valueOf(resource.toUpperCase()), ratio);
 			ports_r.put(entry.location, entry);
 		}
