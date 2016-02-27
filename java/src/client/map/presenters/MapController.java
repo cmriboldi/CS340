@@ -284,7 +284,9 @@ public class MapController extends Controller implements IMapController, Observe
 
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
-    	System.out.println("Start move"); 
+    	System.out.println("Start move " + pieceType.toString() + " " + isFree + " " + allowDisconnected); 
+    	
+    	getView().startDrop(PieceType.ROAD, CatanColor.GREEN, true);
         currentState.startMove(pieceType, isFree, allowDisconnected);
     }
 

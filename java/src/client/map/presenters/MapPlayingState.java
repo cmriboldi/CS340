@@ -124,7 +124,7 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
 	{
-		//TODO
+		//getView().startDrop()
 	}
 
 	@Override

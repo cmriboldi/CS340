@@ -4,6 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import model.players.Player;
+import serverProxy.ServerException;
 import shared.definitions.CatanColor;
 import client.base.*;
 import clientfacade.Facade;
@@ -31,6 +32,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	@Override
 	public void endTurn() {
 
+		try {
+			Facade.getProxy().finishTurn(Facade.getLocalPlayerIndex());
+		} catch (ServerException e) {
+			e.printStackTrace();
+		} 
+		
 	}
 	
 	private void initFromModel() {
