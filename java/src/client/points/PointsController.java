@@ -44,9 +44,8 @@ public class PointsController extends Controller implements IPointsController, O
 	}
 
 	private void initFromModel() {
-		//<temp>		
-		getPointsView().setPoints(5);
-		//</temp>
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		getPointsView().setPoints(Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getPoints());
 	}
 
 	@Override
