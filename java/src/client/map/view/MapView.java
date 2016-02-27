@@ -190,7 +190,6 @@ public class MapView extends PanelView implements IMapView
 		@Override
 		public void cancelMove()
 		{
-			
 			closeModal();
 			getController().cancelMove();
 		}
