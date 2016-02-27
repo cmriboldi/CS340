@@ -23,6 +23,8 @@ public class PointsController extends Controller implements IPointsController, O
 	public PointsController(IPointsView view, IGameFinishedView finishedView) {
 		
 		super(view);
+
+		Facade.addObserverStatic(this);
 		
 		setFinishedView(finishedView);
 		

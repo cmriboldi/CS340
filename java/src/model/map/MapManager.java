@@ -37,6 +37,10 @@ public class MapManager implements IMapManager {
         return map;
     }
 
+    /**
+     *
+     * @return the index of the player with the longest road
+     */
     @Override
     public int findLargestRoad() {
         // TODO Auto-generated method stub
