@@ -197,7 +197,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		{
 			Facade.joinGame(this.gameToJoin.getId(), color);
 
-			Facade.startPoller();
 			getSelectColorView().closeModal();
 			getSelectColorView().setColorEnabled(color, false);
 			getJoinGameView().closeModal();
