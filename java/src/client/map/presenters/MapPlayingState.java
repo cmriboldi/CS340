@@ -105,12 +105,19 @@ public class MapPlayingState implements MapControllerState
 	{
 		
 		//RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
+		if(!RobView.isModalShowing())
+			RobView.showModal();
 	}
 	
 	@Override
 	public void robPlayer(RobPlayerInfo victim)
 	{
-		//TODO
+		try {
+			Facade.robPlayer(victim.getPlayerIndex());
+		} catch (ServerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 
