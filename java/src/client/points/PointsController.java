@@ -51,7 +51,11 @@ public class PointsController extends Controller implements IPointsController, O
 	}
 
 	@Override
-	public void update(Observable o, Object arg) {
+	public void update(Observable o, Object arg)
+	{
+		if(!Facade.hasGameStarted())
+			return;
+
 		// TODO Auto-generated method stub
 		int player0Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0].getPoints();
 		int player1Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1].getPoints();
@@ -59,9 +63,6 @@ public class PointsController extends Controller implements IPointsController, O
 		int player3Points = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3].getPoints();
 		
 		//getView()
-		
-		
-		
 	}
 	
 }
