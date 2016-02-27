@@ -126,7 +126,10 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
 	{
-		mapView.startDrop(pieceType, Facade.getLocalPlayerInfo().getColor(), true);
+		CatanColor pieceColor = Facade.getCatanModel().getPlayerManager().getPlayerByIndex(Facade.getLocalPlayerIndex()).getColor();
+		System.out.format("MapPlayingState:: startMove: pieceType {%s} - isFree {%s} - allowDisconnected {%s} - localPlayerColor {%s} - isCancelable {true}%n", pieceType, isFree, allowDisconnected, pieceColor);
+
+		mapView.startDrop(pieceType, pieceColor, true);
 	}
 
 	@Override
