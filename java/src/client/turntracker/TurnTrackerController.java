@@ -78,17 +78,32 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		// ================================= UPDATE ======================================= // 
 
 		boolean player0Turn = false; 
+		boolean player1Turn = false; 
+		boolean player2Turn = false; 
+		boolean player3Turn = false; 
 		if (player0.getPlayerIndex() == currentTurnIndex)
-		{
 			player0Turn = true; 
-		}
+		if (player1.getPlayerIndex() == currentTurnIndex)
+			player1Turn = true; 
+		if (player2.getPlayerIndex() == currentTurnIndex)
+			player2Turn = true; 
+		if (player3.getPlayerIndex() == currentTurnIndex)
+			player3Turn = true; 
 		
-		
+		boolean player0LongestRoad = player0.isLongestRoad(); 
+		boolean player1LongestRoad= player0.isLongestRoad(); 
+		boolean player2LongestRoad = player0.isLongestRoad();
+		boolean player3LongestRoad = player0.isLongestRoad();
+		boolean player0LargestArmy = player0.isLargestArmy();
+		boolean player1LargestArmy = player1.isLargestArmy();
+		boolean player2LargestArmy = player2.isLargestArmy();
+		boolean player3LargestArmy = player3.isLargestArmy();
+	
 		//trackerView.updatePlayer(playerIndex, points, highlight, largestArmy, longestRoad);
-		trackerView.updatePlayer(0, player0.getPoints(), true, true, true);
-		trackerView.updatePlayer(1, player1.getPoints(), false, false, false);
-		trackerView.updatePlayer(2, player2.getPoints(), false, false, false);
-		trackerView.updatePlayer(3, player3.getPoints(), false, false, false);
+		trackerView.updatePlayer(0, player0.getPoints(), player0Turn, player0LargestArmy, player0LongestRoad);
+		trackerView.updatePlayer(1, player1.getPoints(), player1Turn, player1LargestArmy, player1LongestRoad);
+		trackerView.updatePlayer(2, player2.getPoints(), player2Turn, player2LargestArmy, player2LongestRoad);
+		trackerView.updatePlayer(3, player3.getPoints(), player3Turn, player3LargestArmy, player3LongestRoad);
 		
 		
 		
