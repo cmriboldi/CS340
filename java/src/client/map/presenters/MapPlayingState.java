@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import client.map.view.IMapView;
 import client.map.view.IRobView;
 import clientfacade.Facade;
 import serverProxy.ServerException;
@@ -122,7 +123,7 @@ public class MapPlayingState implements MapControllerState
 
 
 	@Override
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
 	{
 		//getView().startDrop()
 	}

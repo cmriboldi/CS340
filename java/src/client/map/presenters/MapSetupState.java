@@ -1,6 +1,7 @@
 package client.map.presenters;
 
 import client.data.RobPlayerInfo;
+import client.map.view.IMapView;
 import client.map.view.IRobView;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
@@ -78,7 +79,7 @@ public class MapSetupState implements MapControllerState
 	}
 
 	@Override
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected)
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
 	{
 		// ??? Not sure what this does. 
 	}
