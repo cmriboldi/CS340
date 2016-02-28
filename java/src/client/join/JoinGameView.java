@@ -41,6 +41,7 @@ public class JoinGameView extends OverlayView implements IJoinGameView
 
 	public JoinGameView()
 	{
+		System.out.format("JoinGameView:: construct:: start%n");
 		this.initialize();
 	}
 

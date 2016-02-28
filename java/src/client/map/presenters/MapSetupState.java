@@ -93,7 +93,7 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
 	{
-		System.out.format("MapSetupState:: startMove: start");
+		System.out.format("MapSetupState:: startMove: start%n");
 
 		CatanColor pieceColor = Facade.getCatanModel().getPlayerManager().getPlayerByIndex(Facade.getLocalPlayerIndex()).getColor();
 		System.out.format("Map Setup ---> StartMove: pieceType {%s} - isFree {%s} - allowDisconnected {%s} - localPlayerColor {%s} - isCancelable {true}%n", pieceType, isFree, allowDisconnected, pieceColor);

@@ -248,7 +248,7 @@ public class MapView extends PanelView implements IMapView
 		public void startDrop(PieceType pieceType, CatanColor pieceColor,
 							  boolean isCancelAllowed)
 		{
-			System.out.format("MapView:: startDrop: start");
+			System.out.format("MapView:: startDrop: start%n");
 			
 			this.setOpaque(false);
 			this.setLayout(new BorderLayout());

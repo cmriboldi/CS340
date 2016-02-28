@@ -10,7 +10,7 @@ public abstract class Controller implements IController
 	
 	protected Controller(IView view)
 	{
-		System.out.format("Controller:: construct: start");
+		System.out.format("Controller:: construct: start: View {%s}%n", view.getClass());
 		setView(view);
 	}
 	
