@@ -94,9 +94,30 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		if(localIndex == -1)
 			return;
 
+		if(Facade.getCatanModel().getOptions().canAffordRoad(localIndex))
+			getView().setElementEnabled(ResourceBarElement.ROAD, true);
+		else
+			getView().setElementEnabled(ResourceBarElement.ROAD, false);
+
+
+		if(Facade.getCatanModel().getOptions().canAffordCity(localIndex))
+			getView().setElementEnabled(ResourceBarElement.CITY, true);
+		else
+			getView().setElementEnabled(ResourceBarElement.CITY, false);
+
+
+		if(Facade.getCatanModel().getOptions().canAffordTown(localIndex))
+			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
+		else
+			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+
+
 		getView().setElementAmount(ResourceBarElement.ROAD, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getRoadsRemaining());
 		getView().setElementAmount(ResourceBarElement.SETTLEMENT, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getSettlementsRemaining());
 		getView().setElementAmount(ResourceBarElement.CITY, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getCitiesRemaining());
+
+		//check
+
 		
 	}
 
