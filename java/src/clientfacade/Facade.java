@@ -300,8 +300,9 @@ public class Facade extends Observable {
     
     private Boolean _isMyTurn()
     {
-    	if(this.catanModel.playerManager.turnTracker.getTurnIndex() == this._getLocalPlayerIndex())
+    	if(this.catanModel.playerManager.turnTracker.getTurnIndex() == this._getLocalPlayerIndex()) {
     		return true;
+    	}
     	return false;
     }
     

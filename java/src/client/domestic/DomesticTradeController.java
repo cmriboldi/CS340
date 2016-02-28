@@ -271,9 +271,9 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			return;
 		}
 		
+		getTradeView().enableDomesticTrade(Facade.isMyturn());
 		
 		TradeOffer tradeOffer = Facade.getCatanModel().resourceManager.getTradeOffer();
-		System.out.println("tradeOffer is: " + tradeOffer);
 		if (tradeOffer == null && getWaitOverlay().isModalShowing()) {
 			getWaitOverlay().closeModal();
 		}

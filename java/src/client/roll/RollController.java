@@ -37,7 +37,7 @@ public class RollController extends Controller implements IRollController, Obser
 	}
 
 	public IRollView getRollView() {
-		return (IRollView)getView();
+		return (IRollView)this.getView();
 	}
 	
 	@Override
@@ -54,9 +54,9 @@ public class RollController extends Controller implements IRollController, Obser
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(Facade.getTurnStatus() == "rolling" && Facade.isMyturn())
+		if(Facade.getTurnStatus().equals("Rolling") && Facade.isMyturn())
 		{
-			if(!getRollView().isModalShowing())
+			if(!getRollView().isModalShowing());
 				getRollView().showModal();
 		}
 		

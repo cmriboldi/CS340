@@ -117,6 +117,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		if(!Facade.hasGameStarted())
 			return;
 
+		getTradeView().enableMaritimeTrade(Facade.isMyturn());
+		
 		Vector<ResourceType> enabledResources = new Vector<ResourceType>();
 		int localPlayer = Facade.getLocalPlayerIndex();
 		ratioMap = new HashMap<ResourceType, Integer>();
