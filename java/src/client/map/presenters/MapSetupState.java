@@ -3,6 +3,9 @@ package client.map.presenters;
 import client.data.RobPlayerInfo;
 import client.map.view.IMapView;
 import client.map.view.IRobView;
+import clientfacade.Facade;
+import serverProxy.ServerException;
+import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -31,21 +34,24 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public void initFromModel()
 	{
-		//TODO
+		//
 	}
 
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		//TODO
-		return true;
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		if(localPlayerIndex == -1)
+			return false;
+
+		return Facade.getCatanModel().getMapManager().canPlaceRoadSetup(edgeLoc, localPlayerIndex); //.getOptions().canPlaceRoad(localPlayerIndex, edgeLoc); // DURING SETUP
 	}
 
 	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		//TODO
-		return true;
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc);  // DURING SETUP
 	}
 
 	@Override
@@ -63,13 +69,34 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc)
 	{
-		// TODO 
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		try {
+			Facade.buildRoad(localPlayerIndex, edgeLoc, true);
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc)
 	{
-		//TODO Clayton
+		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		try {
+			Facade.buildTown(localPlayerId, vertLoc, true);
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+
+
+
+	@Override
+	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
+	{
+		System.out.println("--------> start move during setup ----------------->  "); 
+		CatanColor pieceColor = Facade.getCatanModel().getPlayerManager().getPlayerByIndex(Facade.getLocalPlayerIndex()).getColor();
+		System.out.format("Map Setup ---> StartMove: pieceType {%s} - isFree {%s} - allowDisconnected {%s} - localPlayerColor {%s} - isCancelable {true}%n", pieceType, isFree, allowDisconnected, pieceColor);
+		mapView.startDrop(pieceType, pieceColor, true);
 	}
 
 	@Override
@@ -77,13 +104,7 @@ public class MapSetupState implements MapControllerState
 	{
 		// do nothing
 	}
-
-	@Override
-	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
-	{
-		// ??? Not sure what this does. 
-	}
-
+	
 	@Override
 	public void cancelMove()
 	{
@@ -102,32 +123,15 @@ public class MapSetupState implements MapControllerState
 		// do nothing	
 	}
 
-
-	/*
-	@Override
-	public boolean canPlaySoldier() {
-		return false;
-	}
-
-	@Override
-	public boolean canPlayRoadBuildingCard() {
-		return false;
-	}
-
-	@Override
-	public boolean canRobPlayer() {
-		return false;
-	}*/
-
 	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView) {
-		// TODO Auto-generated method stub
+		// Do nothing
 		
 	}
 
 	@Override
 	public void robPlayer(RobPlayerInfo victim) {
-		// TODO Auto-generated method stub
+		// Do nothing 
 		
 	}
 }

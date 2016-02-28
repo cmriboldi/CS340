@@ -65,6 +65,12 @@ public class MapController extends Controller implements IMapController, Observe
         } catch (InvalidMapStateException e) {
             e.printStackTrace();
         }
+        
+        if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
+        {
+        	//MODAL ERROR HERE
+        	//currentState.startMove(PieceType.ROAD, true, true, getView());
+        }
 
         System.out.println("CLASS:" + currentState.getClass().toString());
 
