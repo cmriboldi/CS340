@@ -15,10 +15,6 @@ public interface IMapManager
 	/** The Map which all the public functions will interact with */
 	Map map = new Map();
 
-	/** Gets the map ... TESTING PURPOSES ONLY */
-	public Map getMap();
-
-
 	/**
 	 * Queries the Map and determines which player possess the longest road
 	 * 

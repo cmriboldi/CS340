@@ -209,7 +209,7 @@ public class Options
 	 */
 	public boolean canPlaceRoad(int playerIndex, EdgeLocation location)
 	{
-		return canPlay(playerIndex) && catanModel.mapManager.getMap().canPlaceRoad(location, playerIndex);
+		return canPlay(playerIndex) && catanModel.mapManager.canPlaceRoad(location, playerIndex);
 	}
 
 	/**
@@ -221,7 +221,7 @@ public class Options
 	 */
 	public boolean canPlaceTown(int playerIndex, VertexLocation location)
 	{
-		return canPlay(playerIndex) && catanModel.mapManager.getMap().canPlaceSettlement(location, playerIndex);
+		return canPlay(playerIndex) && catanModel.mapManager.canPlaceSettlement(location, playerIndex);
 	}
 
 	/**
@@ -233,6 +233,6 @@ public class Options
 	 */
 	public boolean canPlaceCity(int playerIndex, VertexLocation location)
 	{
-		return canPlay(playerIndex) && catanModel.mapManager.getMap().canPlaceCity(location, playerIndex);
+		return canPlay(playerIndex) && catanModel.mapManager.canPlaceCity(location, playerIndex);
 	}
 }
