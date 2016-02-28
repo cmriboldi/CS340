@@ -96,15 +96,28 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		System.out.println(" index of largest army in client: " + Facade.getCatanModel().getPlayerManager().getIndexOfLargestArmy()); 
 		System.out.println(" index of Longest road  in client: " + Facade.getCatanModel().getPlayerManager().getIndexOfLongestRoad()); 
 
+		int indexOfLargestArmy = Facade.getCatanModel().getPlayerManager().getIndexOfLargestArmy(); 
+		int indexOfLongestRoad = Facade.getCatanModel().getPlayerManager().getIndexOfLongestRoad(); 
 		
-		boolean player0LongestRoad = player0.isLongestRoad(); 
-		boolean player1LongestRoad= player0.isLongestRoad(); 
-		boolean player2LongestRoad = player0.isLongestRoad();
-		boolean player3LongestRoad = player0.isLongestRoad();
-		boolean player0LargestArmy = player0.isLargestArmy();
-		boolean player1LargestArmy = player1.isLargestArmy();
-		boolean player2LargestArmy = player2.isLargestArmy();
-		boolean player3LargestArmy = player3.isLargestArmy();
+		boolean player0LongestRoad = false; 
+		if (indexOfLongestRoad == 0) player0LongestRoad = true; 
+		boolean player1LongestRoad= false; 
+		if (indexOfLongestRoad == 1) player1LongestRoad = true; 
+		boolean player2LongestRoad = false; 
+		if (indexOfLongestRoad == 2) player2LongestRoad = true; 
+		boolean player3LongestRoad = false;
+		if (indexOfLongestRoad == 3) player3LongestRoad = true; 
+
+		
+		boolean player0LargestArmy = false;
+		if (indexOfLargestArmy == 0) player0LargestArmy = true; 
+		boolean player1LargestArmy = false;
+		if (indexOfLargestArmy == 1) player1LargestArmy = true; 
+		boolean player2LargestArmy = false;
+		if (indexOfLargestArmy == 2) player2LargestArmy = true; 
+		boolean player3LargestArmy = false;
+		if (indexOfLargestArmy == 3) player3LargestArmy = true; 
+
 	
 		//trackerView.updatePlayer(playerIndex, points, highlight, largestArmy, longestRoad);
 		trackerView.updatePlayer(0, player0.getPoints(), player0Turn, player0LargestArmy, player0LongestRoad);
