@@ -84,22 +84,14 @@ public class MapPlayingState implements MapControllerState
 	}
 
 	@Override
-	public void placeCity(VertexLocation vertLoc)
-	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		try {
-			Facade.buildCity (localPlayerId, vertLoc);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+	public void placeCity(VertexLocation vertLoc) throws ServerException {
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		Facade.buildCity (localPlayerIndex, vertLoc);
 	}
 
 	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView)
 	{
-		
 		//RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
 		if(!RobView.isModalShowing())
 			RobView.showModal();
