@@ -130,7 +130,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		}
 		else
 		{
-			getView().updateGameState("Waiting for Christian ... ", false);
+			getView().updateGameState("Waiting for Other Players", false);
 		}
 		
 		//Facade.getCatanModel().getPlayerManager().getTurnTracker().
