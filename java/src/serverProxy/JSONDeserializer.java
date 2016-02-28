@@ -231,8 +231,6 @@ public class JSONDeserializer
 	    newPlayerManager.setCatanPlayers(catanPlayers);
 	    newPlayerManager.setIndexOfLargestArmy(largestArmy);
 	    newPlayerManager.setIndexOfLongestRoad(longestRoad);
-	    System.out.println(" ------------------------> Longest Road : " + longestRoad); 
-	    System.out.println(" ------------------------> Largest Army : " + largestArmy); 
 
 
 	    this.playerManager = newPlayerManager; 

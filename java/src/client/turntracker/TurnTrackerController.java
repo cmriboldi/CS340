@@ -91,10 +91,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			player2Turn = true; 
 		if (player3.getPlayerIndex() == currentTurnIndex)
 			player3Turn = true; 
-		
-		
-		System.out.println(" index of largest army in client: " + Facade.getCatanModel().getPlayerManager().getIndexOfLargestArmy()); 
-		System.out.println(" index of Longest road  in client: " + Facade.getCatanModel().getPlayerManager().getIndexOfLongestRoad()); 
 
 		int indexOfLargestArmy = Facade.getCatanModel().getPlayerManager().getIndexOfLargestArmy(); 
 		int indexOfLongestRoad = Facade.getCatanModel().getPlayerManager().getIndexOfLongestRoad(); 
