@@ -58,6 +58,15 @@ public class MapManager implements IMapManager {
         return map.canPlaceRoad(edge, player);
     }
 
+    public boolean canPlaceRoadSetup(EdgeLocation edge, int playerIndex){
+        return map.canPlaceRoadSetup(edge, playerIndex);
+    }
+
+    public boolean canPlaceSettlement(VertexLocation vert, int playerIndex)
+    {
+        return map.canPlaceSettlement(vert, playerIndex);
+    }
+
     @Override
     public void placeSettlement(VertexLocation vertex, int player) {
         // TODO Auto-generated method stub

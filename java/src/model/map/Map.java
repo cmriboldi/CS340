@@ -276,6 +276,18 @@ public class Map {
         return false;
     }
 
+    public boolean canPlaceRoadSetup(EdgeLocation edge, int player)
+    {
+        //normalize the edge
+        edge = edge.getNormalizedLocation();
+
+        //is there a road already present at edge
+        if (roads.containsKey(edge))
+            return false;
+
+        return true;
+    }
+
     public boolean canPlaceSettlement(VertexLocation vertex, int player) {
 
         //---check for a player owned edge adjacent to the given vertex
