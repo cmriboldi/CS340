@@ -169,8 +169,10 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
-        System.out.format("\tMapController:: canPlaceRoad: edgeLoc {%s}%n", edgeLoc);
-        return currentState.canPlaceRoad(edgeLoc);
+        boolean returnThis = currentState.canPlaceRoad(edgeLoc);
+        System.out.format("\tMapController:: canPlaceRoad: edgeLoc {%s} - canPlaceRoad {%s}%n", edgeLoc, returnThis);
+
+        return returnThis;
     }
 
     public boolean canPlaceSettlement(VertexLocation vertLoc) {

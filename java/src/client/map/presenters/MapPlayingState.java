@@ -38,8 +38,11 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public boolean canPlaceRoad(EdgeLocation edgeLoc)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		return Facade.getCatanModel().getOptions().canPlaceRoad(localPlayerId, edgeLoc); 
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		if(localPlayerIndex == -1)
+			return false;
+
+		return Facade.getCatanModel().getOptions().canPlaceRoad(localPlayerIndex, edgeLoc);
 	}
 
 	@Override
@@ -67,14 +70,9 @@ public class MapPlayingState implements MapControllerState
 	public void placeRoad(EdgeLocation edgeLoc) throws ServerException
 	{
 		// Doesn't need to check the canDo method? 
-		int localPlayerId = 0;
-		try {
-			localPlayerId = Facade.getLocalPlayerInfo().getId();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		Facade.buildRoad(localPlayerId,edgeLoc, false);
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+
+		Facade.buildRoad(localPlayerIndex, edgeLoc, false);
 	}
 
 	@Override
