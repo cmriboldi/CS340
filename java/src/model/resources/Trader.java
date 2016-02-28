@@ -126,4 +126,14 @@ public class Trader
 		return tradeOffer.getReceiver() == playerIndex || tradeOffer.getSender() == playerIndex;
 	}
 
+	public TradeOffer getTradeOffer()
+	{
+		return tradeOffer;
+	}
+
+	public boolean canAcceptTrade(int playerIndex)
+	{
+		return playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer());
+	}
+
 }

@@ -185,4 +185,14 @@ public class ResourceManager
 		return banker.getTotalResourceCount(playerIndex);
 	}
 
+	public TradeOffer getTradeOffer()
+	{
+		return trader.getTradeOffer();
+	}
+
+	public boolean canAcceptTrade(int playerIndex)
+	{
+		return trader.canAcceptTrade(playerIndex);
+	}
+
 };

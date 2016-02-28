@@ -4,18 +4,23 @@ import shared.definitions.*;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.TreeMap;
 
 import client.base.*;
 import client.data.PlayerInfo;
 import client.misc.*;
 import clientfacade.Facade;
+import model.resources.ResourceList;
+import model.resources.TradeOffer;
+import serverProxy.ServerException;
 
 
 /**
  * Domestic trade controller implementation
  */
-public class DomesticTradeController extends Controller implements IDomesticTradeController {
+public class DomesticTradeController extends Controller implements IDomesticTradeController, Observer {
 
 	private IDomesticTradeOverlay tradeOverlay;
 	private IWaitView waitOverlay;
@@ -47,6 +52,8 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 		setTradeOverlay(tradeOverlay);
 		setWaitOverlay(waitOverlay);
 		setAcceptOverlay(acceptOverlay);
+		
+		Facade.addObserverStatic(this);
 	}
 	
 	private int sum(Collection<Integer> collection) {
@@ -165,7 +172,29 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 	@Override
 	public void sendTradeOffer() {
 		
+		ResourceList rs = new ResourceList();
+		for (Map.Entry<ResourceType, Integer> entry : this.sendAmounts.entrySet()) {
+			ResourceType resource = entry.getKey();
+		    Integer amount = entry.getValue();
+		    rs.addResource(resource, amount);
+		}
+		
+		for (Map.Entry<ResourceType, Integer> entry : this.receiveAmounts.entrySet()) {
+			ResourceType resource = entry.getKey();
+		    Integer amount = entry.getValue();
+		    rs.removeResource(resource, amount);
+		}
+		
+		try
+		{
+			Facade.sendTradeOffer(new TradeOffer(rs, Facade.getLocalPlayerIndex(), playerToTradeWith));
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+		
 		getTradeOverlay().closeModal();
+		this.resetView();
 		getWaitOverlay().showModal();
 	}
 
@@ -222,8 +251,57 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 
 	@Override
 	public void acceptTrade(boolean willAccept) {
+		
+		try
+		{
+			Facade.acceptTrade(willAccept);
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
 
+		getAcceptOverlay().reset();
 		getAcceptOverlay().closeModal();
+	}
+
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		if(!Facade.hasGameStarted()) {
+			return;
+		}
+		
+		
+		TradeOffer tradeOffer = Facade.getCatanModel().resourceManager.getTradeOffer();
+		System.out.println("tradeOffer is: " + tradeOffer);
+		if (tradeOffer == null && getWaitOverlay().isModalShowing()) {
+			getWaitOverlay().closeModal();
+		}
+		
+		if(tradeOffer != null && tradeOffer.getReceiver() == Facade.getLocalPlayerIndex()) {
+			
+			getAcceptOverlay().setPlayerName(Facade.getCatanModel().playerManager.getPlayerName(tradeOffer.getSender()));
+			
+			ResourceList resOffer = tradeOffer.getResourcesOffer();
+			System.out.println("resOffer is: " + resOffer);
+			for(ResourceType resource : ResourceType.values()) {
+				int amount = resOffer.getResourceTypeCount(resource);
+				if(amount > 0) {
+					System.out.println("Get's here get.");
+					getAcceptOverlay().addGetResource(resource, amount);
+				} else if (amount < 0) {
+					System.out.println("Get's here give.");
+					getAcceptOverlay().addGiveResource(resource, amount*-1);
+				}
+			}
+			
+			if(Facade.getCatanModel().resourceManager.canAcceptTrade(Facade.getLocalPlayerIndex())) {
+				getAcceptOverlay().setAcceptEnabled(true);
+			} else {
+				getAcceptOverlay().setAcceptEnabled(false);
+			}
+			getAcceptOverlay().showModal(); //This is where that bug started for the login thing.
+		}
 	}
 
 }

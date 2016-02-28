@@ -12,6 +12,7 @@ import model.CatanModel;
 import model.options.Options;
 import model.players.Player;
 import model.resources.ResourceList;
+import model.resources.TradeOffer;
 import serverProxy.Poller;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
@@ -748,5 +749,26 @@ public class Facade extends Observable {
     public static void startPoller() {
         instance()._startPoller();
     }
+    
+    private void _sendTradeOffer(TradeOffer tradeOffer) throws ServerException
+	{
+		this.proxy.offerTrade(tradeOffer.getSender(), tradeOffer.getReceiver(), tradeOffer.getResourcesOffer());
+	}
+
+	public static void sendTradeOffer(TradeOffer tradeOffer) throws ServerException
+	{
+		instance()._sendTradeOffer(tradeOffer);
+	}
+	
+	private void _acceptTrade(boolean willAccept) throws ServerException
+	{
+		System.out.println("TradeOffer is: " + getCatanModel().resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.BRICK) + " brick and " + getCatanModel().resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.SHEEP) + "sheep.");
+		this.proxy.acceptTrade(this._getLocalPlayerIndex(), willAccept);
+	}
+
+	public static void acceptTrade(boolean willAccept) throws ServerException
+	{
+		instance()._acceptTrade(willAccept);
+	}
 
 }

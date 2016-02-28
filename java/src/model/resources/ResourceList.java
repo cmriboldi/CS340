@@ -140,6 +140,50 @@ public class ResourceList implements Comparable<ResourceList>
 		sheep -= quantity;
 	}
 	
+	public void addResource(ResourceType resource, int amount)
+	{
+		switch (resource)
+		{
+		case BRICK:
+			this.brick += amount;
+			break;
+		case ORE:
+			ore += amount;
+			break;
+		case SHEEP:
+			sheep += amount;
+			break;
+		case WHEAT:
+			wheat += amount;
+			break;
+		case WOOD:
+			wood += amount;
+			break;
+		}
+	}
+	
+	public void removeResource(ResourceType resource, int amount)
+	{
+		switch (resource)
+		{
+		case BRICK:
+			this.brick -= amount;
+			break;
+		case ORE:
+			ore -= amount;
+			break;
+		case SHEEP:
+			sheep -= amount;
+			break;
+		case WHEAT:
+			wheat -= amount;
+			break;
+		case WOOD:
+			wood -= amount;
+			break;
+		}
+	}
+	
 	public int getResourceTypeCount(ResourceType resource)
 	{
 		int resourceCount = 0;

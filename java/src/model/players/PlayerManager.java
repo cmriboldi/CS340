@@ -121,5 +121,19 @@ public class PlayerManager
 		return arrPlayerInfo;
 	}
 
+	public String getPlayerName(int playerIndex)
+	{
+		String name = "";
+		for (int i = 0; i < catanPlayers.length; i++)
+		{
+			Player player = catanPlayers[i]; 
+			if(player.getPlayerIndex() == playerIndex)
+			{
+				name = player.getName();
+			}
+		}
+		return name;
+	}
+
 
 }
