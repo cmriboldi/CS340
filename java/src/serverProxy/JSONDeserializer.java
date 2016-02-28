@@ -229,6 +229,10 @@ public class JSONDeserializer
 	    //<========Construct player manager here============>
 	    PlayerManager newPlayerManager = new PlayerManager(); 
 	    newPlayerManager.setCatanPlayers(catanPlayers);
+	    newPlayerManager.setIndexOfLargestArmy(largestArmy);
+	    newPlayerManager.setIndexOfLongestRoad(longestRoad);
+	    System.out.println(" ------------------------> Longest Road : " + longestRoad); 
+
 	    this.playerManager = newPlayerManager; 
 	}
 

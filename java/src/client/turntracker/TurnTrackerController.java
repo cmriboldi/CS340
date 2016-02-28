@@ -92,6 +92,11 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		if (player3.getPlayerIndex() == currentTurnIndex)
 			player3Turn = true; 
 		
+		
+		System.out.println(" index of largest army in client: " + Facade.getCatanModel().getPlayerManager().getIndexOfLargestArmy()); 
+		System.out.println(" index of Longest road  in client: " + Facade.getCatanModel().getPlayerManager().getIndexOfLongestRoad()); 
+
+		
 		boolean player0LongestRoad = player0.isLongestRoad(); 
 		boolean player1LongestRoad= player0.isLongestRoad(); 
 		boolean player2LongestRoad = player0.isLongestRoad();
@@ -118,6 +123,8 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		{
 			getView().updateGameState("Waiting for Christian ... ", false);
 		}
+		
+		//Facade.getCatanModel().getPlayerManager().getTurnTracker().
 		
 		
 		

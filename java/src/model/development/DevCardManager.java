@@ -41,6 +41,28 @@ public class DevCardManager
 		this.hasPlayedDevCardsList = hasPlayedDevCardsList;
 		this.devCardStack = devCardStack;
 	}
+	
+	/*
+	// LARGEST ARMY
+	int GetIndexOfLargestArmy()
+	{
+		int largestArmyIndex = -1; 
+		int largestArmySize = -1; 
+		for (int i = 0; i < playedDevCards.length(); i++)
+		{
+			int playerIArmySize = playedDevCards.getDevCardsForPlayer(i).getSoldierCount();
+			
+			if (playerIArmySize > largestArmySize)
+			{
+				
+			}
+			
+		}
+		
+		return -1; 
+	}
+	*/
+	
 
 	/**
 	 * Draws a development card for the given player.

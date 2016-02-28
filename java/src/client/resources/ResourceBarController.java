@@ -41,6 +41,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void buildRoad() {
 		System.out.println("Build Road Click --> Resource Bar [Resource Bar component]"); 
+		
 		executeElementAction(ResourceBarElement.ROAD);
 	}
 

@@ -23,6 +23,25 @@ public class PlayerManager
 	/** An array of the current players logged in to play Catan */
 	public Player[] catanPlayers;
 	public PlayerTurnTracker turnTracker = null; 
+	int indexOfLargestArmy = -1; 
+	int indexOfLongestRoad = -1; 
+	
+
+	public int getIndexOfLargestArmy() {
+		return indexOfLargestArmy;
+	}
+
+	public void setIndexOfLargestArmy(int indexOfLargestArmy) {
+		this.indexOfLargestArmy = indexOfLargestArmy;
+	}
+
+	public int getIndexOfLongestRoad() {
+		return indexOfLongestRoad;
+	}
+
+	public void setIndexOfLongestRoad(int indexOfLongestRoad) {
+		this.indexOfLongestRoad = indexOfLongestRoad;
+	}
 
 	public PlayerManager()
 	{
