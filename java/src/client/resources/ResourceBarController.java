@@ -88,6 +88,15 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		getView().setElementAmount(ResourceBarElement.SHEEP, rs.getResourceTypeCount(ResourceType.SHEEP));
 		getView().setElementAmount(ResourceBarElement.WHEAT, rs.getResourceTypeCount(ResourceType.WHEAT));
 		getView().setElementAmount(ResourceBarElement.WOOD, rs.getResourceTypeCount(ResourceType.WOOD));
+
+		int localIndex = Facade.getLocalPlayerIndex();
+
+		if(localIndex == -1)
+			return;
+
+		getView().setElementAmount(ResourceBarElement.ROAD, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getRoadsRemaining());
+		getView().setElementAmount(ResourceBarElement.SETTLEMENT, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getSettlementsRemaining());
+		getView().setElementAmount(ResourceBarElement.CITY, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getCitiesRemaining());
 		
 	}
 
