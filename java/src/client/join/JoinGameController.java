@@ -30,8 +30,9 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	public JoinGameController(IJoinGameView view, INewGameView newGameView, 
 								ISelectColorView selectColorView, IMessageView messageView) 
 	{
-
 		super(view);
+
+		System.out.format(("JoinGameController:: construct: start"));
 
 		setNewGameView(newGameView);
 		setSelectColorView(selectColorView);

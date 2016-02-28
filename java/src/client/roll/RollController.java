@@ -13,54 +13,57 @@ import serverProxy.ServerException;
  */
 public class RollController extends Controller implements IRollController, Observer {
 
-	private IRollResultView resultView;
+    private IRollResultView resultView;
 
-	/**
-	 * RollController constructor
-	 * 
-	 * @param view Roll view
-	 * @param resultView Roll result view
-	 */
-	public RollController(IRollView view, IRollResultView resultView) {
+    /**
+     * RollController constructor
+     *
+     * @param view       Roll view
+     * @param resultView Roll result view
+     */
+    public RollController(IRollView view, IRollResultView resultView) {
 
-		super(view);
-		
-		setResultView(resultView);
-		Facade.addObserverStatic(this);
-	}
-	
-	public IRollResultView getResultView() {
-		return resultView;
-	}
-	public void setResultView(IRollResultView resultView) {
-		this.resultView = resultView;
-	}
+        super(view);
 
-	public IRollView getRollView() {
-		return (IRollView)this.getView();
-	}
-	
-	@Override
-	public void rollDice() {
+        setResultView(resultView);
+        Facade.addObserverStatic(this);
+    }
 
-		try {
-			this.resultView.setRollValue(Facade.roll());
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		getResultView().showModal();
-	}
+    public IRollResultView getResultView() {
+        return resultView;
+    }
 
-	@Override
-	public void update(Observable o, Object arg) {
-		if(Facade.getTurnStatus().equals("Rolling") && Facade.isMyturn())
-		{
-			if(!getRollView().isModalShowing());
-				getRollView().showModal();
-		}
-		
-	}
+    public void setResultView(IRollResultView resultView) {
+        this.resultView = resultView;
+    }
+
+    public IRollView getRollView() {
+        return (IRollView) this.getView();
+    }
+
+    @Override
+    public void rollDice() {
+
+        try {
+            this.resultView.setRollValue(Facade.roll());
+
+        } catch (ServerException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        getResultView().showModal();
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (Facade.getTurnStatus().equals("Rolling") && Facade.isMyturn()) {
+            if (!getRollView().isModalShowing()) {
+                getRollView().showModal();
+            }
+
+        }
+
+    }
 
 }
 
