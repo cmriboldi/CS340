@@ -2,6 +2,7 @@ package model.map;
 
 //Project Imports
 
+import shared.definitions.PortType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -10,6 +11,7 @@ import model.resources.ResourceList;
 //Java imports
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 /**
  * The MapManager class manages all interactions with the Map.
@@ -37,7 +39,6 @@ public class MapManager implements IMapManager {
     }
 
     /**
-     *
      * @return the index of the player with the longest road
      */
     @Override
@@ -57,19 +58,26 @@ public class MapManager implements IMapManager {
         return map.canPlaceRoad(edge, player);
     }
 
-    public boolean canPlaceRoadSetup(EdgeLocation edge, int playerIndex){
+    public boolean canPlaceRoadSetup(EdgeLocation edge, int playerIndex) {
         return map.canPlaceRoadSetup(edge, playerIndex);
     }
 
-    public boolean canPlaceSettlement(VertexLocation vert, int playerIndex)
-    {
+    public boolean canPlaceSettlement(VertexLocation vert, int playerIndex) {
         return map.canPlaceSettlement(vert, playerIndex);
+    }
+
+    public Set<PortType> canMaritimeTrade(int player) {
+        return map.canMaritimeTrade(player);
     }
 
     @Override
     public void placeSettlement(VertexLocation vertex, int player) {
         // TODO Auto-generated method stub
 
+    }
+
+    public boolean canPlaceCity(VertexLocation location, int player) {
+        return map.canPlaceCity(location, player);
     }
 
     @Override

@@ -160,7 +160,7 @@ public class Options
 	 */
 	public Set<PortType> canMaritimeTrade(int playerIndex)
 	{	
-		return catanModel.mapManager.getMap().canMaritimeTrade(playerIndex);
+		return catanModel.mapManager.canMaritimeTrade(playerIndex);
 	}
 
 	/**
