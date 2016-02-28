@@ -243,7 +243,7 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(Facade.getTurnStatus() == "discarding")
+		if(Facade.getTurnStatus().equals("Discarding"))
 		{		
 			woodTotal = Facade.getResourceAmount(ResourceType.WOOD);
 			brickTotal = Facade.getResourceAmount(ResourceType.BRICK);
@@ -252,8 +252,6 @@ public class DiscardController extends Controller implements IDiscardController,
 			oreTotal = Facade.getResourceAmount(ResourceType.ORE);
 			total = woodTotal+brickTotal+sheepTotal+wheatTotal+oreTotal;
 			amount = total/2;
-			System.out.println("total resources: "+total);
-			System.out.println("amount to discard : "+amount);
 			
 			
 			if(total > 7)
