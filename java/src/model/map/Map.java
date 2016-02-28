@@ -285,6 +285,23 @@ public class Map {
         if (roads.containsKey(edge))
             return false;
 
+        //is there a road adj to this road
+        VertexLocation left = findVertexLeft(edge);
+        VertexLocation right = findVertexRight(edge);
+
+        List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
+        adjEdges.addAll(findEdges(left, edge));
+        adjEdges.addAll(findEdges(right, edge));
+
+        //for each edge adj to the edge in question
+        for (int i = 0; i < adjEdges.size(); i++) {
+            //does roads contain each adj edge (does there exist roads next to the edge)
+            if (roads.containsKey(adjEdges.get(i))) {
+                return false;
+            }
+        }
+
+
         return true;
     }
 
