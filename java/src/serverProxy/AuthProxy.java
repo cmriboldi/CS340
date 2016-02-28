@@ -30,10 +30,10 @@ public class AuthProxy
 	private String authCookie;
 	private String urlBase;
 	
-	public AuthProxy(String authCookie)
+	public AuthProxy(String urlBase, String authCookie)
 	{
 		this.authCookie = "catan.user=" + authCookie;
-		urlBase = "http://localhost:8081";
+		this.urlBase = urlBase;
 	}
 	
 	public void joinGame(int gameId, String color) throws ServerException 
@@ -93,6 +93,7 @@ public class AuthProxy
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			throw new ServerException("SERVER NOT RESPONDING");
 		}
 	}
 	
@@ -525,6 +526,7 @@ public class AuthProxy
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			throw new ServerException("SERVER NOT RESPONDING");
 		}
 		return null;
 	}
@@ -581,6 +583,7 @@ public class AuthProxy
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			throw new ServerException("SERVER NOT RESPONDING");
 		}
 		return null;
 	}

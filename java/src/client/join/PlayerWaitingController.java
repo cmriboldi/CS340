@@ -91,14 +91,12 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 		{
 			if(!Facade.hasGameStarted())
 				Facade.addAI(getView().getSelectedAI());
-
-			setPlayers();
-			//getView().closeModal();
 		}
 		catch (ServerException e)
 		{
 			e.printStackTrace();
 		}
+		setPlayers();
 	}
 
 	@Override

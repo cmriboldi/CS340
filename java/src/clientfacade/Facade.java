@@ -701,6 +701,16 @@ public class Facade extends Observable {
 
     ////////////////////////////// My section.... not yours..... mine........./////////////////////////////////////////
 
+    public static void connectToServer(String host, int port)
+    {
+        instance()._connectToServer(host, port);
+    }
+
+    private void _connectToServer(String host, int port)
+    {
+        this.proxy = new RealProxy(host, port);
+    }
+
     private void _login(String username, String password) throws ServerException {
         this.proxy.userLogin(username, password);
     }

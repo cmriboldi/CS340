@@ -7,6 +7,7 @@ import client.login.*;
 import client.join.*;
 import client.misc.*;
 import client.base.*;
+import clientfacade.Facade;
 
 /**
  * Main entry point for the Catan program
@@ -46,6 +47,10 @@ public class Catan extends JFrame
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+			if(args.length == 2)
+			{
+				Facade.connectToServer(args[0], Integer.parseInt(args[1]));
+			}
 		}
 		catch(Exception e)
 		{

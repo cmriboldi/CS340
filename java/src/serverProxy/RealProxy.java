@@ -4,11 +4,7 @@ import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
-import java.net.URL;
-import java.net.URLDecoder;
+import java.net.*;
 //import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +44,11 @@ public class RealProxy implements ServerProxy
 		urlBase = "http://localhost:8081";
 	}
 
+	public RealProxy(String host, int port)
+	{
+		urlBase = "http://" + host + ":" + port;
+	}
+
 	@Override
 	public void userLogin(String username, String password) throws ServerException 
 	{
@@ -85,7 +86,7 @@ public class RealProxy implements ServerProxy
 				String cookie = conn.getHeaderField("Set-cookie");
 				cookie = cookie.replace("catan.user=", "");
 				cookie = cookie.replace(";Path=/;", "");
-				authProxy = new AuthProxy(cookie);
+				authProxy = new AuthProxy(urlBase, cookie);
 				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
 				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
 				PlayerInfo localPlayerInfo = new PlayerInfo();
@@ -113,6 +114,7 @@ public class RealProxy implements ServerProxy
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			throw new ServerException("SERVER NOT RESPONDING");
 		}
 	}
 
@@ -385,6 +387,7 @@ public class RealProxy implements ServerProxy
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			throw new ServerException("SERVER NOT RESPONDING");
 		}
 		return null;
 	}
@@ -440,6 +443,7 @@ public class RealProxy implements ServerProxy
 		catch (IOException e) 
 		{
 			e.printStackTrace();
+			throw new ServerException("SERVER NOT RESPONDING");
 		}
 		return null;
 	}

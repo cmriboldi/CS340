@@ -5,6 +5,8 @@ import client.misc.*;
 import clientfacade.Facade;
 import serverProxy.ServerException;
 
+import java.net.UnknownHostException;
+
 //import java.net.*;
 //import java.io.*;
 //import java.util.*;
@@ -85,10 +87,20 @@ public class LoginController extends Controller implements ILoginController {
 		} 
 		catch (ServerException e) 
 		{
-			messageView.setTitle("Login Failed");
-			messageView.setMessage("INVALID CREDENTIALS");
-			messageView.showModal();
-			e.printStackTrace();
+			if(e.getMessage() == "SERVER NOT RESPONDING")
+			{
+				messageView.setTitle("Login Failed");
+				messageView.setMessage(e.getMessage());
+				messageView.showModal();
+				e.printStackTrace();
+			}
+			else
+			{
+				messageView.setTitle("Login Failed");
+				messageView.setMessage("INVALID CREDENTIALS");
+				messageView.showModal();
+				e.printStackTrace();
+			}
 		}
 	}
 
