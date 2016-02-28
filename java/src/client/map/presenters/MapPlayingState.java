@@ -48,8 +48,11 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc); 
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		if(localPlayerIndex == -1)
+			return false;
+
+		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerIndex, vertLoc);
 	}
 
 	@Override
@@ -71,20 +74,13 @@ public class MapPlayingState implements MapControllerState
 	{
 		// Doesn't need to check the canDo method? 
 		int localPlayerIndex = Facade.getLocalPlayerIndex();
-
 		Facade.buildRoad(localPlayerIndex, edgeLoc, false);
 	}
 
 	@Override
-	public void placeSettlement(VertexLocation vertLoc) 
-	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		try {
-			Facade.buildTown(localPlayerId, vertLoc, false);
-		} catch (ServerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+	public void placeSettlement(VertexLocation vertLoc) throws ServerException {
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		Facade.buildTown(localPlayerIndex, vertLoc, false);
 	}
 
 	@Override
