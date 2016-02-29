@@ -203,13 +203,15 @@ public class Facade extends Observable {
      */
     //PRIVATE METHOD
     private void _buildTown(int playerIndex, VertexLocation vert, boolean free) throws ServerException {
-        this._setView(this.proxy.buildSettlement(playerIndex, vert, free));
+        System.out.println("(Facade build town 2) " + playerIndex + " " + vert.toString() + " " + free	); 
+    	this._setView(this.proxy.buildSettlement(playerIndex, vert, free));
 
     }
 
     //PUBLIC METHOD
     public static void buildTown(int playerIndex, VertexLocation vertex, boolean free) throws ServerException {
-        instance()._buildTown(playerIndex, vertex, free);
+        System.out.println("(Facade build town) " + playerIndex + " " + vertex.toString() + " " + free	); 
+    	instance()._buildTown(playerIndex, vertex, free);
     }
 
 

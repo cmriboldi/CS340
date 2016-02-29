@@ -82,7 +82,8 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public void placeSettlement(VertexLocation vertLoc)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
+		int localPlayerId = Facade.getLocalPlayerInfo().getPlayerIndex();  
+		System.out.println(" SetupState Place Settlement: " + localPlayerId + " " +  vertLoc.toString()); 
 		try {
 			Facade.buildTown(localPlayerId, vertLoc, true);
 		} catch (ServerException e) {
