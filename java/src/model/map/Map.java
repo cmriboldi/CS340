@@ -239,6 +239,14 @@ public class Map {
         //normalize the edge
         edge = edge.getNormalizedLocation();
 
+        //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
+        //check that there exists in hexes at least ONE of the hex locations
+        HexLocation one = edge.getHexLoc();
+        HexLocation two = one.getNeighborLoc(edge.getDir());
+
+        if(!hexes.containsKey(one) && !hexes.containsKey(two))
+            return false;
+
         //is there a road already present at edge
         if (roads.containsKey(edge))
             return false;
@@ -308,6 +316,14 @@ public class Map {
     {
         //normalize the edge
         edge = edge.getNormalizedLocation();
+
+        //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
+        //check that there exists in hexes at least ONE of the hex locations
+        HexLocation one = edge.getHexLoc();
+        HexLocation two = one.getNeighborLoc(edge.getDir());
+
+        if(!hexes.containsKey(one) && !hexes.containsKey(two))
+            return false;
 
         //is there a road already present at edge
         if (roads.containsKey(edge))
