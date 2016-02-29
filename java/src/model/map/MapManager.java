@@ -67,6 +67,10 @@ public class MapManager implements IMapManager {
         return map.canPlaceSettlement(vert, playerIndex);
     }
 
+    public boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex) {
+        return map.canPlaceSettlementSetup(vertLoc, playerIndex);
+    }
+
     public Set<PortType> canMaritimeTrade(int player) {
         return map.canMaritimeTrade(player);
     }
@@ -77,7 +81,7 @@ public class MapManager implements IMapManager {
 
     }
 
-    public HashSet<Integer> getPlayersOnHex(HexLocation hex){
+    public HashSet<Integer> getPlayersOnHex(HexLocation hex) {
         return map.getPlayersOnHex(hex);
     }
 

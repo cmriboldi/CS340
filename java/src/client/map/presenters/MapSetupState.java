@@ -50,8 +50,10 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc);  // DURING SETUP
+		/*int localPlayerId = Facade.getLocalPlayerInfo().getId();
+		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc);  // DURING SETUP*/
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		return Facade.getCatanModel().getMapManager().canPlaceSettlementSetup(vertLoc, localPlayerIndex);
 	}
 
 	@Override

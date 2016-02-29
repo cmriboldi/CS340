@@ -387,6 +387,26 @@ public class Map {
         return false;
     }
 
+    boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex)
+    {
+        //---check for a player owned edge adjacent to the given vertex
+        List<EdgeLocation> firstEdges = findEdges(vertLoc);
+        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
+        for (EdgeLocation edge_t : firstEdges) {
+            if (roads.containsKey(edge_t))
+                if (roads.get(edge_t).owner == playerIndex)
+                    firstEdgesPlayer.add(edge_t);
+        }
+
+        //-if the player owns no adjoinging edges, return false
+        if (firstEdgesPlayer.size() == 0){
+            System.out.format("Map : canPlaceSettmentSetup : return false : no adjoining edges");
+            return false;
+        }
+
+        return true;
+    }
+
     public boolean canPlaceCity(VertexLocation location, int player) {
         if (!settlements.containsKey(location))
             return false;
