@@ -72,7 +72,7 @@ public class MapController extends Controller implements IMapController, Observe
         	//currentState.startMove(pieceType, isFree, allowDisconnected, mapView);
         	
         	int roadsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();  
-        	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();
+        	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getSettlementsRemaining();
         	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
         	
         	System.out.println("SETUPT:: " + settlementsRemaining + " " + roadsRemaining + " " + status);
@@ -217,7 +217,7 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceSettlement(VertexLocation vertLoc) {
-        System.out.println("MAP CONTROLLER --->  canPlaceSettlement");
+        System.out.println("MAP CONTROLLER --->  canPlaceSettlement " + currentState.getClass().toString());
         return currentState.canPlaceSettlement(vertLoc);
     }
 
