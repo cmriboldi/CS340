@@ -347,7 +347,6 @@ public class Facade extends Observable {
 	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
 	{
 		Integer[] indexes = (Integer[]) this.catanModel.mapManager.getPlayersOnHex(hexLoc).toArray();
-		this.catanModel.mapManager.placeRobber(hexLoc);
 		
 		RobPlayerInfo[] robInfo = new RobPlayerInfo[indexes.length];
 		
@@ -376,14 +375,14 @@ public class Facade extends Observable {
 		return instance()._getPlayersOnHex(hexLoc);
 	}
 	
-	private void _robPlayer(int victimIndex) throws ServerException
+	private void _robPlayer(int victimIndex, HexLocation robber) throws ServerException
 	{
-		this._setView(this.proxy.robPlayer(this._getLocalPlayerIndex(), victimIndex, this.catanModel.mapManager.getRobber()));
+		this._setView(this.proxy.robPlayer(this._getLocalPlayerIndex(), victimIndex, robber));
 	}
 	
-	public static void robPlayer(int victimIndex) throws ServerException
+	public static void robPlayer(int victimIndex, HexLocation robber) throws ServerException
 	{
-		instance()._robPlayer(victimIndex);
+		instance()._robPlayer(victimIndex, robber);
 	}
 
 

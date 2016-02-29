@@ -89,9 +89,12 @@ public class MapPlayingState implements MapControllerState
 		Facade.buildCity (localPlayerIndex, vertLoc);
 	}
 
+	private HexLocation robLocation;
+	
 	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView)
 	{
+		robLocation = hexLoc;
 		RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
 		if(!RobView.isModalShowing())
 			RobView.showModal();
@@ -101,7 +104,7 @@ public class MapPlayingState implements MapControllerState
 	public void robPlayer(RobPlayerInfo victim)
 	{
 		try {
-			Facade.robPlayer(victim.getPlayerIndex());
+			Facade.robPlayer(victim.getPlayerIndex(), robLocation);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
