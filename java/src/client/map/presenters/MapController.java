@@ -162,7 +162,9 @@ public class MapController extends Controller implements IMapController, Observe
                 Hex hex = hexes.get(hexLoc);
                 getView().addHex(hexLoc, hex.getResource());
                 //System.out.println("LOG::MapController.initFromModel::loadingHex\n\thexLoc: " + hexLoc.toString() + "\n\tresource: " + hex.getResource() + "\n\tnumber: " + hex.getResource());
-                //getView().addNumber(hexLoc, hex.getNumber());
+                int hexNumber = hex.getNumber();
+                if((hexNumber >= 2) && (hexNumber <= 12) && (hexNumber != 7))
+                    getView().addNumber(hexLoc, hex.getNumber());
             }
 
             //Generate and add the ocean tiles
