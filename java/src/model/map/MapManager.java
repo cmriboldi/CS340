@@ -11,6 +11,7 @@ import model.resources.ResourceList;
 //Java imports
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -74,6 +75,10 @@ public class MapManager implements IMapManager {
     public void placeSettlement(VertexLocation vertex, int player) {
         // TODO Auto-generated method stub
 
+    }
+
+    public HashSet<Integer> getPlayersOnHex(HexLocation hex){
+        return map.getPlayersOnHex(hex);
     }
 
     public boolean canPlaceCity(VertexLocation location, int player) {

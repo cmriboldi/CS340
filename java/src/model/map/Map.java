@@ -276,6 +276,34 @@ public class Map {
         return false;
     }
 
+    public HashSet<Integer> getPlayersOnHex(HexLocation hex)
+    {
+        //collect the 6 vertexes
+        ArrayList<VertexLocation> vertexes = new ArrayList<VertexLocation>();
+        HashSet<Integer> returnThis = new HashSet<Integer>();
+
+        VertexLocation northEast = new VertexLocation(hex, VertexDirection.NorthEast);
+        VertexLocation northWest = new VertexLocation(hex, VertexDirection.NorthWest);
+        VertexLocation east = new VertexLocation(hex, VertexDirection.East);
+        VertexLocation west = new VertexLocation(hex, VertexDirection.West);
+        VertexLocation southEast = new VertexLocation(hex, VertexDirection.SouthEast);
+        VertexLocation southWest = new VertexLocation(hex, VertexDirection.SouthWest);
+
+        vertexes.add(northEast.getNormalizedLocation());
+        vertexes.add(northWest.getNormalizedLocation());
+        vertexes.add(east.getNormalizedLocation());
+        vertexes.add(west.getNormalizedLocation());
+        vertexes.add(southWest.getNormalizedLocation());
+        vertexes.add(southEast.getNormalizedLocation());
+
+        for(VertexLocation vert : vertexes)
+        {
+            if(settlements.containsKey(vert))
+                returnThis.add(settlements.get(vert).getPlayer());
+        }
+        return returnThis;
+    }
+
     public boolean canPlaceRoadSetup(EdgeLocation edge, int player)
     {
         //normalize the edge
@@ -366,7 +394,7 @@ public class Map {
         if (settlements.get(location).player != player)
             return false;
 
-        if (settlements.get(location).isCity == true)
+        if (settlements.get(location).isCity)
             return false;
 
         return true;
