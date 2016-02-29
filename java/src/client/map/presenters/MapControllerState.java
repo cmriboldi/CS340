@@ -60,7 +60,7 @@ public interface MapControllerState {
 
     public void playRoadBuildingCard();
 
-    public void robPlayer(RobPlayerInfo victim);
+    public void robPlayer(RobPlayerInfo victim, IRobView RobView);
     
     
     

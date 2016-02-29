@@ -390,8 +390,7 @@ public class MapComponent extends JComponent
 	}
 	
 	public void placeRobber(HexLocation hexLoc)
-	{
-		
+	{		
 		robber = hexLoc;
 	}
 	

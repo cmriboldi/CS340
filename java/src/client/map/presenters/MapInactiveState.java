@@ -123,7 +123,7 @@ public class MapInactiveState implements MapControllerState
 	}
 
 	@Override
-	public void robPlayer(RobPlayerInfo victim) {
+	public void robPlayer(RobPlayerInfo victim, IRobView RobView) {
 		// TODO Auto-generated method stub
 		
 	}

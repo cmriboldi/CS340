@@ -101,8 +101,10 @@ public class MapPlayingState implements MapControllerState
 	}
 	
 	@Override
-	public void robPlayer(RobPlayerInfo victim)
+	public void robPlayer(RobPlayerInfo victim, IRobView RobView)
 	{
+		if(RobView.isModalShowing())
+			RobView.closeModal();
 		try {
 			Facade.robPlayer(victim.getPlayerIndex(), robLocation);
 		} catch (ServerException e) {

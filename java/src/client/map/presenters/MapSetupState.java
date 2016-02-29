@@ -135,8 +135,8 @@ public class MapSetupState implements MapControllerState
 	}
 
 	@Override
-	public void robPlayer(RobPlayerInfo victim) {
-		// Do nothing 
+	public void robPlayer(RobPlayerInfo victim, IRobView RobView) {
+		// TODO Auto-generated method stub
 		
 	}
 }

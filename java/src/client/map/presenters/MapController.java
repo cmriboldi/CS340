@@ -66,6 +66,11 @@ public class MapController extends Controller implements IMapController, Observe
             e.printStackTrace();
         }
         
+        if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn())
+        {
+        	getView().startDrop(PieceType.ROBBER, null, false);
+        }
+        
         if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
         {
         	//MODAL ERROR HERE
@@ -275,7 +280,7 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void robPlayer(RobPlayerInfo victim) {
-        currentState.robPlayer(victim);
+        currentState.robPlayer(victim, getRobView());
     }
 
     public MapControllerState getCurrentState() {
