@@ -1,6 +1,7 @@
 package clientfacade;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
@@ -343,21 +344,21 @@ public class Facade extends Observable {
 		
 	}
 	
-	/*private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
+	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
 	{
-		List<Integer> indexes = this.catanModel.mapManager.getPlayersOnHex(HexLocation hexLoc);
+		Integer[] indexes = (Integer[]) this.catanModel.mapManager.getPlayersOnHex(hexLoc).toArray();
 		this.catanModel.mapManager.placeRobber(hexLoc);
 		
-		RobPlayerInfo[] robInfo = new RobPlayerInfo[indexes.size()];
+		RobPlayerInfo[] robInfo = new RobPlayerInfo[indexes.length];
 		
-		for(int i = 0; i < indexes.size(); i++)
+		for(int i = 0; i < indexes.length; i++)
 		{
-			Player p = this.catanModel.playerManager.getPlayerByIndex(indexes.get(i));
+			Player p = this.catanModel.playerManager.getPlayerByIndex(indexes[i]);
 			int id = p.getId();
 			int playerIndex = p.getPlayerIndex();
 			String name = p.getName();
 			CatanColor color = p.getColor();
-			int resources = this.catanModel.playerManager.getTotalResourceCount(playerIndex);
+			int resources = this.catanModel.resourceManager.getTotalResourceCount(playerIndex);
 			
 			RobPlayerInfo Info = new RobPlayerInfo();
 			Info.setId(id);
@@ -373,7 +374,7 @@ public class Facade extends Observable {
 	public static RobPlayerInfo[] getPlayersOnHex(HexLocation hexLoc)
 	{
 		return instance()._getPlayersOnHex(hexLoc);
-	}*/
+	}
 	
 	private void _robPlayer(int victimIndex) throws ServerException
 	{

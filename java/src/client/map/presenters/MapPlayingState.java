@@ -92,7 +92,7 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView)
 	{
-		//RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
+		RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
 		if(!RobView.isModalShowing())
 			RobView.showModal();
 	}
