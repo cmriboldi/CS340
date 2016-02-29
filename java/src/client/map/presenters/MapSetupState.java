@@ -97,7 +97,7 @@ public class MapSetupState implements MapControllerState
 
 		CatanColor pieceColor = Facade.getCatanModel().getPlayerManager().getPlayerByIndex(Facade.getLocalPlayerIndex()).getColor();
 		System.out.format("Map Setup ---> StartMove: pieceType {%s} - isFree {%s} - allowDisconnected {%s} - localPlayerColor {%s} - isCancelable {true}%n", pieceType, isFree, allowDisconnected, pieceColor);
-		mapView.startDrop(pieceType, pieceColor, true);
+		mapView.startDrop(pieceType, pieceColor, false);
 	}
 
 	@Override

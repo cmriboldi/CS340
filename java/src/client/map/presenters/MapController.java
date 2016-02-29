@@ -69,7 +69,42 @@ public class MapController extends Controller implements IMapController, Observe
         if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
         {
         	//MODAL ERROR HERE
-        	//currentState.startMove(PieceType.ROAD, true, true, getView());
+        	//currentState.startMove(pieceType, isFree, allowDisconnected, mapView);
+        	
+        	int roadsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();  
+        	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();
+        	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
+        	
+        	System.out.println("SETUPT:: " + settlementsRemaining + " " + roadsRemaining + " " + status);
+        	
+        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15)
+        	{
+        		System.out.println("(1)"); 
+            	currentState.startMove(PieceType.ROAD, true, true, getView());
+        	}
+        	else if (status.toLowerCase().equals("firstround")&&roadsRemaining == 14&&settlementsRemaining == 5)
+        	{
+        		System.out.println("(2)"); 
+            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
+        	}
+        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14)
+        	{
+        		System.out.println("(3)"); 
+            	currentState.startMove(PieceType.ROAD, true, true, getView());
+        	}
+        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 13&&settlementsRemaining == 4)
+        	{
+        		System.out.println("(4)"); 
+            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
+        	}
+        	else
+        	{
+        		try {
+					Facade.getProxy().finishTurn(Facade.getLocalPlayerIndex());
+				} catch (ServerException e) {
+					e.printStackTrace();
+				}
+        	}
         }
 
         System.out.println("CLASS:" + currentState.getClass().toString());
