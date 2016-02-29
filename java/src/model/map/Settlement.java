@@ -30,4 +30,8 @@ public class Settlement extends VertexObject {
     public boolean isCity() {
         return isCity;
     }
+
+    public void makeCity() {
+        isCity = true;
+    }
 }

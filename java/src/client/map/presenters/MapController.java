@@ -187,7 +187,10 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceCity(VertexLocation vertLoc) {
-        return currentState.canPlaceCity(vertLoc);
+        boolean returnThis = currentState.canPlaceCity(vertLoc);
+        System.out.format("\tMapController:: canPlaceRoad: vertLoc {%s} - canPlaceCity {%s}%n", vertLoc, returnThis);
+
+        return returnThis;
     }
 
     public boolean canPlaceRobber(HexLocation hexLoc) {

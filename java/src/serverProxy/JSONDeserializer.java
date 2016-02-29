@@ -346,6 +346,7 @@ public class JSONDeserializer
 			VertexLocation vertexLocation = new VertexLocation(hexLocation, VertexDirection.valueOf(Direction.shortToLong(direction)));
 			vertexLocation = vertexLocation.getNormalizedLocation();
 			Settlement entry = new Settlement(vertexLocation, owner);
+			entry.makeCity();
 			settlements_r.put(entry.location, entry);
 		}
 

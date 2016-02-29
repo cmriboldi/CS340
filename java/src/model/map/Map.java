@@ -360,14 +360,16 @@ public class Map {
     }
 
     public boolean canPlaceCity(VertexLocation location, int player) {
-        if (settlements.containsKey(location)) {
-            if (settlements.get(location).player == player) {
-                if (settlements.get(location).isCity == false) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        if (!settlements.containsKey(location))
+            return false;
+
+        if (settlements.get(location).player != player)
+            return false;
+
+        if (settlements.get(location).isCity == true)
+            return false;
+
+        return true;
     }
 
     public Set<PortType> canMaritimeTrade(int player) {

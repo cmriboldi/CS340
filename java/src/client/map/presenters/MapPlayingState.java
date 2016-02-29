@@ -58,8 +58,8 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public boolean canPlaceCity(VertexLocation vertLoc)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		return Facade.getCatanModel().getOptions().canPlaceCity(localPlayerId, vertLoc); 
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		return Facade.getCatanModel().getOptions().canPlaceCity(localPlayerIndex, vertLoc);
 	}
 
 	@Override
