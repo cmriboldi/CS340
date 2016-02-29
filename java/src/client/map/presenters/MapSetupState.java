@@ -44,7 +44,8 @@ public class MapSetupState implements MapControllerState
 		if(localPlayerIndex == -1)
 			return false;
 
-		return Facade.getCatanModel().getMapManager().canPlaceRoadSetup(edgeLoc, localPlayerIndex); //.getOptions().canPlaceRoad(localPlayerIndex, edgeLoc); // DURING SETUP
+		//return Facade.getCatanModel().getMapManager().canPlaceRoadSetup(edgeLoc, localPlayerIndex); //.getOptions().canPlaceRoad(localPlayerIndex, edgeLoc); // DURING SETUP
+		return Facade.getCatanModel().getMapManager().canPlaceRoad(edgeLoc, localPlayerIndex);
 	}
 
 	@Override

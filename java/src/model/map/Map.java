@@ -236,40 +236,51 @@ public class Map {
     }
 
     public boolean canPlaceRoad(EdgeLocation edge, int player) {
-        //normalize the edge
+        //----- normalize the edge
         edge = edge.getNormalizedLocation();
 
+        //----- is there a road already present at edge
+        if (roads.containsKey(edge))
+            return false;
+
+        //----- check for ocean roads
         //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
         //check that there exists in hexes at least ONE of the hex locations
         HexLocation one = edge.getHexLoc();
         HexLocation two = one.getNeighborLoc(edge.getDir());
 
-        if(!hexes.containsKey(one) && !hexes.containsKey(two))
+        if (!hexes.containsKey(one) && !hexes.containsKey(two))
             return false;
 
-        //is there a road already present at edge
-        if (roads.containsKey(edge))
-            return false;
 
-        //is there a player settlement adj to the edge
+        //----- is there a player settlement adj to the edge
         VertexLocation left = findVertexLeft(edge);
+        boolean leftSetPresent = false;
         VertexLocation right = findVertexRight(edge);
+        boolean rightSetPresent = false;
 
         if (settlements.containsKey(left))
+            leftSetPresent = true;
             if (settlements.get(left).player == player) {
                 return true;
             }
 
         if (settlements.containsKey(right)) {
+            rightSetPresent = true;
             if (settlements.get(right).player == player) {
                 return true;
             }
         }
 
-        //is there a player owned road adj to the edgj
+        //----- is there a player owned road adj to the edgj
+        //--- must consider the cases where a different player owns a settlement on either left or right
         List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
-        adjEdges.addAll(findEdges(left, edge));
-        adjEdges.addAll(findEdges(right, edge));
+
+        if(!leftSetPresent)
+            adjEdges.addAll(findEdges(left, edge));
+
+        if(!rightSetPresent)
+            adjEdges.addAll(findEdges(right, edge));
 
         //for each edge adj to the edge in question
         for (int i = 0; i < adjEdges.size(); i++) {
@@ -284,8 +295,48 @@ public class Map {
         return false;
     }
 
-    public HashSet<Integer> getPlayersOnHex(HexLocation hex)
-    {
+   /* public boolean canPlaceRoadSetup(EdgeLocation edge, int player) {
+        //normalize the edge
+        edge = edge.getNormalizedLocation();
+
+        //--- check for ocean roads
+        //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
+        //check that there exists in hexes at least ONE of the hex locations
+        HexLocation one = edge.getHexLoc();
+        HexLocation two = one.getNeighborLoc(edge.getDir());
+
+        if (!hexes.containsKey(one) && !hexes.containsKey(two))
+            return false;
+
+        //is there a road already present at edge
+        if (roads.containsKey(edge))
+            return false;
+
+        //is there a road adj to this road ... that the placing player owns
+        VertexLocation left = findVertexLeft(edge);
+        VertexLocation right = findVertexRight(edge);
+
+        List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
+        adjEdges.addAll(findEdges(left, edge));
+        adjEdges.addAll(findEdges(right, edge));
+
+        //for each edge adj to the edge in question
+        for (int i = 0; i < adjEdges.size(); i++) {
+            //does roads contain each adj edge (does there exist roads next to the edge)
+            if (roads.containsKey(adjEdges.get(i))) {
+                if(roads.get(adjEdges.get(i)).owner == player)
+                    return false;
+            }
+        }
+
+        //check that at least one of the vertexes on this edge can have a settlement attached to it
+        if(!canPlaceSettlementSetup(left, player) && !canPlaceSettlementSetup(right, player))
+            return false;
+
+        return true;
+    }*/
+
+    public HashSet<Integer> getPlayersOnHex(HexLocation hex) {
         //collect the 6 vertexes
         ArrayList<VertexLocation> vertexes = new ArrayList<VertexLocation>();
         HashSet<Integer> returnThis = new HashSet<Integer>();
@@ -304,49 +355,13 @@ public class Map {
         vertexes.add(southWest.getNormalizedLocation());
         vertexes.add(southEast.getNormalizedLocation());
 
-        for(VertexLocation vert : vertexes)
-        {
-            if(settlements.containsKey(vert))
+        for (VertexLocation vert : vertexes) {
+            if (settlements.containsKey(vert))
                 returnThis.add(settlements.get(vert).getPlayer());
         }
         return returnThis;
     }
 
-    public boolean canPlaceRoadSetup(EdgeLocation edge, int player)
-    {
-        //normalize the edge
-        edge = edge.getNormalizedLocation();
-
-        //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
-        //check that there exists in hexes at least ONE of the hex locations
-        HexLocation one = edge.getHexLoc();
-        HexLocation two = one.getNeighborLoc(edge.getDir());
-
-        if(!hexes.containsKey(one) && !hexes.containsKey(two))
-            return false;
-
-        //is there a road already present at edge
-        if (roads.containsKey(edge))
-            return false;
-
-        //is there a road adj to this road
-        VertexLocation left = findVertexLeft(edge);
-        VertexLocation right = findVertexRight(edge);
-
-        List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
-        adjEdges.addAll(findEdges(left, edge));
-        adjEdges.addAll(findEdges(right, edge));
-
-        //for each edge adj to the edge in question
-        for (int i = 0; i < adjEdges.size(); i++) {
-            //does roads contain each adj edge (does there exist roads next to the edge)
-            if (roads.containsKey(adjEdges.get(i))) {
-                return false;
-            }
-        }
-
-        return true;
-    }
 
     public boolean canPlaceSettlement(VertexLocation vertex, int player) {
 
@@ -403,8 +418,7 @@ public class Map {
         return false;
     }
 
-    boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex)
-    {
+    boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex) {
         //---check for a player owned edge adjacent to the given vertex
         List<EdgeLocation> firstEdges = findEdges(vertLoc);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
@@ -415,7 +429,7 @@ public class Map {
         }
 
         //-if the player owns no adjoinging edges, return false
-        if (firstEdgesPlayer.size() == 0){
+        if (firstEdgesPlayer.size() == 0) {
             System.out.format("Map : canPlaceSettmentSetup : return false : no adjoining edges");
             return false;
         }
