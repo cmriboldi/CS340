@@ -368,6 +368,10 @@ public class Map {
         List<EdgeLocation> firstEdges = findEdges(vertex);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
 
+        //----- check for an occupied vertex
+        if(settlements.containsKey(vertex))
+            return false;
+
         //----- check for ocean tiles
         //--- check that at least one hex adj to this vertex is in the hexes map
         HexLocation one = vertex.getHexLoc();
