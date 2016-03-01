@@ -65,8 +65,8 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public boolean canPlaceRobber(HexLocation hexLoc)
 	{
-		int localPlayerId = Facade.getLocalPlayerInfo().getId(); 
-		return Facade.getCatanModel().getOptions().canPlaceRobber(localPlayerId); 	
+		int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
+		return Facade.getCatanModel().getOptions().canPlaceRobber(localPlayerIndex);
 	}
 
 	@Override
