@@ -133,7 +133,7 @@ public class Trader
 
 	public boolean canAcceptTrade(int playerIndex)
 	{
-		return playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer());
+		return playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer().invert());
 	}
 
 }
