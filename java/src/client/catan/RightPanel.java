@@ -35,6 +35,7 @@ public class RightPanel extends JPanel
 			@Override
 			public void execute()
 			{
+				System.out.println("HEREEEEEEEEEEEEE #1");
 				mapController.playSoldierCard();
 			}
 		};

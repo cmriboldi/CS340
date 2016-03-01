@@ -93,6 +93,7 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView)
 	{
+		System.out.println("HEREEEEEEEEEEEEE #3");
 		robLocation = hexLoc;
 		RobView.setPlayers(Facade.getPlayersOnHex(hexLoc));
 		if(!RobView.isModalShowing())
@@ -131,6 +132,7 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void playSoldierCard(IMapView mapView)
 	{
+		System.out.println("HEREEEEEEEEEEEEE #1");
 		mapView.startDrop(PieceType.ROBBER, null, false);
 	}
 
