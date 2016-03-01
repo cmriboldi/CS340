@@ -115,7 +115,18 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		getView().setElementAmount(ResourceBarElement.SETTLEMENT, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getSettlementsRemaining());
 		getView().setElementAmount(ResourceBarElement.CITY, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getCitiesRemaining());
 
-		//check
+		if(Facade.getCatanModel().options.canAffordDevCard(Facade.getLocalPlayerIndex()) && Facade.isMyturn())
+			getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
+		else
+			getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+		
+		if(Facade.isMyturn())
+			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
+		else
+			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
+		
+		int soldier = Facade.getSoldierCount();
+		getView().setElementAmount(ResourceBarElement.SOLDIERS, soldier);
 
 		
 	}

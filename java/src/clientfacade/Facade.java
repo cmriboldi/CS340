@@ -10,6 +10,8 @@ import client.data.GameInfo;
 import client.data.PlayerInfo;
 import client.data.RobPlayerInfo;
 import model.CatanModel;
+import model.development.DevCardList;
+import model.development.PlayerDevCards;
 import model.options.Options;
 import model.players.Player;
 import model.resources.ResourceList;
@@ -527,6 +529,19 @@ public class Facade extends Observable {
 
     public static List<Boolean> getPlayerDevPlayables() {
         return instance()._getPlayerDevPlayables();
+    }
+    
+    private Integer _getSoldierCount()
+    {
+    	PlayerDevCards lists = this.catanModel.cardManager.getPlayedDevCards();
+    	DevCardList list = lists.getDevCardsForPlayer(this._getLocalPlayerIndex());
+    	return list.getCardTypeCount(DevCardType.SOLDIER);
+    	
+    }
+    
+    public static Integer getSoldierCount()
+    {
+    	return instance()._getSoldierCount();
     }
 
 

@@ -98,7 +98,6 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
-		getPlayCardView().closeModal();
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
@@ -116,7 +115,6 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonumentCard() {
-		getPlayCardView().closeModal();
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
@@ -159,7 +157,6 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
-		getPlayCardView().closeModal();
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
