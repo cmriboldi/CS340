@@ -211,7 +211,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 					List<PlayerInfo> players = games[i].getPlayers();
 					for(PlayerInfo player : players)
 					{
-						if(player.getColor().equals(color))
+						if(player.getColor().equals(color) && player.getId() != Facade.getLocalPlayerInfo().getId())
 						{
 							this.gameToJoin = games[i];
 							throw new Exception("DUPLICATE COLOR");
