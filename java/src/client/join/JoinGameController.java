@@ -233,8 +233,8 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		}
 		catch (Exception e)
 		{
-			messageView.setTitle(e.getMessage());
-			messageView.setMessage("That color has already been chosen while you were taking your time, please try another one");
+			messageView.setTitle("An Error occurred While Joining the Game");
+			messageView.setMessage(e.getMessage());
 			start();
 			messageView.showModal();
 			e.printStackTrace();
