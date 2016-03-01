@@ -68,6 +68,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void buyCard() {
+		getBuyCardView().closeModal();
 		if(Facade.getCatanModel().options.canBuyDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
@@ -76,7 +77,6 @@ public class DevCardController extends Controller implements IDevCardController,
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			getBuyCardView().closeModal();
 		}
 		else
 		{
@@ -104,6 +104,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonopolyCard(ResourceType resource) {
+		getPlayCardView().closeModal();
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
@@ -112,7 +113,6 @@ public class DevCardController extends Controller implements IDevCardController,
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			getPlayCardView().closeModal();
 		}
 		else
 		{
@@ -122,6 +122,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonumentCard() {
+		getPlayCardView().closeModal();
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
@@ -130,7 +131,6 @@ public class DevCardController extends Controller implements IDevCardController,
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			getPlayCardView().closeModal();
 		}
 		else
 		{
@@ -165,6 +165,7 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playYearOfPlentyCard(ResourceType resource1, ResourceType resource2) {
+		getPlayCardView().closeModal();
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
 			try {
@@ -173,7 +174,6 @@ public class DevCardController extends Controller implements IDevCardController,
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			getPlayCardView().closeModal();
 		}
 		else
 		{
