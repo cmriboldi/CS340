@@ -187,7 +187,7 @@ public class Options
 	public boolean canPlaceRobber(HexLocation hex)
 	{
 		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker();
-		return(Facade.getLocalPlayerIndex() == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing"));
+		return(Facade.getLocalPlayerIndex() == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing") && catanModel.getMapManager().canPlaceRobber(hex));
 	}
 	
 	public boolean canDiscardCards(int playerIndex)
