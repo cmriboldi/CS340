@@ -30,7 +30,7 @@ public class ResourceManagerDeserialTest
 	@Test
 	public void test()
 	{
-		//assert values are not null
+		//assert values are not null this is tested much more thoroughly in the Options class. I just needed an initial test to make sure it wasn't null.
 		assertNotEquals(resManager,null);
 	}
 
