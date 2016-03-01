@@ -96,7 +96,7 @@ public class MapManager implements IMapManager {
     }
 
     public boolean canPlaceRobber(HexLocation hexLoc) {
-        return map.canPlaceRobber(hexLoc);
+        return map.canPlaceRobber(hexLoc) && !hexLoc.equals(getRobber());
     }
 
     @Override
