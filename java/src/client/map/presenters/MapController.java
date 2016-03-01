@@ -216,8 +216,10 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public boolean canPlaceSettlement(VertexLocation vertLoc) {
-        System.out.println("MAP CONTROLLER --->  canPlaceSettlement");
-        return currentState.canPlaceSettlement(vertLoc);
+        boolean returnThis = currentState.canPlaceSettlement(vertLoc);
+        System.out.format("\tMapController : canPlaceSettlement : vertLoc {%s} - canPlaceSettlement {%s}%n", vertLoc, returnThis);
+
+        return returnThis;
     }
 
     public boolean canPlaceCity(VertexLocation vertLoc) {

@@ -64,11 +64,11 @@ public class MapManager implements IMapManager {
     }*/
 
     public boolean canPlaceSettlement(VertexLocation vert, int playerIndex) {
-        return map.canPlaceSettlement(vert, playerIndex, true);
+        return map.canPlaceSettlement(vert, playerIndex, false);
     }
 
     public boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex) {
-        return map.canPlaceSettlement(vertLoc, playerIndex, false);
+        return map.canPlaceSettlement(vertLoc, playerIndex, true);
     }
 
     public Set<PortType> canMaritimeTrade(int player) {
