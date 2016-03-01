@@ -26,6 +26,10 @@ public class MapController extends Controller implements IMapController, Observe
 
     private IRobView robView;
     private MapControllerState currentState;
+    int roadBuilderCount = 0; 
+    boolean playedRoadBuilder = false; 
+
+    boolean playedRoadBuilding = false; 
 
 
     public MapController(IMapView view, IRobView robView) {
@@ -66,10 +70,18 @@ public class MapController extends Controller implements IMapController, Observe
             e.printStackTrace();
         }
         
+
         if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn())
         {
         	getView().startDrop(PieceType.ROBBER, null, false);
         }
+        
+        if (playedRoadBuilding == true)
+        {
+        	getView().startDrop(PieceType.ROAD, Facade.getLocalPlayerInfo().getColor(), false);
+        	playedRoadBuilding = false; 
+        }
+        
         
         if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
         {
@@ -276,7 +288,11 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void playRoadBuildingCard() {
-        currentState.playRoadBuildingCard();
+
+    	playedRoadBuilding = true; 
+    	getView().startDrop(PieceType.ROAD, Facade.getLocalPlayerInfo().getColor(), false);
+    	        
+    	//currentState.playRoadBuildingCard();
     }
 
     public void robPlayer(RobPlayerInfo victim) {
