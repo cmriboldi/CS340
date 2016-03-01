@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.util.*;
 
 import client.map.presenters.IMapController;
+import shared.definitions.CatanColor;
 import client.base.*;
 import client.data.*;
 
@@ -71,6 +72,13 @@ public class RobView extends OverlayView implements IRobView {
 			
 			if (e.getSource() == defaultButton) {
 				closeModal();
+				RobPlayerInfo noneVictim = new RobPlayerInfo();
+				noneVictim.setId(0);
+				noneVictim.setPlayerIndex(-1);
+				noneVictim.setName("none");
+				noneVictim.setColor(CatanColor.RED);
+				noneVictim.setNumCards(0);
+				getController().robPlayer(noneVictim);
 			}
 			else{
 				

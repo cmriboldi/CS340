@@ -102,16 +102,11 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void robPlayer(RobPlayerInfo victim, IRobView RobView)
 	{
-		if(RobView.isModalShowing())
-			RobView.closeModal();
-		int index = -1;
-		if(victim != null)
-			index = victim.getPlayerIndex();
 		try {
 			if(Facade.getTurnStatus().equals("Robbing"))
-				Facade.robPlayer(index, robLocation);
+				Facade.robPlayer(victim.getPlayerIndex(), robLocation);
 			else
-				Facade.playSoldierCard(index, robLocation);
+				Facade.playSoldierCard(victim.getPlayerIndex(), robLocation);
 		} catch (ServerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
