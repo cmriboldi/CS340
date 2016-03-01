@@ -88,7 +88,7 @@ public class MapInactiveState implements MapControllerState
 	}
 
 	@Override
-	public void playSoldierCard()
+	public void playSoldierCard(IMapView mapView)
 	{
 		// do nothing
 	}

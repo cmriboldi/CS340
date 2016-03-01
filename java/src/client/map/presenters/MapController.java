@@ -284,7 +284,7 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void playSoldierCard() {
-        currentState.playSoldierCard();
+        currentState.playSoldierCard(getView());
     }
 
     public void playRoadBuildingCard() {

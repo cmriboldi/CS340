@@ -56,7 +56,7 @@ public interface MapControllerState {
 
     public void placeRobber(HexLocation hexLoc, IRobView RobView);
 
-    public void playSoldierCard();
+    public void playSoldierCard(IMapView iMapView);
 
     public void playRoadBuildingCard();
 

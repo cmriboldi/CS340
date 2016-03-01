@@ -129,9 +129,9 @@ public class MapPlayingState implements MapControllerState
 	}
 
 	@Override
-	public void playSoldierCard()
+	public void playSoldierCard(IMapView mapView)
 	{
-		//TODO
+		mapView.startDrop(PieceType.ROBBER, null, false);
 	}
 
 	@Override
