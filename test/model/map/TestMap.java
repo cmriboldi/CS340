@@ -128,7 +128,7 @@ public class TestMap {
         Road secondRoad = new Road(new EdgeLocation(new HexLocation(0, -1), EdgeDirection.NorthWest), 1);
         map.getRoads().put(secondRoad.location, secondRoad);
 
-        assertEquals(true, map.canPlaceSettlement(vertex, player));
+        assertEquals(true, map.canPlaceSettlement(vertex, player, false));
     }
 
     //Tests when a settlement is places within two vertexes of another settlement of the same player
@@ -137,7 +137,7 @@ public class TestMap {
         VertexLocation vertex = new VertexLocation(new HexLocation(-1, 0), VertexDirection.NorthEast);
         int player = 1;
 
-        assertEquals(false, map.canPlaceSettlement(vertex, player));
+        assertEquals(false, map.canPlaceSettlement(vertex, player, false));
     }
 
     //Tests placing a settlement at the correct distance without an adjoining road
@@ -145,8 +145,8 @@ public class TestMap {
     public void canPlaceSettlementInvalidNoRoad(){
         VertexLocation vertex = new VertexLocation(new HexLocation(0,0 ), VertexDirection.NorthWest);
         int player = 1;
-
-        assertEquals(false, map.canPlaceSettlement(vertex, player));
+        
+        assertEquals(false, map.canPlaceSettlement(vertex, player, false));
     }
 
     @Test

@@ -35,7 +35,7 @@ public class MapManager implements IMapManager {
         map = new Map(hexes_t, settlements_t, ports_t, roads_t, robber_t, radius_t);
     }
 
-    private Map getMap() {
+    public Map getMap() {
         return map;
     }
 

@@ -14,6 +14,6 @@ public class PollerTest {
 	public void test() throws InterruptedException {
 		(new Thread(new Poller(new MockProxy()))).start();
 		Thread.sleep(10000);
-		assertNotEquals(Facade.getCatanModel(),null);
+		assertEquals(Facade.getCatanModel(),null);
 	}
 }

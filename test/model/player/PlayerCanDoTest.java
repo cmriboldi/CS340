@@ -12,6 +12,7 @@ import model.players.PlayerManager;
 import model.players.PlayerTurnTracker;
 import serverProxy.JSONDeserializer;
 import shared.definitions.DevCardType;
+import shared.locations.HexLocation;
 import serverProxy.JsonLoader;
 import test.TestJSON;
 
@@ -133,13 +134,13 @@ public class PlayerCanDoTest
 	@Test
 	public void testCanPlaceRobberDuringRolling()
 	{
-		boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player0CanPlaceRobber);  
-		boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		boolean player1CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player1CanPlaceRobber);  
-		boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		boolean player2CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player2CanPlaceRobber); 
-		boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		boolean player3CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player3CanPlaceRobber); 
 	}
 	
@@ -224,13 +225,13 @@ public class PlayerCanDoTest
 		turnTracker.setStatus("Playing");
 		turnTracker.setTurnIndex(1);
 		
-		boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+		boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player0CanPlaceRobber);  
-		boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+		boolean player1CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player1CanPlaceRobber);  
-		boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+		boolean player2CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player2CanPlaceRobber); 
-		boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+		boolean player3CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 		assertFalse(player3CanPlaceRobber); 
 	}
 	
@@ -313,13 +314,13 @@ public class PlayerCanDoTest
 			turnTracker.setStatus("Robbing");
 			turnTracker.setTurnIndex(2);
 			
-			boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+			boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 			assertFalse(player0CanPlaceRobber);  
-			boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+			boolean player1CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 			assertFalse(player1CanPlaceRobber);  
-			boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+			boolean player2CanPlaceRobber = options.canPlaceRobber(new HexLocation(0,0));
 			assertTrue(player2CanPlaceRobber); 
-			boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+			boolean player3CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 			assertFalse(player3CanPlaceRobber); 
 		}
 	
@@ -402,13 +403,13 @@ public class PlayerCanDoTest
 				turnTracker.setStatus("Discarding");
 				turnTracker.setTurnIndex(3);
 				
-				boolean player0CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[0].getPlayerIndex());
+				boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 				assertFalse(player0CanPlaceRobber);  
-				boolean player1CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[1].getPlayerIndex());
+				boolean player1CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 				assertFalse(player1CanPlaceRobber);  
-				boolean player2CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[2].getPlayerIndex());
+				boolean player2CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 				assertFalse(player2CanPlaceRobber); 
-				boolean player3CanPlaceRobber = options.canPlaceRobber(playerManager.getCatanPlayers()[3].getPlayerIndex());
+				boolean player3CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
 				assertFalse(player3CanPlaceRobber); 
 			}
 		

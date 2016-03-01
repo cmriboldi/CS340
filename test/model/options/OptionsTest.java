@@ -159,12 +159,6 @@ public class OptionsTest
 		assertEquals(options.canOfferTrade(3,0), true);
 		assertEquals(options.canOfferTrade(3,1), false);
 		assertEquals(options.canOfferTrade(3,2), false);
-		
-		assertEquals(options.canMaritimeTrade(0), true);
-		assertEquals(options.canMaritimeTrade(1), true);
-		assertEquals(options.canMaritimeTrade(2), false);
-		assertEquals(options.canMaritimeTrade(3), false);
-		
 	}
 	
 	@Test
@@ -196,7 +190,7 @@ public class OptionsTest
 		
 		cm.playerManager.setStatus("Robbing");
 		
-		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), true);
+		assertEquals(options.canPlaceRobber(new HexLocation(0,0)), true);
 		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
 		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
 		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
