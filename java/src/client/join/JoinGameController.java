@@ -7,6 +7,8 @@ import client.misc.*;
 import clientfacade.Facade;
 import serverProxy.ServerException;
 
+import java.util.List;
+
 
 /**
  * Implementation for the join game controller
@@ -201,6 +203,24 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			getSelectColorView().closeModal();
 			getJoinGameView().closeModal();
 
+			//double check no one is using this color
+			GameInfo[] games = Facade.listGames();
+			for(int i = 0; i < games.length; i++)
+			{
+				if(games[i].getId() == this.gameToJoin.getId())
+				{
+					List<PlayerInfo> players = games[i].getPlayers();
+					for(PlayerInfo player : players)
+					{
+						if(player.getColor().equals(color))
+						{
+							this.gameToJoin = games[i];
+							throw new Exception("DUPLICATE COLOR");
+						}
+					}
+				}
+			}
+
 			Facade.joinGame(this.gameToJoin.getId(), color);
 			getSelectColorView().setColorEnabled(color, false);
 			joinAction.execute();
@@ -209,6 +229,14 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		{
 			messageView.setTitle("Server Error");
 			messageView.setMessage("GAME NOT JOINED");
+			messageView.showModal();
+			e.printStackTrace();
+		}
+		catch (Exception e)
+		{
+			messageView.setTitle(e.getMessage());
+			messageView.setMessage("That color has already been chosen while you were taking your time, please try another one");
+			start();
 			messageView.showModal();
 			e.printStackTrace();
 		}
