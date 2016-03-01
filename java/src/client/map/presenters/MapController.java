@@ -77,26 +77,23 @@ public class MapController extends Controller implements IMapController, Observe
         	
         	System.out.println("SETUPT:: " + settlementsRemaining + " " + roadsRemaining + " " + status);
         	
-        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15)
+        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 5)
         	{
-        		System.out.println("(1)"); 
-            	currentState.startMove(PieceType.ROAD, true, true, getView());
-        	}
-        	else if (status.toLowerCase().equals("firstround")&&roadsRemaining == 14&&settlementsRemaining == 5)
-        	{
-        		System.out.println("(2)"); 
             	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
         	}
-        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14)
+        	else if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 4)
         	{
-        		System.out.println("(3)"); 
             	currentState.startMove(PieceType.ROAD, true, true, getView());
         	}
-        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 13&&settlementsRemaining == 4)
+        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 4)
         	{
-        		System.out.println("(4)"); 
             	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
         	}
+        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 3)
+        	{
+            	currentState.startMove(PieceType.ROAD, true, true, getView());
+        	}
+        	
         	else
         	{
         		try {
