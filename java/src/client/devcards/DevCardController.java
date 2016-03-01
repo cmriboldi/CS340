@@ -86,14 +86,8 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void startPlayCard() {
-		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
-		{
+		if(Facade.isMyturn())
 			getPlayCardView().showModal();
-		}
-		else
-		{
-			
-		}
 	}
 
 	@Override
