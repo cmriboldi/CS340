@@ -142,7 +142,6 @@ public class DevCardController extends Controller implements IDevCardController,
 	public void playRoadBuildCard() {
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
 		{
-			getPlayCardView().closeModal();
 			roadAction.execute();
 		}
 		else
@@ -154,8 +153,7 @@ public class DevCardController extends Controller implements IDevCardController,
 	@Override
 	public void playSoldierCard() {
 		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
-		{
-			getPlayCardView().closeModal();
+		{		
 			soldierAction.execute();
 		}
 		else
