@@ -348,14 +348,17 @@ public class Facade extends Observable {
 	{
 		HashSet<Integer> indexes = this.catanModel.mapManager.getPlayersOnHex(hexLoc);
 		
-		RobPlayerInfo[] robInfo = new RobPlayerInfo[indexes.size()];
+		List<RobPlayerInfo> robInfo = new ArrayList<RobPlayerInfo>();
 		
-		int j = 0;
 		for(Integer i: indexes)
 		{
 			Player p = this.catanModel.playerManager.getPlayerByIndex(i);
-			int id = p.getId();
 			int playerIndex = p.getPlayerIndex();
+			if(playerIndex == this._getLocalPlayerIndex())
+			{
+				continue;
+			}
+			int id = p.getId();
 			String name = p.getName();
 			CatanColor color = p.getColor();
 			int resources = this.catanModel.resourceManager.getTotalResourceCount(playerIndex);
@@ -366,10 +369,14 @@ public class Facade extends Observable {
 			Info.setName(name);
 			Info.setColor(color);
 			Info.setNumCards(resources);
-			robInfo[j] = Info;
-			j++;
+			robInfo.add(Info);
 		}
-		return robInfo;
+		RobPlayerInfo[] robInfo2 = new RobPlayerInfo[robInfo.size()];
+		for(int i = 0; i < robInfo.size(); i++)
+		{
+			robInfo2[i] = robInfo.get(i);
+		}
+		return robInfo2;
 	}
 	
 	public static RobPlayerInfo[] getPlayersOnHex(HexLocation hexLoc)
