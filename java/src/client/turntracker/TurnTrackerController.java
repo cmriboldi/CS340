@@ -21,7 +21,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		Facade.addObserverStatic(this);
 		
-		System.out.println("1. turn tracker -- new contorller");
 		initFromModel();
 	}
 	
@@ -45,7 +44,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	private void initFromModel() {
 		
 		
-		System.out.println("2. turn tracker -- initFromModel");
 		getView().setLocalPlayerColor(CatanColor.WHITE);
 		//</temp>
 	}
@@ -56,7 +54,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		if (!Facade.hasGameStarted())
 			return; 
 		
-		System.out.println("(((Update TurnTracker)))"); 
 		
 		// ================================= INITIALIZE ======================================= // 
 		TurnTrackerView trackerView = (TurnTrackerView) getView(); //TODO

@@ -84,7 +84,6 @@ public class MapSetupState implements MapControllerState
 	public void placeSettlement(VertexLocation vertLoc)
 	{
 		int localPlayerId = Facade.getLocalPlayerInfo().getPlayerIndex();  
-		System.out.println(" SetupState Place Settlement: " + localPlayerId + " " +  vertLoc.toString()); 
 		try {
 			Facade.buildTown(localPlayerId, vertLoc, true);
 		} catch (ServerException e) {
@@ -97,10 +96,8 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView)
 	{
-		System.out.format("MapSetupState:: startMove: start%n");
 
 		CatanColor pieceColor = Facade.getCatanModel().getPlayerManager().getPlayerByIndex(Facade.getLocalPlayerIndex()).getColor();
-		System.out.format("Map Setup ---> StartMove: pieceType {%s} - isFree {%s} - allowDisconnected {%s} - localPlayerColor {%s} - isCancelable {true}%n", pieceType, isFree, allowDisconnected, pieceColor);
 		mapView.startDrop(pieceType, pieceColor, false);
 	}
 

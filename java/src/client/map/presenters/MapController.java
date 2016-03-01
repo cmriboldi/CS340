@@ -59,8 +59,6 @@ public class MapController extends Controller implements IMapController, Observe
     @Override
     public void update(Observable o, Object arg) {
 
-        //System.out.println("LOG::MapController.update()::start");
-        System.out.println("(((Map Update)))");
 
         initFromModel();
 
@@ -92,8 +90,6 @@ public class MapController extends Controller implements IMapController, Observe
         	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getSettlementsRemaining();
         	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
         	
-        	System.out.println("SETUPT:: " + settlementsRemaining + " " + roadsRemaining + " " + status);
-        	
         	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 5)
         	{
             	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
@@ -121,8 +117,6 @@ public class MapController extends Controller implements IMapController, Observe
         	}
         }
 
-        System.out.println("CLASS:" + currentState.getClass().toString());
-
     }
 
 
@@ -132,8 +126,6 @@ public class MapController extends Controller implements IMapController, Observe
         int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
         int indexOfPlayingClient = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
         String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus();
-
-        System.out.println("@@Determining State");
 
 
         if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding")) {
@@ -151,15 +143,12 @@ public class MapController extends Controller implements IMapController, Observe
     protected void initFromModel() {
 
         //CLEAR THE VIEW
-        //System.out.println("LOG::MapController.initFromModel()::start");
 
         //Acquire new model
         CatanModel model = Facade.getCatanModel();
 
         if (model != null) {
 
-            System.out.println("@@@NEW MAP!");
-            //System.out.println("LOG::MapController.initFromModel(): model is not null");
             //initialize from said model
             /*
             1. Build Hexes, tile numbers, resources
@@ -175,7 +164,6 @@ public class MapController extends Controller implements IMapController, Observe
             for (HexLocation hexLoc : hexes.keySet()) {
                 Hex hex = hexes.get(hexLoc);
                 getView().addHex(hexLoc, hex.getResource());
-                //System.out.println("LOG::MapController.initFromModel::loadingHex\n\thexLoc: " + hexLoc.toString() + "\n\tresource: " + hex.getResource() + "\n\tnumber: " + hex.getResource());
                 int hexNumber = hex.getNumber();
                 if((hexNumber >= 2) && (hexNumber <= 12) && (hexNumber != 7))
                     getView().addNumber(hexLoc, hex.getNumber());
@@ -227,21 +215,18 @@ public class MapController extends Controller implements IMapController, Observe
 
     public boolean canPlaceRoad(EdgeLocation edgeLoc) {
         boolean returnThis = currentState.canPlaceRoad(edgeLoc);
-        System.out.format("\tMapController:: canPlaceRoad: edgeLoc {%s} - canPlaceRoad {%s}%n", edgeLoc, returnThis);
 
         return returnThis;
     }
 
     public boolean canPlaceSettlement(VertexLocation vertLoc) {
         boolean returnThis = currentState.canPlaceSettlement(vertLoc);
-        System.out.format("\tMapController : canPlaceSettlement : vertLoc {%s} - canPlaceSettlement {%s}%n", vertLoc, returnThis);
 
         return returnThis;
     }
 
     public boolean canPlaceCity(VertexLocation vertLoc) {
         boolean returnThis = currentState.canPlaceCity(vertLoc);
-        System.out.format("\tMapController:: canPlaceRoad: vertLoc {%s} - canPlaceCity {%s}%n", vertLoc, returnThis);
 
         return returnThis;
     }
@@ -251,7 +236,6 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void placeRoad(EdgeLocation edgeLoc) {
-        System.out.println("MAP CONTROLLER --->  PLACE ROAD");
 
         try {
             currentState.placeRoad(edgeLoc);
@@ -261,7 +245,6 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void placeSettlement(VertexLocation vertLoc) {
-        System.out.println("MAP CONTROLLER --->  PLACE SETTLEMENT");
         try {
             currentState.placeSettlement(vertLoc);
         } catch (ServerException e) {
@@ -275,7 +258,6 @@ public class MapController extends Controller implements IMapController, Observe
 
 
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected) {
-        System.out.format("MapController:: startMove: PieceType {%s} - isFree {%s} - allowDisconnected {%s}%n", pieceType, isFree, allowDisconnected);
         currentState.startMove(pieceType, isFree, allowDisconnected, getView());
     }
 

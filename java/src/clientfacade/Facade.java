@@ -203,14 +203,12 @@ public class Facade extends Observable {
      */
     //PRIVATE METHOD
     private void _buildTown(int playerIndex, VertexLocation vert, boolean free) throws ServerException {
-        System.out.println("(Facade build town 2) " + playerIndex + " " + vert.toString() + " " + free	); 
     	this._setView(this.proxy.buildSettlement(playerIndex, vert, free));
 
     }
 
     //PUBLIC METHOD
     public static void buildTown(int playerIndex, VertexLocation vertex, boolean free) throws ServerException {
-        System.out.println("(Facade build town) " + playerIndex + " " + vertex.toString() + " " + free	); 
     	instance()._buildTown(playerIndex, vertex, free);
     }
 
@@ -654,7 +652,7 @@ public class Facade extends Observable {
      */
     public static boolean hasGameStarted()
     {
-        return instance()._hasGameStarted();
+    	return instance()._hasGameStarted();
     }
 
     private boolean _hasGameStarted()
@@ -667,7 +665,7 @@ public class Facade extends Observable {
         Player[] players = this.catanModel.getPlayerManager().getCatanPlayers();
         for(int i = 0; i < players.length; i++)
         {
-            if(players[i] == null)
+        	if(players[i] == null)
             {
                 return false;
             }
@@ -767,7 +765,6 @@ public class Facade extends Observable {
 	
 	private void _acceptTrade(boolean willAccept) throws ServerException
 	{
-		System.out.println("TradeOffer is: " + getCatanModel().resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.BRICK) + " brick and " + getCatanModel().resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.SHEEP) + "sheep.");
 		this.proxy.acceptTrade(this._getLocalPlayerIndex(), willAccept);
 	}
 

@@ -30,7 +30,6 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 	
 	public TurnTrackerView(TitlePanel titlePanel, GameStatePanel gameStatePanel) {
 		
-		System.out.println("Initialize TurnTracker"); 
 		this.titlePanel = titlePanel;
 		this.gameStatePanel = gameStatePanel;
 		

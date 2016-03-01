@@ -56,7 +56,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 			List<PlayerInfo> playersList = new ArrayList<>();
 			for(int i = 0; i < players.length; i++)
 			{
-				//System.out.println("Player " + i + " name: " + players[i].getName());
 				if(players[i] != null)
 				{
 					PlayerInfo playerInfo = new PlayerInfo();
@@ -105,7 +104,6 @@ public class PlayerWaitingController extends Controller implements IPlayerWaitin
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		System.out.println("Update being called");
 		setPlayers();
 	}
 }

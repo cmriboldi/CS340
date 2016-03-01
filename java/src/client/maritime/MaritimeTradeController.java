@@ -114,8 +114,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if(!Facade.hasGameStarted())
+		if(!Facade.hasGameStarted()) {
 			return;
+		}
 
 		getTradeView().enableMaritimeTrade(Facade.isMyturn());
 		
@@ -202,11 +203,11 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				}
 				break;
 			}
-			
-			enabledGiveResources = new ResourceType[enabledResources.size()];
-			enabledResources.toArray(enabledGiveResources);
-			
 		}
+		
+		enabledGiveResources = new ResourceType[enabledResources.size()];
+		enabledResources.toArray(enabledGiveResources);
+		getTradeOverlay().showGiveOptions(enabledGiveResources);
 		
 	}
 

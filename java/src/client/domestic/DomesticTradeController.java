@@ -283,14 +283,11 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 			getAcceptOverlay().setPlayerName(Facade.getCatanModel().playerManager.getPlayerName(tradeOffer.getSender()));
 			
 			ResourceList resOffer = tradeOffer.getResourcesOffer();
-			System.out.println("resOffer is: " + resOffer);
 			for(ResourceType resource : ResourceType.values()) {
 				int amount = resOffer.getResourceTypeCount(resource);
 				if(amount > 0) {
-					System.out.println("Get's here get.");
 					getAcceptOverlay().addGetResource(resource, amount);
 				} else if (amount < 0) {
-					System.out.println("Get's here give.");
 					getAcceptOverlay().addGiveResource(resource, amount*-1);
 				}
 			}
