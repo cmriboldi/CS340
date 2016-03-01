@@ -414,6 +414,16 @@ public class Map {
         return true;
     }
 
+    public boolean canPlaceRobber(HexLocation hexLoc)
+    {
+        if(hexLoc == robber)
+            return false;
+
+        if(!hexes.containsKey(hexLoc))
+            return false;
+
+        return true;
+    }
 
 /*
     public boolean canPlaceSettlement(VertexLocation vertex, int player) {

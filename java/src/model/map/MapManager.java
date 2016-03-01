@@ -95,6 +95,10 @@ public class MapManager implements IMapManager {
 
     }
 
+    public boolean canPlaceRobber(HexLocation hexLoc) {
+        return map.canPlaceRobber(hexLoc);
+    }
+
     @Override
     public ArrayList<ResourceList> distributeResources(int number) {
         // TODO Auto-generated method stub
