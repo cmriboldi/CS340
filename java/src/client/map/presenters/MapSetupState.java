@@ -120,12 +120,6 @@ public class MapSetupState implements MapControllerState
 	}
 
 	@Override
-	public void playRoadBuildingCard()
-	{
-		// do nothing	
-	}
-
-	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView) {
 		// Do nothing
 		
@@ -133,6 +127,13 @@ public class MapSetupState implements MapControllerState
 
 	@Override
 	public void robPlayer(RobPlayerInfo victim, IRobView RobView) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void playRoadBuildingCard(IMapView iMapView)
+	{
 		// TODO Auto-generated method stub
 		
 	}

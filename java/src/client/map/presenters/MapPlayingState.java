@@ -71,7 +71,7 @@ public class MapPlayingState implements MapControllerState
 	@Override
 	public void placeRoad(EdgeLocation edgeLoc) throws ServerException
 	{
-		// Doesn't need to check the canDo method? 
+		// Doesn't need to check the canDo method?
 		int localPlayerIndex = Facade.getLocalPlayerIndex();
 		Facade.buildRoad(localPlayerIndex, edgeLoc, false);
 	}
@@ -135,9 +135,10 @@ public class MapPlayingState implements MapControllerState
 	}
 
 	@Override
-	public void playRoadBuildingCard()
+	public void playRoadBuildingCard(IMapView mapView)
 	{
-		//TODO
+    	CatanColor playerColor = Facade.getPlayerColor();
+    	mapView.startDrop(PieceType.ROAD, playerColor, false);
 	}
 
 	/*

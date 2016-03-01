@@ -150,4 +150,9 @@ public class PlayerManager
 		return winner;
 	}
 
+	public CatanColor getPlayerColor(int playerIndex)
+	{
+		return catanPlayers[playerIndex].getColor();
+	}
+
 }

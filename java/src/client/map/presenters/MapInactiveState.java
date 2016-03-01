@@ -93,13 +93,6 @@ public class MapInactiveState implements MapControllerState
 		// do nothing
 	}
 
-	@Override
-	public void playRoadBuildingCard()
-	{
-		// do nothing
-	}
-
-
 	/*
 	@Override
 	public boolean canPlaySoldier() {
@@ -124,6 +117,13 @@ public class MapInactiveState implements MapControllerState
 
 	@Override
 	public void robPlayer(RobPlayerInfo victim, IRobView RobView) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void playRoadBuildingCard(IMapView iMapView)
+	{
 		// TODO Auto-generated method stub
 		
 	}

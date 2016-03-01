@@ -58,7 +58,7 @@ public interface MapControllerState {
 
     public void playSoldierCard(IMapView iMapView);
 
-    public void playRoadBuildingCard();
+    public void playRoadBuildingCard(IMapView iMapView);
 
     public void robPlayer(RobPlayerInfo victim, IRobView RobView);
     

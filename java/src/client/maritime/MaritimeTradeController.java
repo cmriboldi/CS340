@@ -37,89 +37,7 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		Facade.addObserverStatic(this);
 	}
 	
-	public IMaritimeTradeView getTradeView() {
-		
-		return (IMaritimeTradeView)super.getView();
-	}
-	
-	public IMaritimeTradeOverlay getTradeOverlay() {
-		return tradeOverlay;
-	}
-
-	public void setTradeOverlay(IMaritimeTradeOverlay tradeOverlay) {
-		this.tradeOverlay = tradeOverlay;
-	}
-
-	@Override
-	public void startTrade() {
-		getTradeOverlay().showGiveOptions(enabledGiveResources);
-		getTradeOverlay().setTradeEnabled(false);
-		getTradeOverlay().hideGetOptions();
-		getTradeOverlay().showModal();
-	}
-
-	@Override
-	public void makeTrade() {
-		try
-		{
-			Facade.portTrade(tradeRatio, giveResourceType, getResourceType);
-		} catch (ServerException e)
-		{
-			e.printStackTrace();
-		}
-		getTradeOverlay().closeModal();
-	}
-
-	@Override
-	public void cancelTrade() {
-		getResourceType = null;
-		giveResourceType = null;
-		tradeRatio = -1;
-		getTradeOverlay().closeModal();
-	}
-
-	@Override
-	public void setGetResource(ResourceType resource) {
-		getResourceType = resource;
-		tradeOverlay.selectGetOption(resource, 1);
-		tradeOverlay.setTradeEnabled(true);
-	}
-
-	@Override
-	public void setGiveResource(ResourceType resource) {
-		giveResourceType = resource;
-		
-		if(ratioMap != null && ratioMap.get(resource) != null) {
-			tradeRatio = ratioMap.get(resource);
-			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
-		}
-		getTradeOverlay().showGetOptions(enabledGetResources);
-	}
-
-	@Override
-	public void unsetGetValue() {
-		getResourceType = null;
-		getTradeOverlay().showGetOptions(enabledGetResources);
-		getTradeOverlay().setTradeEnabled(false);
-	}
-
-	@Override
-	public void unsetGiveValue() {
-		giveResourceType = null;
-		tradeRatio = -1;
-		getTradeOverlay().hideGetOptions();
-		getTradeOverlay().showGiveOptions(enabledGiveResources);
-	}
-	
-	@Override
-	public void update(Observable o, Object arg)
-	{
-		if(!Facade.hasGameStarted()) {
-			return;
-		}
-
-		getTradeView().enableMaritimeTrade(Facade.isMyturn());
-		
+	private void calculateGiveResources() {
 		Vector<ResourceType> enabledResources = new Vector<ResourceType>();
 		int localPlayer = Facade.getLocalPlayerIndex();
 		ratioMap = new HashMap<ResourceType, Integer>();
@@ -204,9 +122,94 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 				break;
 			}
 		}
-		
 		enabledGiveResources = new ResourceType[enabledResources.size()];
 		enabledResources.toArray(enabledGiveResources);
+	}
+	
+	public IMaritimeTradeView getTradeView() {
+		
+		return (IMaritimeTradeView)super.getView();
+	}
+	
+	public IMaritimeTradeOverlay getTradeOverlay() {
+		return tradeOverlay;
+	}
+
+	public void setTradeOverlay(IMaritimeTradeOverlay tradeOverlay) {
+		this.tradeOverlay = tradeOverlay;
+	}
+
+	@Override
+	public void startTrade() {
+		calculateGiveResources();
+		getTradeOverlay().showGiveOptions(enabledGiveResources);
+		getTradeOverlay().setTradeEnabled(false);
+		getTradeOverlay().hideGetOptions();
+		getTradeOverlay().showModal();
+	}
+
+	@Override
+	public void makeTrade() {
+		try
+		{
+			Facade.portTrade(tradeRatio, giveResourceType, getResourceType);
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+		getTradeOverlay().closeModal();
+	}
+
+	@Override
+	public void cancelTrade() {
+		getResourceType = null;
+		giveResourceType = null;
+		tradeRatio = -1;
+		getTradeOverlay().closeModal();
+	}
+
+	@Override
+	public void setGetResource(ResourceType resource) {
+		getResourceType = resource;
+		tradeOverlay.selectGetOption(resource, 1);
+		tradeOverlay.setTradeEnabled(true);
+	}
+
+	@Override
+	public void setGiveResource(ResourceType resource) {
+		giveResourceType = resource;
+		
+		if(ratioMap != null && ratioMap.get(resource) != null) {
+			tradeRatio = ratioMap.get(resource);
+			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
+		}
+		getTradeOverlay().showGetOptions(enabledGetResources);
+	}
+
+	@Override
+	public void unsetGetValue() {
+		getResourceType = null;
+		getTradeOverlay().showGetOptions(enabledGetResources);
+		getTradeOverlay().setTradeEnabled(false);
+	}
+
+	@Override
+	public void unsetGiveValue() {
+		giveResourceType = null;
+		tradeRatio = -1;
+		getTradeOverlay().hideGetOptions();
+		getTradeOverlay().showGiveOptions(enabledGiveResources);
+	}
+	
+	@Override
+	public void update(Observable o, Object arg)
+	{
+		if(!Facade.hasGameStarted()) {
+			return;
+		}
+
+		getTradeView().enableMaritimeTrade(Facade.isMyturn());
+		calculateGiveResources();
 		getTradeOverlay().showGiveOptions(enabledGiveResources);
 		
 	}

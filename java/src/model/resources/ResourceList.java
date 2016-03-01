@@ -287,4 +287,33 @@ public class ResourceList implements Comparable<ResourceList>
 				+ sheep + "]";
 	}
 
+	public void removeNegatives()
+	{
+		for(ResourceType resource : ResourceType.values())
+		{
+			if(this.getResourceTypeCount(resource) < 0)
+			{
+				switch (resource)
+				{
+				case BRICK:
+					this.brick = 0;
+					break;
+				case ORE:
+					this.ore = 0;
+					break;
+				case SHEEP:
+					this.sheep = 0;
+					break;
+				case WHEAT:
+					this.wheat = 0;
+					break;
+				case WOOD:
+					this.wood = 0;
+					break;
+				}
+			}
+		}
+	}
+
+
 }

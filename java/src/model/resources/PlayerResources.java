@@ -59,6 +59,8 @@ public class PlayerResources
 	{
 		boolean canAfford = false;
 		
+		playerResources[playerIndex].removeNegatives();
+		
 		if(playerResources[playerIndex].greaterThanOrEqual(resourceList)) 
 		{
 			canAfford = true;

@@ -26,11 +26,9 @@ public class MapController extends Controller implements IMapController, Observe
 
     private IRobView robView;
     private MapControllerState currentState;
-    int roadBuilderCount = 0; 
-    boolean playedRoadBuilder = false; 
-
-    boolean playedRoadBuilding = false; 
-
+    int roadBuilderCount = 0;
+    boolean playingRoadBuilder = false;
+    EdgeLocation firstRoadBuilderLocation = null;
 
     public MapController(IMapView view, IRobView robView) {
 
@@ -59,63 +57,57 @@ public class MapController extends Controller implements IMapController, Observe
     @Override
     public void update(Observable o, Object arg) {
 
-
-        initFromModel();
-
-        try {
-            determineState();
-        } catch (InvalidMapStateException e) {
-            e.printStackTrace();
-        }
-        
-
-        if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn())
-        {
-        	getView().startDrop(PieceType.ROBBER, null, false);
-        }
-        
-        if (playedRoadBuilding == true)
-        {
-        	getView().startDrop(PieceType.ROAD, Facade.getLocalPlayerInfo().getColor(), false);
-        	playedRoadBuilding = false; 
-        }
-        
-        
-        if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
-        {
-        	//MODAL ERROR HERE
-        	//currentState.startMove(pieceType, isFree, allowDisconnected, mapView);
-        	
-        	int roadsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();  
-        	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getSettlementsRemaining();
-        	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
-        	
-        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 5)
-        	{
-            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
-        	}
-        	else if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 4)
-        	{
-            	currentState.startMove(PieceType.ROAD, true, true, getView());
-        	}
-        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 4)
-        	{
-            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
-        	}
-        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 3)
-        	{
-            	currentState.startMove(PieceType.ROAD, true, true, getView());
-        	}
-        	
-        	else
-        	{
-        		try {
-					Facade.getProxy().finishTurn(Facade.getLocalPlayerIndex());
-				} catch (ServerException e) {
-					e.printStackTrace();
-				}
-        	}
-        }
+    	if(!playingRoadBuilder) {
+	        initFromModel();
+	
+	        try {
+	            determineState();
+	        } catch (InvalidMapStateException e) {
+	            e.printStackTrace();
+	        }
+	        
+	
+	        if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn())
+	        {
+	        	getView().startDrop(PieceType.ROBBER, null, false);
+	        }
+	        
+	        if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
+	        {
+	        	//MODAL ERROR HERE
+	        	//currentState.startMove(pieceType, isFree, allowDisconnected, mapView);
+	        	
+	        	int roadsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();  
+	        	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getSettlementsRemaining();
+	        	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
+	        	
+	        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 5)
+	        	{
+	            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
+	        	}
+	        	else if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 4)
+	        	{
+	            	currentState.startMove(PieceType.ROAD, true, true, getView());
+	        	}
+	        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 4)
+	        	{
+	            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
+	        	}
+	        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 3)
+	        	{
+	            	currentState.startMove(PieceType.ROAD, true, true, getView());
+	        	}
+	        	
+	        	else
+	        	{
+	        		try {
+						Facade.getProxy().finishTurn(Facade.getLocalPlayerIndex());
+					} catch (ServerException e) {
+						e.printStackTrace();
+					}
+	        	}
+	        }
+    	}
 
     }
 
@@ -236,11 +228,26 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void placeRoad(EdgeLocation edgeLoc) {
-
-        try {
-            currentState.placeRoad(edgeLoc);
-        } catch (ServerException e) {
-            e.printStackTrace();
+        if(playingRoadBuilder && firstRoadBuilderLocation == null) {
+        	firstRoadBuilderLocation = edgeLoc;
+        	getView().placeRoad(edgeLoc, Facade.getPlayerColor());
+        	getView().startDrop(PieceType.ROAD, Facade.getPlayerColor(), false);
+        } else if(playingRoadBuilder && firstRoadBuilderLocation != null) {
+        	try
+			{
+            	playingRoadBuilder = false;
+        		Facade.playRoadBuildCard(firstRoadBuilderLocation, edgeLoc);
+			} catch (ServerException e)
+			{
+				e.printStackTrace();
+			}
+        	firstRoadBuilderLocation = null;
+        } else {
+        	try {
+            	currentState.placeRoad(edgeLoc);
+            } catch (ServerException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -270,11 +277,8 @@ public class MapController extends Controller implements IMapController, Observe
     }
 
     public void playRoadBuildingCard() {
-
-    	playedRoadBuilding = true; 
-    	getView().startDrop(PieceType.ROAD, Facade.getLocalPlayerInfo().getColor(), false);
-    	        
-    	//currentState.playRoadBuildingCard();
+    	playingRoadBuilder = true;
+    	currentState.playRoadBuildingCard(getView());
     }
 
     public void robPlayer(RobPlayerInfo victim) {

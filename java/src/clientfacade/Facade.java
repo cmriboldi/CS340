@@ -804,5 +804,10 @@ public class Facade extends Observable {
 	{
 		return getCatanModel().playerManager.getPlayerName(playerIndex);
 	}
+	
+	public static CatanColor getPlayerColor()
+	{
+		return getCatanModel().playerManager.getPlayerColor(getLocalPlayerIndex());
+	}
 
 }
