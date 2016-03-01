@@ -368,6 +368,20 @@ public class Map {
         List<EdgeLocation> firstEdges = findEdges(vertex);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
 
+        //----- check for ocean tiles
+        //--- check that at least one hex adj to this vertex is in the hexes map
+        HexLocation one = vertex.getHexLoc();
+        HexLocation two = vertex.getHexLoc().getNeighborLoc(EdgeDirection.North);
+        HexLocation three;
+
+        if(vertex.getDir() == VertexDirection.NorthEast)
+            three = vertex.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast);
+        else
+            three = vertex.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest);
+
+        if(!hexes.containsKey(one) && !hexes.containsKey(two) && !hexes.containsKey(three))
+            return false;
+
         //----- must be adj to a player road
         //--- EXCEPTION: setup phase
         if(!setUp) {
@@ -458,6 +472,7 @@ public class Map {
     }
 */
 
+/*
     boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex) {
         //---check for a player owned edge adjacent to the given vertex
         List<EdgeLocation> firstEdges = findEdges(vertLoc);
@@ -476,6 +491,7 @@ public class Map {
 
         return true;
     }
+*/
 
     public boolean canPlaceCity(VertexLocation location, int player) {
         if (!settlements.containsKey(location))
