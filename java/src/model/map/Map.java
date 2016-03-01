@@ -260,26 +260,28 @@ public class Map {
         boolean rightSetPresent = false;
 
         if (settlements.containsKey(left))
+        {
             leftSetPresent = true;
-            if (settlements.get(left).player == player) {
+            if (settlements.get(left).player == player)
                 return true;
-            }
+        }
+
+
 
         if (settlements.containsKey(right)) {
             rightSetPresent = true;
-            if (settlements.get(right).player == player) {
+            if (settlements.get(right).player == player)
                 return true;
-            }
         }
 
         //----- is there a player owned road adj to the edgj
         //--- must consider the cases where a different player owns a settlement on either left or right
         List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
 
-        if(!leftSetPresent)
+        if (!leftSetPresent)
             adjEdges.addAll(findEdges(left, edge));
 
-        if(!rightSetPresent)
+        if (!rightSetPresent)
             adjEdges.addAll(findEdges(right, edge));
 
         //for each edge adj to the edge in question
@@ -362,10 +364,47 @@ public class Map {
         return returnThis;
     }
 
+    public boolean canPlaceSettlement(VertexLocation vertex, int playerIndex, boolean setUp) {
+        List<EdgeLocation> firstEdges = findEdges(vertex);
+        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
 
+        //----- must be adj to a player road
+        //--- EXCEPTION: setup phase
+        if(!setUp) {
+            for (EdgeLocation edge_t : firstEdges) {
+                if (roads.containsKey(edge_t))
+                    if (roads.get(edge_t).owner == playerIndex)
+                        firstEdgesPlayer.add(edge_t);
+            }
+
+            //if the player owns no adjoining edges, return false
+            if (firstEdgesPlayer.size() == 0)
+                return false;
+        }
+
+        //----- can not be within 2 edges of another settlement
+        //--- in other words, there can't be a settlement 1 vertex away
+        Set<VertexLocation> firstVertex = new HashSet<VertexLocation>();
+        for (EdgeLocation edge_t : firstEdges) {
+            firstVertex.add(findVertexLeft(edge_t));
+            firstVertex.add(findVertexRight(edge_t));
+        }
+        //--remove the original vertex
+        firstVertex.remove(vertex);
+        //--check for settlements
+        for (VertexLocation vertex_t : firstVertex) {
+            if (settlements.containsKey(vertex_t))
+                return false;
+        }
+
+        return true;
+    }
+
+
+/*
     public boolean canPlaceSettlement(VertexLocation vertex, int player) {
 
-        //---check for a player owned edge adjacent to the given vertex
+        //----- check for a player owned edge adjacent to the given vertex
         List<EdgeLocation> firstEdges = findEdges(vertex);
         List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
         for (EdgeLocation edge_t : firstEdges) {
@@ -374,7 +413,7 @@ public class Map {
                     firstEdgesPlayer.add(edge_t);
         }
 
-        //-if the player owns no adjoinging edges, return false
+        //if the player owns no adjoining edges, return false
         if (firstEdgesPlayer.size() == 0)
             return false;
 
@@ -417,6 +456,7 @@ public class Map {
 
         return false;
     }
+*/
 
     boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex) {
         //---check for a player owned edge adjacent to the given vertex
