@@ -135,5 +135,19 @@ public class PlayerManager
 		return name;
 	}
 
+	public int getWinner()
+	{
+		int winner = -1;
+		
+		for (int i = 0; i < catanPlayers.length; i++)
+		{
+			Player player = catanPlayers[i]; 
+			if(player.getPoints() >= 10)
+			{
+				winner = player.getPlayerIndex();
+			}
+		}
+		return winner;
+	}
 
 }

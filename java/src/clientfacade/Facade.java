@@ -774,4 +774,14 @@ public class Facade extends Observable {
 		instance()._acceptTrade(willAccept);
 	}
 
+	public static int getWinner()
+	{
+		return getCatanModel().playerManager.getWinner();
+	}
+
+	public static String getPlayerName(int playerIndex)
+	{
+		return getCatanModel().playerManager.getPlayerName(playerIndex);
+	}
+
 }

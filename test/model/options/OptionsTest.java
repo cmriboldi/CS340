@@ -189,17 +189,17 @@ public class OptionsTest
 		assertEquals(options.canRollNumber(3), false);
 		
 		//Test canRob
-		assertEquals(options.canPlaceRobber(0), false);
-		assertEquals(options.canPlaceRobber(1), false);
-		assertEquals(options.canPlaceRobber(2), false);
-		assertEquals(options.canPlaceRobber(3), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
 		
 		cm.playerManager.setStatus("Robbing");
 		
-		assertEquals(options.canPlaceRobber(0), true);
-		assertEquals(options.canPlaceRobber(1), false);
-		assertEquals(options.canPlaceRobber(2), false);
-		assertEquals(options.canPlaceRobber(3), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), true);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
+		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
 		
 		//Test canDiscard
 		assertEquals(options.canDiscardCards(0), false);

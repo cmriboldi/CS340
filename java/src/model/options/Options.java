@@ -2,11 +2,13 @@ package model.options;
 
 import java.util.Set;
 
+import clientfacade.Facade;
 import model.CatanModel;
 import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
 import shared.definitions.PortType;
 import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
 
 /**
@@ -182,10 +184,10 @@ public class Options
 		return(playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Rolling"));
 	}
 
-	public boolean canPlaceRobber(int playerIndex)
+	public boolean canPlaceRobber(HexLocation hex)
 	{
-		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 
-		return(playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing"));
+		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker();
+		return(Facade.getLocalPlayerIndex() == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Robbing"));
 	}
 	
 	public boolean canDiscardCards(int playerIndex)

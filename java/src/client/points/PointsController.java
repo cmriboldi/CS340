@@ -56,6 +56,15 @@ public class PointsController extends Controller implements IPointsController, O
 			return;
 
 		initFromModel();
+		
+		int winnerIndex = Facade.getWinner();
+		System.out.println("winner index is: " + winnerIndex);
+		if(winnerIndex != -1) {
+			System.out.println("local player is: " + Facade.getLocalPlayerIndex());
+			System.out.println("winner name is: " + Facade.getPlayerName(winnerIndex));
+			getFinishedView().setWinner(Facade.getPlayerName(winnerIndex), winnerIndex == Facade.getLocalPlayerIndex());
+			getFinishedView().showModal();
+		}
 	}
 	
 }
