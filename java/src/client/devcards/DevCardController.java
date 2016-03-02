@@ -115,19 +115,12 @@ public class DevCardController extends Controller implements IDevCardController,
 
 	@Override
 	public void playMonumentCard() {
-		if(Facade.getCatanModel().options.canPlayDevCard(Facade.getLocalPlayerInfo().getPlayerIndex()))
-		{
 			try {
 				Facade.playMonumentCard();
 			} catch (ServerException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		}
-		else
-		{
-			
-		}
 	}
 
 	@Override
@@ -198,7 +191,8 @@ public class DevCardController extends Controller implements IDevCardController,
 				}
 				if(cards.get(i) == DevCardType.MONUMENT)
 				{
-					getPlayCardView().setCardEnabled(cards.get(i), true);
+					if(cardAmounts.get(i) > 0)
+						getPlayCardView().setCardEnabled(cards.get(i), true);
 				}
 				
 			}
