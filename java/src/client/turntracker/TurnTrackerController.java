@@ -123,7 +123,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	
 		if (localPlayerIndex != currentTurnIndex)
 		{
-			getView().updateGameState("Waiting for other players ...", true);
+			getView().updateGameState("Waiting for other players ...", false);
 		}
 		else
 		{			
@@ -145,7 +145,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 				getView().updateGameState("Click to end your turn", true);
 				break;
 			case "robbing":
-				getView().updateGameState("Robbing", true);
+				getView().updateGameState("Robbing", false);
 				break;
 			default:
 				break;
