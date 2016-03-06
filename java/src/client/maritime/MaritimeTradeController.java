@@ -36,6 +36,19 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 
 		Facade.addObserverStatic(this);
 	}
+
+	private void calculateGetResources()
+	{
+		Vector<ResourceType> enabledResources = new Vector<ResourceType>();
+		for(ResourceType resource : ResourceType.values()) {
+			if(Facade.bankHasResource(resource)) {
+				enabledResources.add(resource);
+			}
+		}
+		enabledGetResources = new ResourceType[enabledResources.size()];
+		enabledResources.toArray(enabledGetResources);
+		
+	}
 	
 	private void calculateGiveResources() {
 		Vector<ResourceType> enabledResources = new Vector<ResourceType>();
@@ -183,12 +196,14 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			tradeRatio = ratioMap.get(resource);
 			getTradeOverlay().selectGiveOption(resource, ratioMap.get(resource));
 		}
+		calculateGetResources();
 		getTradeOverlay().showGetOptions(enabledGetResources);
 	}
 
 	@Override
 	public void unsetGetValue() {
 		getResourceType = null;
+		calculateGetResources();
 		getTradeOverlay().showGetOptions(enabledGetResources);
 		getTradeOverlay().setTradeEnabled(false);
 	}
@@ -211,6 +226,8 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 		getTradeView().enableMaritimeTrade(Facade.isMyturn());
 		calculateGiveResources();
 		getTradeOverlay().showGiveOptions(enabledGiveResources);
+		
+		calculateGetResources();
 		
 	}
 
