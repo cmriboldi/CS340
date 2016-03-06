@@ -120,14 +120,38 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		
 		
 		//int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex(); 
-		if (localPlayerIndex == currentTurnIndex && 
-				Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus().equals("Playing"))
+	
+		if (localPlayerIndex != currentTurnIndex)
 		{
-			getView().updateGameState("Finish Turn", true);
+			getView().updateGameState("Waiting for other players ...", true);
 		}
 		else
-		{
-			getView().updateGameState("Waiting for Other Players", false);
+		{			
+			
+			switch (Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus().toLowerCase()) {
+			case "firstround":
+				getView().updateGameState("First Round", false);
+				break;
+			case "secondround":
+				getView().updateGameState("Second Round", false);
+				break;
+			case "rolling":
+				getView().updateGameState("Rolling", false);
+				break;
+			case "discarding":
+				getView().updateGameState("Discarding", false);
+				break;
+			case "playing":
+				getView().updateGameState("Click to end your turn", true);
+				break;
+			case "robbing":
+				getView().updateGameState("Robbing", true);
+				break;
+			default:
+				break;
+			}
+			
+			
 		}
 		
 		//Facade.getCatanModel().getPlayerManager().getTurnTracker().

@@ -116,11 +116,17 @@ public class TurnTrackerView extends PanelView implements ITurnTrackerView {
 	@Override
 	public void updatePlayer(int playerIndex, int points, boolean highlight,
 			boolean largestArmy, boolean longestRoad) {
+		
+		
+		//CatanColor playerColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerIndex].getColor(); 
+		//String playerName = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[playerIndex].getName(); 
+		//initializePlayer( playerIndex,playerName, playerColor ); 
+		
+		
 		playerArmy[playerIndex].setVisible(largestArmy);
 		playerRoad[playerIndex].setVisible(longestRoad);
 		playerPoints[playerIndex].setText(String.format("%d", points));
-		
-		
+
 		if(highlight)
 			playerPanel[playerIndex].setBorder(BorderFactory.createLineBorder(new Color(0,0,0), 3));
 		else
