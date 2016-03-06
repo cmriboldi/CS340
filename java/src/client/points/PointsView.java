@@ -16,7 +16,7 @@ public class PointsView extends ComponentView implements IPointsView
 	private final int IMAGE_SPACING = 5;
 	private final float FULL_IMAGE_SCALE = 0.25f;
 	private final float EMPTY_IMAGE_SCALE = 0.25f;
-	private final int MAX_POINTS = 10;
+	private final int MAX_POINTS = 11;
 	
 	private Image fullPointImage;
 	private Image emptyPointImage;
