@@ -43,10 +43,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 	}
 	
 	private void initFromModel() {
-		
-		
 		getView().setLocalPlayerColor(CatanColor.WHITE);
-		//</temp>
 	}
 
 	@Override
@@ -119,8 +116,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		trackerView.updatePlayer(2, player2.getPoints(), player2Turn, player2LargestArmy, player2LongestRoad);
 		trackerView.updatePlayer(3, player3.getPoints(), player3Turn, player3LargestArmy, player3LongestRoad);
 		
-		
-		//int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex(); 
 	
 		if (localPlayerIndex != currentTurnIndex)
 		{
@@ -154,30 +149,6 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 			
 			
 		}
-		
-		//Facade.getCatanModel().getPlayerManager().getTurnTracker().
-		
-		
-		
-		/*
-		TurnTrackerView trackerView = (TurnTrackerView) getView(); //TODO
-		
-		int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
-		Player player0 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0];
-		Player player1 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1];
-		Player player2 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2];
-		Player player3 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3];
-		
-		boolean player0Turn = false; 
-		if (player0.getPlayerIndex() == currentTurnIndex)
-		{
-			player0Turn = true; 
-		}
-		
-		trackerView.updatePlayer(0, player0.getPoints(), player0Turn, false, false);//player0.get, longestRoad
-		*/
-		
-		//Facade.getCatanModel().getPlayerManager().getTurnTracker()
 		
 	}
 
