@@ -56,7 +56,17 @@ public class RollController extends Controller implements IRollController, Obser
 
     @Override
     public void update(Observable o, Object arg) {
+    	
+    	
+    	
         if (Facade.getTurnStatus().equals("Rolling") && Facade.isMyturn()) {
+        	
+        	if (Facade.getMaxPoints() >= 10) 
+    		{
+    		return; // game is already over
+    		}
+        	
+        	
             if (!getRollView().isModalShowing()) {
                 getRollView().showModal();
             }

@@ -347,6 +347,23 @@ public class Facade extends Observable {
 		
 	}
 	
+	public static int getMaxPoints()
+	{
+		Player[] players = getCatanModel().getPlayerManager().getCatanPlayers();
+		
+		int maxPoints = -1; 
+		
+		for (int i = 0; i < players.length; i++)
+		{
+			int playerPoitns = players[i].getPoints();
+			if (playerPoitns > maxPoints)
+			{
+				maxPoints = playerPoitns; 
+			}
+		}
+		return maxPoints; 
+	}
+	
 	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
 	{
 		HashSet<Integer> indexes = this.catanModel.mapManager.getPlayersOnHex(hexLoc);
