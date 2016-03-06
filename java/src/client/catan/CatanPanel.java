@@ -31,7 +31,7 @@ public class CatanPanel extends JPanel
 	private RollResultView rollResultView;
 	private RollController rollController;
 	
-	public CatanPanel()
+	public CatanPanel() // Disable all Buttons Here
 	{
 		this.setLayout(new BorderLayout());
 		
@@ -114,7 +114,7 @@ public class CatanPanel extends JPanel
 				}
 			}
 		});
-		this.add(testButton, BorderLayout.SOUTH);
+		//this.add(testButton, BorderLayout.SOUTH);
 	}
 	
 }
