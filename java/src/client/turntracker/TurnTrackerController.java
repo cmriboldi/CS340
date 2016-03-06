@@ -35,6 +35,7 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 
 		try {
 			Facade.getProxy().finishTurn(Facade.getLocalPlayerIndex());
+			getView().updateGameState("Finishing Turn !!!" , false);
 		} catch (ServerException e) {
 			e.printStackTrace();
 		} 
