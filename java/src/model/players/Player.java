@@ -2,6 +2,7 @@ package model.players;
 
 import java.util.ArrayList;
 import shared.definitions.CatanColor;
+import shared.definitions.PieceType;
 import shared.exceptions.player.InvalidColorException;
 import shared.communication.*;
 
@@ -230,6 +231,11 @@ public class Player
 		default:
 			throw new InvalidColorException();
 		}
+	}
+
+	public boolean hasPiece(PieceType piece)
+	{
+		return this.pieces.hasPiece(piece);
 	}
 
 }

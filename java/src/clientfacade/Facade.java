@@ -21,6 +21,7 @@ import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
+import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.PlayerNameNotFoundException;
 import shared.locations.EdgeLocation;
@@ -808,6 +809,16 @@ public class Facade extends Observable {
 	public static CatanColor getPlayerColor()
 	{
 		return getCatanModel().playerManager.getPlayerColor(getLocalPlayerIndex());
+	}
+
+	public static boolean hasPiece(PieceType piece)
+	{
+		return getCatanModel().playerManager.hasPiece(getLocalPlayerIndex(), piece);
+	}
+
+	public static boolean hasDevCards()
+	{
+		return getCatanModel().cardManager.hasDevCards();
 	}
 
 }

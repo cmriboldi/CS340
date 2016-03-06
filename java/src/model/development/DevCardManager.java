@@ -160,5 +160,10 @@ public class DevCardManager
 		}
 		return unusedCardsCount;
 	}
+
+	public boolean hasDevCards()
+	{
+		return devCardStack.getDevCardCount() > 0;
+	}
 	
 }

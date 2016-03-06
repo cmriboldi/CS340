@@ -5,6 +5,7 @@ import java.util.*;
 import client.base.*;
 import clientfacade.Facade;
 import model.resources.ResourceList;
+import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 
 
@@ -76,8 +77,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 	@Override
 	public void update(Observable o, Object arg)
 	{
-		if(!Facade.hasGameStarted())
+		if(!Facade.hasGameStarted()) {
 			return;
+		}
+			
 
 		int playerIndex = Facade.getLocalPlayerIndex();
 		ResourceList rs = Facade.getCatanModel().resourceManager.getResourcesForPlayer(playerIndex);
@@ -93,38 +96,50 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		if(localIndex == -1)
 			return;
 
-		if(Facade.getCatanModel().getOptions().canAffordRoad(localIndex))
+		if(Facade.getCatanModel().getOptions().canAffordRoad(localIndex) && Facade.hasPiece(PieceType.ROAD)) {
 			getView().setElementEnabled(ResourceBarElement.ROAD, true);
-		else
+		}			
+		else {
 			getView().setElementEnabled(ResourceBarElement.ROAD, false);
+		}
+			
 
 
-		if(Facade.getCatanModel().getOptions().canAffordCity(localIndex))
+		if(Facade.getCatanModel().getOptions().canAffordCity(localIndex) && Facade.hasPiece(PieceType.CITY)) {
 			getView().setElementEnabled(ResourceBarElement.CITY, true);
-		else
+		}	
+		else {
 			getView().setElementEnabled(ResourceBarElement.CITY, false);
+		}
 
 
-		if(Facade.getCatanModel().getOptions().canAffordTown(localIndex))
+		if(Facade.getCatanModel().getOptions().canAffordTown(localIndex) && Facade.hasPiece(PieceType.SETTLEMENT)) {
 			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
-		else
+		}			
+		else {
 			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, false);
+		}
+			
 
 
 		getView().setElementAmount(ResourceBarElement.ROAD, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getRoadsRemaining());
 		getView().setElementAmount(ResourceBarElement.SETTLEMENT, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getSettlementsRemaining());
 		getView().setElementAmount(ResourceBarElement.CITY, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getCitiesRemaining());
 
-		if(Facade.getCatanModel().options.canAffordDevCard(Facade.getLocalPlayerIndex()) && Facade.isMyturn())
+		if(Facade.getCatanModel().options.canAffordDevCard(Facade.getLocalPlayerIndex()) && Facade.isMyturn() && Facade.hasDevCards()) {
 			getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
-		else
+		}	
+		else {
 			getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
+		}
 		
-		if(Facade.isMyturn())
+		if(Facade.isMyturn()) {
 			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
-		else
+		}
+		else {
 			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, false);
-		
+		}
+			
 		int soldier = Facade.getSoldierCount();
 		getView().setElementAmount(ResourceBarElement.SOLDIERS, soldier);
 

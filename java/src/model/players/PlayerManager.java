@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import client.data.PlayerInfo;
 import clientfacade.Facade;
 import shared.definitions.CatanColor;
+import shared.definitions.PieceType;
 import shared.exceptions.player.*;
 
 /**
@@ -153,6 +154,11 @@ public class PlayerManager
 	public CatanColor getPlayerColor(int playerIndex)
 	{
 		return catanPlayers[playerIndex].getColor();
+	}
+
+	public boolean hasPiece(int playerIndex, PieceType piece)
+	{	
+		return catanPlayers[playerIndex].hasPiece(piece);
 	}
 
 }
