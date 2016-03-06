@@ -364,6 +364,13 @@ public class Facade extends Observable {
 		return maxPoints; 
 	}
 	
+	public static boolean gameOver()
+	{
+		if (getMaxPoints() >= 10) return true; 
+		else return false; 
+	}
+	
+	
 	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
 	{
 		HashSet<Integer> indexes = this.catanModel.mapManager.getPlayersOnHex(hexLoc);

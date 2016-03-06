@@ -80,7 +80,10 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		if(!Facade.hasGameStarted()) {
 			return;
 		}
-			
+	
+		boolean gameOver = Facade.gameOver(); 
+		
+		
 
 		int playerIndex = Facade.getLocalPlayerIndex();
 		ResourceList rs = Facade.getCatanModel().resourceManager.getResourcesForPlayer(playerIndex);
@@ -96,7 +99,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		if(localIndex == -1)
 			return;
 
-		if(Facade.getCatanModel().getOptions().canAffordRoad(localIndex) && Facade.hasPiece(PieceType.ROAD)) {
+		if(Facade.getCatanModel().getOptions().canAffordRoad(localIndex) && Facade.hasPiece(PieceType.ROAD) && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.ROAD, true);
 		}			
 		else {
@@ -105,7 +108,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			
 
 
-		if(Facade.getCatanModel().getOptions().canAffordCity(localIndex) && Facade.hasPiece(PieceType.CITY)) {
+		if(Facade.getCatanModel().getOptions().canAffordCity(localIndex) && Facade.hasPiece(PieceType.CITY) && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.CITY, true);
 		}	
 		else {
@@ -113,7 +116,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		}
 
 
-		if(Facade.getCatanModel().getOptions().canAffordTown(localIndex) && Facade.hasPiece(PieceType.SETTLEMENT)) {
+		if(Facade.getCatanModel().getOptions().canAffordTown(localIndex) && Facade.hasPiece(PieceType.SETTLEMENT) && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.SETTLEMENT, true);
 		}			
 		else {
@@ -126,14 +129,14 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 		getView().setElementAmount(ResourceBarElement.SETTLEMENT, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getSettlementsRemaining());
 		getView().setElementAmount(ResourceBarElement.CITY, Facade.getCatanModel().getPlayerManager().getPlayerByIndex(localIndex).getCitiesRemaining());
 
-		if(Facade.getCatanModel().options.canAffordDevCard(Facade.getLocalPlayerIndex()) && Facade.isMyturn() && Facade.hasDevCards()) {
+		if(Facade.getCatanModel().options.canAffordDevCard(Facade.getLocalPlayerIndex()) && Facade.isMyturn() && Facade.hasDevCards() && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.BUY_CARD, true);
 		}	
 		else {
 			getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 		}
 		
-		if(Facade.isMyturn()) {
+		if(Facade.isMyturn() && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
 		}
 		else {
