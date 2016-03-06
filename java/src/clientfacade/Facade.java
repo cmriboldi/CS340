@@ -406,10 +406,15 @@ public class Facade extends Observable {
 			{
 				continue;
 			}
+			int resources = this.catanModel.resourceManager.getTotalResourceCount(playerIndex);
+			if(resources <= 0)
+			{
+				continue;
+			}
 			int id = p.getId();
 			String name = p.getName();
 			CatanColor color = p.getColor();
-			int resources = this.catanModel.resourceManager.getTotalResourceCount(playerIndex);
+			
 			
 			RobPlayerInfo Info = new RobPlayerInfo();
 			Info.setId(id);
