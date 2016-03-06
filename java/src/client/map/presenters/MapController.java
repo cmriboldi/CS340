@@ -53,6 +53,8 @@ public class MapController extends Controller implements IMapController, Observe
     private void setRobView(IRobView robView) {
         this.robView = robView;
     }
+    
+    private boolean isRobbing;
 
     @Override
     public void update(Observable o, Object arg) {
@@ -67,8 +69,13 @@ public class MapController extends Controller implements IMapController, Observe
 	        }
 	        
 	
-	        if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn())
+	        if(!Facade.getTurnStatus().equals("Robbing"))
 	        {
+	        	Facade.setRobbing(false);
+	        }
+	        if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn() && !Facade.isRobbing())
+	        {
+	        	Facade.setRobbing(true);
 	        	getView().startDrop(PieceType.ROBBER, null, false);
 	        }
 	        

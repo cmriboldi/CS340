@@ -391,6 +391,27 @@ public class Facade extends Observable {
 		else return false; 
 	}
 	
+	private boolean isRobbing;
+	
+	private boolean _isRobbing()
+	{
+		return isRobbing;
+	}
+	
+	public static boolean isRobbing()
+	{
+		return instance()._isRobbing();
+	}
+	
+	private void _setRobbing(boolean b)
+	{
+		this.isRobbing = b;
+	}
+	
+	public static void setRobbing(boolean b)
+	{
+		instance()._setRobbing(b);
+	}
 	
 	private RobPlayerInfo[] _getPlayersOnHex(HexLocation hexLoc)
 	{
