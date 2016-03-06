@@ -230,6 +230,7 @@ public class MapController extends Controller implements IMapController, Observe
     public void placeRoad(EdgeLocation edgeLoc) {
         if(playingRoadBuilder && firstRoadBuilderLocation == null) {
         	firstRoadBuilderLocation = edgeLoc;
+        	Facade.placeLocalRoad(edgeLoc);
         	getView().placeRoad(edgeLoc, Facade.getPlayerColor());
         	getView().startDrop(PieceType.ROAD, Facade.getPlayerColor(), false);
         } else if(playingRoadBuilder && firstRoadBuilderLocation != null) {

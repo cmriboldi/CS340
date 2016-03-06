@@ -826,4 +826,9 @@ public class Facade extends Observable {
 		return getCatanModel().resourceManager.bankHasResource(resource);
 	}
 
+	public static void placeLocalRoad(EdgeLocation edgeLoc)
+	{
+		getCatanModel().mapManager.placeRoad(edgeLoc, getLocalPlayerIndex());
+	}
+
 }
