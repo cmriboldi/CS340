@@ -181,6 +181,7 @@ public class DiscardController extends Controller implements IDiscardController,
 	@Override
 	public void discard() {
 		getDiscardView().closeModal();
+		Facade.setDiscarded(true);
 		try {
 			Facade.discard(wood,brick,sheep,wheat,ore);
 		} catch (ServerException e) {
@@ -203,6 +204,10 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	@Override
 	public void update(Observable o, Object arg) {
+		if(!Facade.getTurnStatus().equals("Discarding"))
+		{
+			Facade.setDiscarded(false);
+		}
 		if(Facade.getTurnStatus().equals("Discarding"))
 		{		
 			woodTotal = Facade.getResourceAmount(ResourceType.WOOD);
@@ -214,7 +219,7 @@ public class DiscardController extends Controller implements IDiscardController,
 			amount = total/2;
 			
 			
-			if(total > 7)
+			if(total > 7 && !Facade.hasDiscarded())
 			{
 				getDiscardView().setStateMessage(Integer.toString(wood+brick+sheep+wheat+ore)+"/"+Integer.toString(amount));
 				getDiscardView().setDiscardButtonEnabled(false);

@@ -335,9 +335,30 @@ public class Facade extends Observable {
 		return instance()._getResourceAmount(type);
 	}
 	
+	private boolean hasDiscarded;
+	
+	private boolean _hasDiscarded()
+	{
+		return hasDiscarded;
+	}
+	
+	public static boolean hasDiscarded()
+	{
+		return instance()._hasDiscarded();
+	}
+	
+	private void _setDiscaarded(boolean b)
+	{
+		this.hasDiscarded = b;
+	}
+	
+	public static void setDiscarded(boolean b)
+	{
+		instance()._setDiscaarded(b);
+	}
+	
 	private void _discard(int wood, int brick, int sheep, int wheat, int ore) throws ServerException
 	{
-		
 		this._setView(this.proxy.discardCards(this._getLocalPlayerIndex(), new ResourceList(brick,ore,sheep,wheat,wood)));
 	}
 
