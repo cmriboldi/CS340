@@ -14,6 +14,8 @@ import clientfacade.Facade;
  * Implementation for the turn tracker controller
  */
 public class TurnTrackerController extends Controller implements ITurnTrackerController, Observer {
+	
+	boolean initialized = false; 
 
 	public TurnTrackerController(ITurnTrackerView view) {
 		
@@ -46,32 +48,50 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		getView().setLocalPlayerColor(CatanColor.WHITE);
 	}
 
+	private void intializeFirstTime() {
+		
+		
+		TurnTrackerView trackerView = (TurnTrackerView) getView(); //TODO
+		int localPlayerIndex = Facade.getLocalPlayerIndex(); 
+		int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
+		CatanColor localColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getColor(); 
+		
+		Player player0 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0];
+		Player player1 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1];
+		Player player2 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2];
+		Player player3 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3];
+			
+		trackerView.initializePlayer(0, player0.getName(), player0.getColor());
+		trackerView.initializePlayer(1, player1.getName(), player1.getColor());
+		trackerView.initializePlayer(2, player2.getName(), player2.getColor());
+		trackerView.initializePlayer(3, player3.getName(), player3.getColor());
+
+		getView().setLocalPlayerColor(localColor);	
+		
+	}
+	
 	@Override
 	public void update(Observable o, Object arg) {
 		
 		if (!Facade.hasGameStarted())
 			return; 
 		
+		if (!initialized){
+			intializeFirstTime(); 
+			initialized = true; 
+		}
 		
 		// ================================= INITIALIZE ======================================= // 
+		int localPlayerIndex = Facade.getLocalPlayerIndex(); 
 		TurnTrackerView trackerView = (TurnTrackerView) getView(); //TODO
 		int currentTurnIndex = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
+		CatanColor localColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getColor(); 
+		
 		Player player0 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[0];
 		Player player1 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[1];
 		Player player2 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[2];
 		Player player3 = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[3];
-		
 
-		
-		trackerView.initializePlayer(0, player0.getName(), player0.getColor());
-		trackerView.initializePlayer(1, player1.getName(), player1.getColor());
-		trackerView.initializePlayer(2, player2.getName(), player2.getColor());
-		trackerView.initializePlayer(3, player3.getName(), player3.getColor());
-
-		int localPlayerIndex = Facade.getLocalPlayerIndex(); 
-		CatanColor localColor = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[localPlayerIndex].getColor(); 
-		getView().setLocalPlayerColor(localColor);
-		
 		// ================================= UPDATE ======================================= // 
 
 		boolean player0Turn = false; 
