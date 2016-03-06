@@ -116,8 +116,12 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		trackerView.updatePlayer(2, player2.getPoints(), player2Turn, player2LargestArmy, player2LongestRoad);
 		trackerView.updatePlayer(3, player3.getPoints(), player3Turn, player3LargestArmy, player3LongestRoad);
 		
-	
-		if (localPlayerIndex != currentTurnIndex)
+		
+		if (Facade.getMaxPoints() >= 10) 
+		{
+		getView().updateGameState("GAME OVER", false);
+		}
+		else if (localPlayerIndex != currentTurnIndex)
 		{
 			getView().updateGameState("Waiting for other players ...", false);
 		}
