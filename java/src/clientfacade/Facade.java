@@ -821,4 +821,9 @@ public class Facade extends Observable {
 		return getCatanModel().cardManager.hasDevCards();
 	}
 
+	public static boolean bankHasResource(ResourceType resource)
+	{
+		return getCatanModel().resourceManager.bankHasResource(resource);
+	}
+
 }

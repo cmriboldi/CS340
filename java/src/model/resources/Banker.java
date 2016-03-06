@@ -163,4 +163,9 @@ public class Banker
 		return playerResources.getTotalResourceCount(playerIndex);
 	}
 
+	public boolean bankHasResource(ResourceType resource)
+	{
+		return this.bank.getResourceTypeCount(resource) > 0;
+	}
+
 }

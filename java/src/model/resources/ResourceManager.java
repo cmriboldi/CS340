@@ -195,4 +195,9 @@ public class ResourceManager
 		return trader.canAcceptTrade(playerIndex);
 	}
 
+	public boolean bankHasResource(ResourceType resource)
+	{
+		return banker.bankHasResource(resource);
+	}
+
 };
