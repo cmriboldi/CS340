@@ -223,7 +223,9 @@ public class MaritimeTradeController extends Controller implements IMaritimeTrad
 			return;
 		}
 
-		getTradeView().enableMaritimeTrade(Facade.isMyturn());
+		boolean gameOver = Facade.gameOver(); 
+		
+		getTradeView().enableMaritimeTrade(Facade.isMyturn() && !gameOver);
 		calculateGiveResources();
 		getTradeOverlay().showGiveOptions(enabledGiveResources);
 		
