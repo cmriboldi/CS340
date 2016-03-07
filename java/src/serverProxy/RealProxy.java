@@ -127,7 +127,7 @@ public class RealProxy implements ServerProxy
 		for(int i = 0; i < json.size(); i++)
 		{
 			JsonObject game = (JsonObject) json.get(i);
-			String title = game.get("title").toString();
+			String title = game.get("title").toString().replace("\"", "");
 			int id = game.get("id").getAsInt();
 			JsonArray players = game.getAsJsonArray("players");
 			

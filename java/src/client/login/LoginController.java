@@ -119,10 +119,10 @@ public class LoginController extends Controller implements ILoginController {
 				messageView.showModal();
 				return;
 			}
-			if(username.equals(""))
+			if(!validUsername(username))
 			{
 				messageView.setTitle("Register Failed");
-				messageView.setMessage("USERNAME CANNOT BE BLANK");
+				messageView.setMessage("USERNAME MUST BE BETWEEN 3 AND 7 CHARACTERS IN LENGTH");
 				messageView.showModal();
 				return;
 			}
@@ -130,6 +130,13 @@ public class LoginController extends Controller implements ILoginController {
 			{
 				messageView.setTitle("Register Failed");
 				messageView.setMessage("PASSWORD CANNOT BE BLANK");
+				messageView.showModal();
+				return;
+			}
+			if(!validPassword(password))
+			{
+				messageView.setTitle("Register Failed");
+				messageView.setMessage("PASSWORD MUST HAVE AT LEAST 5 DIGITS AND ONLY A-B, 0-9, -, OR _");
 				messageView.showModal();
 				return;
 			}
@@ -145,6 +152,28 @@ public class LoginController extends Controller implements ILoginController {
 			messageView.showModal();
 			e.printStackTrace();
 		}
+	}
+
+	private boolean validPassword(String password)
+	{
+		if(password.length() < 5)
+			return false;
+		for(int i = 0; i < password.length(); i++)
+		{
+			String a = password.charAt(i) + "";
+			if(!(a.matches("[a-zA-Z]+") || a.matches("\\d") || a.matches("-") || a.matches("_")))
+			{
+				return false;
+			}
+		}
+		return true;
+	}
+
+	private boolean validUsername(String username)
+	{
+		if(username.length() < 3 || username.length() > 7)
+			return false;
+		return true;
 	}
 }
 

@@ -145,11 +145,20 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		try
 		{
 			INewGameView view = this.getNewGameView();
-			Facade.createGame(view.getRandomlyPlaceHexes(), view.getRandomlyPlaceNumbers(), view.getUseRandomPorts(), view.getTitle());
+			if(view.getTitle().equals(""))
+			{
+				messageView.setTitle("ERROR");
+				messageView.setMessage("Please do not create a game with blank name, they reported that as a bug last time, so please don't");
+				messageView.showModal();
+				return;
+			}
+			//getNewGameView().closeModal();
+			GameInfo newGame = Facade.createGame(view.getRandomlyPlaceHexes(), view.getRandomlyPlaceNumbers(), view.getUseRandomPorts(), view.getTitle());
+			Facade.joinGame(newGame.getId(), CatanColor.RED);
 			GameInfo[] games = Facade.listGames();
 			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
 			((IJoinGameView)this.getView()).setGames(games, localPlayer);
-			getNewGameView().closeModal();
+			getJoinGameView().showModal();
 		}
 		catch (ServerException e)
 		{
@@ -163,6 +172,15 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 	@Override
 	public void startJoinGame(GameInfo game)
 	{
+		getSelectColorView().setColorEnabled(CatanColor.RED, true);
+		getSelectColorView().setColorEnabled(CatanColor.ORANGE, true);
+		getSelectColorView().setColorEnabled(CatanColor.YELLOW, true);
+		getSelectColorView().setColorEnabled(CatanColor.BLUE, true);
+		getSelectColorView().setColorEnabled(CatanColor.GREEN, true);
+		getSelectColorView().setColorEnabled(CatanColor.PURPLE, true);
+		getSelectColorView().setColorEnabled(CatanColor.PUCE, true);
+		getSelectColorView().setColorEnabled(CatanColor.WHITE, true);
+		getSelectColorView().setColorEnabled(CatanColor.BROWN, true);
 		this.gameToJoin = game;
 		for(PlayerInfo player : game.getPlayers())
 		{
