@@ -50,8 +50,11 @@ public class MapManager implements IMapManager {
 
     @Override
     public void placeRoad(EdgeLocation edge, int player) {
-        // TODO Auto-generated method stub
+        map.placeRoad(edge, player);
+    }
 
+    public void placeLocalRoad(EdgeLocation edge, int player) {
+        map.placeLocalRoad(edge, player);
     }
 
     @Override

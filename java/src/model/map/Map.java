@@ -277,6 +277,20 @@ public class Map {
     	
     }
 
+    public void placeRoad(EdgeLocation edge, int player)
+    {
+
+    }
+
+    public void placeLocalRoad(EdgeLocation edge, int player)
+    {
+        if(!canPlaceRoad(edge, player))
+            return;
+
+        Road newRoad = new Road(edge, player);
+        roads.put(edge, newRoad);
+    }
+
     public boolean canPlaceRoad(EdgeLocation edge, int player) {
         //----- normalize the edge
         edge = edge.getNormalizedLocation();

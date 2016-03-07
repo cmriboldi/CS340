@@ -240,20 +240,23 @@ public class MapController extends Controller implements IMapController, Observe
         	Facade.placeLocalRoad(edgeLoc);
         	getView().placeRoad(edgeLoc, Facade.getPlayerColor());
         	getView().startDrop(PieceType.ROAD, Facade.getPlayerColor(), false);
-        } else if(playingRoadBuilder && firstRoadBuilderLocation != null) {
-        	try
-			{
-            	playingRoadBuilder = false;
-        		Facade.playRoadBuildCard(firstRoadBuilderLocation, edgeLoc);
-			} catch (ServerException e)
-			{
-				e.printStackTrace();
-			}
-        	firstRoadBuilderLocation = null;
-        } else {
+        } else if(playingRoadBuilder && firstRoadBuilderLocation != null)
+        {
+                try
+                {
+                    playingRoadBuilder = false;
+                    Facade.playRoadBuildCard(firstRoadBuilderLocation, edgeLoc);
+                } catch (ServerException e)
+                {
+                    e.printStackTrace();
+                }
+                firstRoadBuilderLocation = null;
+        } else
+        {
         	try {
             	currentState.placeRoad(edgeLoc);
-            } catch (ServerException e) {
+            }
+            catch (ServerException e) {
                 e.printStackTrace();
             }
         }

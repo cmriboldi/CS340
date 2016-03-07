@@ -900,7 +900,7 @@ public class Facade extends Observable {
 
 	public static void placeLocalRoad(EdgeLocation edgeLoc)
 	{
-		getCatanModel().mapManager.placeRoad(edgeLoc, getLocalPlayerIndex());
+		getCatanModel().mapManager.placeLocalRoad(edgeLoc, getLocalPlayerIndex());
 	}
 
 }
