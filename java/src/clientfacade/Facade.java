@@ -30,7 +30,7 @@ import shared.locations.VertexLocation;
 
 
 /**
- * The Facade class controls all interations between the GUI and the CatanModel
+ * The Facade class controls all interactions between the GUI and the CatanModel
  *
  * @author Christian Riboldi
  * @author Clayton Condie
@@ -40,8 +40,9 @@ import shared.locations.VertexLocation;
  * @version 1.0 Build Jan, 2016.
  */
 public class Facade extends Observable {
-    private static Facade _instance;
-
+    
+	
+	private static Facade _instance;
     private CatanModel catanModel;
     private RealProxy proxy;
 

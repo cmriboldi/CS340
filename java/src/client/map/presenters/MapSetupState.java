@@ -44,8 +44,17 @@ public class MapSetupState implements MapControllerState
 		if(localPlayerIndex == -1)
 			return false;
 
+		String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus().toLowerCase(); 
+		
+		if (status.equals("secondround"))
+		{
+			return Facade.getCatanModel().getMapManager().getMap().canPlaceDuring2ndRoundSetup(edgeLoc, localPlayerIndex); 
+		}
+		else
+		{
+			return Facade.getCatanModel().getMapManager().canPlaceRoad(edgeLoc, localPlayerIndex);
+		}
 		//return Facade.getCatanModel().getMapManager().canPlaceRoadSetup(edgeLoc, localPlayerIndex); //.getOptions().canPlaceRoad(localPlayerIndex, edgeLoc); // DURING SETUP
-		return Facade.getCatanModel().getMapManager().canPlaceRoad(edgeLoc, localPlayerIndex);
 	}
 
 	@Override

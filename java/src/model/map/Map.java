@@ -84,6 +84,7 @@ public class Map {
         radius = radius_t;
     }
 
+    
 
     /////////////////////////////////////////////////////////////////////
     //----- Navigation Methods
@@ -233,6 +234,47 @@ public class Map {
     public ArrayList<HexLocation> queryNumber(int number) {
 
         return null;
+    }
+    
+    /*
+     * Checks to see if both starting settlments have a road adjacent to them.
+     * If they don't return false
+     */
+    public boolean canPlaceDuring2ndRoundSetup(EdgeLocation edge, int player)
+    {    	
+    	if (canPlaceRoad(edge, player) == false)
+    	{
+    		return false; 
+    	}
+    	
+        edge = edge.getNormalizedLocation();
+            		
+    	for (Settlement settle : settlements.values())
+    	{
+ 
+    		if (settle.player == player){
+    			VertexLocation settleLoc = settle.location;
+    	        List<EdgeLocation> firstEdges = findEdges(settleLoc);
+    	        boolean hasAdjacentRoad = false; 
+    	        
+    	        for (EdgeLocation edge_t : firstEdges) {
+    	        	if (edge_t.equals(edge))
+    	        		hasAdjacentRoad = true; 
+    	        	
+                    if (roads.containsKey(edge_t))
+                        if (roads.get(edge_t).owner == player )
+                        	hasAdjacentRoad = true; 
+                }
+
+                //if the player owns no adjoining edges, return false
+                if (hasAdjacentRoad == false)
+                    return false;
+    	        
+    		}
+    	}
+   
+    	return true; // both starting settlements have adjacent roads. Woohoo!
+    	
     }
 
     public boolean canPlaceRoad(EdgeLocation edge, int player) {
