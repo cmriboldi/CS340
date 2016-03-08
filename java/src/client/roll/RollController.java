@@ -48,7 +48,6 @@ public class RollController extends Controller implements IRollController, Obser
             this.resultView.setRollValue(Facade.roll());
 
         } catch (ServerException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
         getResultView().showModal();
@@ -63,7 +62,7 @@ public class RollController extends Controller implements IRollController, Obser
         	
         	if (Facade.getMaxPoints() >= 10) 
     		{
-    		return; // game is already over
+    		return;
     		}
         	
         	

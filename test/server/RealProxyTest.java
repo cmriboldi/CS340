@@ -239,4 +239,5 @@ public class RealProxyTest
 		server.changeLogLevel(LogLevel.ALL);
 		assert(true);
 	}
+
 }
