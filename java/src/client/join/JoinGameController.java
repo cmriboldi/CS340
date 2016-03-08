@@ -145,7 +145,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		try
 		{
 			INewGameView view = this.getNewGameView();
-			getNewGameView().closeModal();
+			
 			if(view.getTitle().equals(""))
 			{
 				messageView.setTitle("ERROR");
@@ -154,11 +154,13 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 				return;
 			}
 			GameInfo newGame = Facade.createGame(view.getRandomlyPlaceHexes(), view.getRandomlyPlaceNumbers(), view.getUseRandomPorts(), view.getTitle());
-			Facade.joinGame(newGame.getId(), CatanColor.RED);
+			Facade.joinGame(newGame.getId(), CatanColor.RED, true);
+			
 			GameInfo[] games = Facade.listGames();
 			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
-			((IJoinGameView)this.getView()).setGames(games, localPlayer);
-			getJoinGameView().showModal();
+			getJoinGameView().setGames(games, localPlayer);
+			this.getNewGameView().closeModal();
+			
 		}
 		catch (ServerException e)
 		{
@@ -238,7 +240,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 				}
 			}
 
-			Facade.joinGame(this.gameToJoin.getId(), color);
+			Facade.joinGame(this.gameToJoin.getId(), color, false);
 			getSelectColorView().setColorEnabled(color, false);
 			joinAction.execute();
 		}
