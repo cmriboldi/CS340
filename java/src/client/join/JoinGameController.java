@@ -145,6 +145,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		try
 		{
 			INewGameView view = this.getNewGameView();
+			getNewGameView().closeModal();
 			if(view.getTitle().equals(""))
 			{
 				messageView.setTitle("ERROR");
@@ -152,7 +153,6 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 				messageView.showModal();
 				return;
 			}
-			//getNewGameView().closeModal();
 			GameInfo newGame = Facade.createGame(view.getRandomlyPlaceHexes(), view.getRandomlyPlaceNumbers(), view.getUseRandomPorts(), view.getTitle());
 			Facade.joinGame(newGame.getId(), CatanColor.RED);
 			GameInfo[] games = Facade.listGames();
