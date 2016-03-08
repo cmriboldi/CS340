@@ -294,15 +294,12 @@ public class DomesticTradeController extends Controller implements IDomesticTrad
 				}
 			}
 			
-			System.out.println("Here we are");
-			System.out.println("Facade.getLocalPlayerIndex()" + Facade.getLocalPlayerIndex());
-			System.out.println("Facade.canAcceptTrade(Facade.getLocalPlayerIndex()) is " + Facade.getCatanModel().resourceManager.canAcceptTrade(Facade.getLocalPlayerIndex()) );
 			if(Facade.getCatanModel().resourceManager.canAcceptTrade(Facade.getLocalPlayerIndex())) {
 				getAcceptOverlay().setAcceptEnabled(true);
 			} else {
 				getAcceptOverlay().setAcceptEnabled(false);
 			}
-			getAcceptOverlay().showModal(); //This is where that bug started for the login thing.
+			getAcceptOverlay().showModal();
 		}
 	}
 
