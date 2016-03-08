@@ -906,5 +906,30 @@ public class Facade extends Observable {
 	{
 		getCatanModel().mapManager.placeLocalRoad(edgeLoc, getLocalPlayerIndex());
 	}
+	
+	public static int getLocalPlayerRoadsRemaining()
+	{
+		return getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining(); 
+	}
+	
+	public static int getLocalPlayerSettlementsRemaining()
+	{
+		return getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getSettlementsRemaining();
+	}
 
+	public static int getIndexOfClientWhoIsPlaying()
+	{
+		return getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
+	}
+	
+	public static boolean canPlaceRoadDuring2ndRoundSetup(EdgeLocation edgeLoc, int playerIndex)
+	{
+		return getCatanModel().getMapManager().getMap().canPlaceDuring2ndRoundSetup(edgeLoc, playerIndex);
+	}
+	
+	public static boolean canPlaceSettlementDuringSetup1(VertexLocation vertLoc, int playerIndex)
+	{
+		return getCatanModel().getMapManager().canPlaceSettlementSetup(vertLoc, playerIndex);
+	}
+	
 }

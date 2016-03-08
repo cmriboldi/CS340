@@ -84,9 +84,9 @@ public class MapController extends Controller implements IMapController, Observe
 	        	//MODAL ERROR HERE
 	        	//currentState.startMove(pieceType, isFree, allowDisconnected, mapView);
 	        	
-	        	int roadsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getRoadsRemaining();  
-	        	int settlementsRemaining = Facade.getCatanModel().getPlayerManager().getCatanPlayers()[Facade.getLocalPlayerIndex()].getSettlementsRemaining();
-	        	String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus(); 
+	        	int roadsRemaining = Facade.getLocalPlayerRoadsRemaining();  
+	        	int settlementsRemaining = Facade.getLocalPlayerSettlementsRemaining(); 
+	        	String status = Facade.getTurnStatus();  
 	        	
 	        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 5)
 	        	{
@@ -123,8 +123,8 @@ public class MapController extends Controller implements IMapController, Observe
 
     public void determineState() throws InvalidMapStateException {
         int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
-        int indexOfPlayingClient = Facade.getCatanModel().getPlayerManager().getTurnTracker().getTurnIndex();
-        String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus();
+        int indexOfPlayingClient = Facade.getIndexOfClientWhoIsPlaying(); 
+        String status = Facade.getTurnStatus(); 
 
 
         if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding")) {
