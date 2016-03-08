@@ -50,13 +50,6 @@ public class RealProxyTest
 	@After
 	public void tearDown() throws Exception {
 	}
-	
-	@Test
-	public void userLogin() throws ServerException 
-	{
-		server.userLogin("JUnitTest", "junittest");
-		assert(true);
-	}
 
 	@Test
 	public void listGames() throws ServerException 
