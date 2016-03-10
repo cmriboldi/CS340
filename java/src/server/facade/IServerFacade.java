@@ -20,7 +20,7 @@ public interface IServerFacade
 
     GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException;
 
-    void joinGame(int id, CatanColor color) throws ServerException;
+    void joinGame(AuthToken token, int id, CatanColor color) throws ServerException;
 
     CatanModel getGameModel(AuthToken token) throws ServerException;
 
