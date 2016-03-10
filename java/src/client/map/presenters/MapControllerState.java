@@ -19,13 +19,8 @@ import shared.locations.*;
  * @version 1.0 Build Feb, 2016.
  */
 public interface MapControllerState {
-    /**
-     * Initializes the MapControllerState from the Model passed in.
-     */
-    public void initFromModel(); 
-    
-    
-    // ===================== NECESSARY CanDos ====================== // 
+
+    public void initFromModel();
 
     public boolean canPlaceRoad(EdgeLocation edgeLoc);
     
@@ -34,19 +29,6 @@ public interface MapControllerState {
     public boolean canPlaceCity(VertexLocation vertLoc);
 
     public boolean canPlaceRobber(HexLocation hexLoc);
-    
-    
-    // ===================== USE MAYBE CanDos ====================== // 
-    
-    //public boolean canPlaySoldier(); 
-    
-    //public boolean canPlayRoadBuildingCard(); 
-    
-    //public boolean canRobPlayer(); 
-
-    // ============================================================= // 
-
-        
 
     public void placeRoad(EdgeLocation edgeLoc) throws ServerException;
 
@@ -61,14 +43,8 @@ public interface MapControllerState {
     public void playRoadBuildingCard(IMapView iMapView);
 
     public void robPlayer(RobPlayerInfo victim, IRobView RobView);
-    
-    
-    
-    // The weird ones
-    
+
     public void startMove(PieceType pieceType, boolean isFree, boolean allowDisconnected, IMapView mapView);
 
     public void cancelMove();
-    
-    
 }

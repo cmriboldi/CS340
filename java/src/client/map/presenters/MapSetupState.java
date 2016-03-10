@@ -28,6 +28,39 @@ import shared.locations.VertexLocation;
  */
 public class MapSetupState implements MapControllerState
 {
+	@Override
+	public void placeRoad(EdgeLocation edgeLoc)
+	{
+		int localPlayerIndex = Facade.getLocalPlayerIndex();
+		try {
+			Facade.buildRoad(localPlayerIndex, edgeLoc, true);
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void playSoldierCard(IMapView mapView)
+	{
+
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 	/**
 	 * Initializes the MapControllerState from the Model passed in.
 	 */
@@ -78,16 +111,7 @@ public class MapSetupState implements MapControllerState
 		return false;
 	}
 
-	@Override
-	public void placeRoad(EdgeLocation edgeLoc)
-	{
-		int localPlayerIndex = Facade.getLocalPlayerIndex();
-		try {
-			Facade.buildRoad(localPlayerIndex, edgeLoc, true);
-		} catch (ServerException e) {
-			e.printStackTrace();
-		}
-	}
+
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc)
@@ -122,11 +146,7 @@ public class MapSetupState implements MapControllerState
 		// ??? not sure what this does
 	}
 
-	@Override
-	public void playSoldierCard(IMapView mapView)
-	{
-		// do nothing
-	}
+
 
 	@Override
 	public void placeRobber(HexLocation hexLoc, IRobView RobView) {

@@ -12,36 +12,16 @@ import clientfacade.Facade;
  */
 public class PointsController extends Controller implements IPointsController, Observer {
 
-	private IGameFinishedView finishedView;
-	
-	/**
-	 * PointsController constructor
-	 * 
-	 * @param view Points view
-	 * @param finishedView Game finished view, which is displayed when the game is over
-	 */
 	public PointsController(IPointsView view, IGameFinishedView finishedView) {
-		
+
 		super(view);
 		Facade.addObserverStatic(this);
 		setFinishedView(finishedView);
 
-		if(!Facade.hasGameStarted())
+		if (!Facade.hasGameStarted())
 			return;
 
 		initFromModel();
-	}
-	
-	public IPointsView getPointsView() {
-		
-		return (IPointsView)super.getView();
-	}
-	
-	public IGameFinishedView getFinishedView() {
-		return finishedView;
-	}
-	public void setFinishedView(IGameFinishedView finishedView) {
-		this.finishedView = finishedView;
 	}
 
 	private void initFromModel() {
@@ -50,19 +30,34 @@ public class PointsController extends Controller implements IPointsController, O
 	}
 
 	@Override
-	public void update(Observable o, Object arg)
-	{
-		if(!Facade.hasGameStarted())
+	public void update(Observable o, Object arg) {
+		if (!Facade.hasGameStarted())
 			return;
 
 		initFromModel();
-		
+
 		int winnerIndex = Facade.getWinner();
-		if(winnerIndex != -1) {
+		if (winnerIndex != -1) {
 			getFinishedView().setWinner(Facade.getPlayerName(winnerIndex), winnerIndex == Facade.getLocalPlayerIndex());
 			getFinishedView().showModal();
 			// 
 		}
+	}
+
+
+
+
+	private IGameFinishedView finishedView;
+	public IGameFinishedView getFinishedView() {
+		return finishedView;
+	}
+	public void setFinishedView(IGameFinishedView finishedView) {
+		this.finishedView = finishedView;
+	}
+
+	public IPointsView getPointsView() {
+
+		return (IPointsView)super.getView();
 	}
 	
 }
