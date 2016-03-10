@@ -10,6 +10,8 @@ client.join
 client.login
 client.main
 client.map
+client.map.presenters
+client.map.view
 client.maritime
 client.misc
 client.points
@@ -25,6 +27,11 @@ model.messagelog
 model.options
 model.players
 model.resources
+server
+server.command
+server.database
+server.exception
+server.facade
 serverProxy
 shared.communication
 shared.communication.JSON

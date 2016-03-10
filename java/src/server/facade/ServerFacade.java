@@ -10,31 +10,47 @@ import server.exception.ServerException;
 import shared.definitions.CatanColor;
 
 /**
- * Created by Joshua on 3/9/2016.
+ * The ServerFacade class controls all interactions between the command classes, the handlers, and the database. 
+ *
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Mar, 2016.
  */
 public class ServerFacade implements IServerFacade
 {
     private static ServerFacade _instance;
-    private static IDatabase database;
+    private IDatabase database;
 
     private ServerFacade(IDatabase database)
     {
-        this.database = database;
+    	this.database = database;
     }
 
-    public static ServerFacade get() throws ServerException {
+    /**
+     * This method is for accessing the single instance of the ServerFacade.
+     * @return The instance of the singleton ServerFacade.
+     * @throws FacadeNotInitializedException
+     */
+    public static ServerFacade instance() throws FacadeNotInitializedException {
         if(_instance == null)
             throw new FacadeNotInitializedException("Server Facade has not been initialized");
         return _instance;
     }
 
-    public static void initialize(IDatabase database)
-    {
+    /**
+     * 
+     * This method must be called before the ServerFacade is used. It must be called in order to set the database to be used by the ServerFacade.
+     * 
+     * @param database An IDatabase Object that will be used by the ServerFacade.
+     */
+    public static void initialize(IDatabase database) {
         _instance = new ServerFacade(database);
     }
 
-    private Object _executeCommand(ICommand command)
-    {
+    private Object _executeCommand(ICommand command) {
         return command.execute();
     }
 
@@ -81,7 +97,7 @@ public class ServerFacade implements IServerFacade
     @Override
     public Object executeCommand(ICommand command) throws ServerException
     {
-        return ServerFacade.get()._executeCommand(command);
+        return instance()._executeCommand(command);
     }
 
 }
