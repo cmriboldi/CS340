@@ -13,6 +13,7 @@ import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import server.handler.GamesHandler;
 import server.handler.MovesHandler;
+import server.handler.SwaggerHandler;
 import server.handler.UserHandler;
 
 /**
@@ -132,6 +133,9 @@ public class Server
         server.createContext("/games", gamesHandler);
         server.createContext("/game", gameHandler);
         server.createContext("/moves", movesHandler);
+        server.createContext("/docs/api/data", new SwaggerHandler.JSONAppender(""));
+        server.createContext("/docs/api/view", new SwaggerHandler.BasicFile(""));
+        server.createContext("/", swaggerHandler);
 
 //        logger.info("Starting HTTP Server");
 
@@ -142,6 +146,7 @@ public class Server
     private HttpHandler gamesHandler = new GamesHandler();
     private HttpHandler gameHandler = new GamesHandler();
     private HttpHandler movesHandler = new MovesHandler();
+    private HttpHandler swaggerHandler = new SwaggerHandler();
 
     public static void main(String[] args)
     {
