@@ -42,7 +42,7 @@ public interface IServerFacade
      * @param password
      * @throws ServerException
      */
-    void register(String username, String password) throws ServerException;
+    String register(String username, String password) throws ServerException;
 
     /**
      * Returns information about all of the current games on the server.
