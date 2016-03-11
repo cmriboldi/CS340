@@ -4,6 +4,7 @@ import client.data.GameInfo;
 import model.CatanModel;
 import server.AuthToken;
 import server.command.ICommand;
+import server.database.IDatabase;
 import server.exception.ServerException;
 import shared.definitions.CatanColor;
 
@@ -133,15 +134,4 @@ public interface IServerFacade
      * @throws ServerException
      */
     String[] listAI(AuthToken token) throws ServerException;
-
-    /**
-     * Executes the given command passed into the Facade.
-     * 
-     * @pre command != null;
-     * 
-     * @param command
-     * @return
-     * @throws ServerException
-     */
-    Object executeCommand(ICommand command) throws ServerException;
 }

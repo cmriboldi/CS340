@@ -2,6 +2,14 @@ package server.handler;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import server.exception.ServerException;
+import server.facade.FacadeProxy;
+
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutput;
+import java.io.ObjectOutputStream;
+import java.net.HttpURLConnection;
 
 /**
  * Created by Joshua on 3/10/2016.
@@ -16,9 +24,21 @@ public abstract class APIHandler implements HttpHandler
      * @param exchange The exchange object passed in by the 'handles' method
      * @param response The JSON object to be returned to the client
      */
-    void responsd200(HttpExchange exchange, Object response)
+    void respond200(HttpExchange exchange, Object response)
     {
-        exchange.close();
+        try
+        {
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutput out = new ObjectOutputStream(bos);
+            out.writeObject(response);
+            exchange.getResponseBody().write(bos.toByteArray());
+            exchange.getResponseBody().close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -26,7 +46,7 @@ public abstract class APIHandler implements HttpHandler
      *
      * @param exchange The exchange object passed in by the 'handles' method
      */
-    void responsd400(HttpExchange exchange)
+    void respond400(HttpExchange exchange)
     {
         exchange.close();
     }
@@ -38,6 +58,17 @@ public abstract class APIHandler implements HttpHandler
      */
     void respond404(HttpExchange exchange)
     {
+        try {
+            FacadeProxy.login("", "");
+        } catch (ServerException e) {
+            e.printStackTrace();
+        }
+        try {
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+            exchange.getResponseBody().close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         exchange.close();
     }
 

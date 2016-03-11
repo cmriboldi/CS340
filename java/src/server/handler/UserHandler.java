@@ -14,6 +14,7 @@ public class UserHandler extends APIHandler
     @Override
     public void handle(HttpExchange httpExchange) throws IOException
     {
-
+        System.out.println("Hey I'm actually getting touched");
+        respond404(httpExchange);
     }
 }

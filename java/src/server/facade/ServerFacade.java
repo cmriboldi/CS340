@@ -21,41 +21,17 @@ import shared.definitions.CatanColor;
  */
 public class ServerFacade implements IServerFacade
 {
-    private static ServerFacade _instance;
     private IDatabase database;
 
-    private ServerFacade(IDatabase database)
+    public ServerFacade(IDatabase database)
     {
     	this.database = database;
     }
 
-    /**
-     * This method is for accessing the single instance of the ServerFacade.
-     * @return The instance of the singleton ServerFacade.
-     * @throws FacadeNotInitializedException
-     */
-    public static ServerFacade instance() throws FacadeNotInitializedException {
-        if(_instance == null)
-            throw new FacadeNotInitializedException("Server Facade has not been initialized");
-        return _instance;
-    }
-
-    /**
-     * 
-     * This method must be called before the ServerFacade is used. It must be called in order to set the database to be used by the ServerFacade.
-     * 
-     * @param database An IDatabase Object that will be used by the ServerFacade.
-     */
-    public static void initialize(IDatabase database) {
-        _instance = new ServerFacade(database);
-    }
-
-    private Object _executeCommand(ICommand command) {
-        return command.execute();
-    }
-
     @Override
-    public void login(String username, String password) throws ServerException {
+    public void login(String username, String password) throws ServerException
+    {
+        System.out.println("I am in the server facade and printing this lovely comment for you");
 
     }
 
@@ -75,7 +51,17 @@ public class ServerFacade implements IServerFacade
     }
 
     @Override
-    public void joinGame(int id, CatanColor color) {
+    public void joinGame(AuthToken token, CatanColor color) throws ServerException {
+
+    }
+
+    @Override
+    public void saveGame(int gameId, String fileName) {
+
+    }
+
+    @Override
+    public void loadGame(String fileName) {
 
     }
 
@@ -93,11 +79,4 @@ public class ServerFacade implements IServerFacade
     public String[] listAI(AuthToken token) throws ServerException {
         return new String[0];
     }
-
-    @Override
-    public Object executeCommand(ICommand command) throws ServerException
-    {
-        return instance()._executeCommand(command);
-    }
-
 }

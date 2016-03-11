@@ -34,7 +34,17 @@ public class MockFacade implements IServerFacade
     }
 
     @Override
-    public void joinGame(int id, CatanColor color) throws ServerException {
+    public void joinGame(AuthToken token, CatanColor color) throws ServerException {
+
+    }
+
+    @Override
+    public void saveGame(int gameId, String fileName) {
+
+    }
+
+    @Override
+    public void loadGame(String fileName) {
 
     }
 
@@ -51,10 +61,5 @@ public class MockFacade implements IServerFacade
     @Override
     public String[] listAI(AuthToken token) throws ServerException {
         return new String[0];
-    }
-
-    @Override
-    public Object executeCommand(ICommand command) throws ServerException {
-        return null;
     }
 }
