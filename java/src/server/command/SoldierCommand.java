@@ -1,7 +1,5 @@
 package server.command;
 
-import shared.exceptions.player.PlayerNameNotFoundException;
-
 public class SoldierCommand implements ICommand {
 
 	/**
