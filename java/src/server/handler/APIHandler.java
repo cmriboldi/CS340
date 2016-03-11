@@ -15,6 +15,13 @@ import java.net.HttpURLConnection;
  * Created by Joshua on 3/10/2016.
  *
  * Implements all simple methods that all handlers in the Catan Server will need to use.
+ *
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Winter 2016.
  */
 public abstract class APIHandler implements HttpHandler
 {

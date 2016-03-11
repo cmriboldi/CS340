@@ -2,6 +2,15 @@ package server;
 
 /**
  * Created by Joshua on 3/9/2016.
+ *
+ * The AuthToken stores the authentication data passed in by the cookie by clients
+ *
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Winter 2016.
  */
 public class AuthToken
 {
@@ -15,6 +24,13 @@ public class AuthToken
 
     }
 
+    /**
+     *
+     * @param name
+     * @param password
+     * @param playerID
+     * @param gameID
+     */
     public AuthToken(String name, String password, int playerID, int gameID)
     {
         this.name = name;

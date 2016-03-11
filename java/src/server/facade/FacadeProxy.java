@@ -8,7 +8,14 @@ import server.exception.ServerException;
 import shared.definitions.CatanColor;
 
 /**
- * Created by Joshua on 3/10/2016.
+ * The FacadeProxy is the static access object to whatever facade is defined for this build
+ *
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Winter 2016.
  */
 public class FacadeProxy
 {
@@ -20,7 +27,7 @@ public class FacadeProxy
         this.facade = facade;
     }
 
-    private static FacadeProxy instance() throws FacadeNotInitializedException
+    private static FacadeProxy instance() throws ServerException
     {
         if(_instance == null)
             throw new FacadeNotInitializedException("Server Facade has not been initialized");

@@ -1,10 +1,5 @@
 package server;
 
-/**
- * Created by Joshua on 3/9/2016.
- */
-
-
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
@@ -20,6 +15,18 @@ import server.handler.GamesHandler;
 import server.handler.MovesHandler;
 import server.handler.UserHandler;
 
+/**
+ * Created by Joshua on 3/9/2016.
+ *
+ * The HTTP Server that hosts the Catan Game API
+ *
+ * @author Christian Riboldi
+ * @author Clayton Condie
+ * @author Jacob Brewer
+ * @author Joshua Powers
+ * @author Joshua Van Steeter
+ * @version 1.0 Build Winter 2016.
+ */
 public class Server
 {
     private static int SERVER_PORT_NUMBER = 8081;
@@ -58,7 +65,7 @@ public class Server
 //        logger.addHandler(fileHandler);
 //    }
 
-    public static String getURL()
+    private static String getURL()
     {
         String result = "";
         try
