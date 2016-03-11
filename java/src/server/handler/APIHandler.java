@@ -31,7 +31,7 @@ public abstract class APIHandler implements HttpHandler
      * @param exchange The exchange object passed in by the 'handles' method
      * @param response The JSON object to be returned to the client
      */
-    void respond200(HttpExchange exchange, Object response)
+    protected void respond200(HttpExchange exchange, Object response)
     {
         try
         {
@@ -53,7 +53,7 @@ public abstract class APIHandler implements HttpHandler
      *
      * @param exchange The exchange object passed in by the 'handles' method
      */
-    void respond400(HttpExchange exchange)
+    protected void respond400(HttpExchange exchange)
     {
         exchange.close();
     }
@@ -63,7 +63,7 @@ public abstract class APIHandler implements HttpHandler
      *
      * @param exchange The exchange object passed in by the 'handles' method
      */
-    void respond404(HttpExchange exchange)
+    protected void respond404(HttpExchange exchange)
     {
         try {
             FacadeProxy.login("", "");
@@ -84,7 +84,7 @@ public abstract class APIHandler implements HttpHandler
      *
      * @param exchange The exchange object passed in by the 'handles' method
      */
-    void respond500(HttpExchange exchange)
+    protected void respond500(HttpExchange exchange)
     {
         exchange.close();
     }
