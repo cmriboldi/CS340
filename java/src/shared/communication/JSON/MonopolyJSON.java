@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class MonopolyJSON 
+public class MonopolyJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

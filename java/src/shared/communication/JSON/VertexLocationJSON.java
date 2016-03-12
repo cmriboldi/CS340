@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import shared.locations.VertexLocation;
 
-public class VertexLocationJSON 
+public class VertexLocationJSON implements IJavaJSON
 {
 	private int x;
 	private int y;

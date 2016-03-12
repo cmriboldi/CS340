@@ -4,7 +4,7 @@ import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 
-public class EdgeLocationJSON 
+public class EdgeLocationJSON implements IJavaJSON
 {
 	private int x;
 	private int y;

@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class SendChatJSON 
+public class SendChatJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

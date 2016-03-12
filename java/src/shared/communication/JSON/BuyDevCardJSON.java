@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class BuyDevCardJSON 
+public class BuyDevCardJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

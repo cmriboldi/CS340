@@ -3,7 +3,8 @@ package server.handler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import server.exception.ServerException;
-import server.facade.FacadeProxy;
+import server.facade.FacadeHolder;
+import server.facade.IServerFacade;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -65,15 +66,21 @@ public abstract class APIHandler implements HttpHandler
      */
     protected void respond404(HttpExchange exchange)
     {
-        try {
-            FacadeProxy.login("", "");
-        } catch (ServerException e) {
+        IServerFacade facade;
+        try
+        {
+            facade = FacadeHolder.getFacade();
+            facade.login("", "");
+        }
+        catch (ServerException e)
+        {
             e.printStackTrace();
         }
-        try {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
-            exchange.getResponseBody().close();
-        } catch (IOException e) {
+        try
+        {
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, -1);
+        }
+        catch (IOException e) {
             e.printStackTrace();
         }
         exchange.close();

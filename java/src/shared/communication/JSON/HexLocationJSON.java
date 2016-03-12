@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class HexLocationJSON 
+public class HexLocationJSON implements IJavaJSON
 {
 	private String x;
 	private String y;

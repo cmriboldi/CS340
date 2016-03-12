@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class CreateGameJSON 
+public class CreateGameJSON implements IJavaJSON
 {
 	private boolean randomTiles;
 	private boolean randomNumbers;

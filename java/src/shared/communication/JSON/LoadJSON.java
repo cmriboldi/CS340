@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class LoadJSON 
+public class LoadJSON implements IJavaJSON
 {
 	private String name;
 	

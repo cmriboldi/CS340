@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class YearOfPlentyJSON 
+public class YearOfPlentyJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

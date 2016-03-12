@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class AcceptTradeJSON 
+public class AcceptTradeJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

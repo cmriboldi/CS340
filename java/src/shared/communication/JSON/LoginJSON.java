@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class LoginJSON 
+public class LoginJSON implements IJavaJSON
 {
 	private String username;
 	private String password;

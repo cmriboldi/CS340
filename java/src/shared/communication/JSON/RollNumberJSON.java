@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class RollNumberJSON 
+public class RollNumberJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

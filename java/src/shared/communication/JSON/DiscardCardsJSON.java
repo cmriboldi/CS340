@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import model.resources.ResourceList;
 
-public class DiscardCardsJSON 
+public class DiscardCardsJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

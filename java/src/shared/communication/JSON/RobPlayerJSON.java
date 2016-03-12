@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import shared.locations.HexLocation;
 
-public class RobPlayerJSON 
+public class RobPlayerJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import shared.locations.EdgeLocation;
 
-public class BuildRoadJSON 
+public class BuildRoadJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

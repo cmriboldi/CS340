@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class MonumentJSON 
+public class MonumentJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

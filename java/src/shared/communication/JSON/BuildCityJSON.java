@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import shared.locations.VertexLocation;
 
-public class BuildCityJSON 
+public class BuildCityJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

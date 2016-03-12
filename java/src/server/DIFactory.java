@@ -4,7 +4,7 @@ import server.database.IDatabase;
 import server.database.VolatileDatabase;
 import server.exception.FactoryException;
 import server.exception.ServerException;
-import server.facade.FacadeProxy;
+import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
 import server.facade.MockFacade;
 import server.facade.ServerFacade;
@@ -76,6 +76,6 @@ public class DIFactory
         else
             throw new FactoryException("Whatever class you bound for IServerFacade was not a valid implemented concrete class");
 
-        FacadeProxy.setFacade(facade);
+        FacadeHolder.setFacade(facade);
     }
 }

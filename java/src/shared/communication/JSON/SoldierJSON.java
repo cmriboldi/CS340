@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import shared.locations.HexLocation;
 
-public class SoldierJSON 
+public class SoldierJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

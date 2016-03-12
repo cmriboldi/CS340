@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class FinishTurnJSON 
+public class FinishTurnJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;

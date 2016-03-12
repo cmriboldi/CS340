@@ -2,7 +2,7 @@ package shared.communication.JSON;
 
 import model.resources.ResourceList;
 
-public class OfferTradeJSON 
+public class OfferTradeJSON implements IJavaJSON
 {
 	@SuppressWarnings("unused")
 	private String type;
