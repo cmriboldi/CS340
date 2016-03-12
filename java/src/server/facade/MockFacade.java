@@ -19,8 +19,9 @@ public class MockFacade implements IServerFacade
     }
 
     @Override
-    public void register(String username, String password) throws ServerException {
-
+    public String register(String username, String password) throws ServerException
+    {
+        return null;
     }
 
     @Override
