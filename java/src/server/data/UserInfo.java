@@ -46,6 +46,6 @@ public class UserInfo
 
     public String toJSON()
     {
-        return "{\"name:\":\"" + name + "\",\"password\":\"" + password + "\",\"playerID\":" + id + "}";
+        return "{\"name\":\"" + name + "\",\"password\":\"" + password + "\",\"playerID\":" + id + "}";
     }
 }

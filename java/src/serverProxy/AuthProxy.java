@@ -38,7 +38,7 @@ public class AuthProxy
 	
 	public void joinGame(int gameId, String color) throws ServerException 
 	{
-		CommJoin join = new CommJoin(gameId, color);
+		JoinGameJSON join = new JoinGameJSON(gameId, color);
 		URL url;
 		try 
 		{

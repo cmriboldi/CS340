@@ -9,6 +9,7 @@ import server.database.IDatabase;
 import server.exception.FacadeNotInitializedException;
 import server.exception.InternalErrorException;
 import server.exception.ServerException;
+import server.exception.UnauthorizedException;
 import shared.definitions.CatanColor;
 
 import java.io.UnsupportedEncodingException;
@@ -40,8 +41,17 @@ public class ServerFacade implements IServerFacade
     @Override
     public String login(String username, String password) throws ServerException
     {
-        System.out.println("I am in the server facade and printing this lovely comment for you");
-        return null;
+        UserInfo user = database.getUserByName(username);
+        try
+        {
+            String userCookie = "catan.user=" + URLEncoder.encode(user.toJSON(), "UTF-8") + ";Path=/;";
+            return userCookie;
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+            throw new InternalErrorException("UnsupportedEncodingException from URLEncoder");
+        }
     }
 
     @Override
@@ -51,7 +61,7 @@ public class ServerFacade implements IServerFacade
         database.addUser(user);
         try
         {
-            String userCookie = URLEncoder.encode(user.toJSON(), "UTF-8");
+            String userCookie = "catan.user=" + URLEncoder.encode(user.toJSON(), "UTF-8") + ";Path=/;";
             return userCookie;
         }
         catch (UnsupportedEncodingException e)
@@ -72,8 +82,15 @@ public class ServerFacade implements IServerFacade
     }
 
     @Override
-    public void joinGame(AuthToken token, CatanColor color) throws ServerException {
+    public String joinGame(AuthToken token, int gameId, CatanColor color) throws ServerException
+    {
+        if(!isValidUser(token))
+            throw new UnauthorizedException("Join Game attempt is not authorized");
 
+        ////////////////////////////////////////////////////////////////////////////////////////
+        //          Logic to add player to the Catan Model
+        ////////////////////////////////////////////////////////////////////////////////////////
+        return "catan.game=" + gameId + ";Path=/;";
     }
 
     @Override
@@ -99,5 +116,14 @@ public class ServerFacade implements IServerFacade
     @Override
     public String[] listAI(AuthToken token) throws ServerException {
         return new String[0];
+    }
+
+    private boolean isValidUser(AuthToken token)
+    {
+        if(database.getUserByName(token.getName()).getPassword().equals(token.getPassword()))
+        {
+            return true;
+        }
+        return false;
     }
 }

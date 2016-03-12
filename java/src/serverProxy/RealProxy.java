@@ -88,9 +88,12 @@ public class RealProxy implements ServerProxy
 				cookie = cookie.replace(";Path=/;", "");
 				authProxy = new AuthProxy(urlBase, cookie);
 				String decodedCookie = URLDecoder.decode(cookie, "UTF-8");
+				System.out.println("Decoded cookie:" + decodedCookie);
 				JsonObject userjson = new Gson().fromJson(decodedCookie, JsonObject.class);
 				PlayerInfo localPlayerInfo = new PlayerInfo();
-				localPlayerInfo.setName(userjson.get("name").toString().replace("\"", ""));
+				System.out.println("userjson: " + userjson.toString());
+				String name = userjson.get("name").toString().replace("\"", "");
+				localPlayerInfo.setName(name);
 				localPlayerInfo.setId(userjson.get("playerID").getAsInt());
 				this.localPlayerInfo = localPlayerInfo;
 			}

@@ -77,11 +77,12 @@ public interface IServerFacade
      * @pre EnumUtils.isValidEnum(CatanColor.class, color)
      * @pre isUserPartOfGame() || !isGameFull()
      * 
-     * @param token
-     * @param color
+     * @param token The user token that authenticates them to join the game
+     * @param gameId The unique id of the game they are joining
+     * @param color the CatanColor they are joining the game as
      * @throws ServerException
      */
-	void joinGame(AuthToken token, CatanColor color) throws ServerException;
+	String joinGame(AuthToken token, int gameId, CatanColor color) throws ServerException;
     
     /**
      * This method is for testing and debugging purposes. Saves the state of the game to a file, with by the given name.

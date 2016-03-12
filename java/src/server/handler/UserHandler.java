@@ -10,6 +10,7 @@ import shared.communication.JSON.LoginJSON;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URLDecoder;
 
 /**
  * Created by Joshua on 3/10/2016.
@@ -31,30 +32,31 @@ public class UserHandler extends APIHandler
         {
             String uri = httpExchange.getRequestURI().toString();
             IServerFacade facade = FacadeHolder.getFacade();
+            IJavaJSON json;
+            String response;
 
             switch(uri)
             {
                 case "/user/register":
-                    LoginJSON json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
-                    String response = facade.register(json.getUsername(), json.getPassword());
+                    json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
+                    response = facade.register(((LoginJSON)json).getUsername(), ((LoginJSON)json).getPassword());
+                    httpExchange.getResponseHeaders().add("Set-cookie", response);
+                    success(httpExchange);
+                    break;
+
+                case "/user/login":
+                    json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
+                    response = facade.login(((LoginJSON)json).getUsername(), ((LoginJSON)json).getPassword());
                     httpExchange.getResponseHeaders().add("Set-cookie", response);
                     success(httpExchange);
                     break;
             }
-
             System.out.println("Printing stuff out here: " + uri);
-            httpExchange.close();
             System.out.println("Hey I'm actually getting touched");
-
         }
         catch (ServerException e)
         {
             e.printStackTrace();
         }
-
-
-
-
-        //respond404(httpExchange);
     }
 }
