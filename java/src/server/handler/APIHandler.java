@@ -1,15 +1,15 @@
 package server.handler;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import server.exception.InternalErrorException;
 import server.exception.ServerException;
 import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
+import shared.communication.JSON.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutput;
-import java.io.ObjectOutputStream;
+import java.io.*;
 import java.net.HttpURLConnection;
 
 /**
@@ -26,14 +26,32 @@ import java.net.HttpURLConnection;
  */
 public abstract class APIHandler implements HttpHandler
 {
+    protected void success(HttpExchange exchange)
+    {
+        try
+        {
+            ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutput out = new ObjectOutputStream(bos);
+            out.writeObject("buggers");
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, bos.toByteArray().length);
+            exchange.getResponseBody().write(bos.toByteArray());
+            exchange.getResponseBody().flush();
+            exchange.getResponseBody().close();
+            System.out.println("I am now here");
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
     /**
      * If the operation was successful, respond with a 200 response code and the JSON object requested
      *
      * @param exchange The exchange object passed in by the 'handles' method
      * @param response The JSON object to be returned to the client
      */
-    protected void respond200(HttpExchange exchange, Object response)
-    {
+    protected void respond200(HttpExchange exchange, Object response) throws InternalErrorException {
         try
         {
             exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
@@ -46,6 +64,7 @@ public abstract class APIHandler implements HttpHandler
         catch (IOException e)
         {
             e.printStackTrace();
+            throw new InternalErrorException("Error in APIHandler respond200");
         }
     }
 
@@ -94,5 +113,28 @@ public abstract class APIHandler implements HttpHandler
     protected void respond500(HttpExchange exchange)
     {
         exchange.close();
+    }
+
+    protected Object getRequest(HttpExchange exchange, Class<?> type)
+    {
+        try
+        {
+            InputStreamReader isr = new InputStreamReader(exchange.getRequestBody());
+            BufferedReader reader = new BufferedReader(isr);
+            StringBuilder sb = new StringBuilder();
+            String line;
+            while((line = reader.readLine()) != null)
+            {
+                sb.append(line);
+            }
+
+            return new Gson().fromJson(sb.toString(), type);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+
+        return null;
     }
 }

@@ -30,7 +30,7 @@ public interface IServerFacade
      * @param password
      * @throws ServerException
      */
-    void login(String username, String password) throws ServerException;
+    String login(String username, String password) throws ServerException;
 
     /**
      * Creates a new user account and logs the caller into the server as the new user.

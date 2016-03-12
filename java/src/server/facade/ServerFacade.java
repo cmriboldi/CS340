@@ -4,10 +4,15 @@ import client.data.GameInfo;
 import model.CatanModel;
 import server.AuthToken;
 import server.command.ICommand;
+import server.data.UserInfo;
 import server.database.IDatabase;
 import server.exception.FacadeNotInitializedException;
+import server.exception.InternalErrorException;
 import server.exception.ServerException;
 import shared.definitions.CatanColor;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 /**
  * The ServerFacade class controls all interactions between the command classes, the handlers, and the database. 
@@ -33,17 +38,27 @@ public class ServerFacade implements IServerFacade
     }
 
     @Override
-    public void login(String username, String password) throws ServerException
+    public String login(String username, String password) throws ServerException
     {
         System.out.println("I am in the server facade and printing this lovely comment for you");
-
+        return null;
     }
 
     @Override
     public String register(String username, String password) throws ServerException
     {
-
-        return null;
+        UserInfo user = new UserInfo(username, password);
+        database.addUser(user);
+        try
+        {
+            String userCookie = URLEncoder.encode(user.toJSON(), "UTF-8");
+            return userCookie;
+        }
+        catch (UnsupportedEncodingException e)
+        {
+            e.printStackTrace();
+            throw new InternalErrorException("UnsupportedEncodingException from URLEncoder");
+        }
     }
 
     @Override
