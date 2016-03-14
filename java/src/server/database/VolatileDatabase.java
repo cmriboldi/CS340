@@ -51,6 +51,11 @@ public class VolatileDatabase implements IDatabase
     @Override
     public UserInfo getUserByName(String name)
     {
+        if(playerKeys.get(name) == null)
+        {
+            return null;
+        }
+
         int key = (int)playerKeys.get(name);
         return (UserInfo) players.get(key);
     }

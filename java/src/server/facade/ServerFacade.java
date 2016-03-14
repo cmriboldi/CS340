@@ -120,6 +120,10 @@ public class ServerFacade implements IServerFacade
 
     private boolean isValidUser(AuthToken token)
     {
+        if(database.getUserByName(token.getName()) == null)
+        {
+            return false;
+        }
         if(database.getUserByName(token.getName()).getPassword().equals(token.getPassword()))
         {
             return true;

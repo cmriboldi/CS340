@@ -21,7 +21,10 @@ public class AuthToken
 
     public AuthToken()
     {
-
+        this.name = null;
+        this.password = null;
+        this.playerID = -1;
+        this.gameID = -1;
     }
 
     /**

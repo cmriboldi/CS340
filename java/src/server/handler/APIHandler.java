@@ -79,6 +79,19 @@ public abstract class APIHandler implements HttpHandler
         exchange.close();
     }
 
+    protected void respond401(HttpExchange exchange)
+    {
+        try
+        {
+            exchange.sendResponseHeaders(401, -1);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        exchange.close();
+    }
+
     /**
      * If the client makes a request for a path that does not exist, respond with error code 404
      *
@@ -145,24 +158,24 @@ public abstract class APIHandler implements HttpHandler
         {
             String cookie = exchange.getRequestHeaders().getFirst("Cookie");
             AuthToken token = new AuthToken();
-            System.out.println("\nCookie: " + cookie);
+//            System.out.println("\nCookie: " + cookie);
             if(!cookie.matches(".*catan.user=.*"))
             {
                 return null;
             }
             String userCookie = cookie.replaceAll("catan.user=", "").replaceAll(".*catan.game=.*;", "");
-            System.out.println("User cookie: " + userCookie);
+//            System.out.println("User cookie: " + userCookie);
 
             JsonObject json = new Gson().fromJson(URLDecoder.decode(userCookie, "UTF-8"), JsonObject.class);
-            System.out.println("Decoded cookie: " + URLDecoder.decode(userCookie, "UTF-8"));
+//            System.out.println("Decoded cookie: " + URLDecoder.decode(userCookie, "UTF-8"));
             token.setPlayerID(Integer.parseInt(json.get("playerID").toString()));
-            token.setName(json.get("name").toString());
-            token.setPassword(json.get("password").toString());
+            token.setName(json.get("name").toString().replace("\"", ""));
+            token.setPassword(json.get("password").toString().replace("\"", ""));
             if(cookie.matches(".*catan.game=.*"))
             {
-                System.out.println("Cookie is now: " + cookie);
+//                System.out.println("Cookie is now: " + cookie);
                 String parsingSucks = cookie.replaceAll("catan.game=", "").replaceAll("catan.user=.*;?+", "").replaceAll(";", "");
-                System.out.println("After the grinder: " + parsingSucks);
+//                System.out.println("After the grinder: " + parsingSucks);
                 int gameId = Integer.parseInt(cookie.replaceAll("catan.game=", "").replaceAll("catan.user=.*;?+", "").replaceAll(";", "").replaceAll("\\s", ""));
                 token.setPlayerID(gameId);
             }

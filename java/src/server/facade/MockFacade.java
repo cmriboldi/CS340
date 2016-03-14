@@ -35,8 +35,8 @@ public class MockFacade implements IServerFacade
     }
 
     @Override
-    public void joinGame(AuthToken token, CatanColor color) throws ServerException {
-
+    public String joinGame(AuthToken token, int gameId, CatanColor color) throws ServerException {
+        return null;
     }
 
     @Override

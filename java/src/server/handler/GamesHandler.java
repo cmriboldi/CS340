@@ -3,9 +3,11 @@ package server.handler;
 import com.sun.net.httpserver.HttpExchange;
 import server.AuthToken;
 import server.exception.ServerException;
+import server.exception.UnauthorizedException;
 import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
 import shared.communication.JSON.*;
+import shared.definitions.CatanColor;
 
 import java.io.IOException;
 
@@ -50,13 +52,21 @@ public class GamesHandler extends APIHandler
                 case "/games/join":
                     json = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
                     AuthToken token = parseCookie(httpExchange);
-                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
+//                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
+                    response = facade.joinGame(token, ((JoinGameJSON)json).getId(), CatanColor.toCatanColor(((JoinGameJSON)json).getColor()));
+//                    System.out.println("Response:" + response);
+                    httpExchange.getResponseHeaders().add("Set-cookie", response);
                     success(httpExchange);
                     break;
             }
         }
         catch (ServerException e)
         {
+//            System.out.println("Exception was thrown");
+            if(e.getClass().equals(UnauthorizedException.class))
+            {
+                respond401(httpExchange);
+            }
             e.printStackTrace();
         }
     }
