@@ -6,10 +6,7 @@ import server.AuthToken;
 import server.command.ICommand;
 import server.data.UserInfo;
 import server.database.IDatabase;
-import server.exception.FacadeNotInitializedException;
-import server.exception.InternalErrorException;
-import server.exception.ServerException;
-import server.exception.UnauthorizedException;
+import server.exception.*;
 import shared.definitions.CatanColor;
 
 import java.io.UnsupportedEncodingException;
@@ -41,6 +38,9 @@ public class ServerFacade implements IServerFacade
     @Override
     public String login(String username, String password) throws ServerException
     {
+        if(!isValidUser(new AuthToken(username, password, -1, -1)))
+            throw new InvalidCredentialsException("Login attempt invalid");
+
         UserInfo user = database.getUserByName(username);
         try
         {
@@ -86,6 +86,8 @@ public class ServerFacade implements IServerFacade
     {
         if(!isValidUser(token))
             throw new UnauthorizedException("Join Game attempt is not authorized");
+
+        System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
 
         ////////////////////////////////////////////////////////////////////////////////////////
         //          Logic to add player to the Catan Model

@@ -158,12 +158,12 @@ public abstract class APIHandler implements HttpHandler
         {
             String cookie = exchange.getRequestHeaders().getFirst("Cookie");
             AuthToken token = new AuthToken();
-//            System.out.println("\nCookie: " + cookie);
+            System.out.println("\nCookie: " + cookie);
             if(!cookie.matches(".*catan.user=.*"))
             {
                 return null;
             }
-            String userCookie = cookie.replaceAll("catan.user=", "").replaceAll(".*catan.game=.*;", "");
+            String userCookie = cookie.replaceAll(";", "").replaceAll("catan.user=", "").replaceAll("catan.game=\\d++", "").replaceAll("\\s", "");
 //            System.out.println("User cookie: " + userCookie);
 
             JsonObject json = new Gson().fromJson(URLDecoder.decode(userCookie, "UTF-8"), JsonObject.class);
@@ -174,10 +174,10 @@ public abstract class APIHandler implements HttpHandler
             if(cookie.matches(".*catan.game=.*"))
             {
 //                System.out.println("Cookie is now: " + cookie);
-                String parsingSucks = cookie.replaceAll("catan.game=", "").replaceAll("catan.user=.*;?+", "").replaceAll(";", "");
+                String parsingSucks = cookie.replaceAll("catan.user=[\\w%]*;?", "").replaceAll("catan.game=", "").replaceAll("\\s", "").replaceAll(";", "");
 //                System.out.println("After the grinder: " + parsingSucks);
-                int gameId = Integer.parseInt(cookie.replaceAll("catan.game=", "").replaceAll("catan.user=.*;?+", "").replaceAll(";", "").replaceAll("\\s", ""));
-                token.setPlayerID(gameId);
+                int gameId = Integer.parseInt(cookie.replaceAll("catan.user=[\\w%]*;?", "").replaceAll("catan.game=", "").replaceAll("\\s", "").replaceAll(";", ""));
+                token.setGameID(gameId);
             }
             return token;
         }

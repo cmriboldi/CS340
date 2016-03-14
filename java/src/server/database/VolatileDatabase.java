@@ -24,6 +24,7 @@ public class VolatileDatabase implements IDatabase
         playerIndex = 0;
         gameIndex = 0;
         addGame(new CatanModel());
+        addUser(new UserInfo("string", "string"));
     }
 
     @Override

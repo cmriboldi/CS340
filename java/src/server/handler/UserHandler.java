@@ -2,6 +2,7 @@ package server.handler;
 
 import com.sun.net.httpserver.HttpExchange;
 import server.data.UserInfo;
+import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
@@ -56,6 +57,8 @@ public class UserHandler extends APIHandler
         }
         catch (ServerException e)
         {
+            if(e.getClass().equals(InvalidCredentialsException.class))
+                respond401(httpExchange);
             e.printStackTrace();
         }
     }
