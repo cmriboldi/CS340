@@ -135,4 +135,6 @@ public interface IServerFacade
      * @throws ServerException
      */
     String[] listAI(AuthToken token) throws ServerException;
+
+    boolean isValidUser(AuthToken token) throws ServerException;
 }

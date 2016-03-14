@@ -31,6 +31,7 @@ public class GamesHandler extends APIHandler
         {
             String uri = httpExchange.getRequestURI().toString();
             IServerFacade facade = FacadeHolder.getFacade();
+            AuthToken token = parseCookie(httpExchange);
             IJavaJSON json;
             String response;
 
@@ -51,7 +52,6 @@ public class GamesHandler extends APIHandler
 
                 case "/games/join":
                     json = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
-                    AuthToken token = parseCookie(httpExchange);
 //                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
                     response = facade.joinGame(token, ((JoinGameJSON)json).getId(), CatanColor.toCatanColor(((JoinGameJSON)json).getColor()));
 //                    System.out.println("Response:" + response);

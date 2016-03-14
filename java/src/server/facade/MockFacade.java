@@ -63,4 +63,9 @@ public class MockFacade implements IServerFacade
     public String[] listAI(AuthToken token) throws ServerException {
         return new String[0];
     }
+
+    @Override
+    public boolean isValidUser(AuthToken token) throws ServerException {
+        return false;
+    }
 }
