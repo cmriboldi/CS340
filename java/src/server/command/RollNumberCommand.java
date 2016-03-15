@@ -1,6 +1,14 @@
 package server.command;
 
+import server.AuthToken;
+import shared.communication.JSON.IJavaJSON;
+
 public class RollNumberCommand implements ICommand {
+
+	public RollNumberCommand(AuthToken authToken, IJavaJSON jsonBody)
+	{
+		// TODO Auto-generated constructor stub
+	}
 
 	/**
 	 * 
