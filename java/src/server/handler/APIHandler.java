@@ -2,14 +2,13 @@ package server.handler;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import server.AuthToken;
+import server.exception.BadRequestException;
 import server.exception.InternalErrorException;
 import server.exception.ServerException;
-import server.facade.FacadeHolder;
-import server.facade.IServerFacade;
-import shared.communication.JSON.*;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -55,11 +54,10 @@ public abstract class APIHandler implements HttpHandler
     protected void respond200(HttpExchange exchange, Object response) throws InternalErrorException {
         try
         {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-            ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutput out = new ObjectOutputStream(bos);
-            out.writeObject(response);
-            exchange.getResponseBody().write(bos.toByteArray());
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            String json = new Gson().toJson(response);
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, json.getBytes().length);
+            exchange.getResponseBody().write(json.getBytes());
             exchange.getResponseBody().close();
         }
         catch (IOException e)
@@ -76,6 +74,14 @@ public abstract class APIHandler implements HttpHandler
      */
     protected void respond400(HttpExchange exchange)
     {
+        try
+        {
+            exchange.sendResponseHeaders(400, -1);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         exchange.close();
     }
 
@@ -99,23 +105,6 @@ public abstract class APIHandler implements HttpHandler
      */
     protected void respond404(HttpExchange exchange)
     {
-        IServerFacade facade;
-        try
-        {
-            facade = FacadeHolder.getFacade();
-            facade.login("", "");
-        }
-        catch (ServerException e)
-        {
-            e.printStackTrace();
-        }
-        try
-        {
-            exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, -1);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
         exchange.close();
     }
 
@@ -126,10 +115,18 @@ public abstract class APIHandler implements HttpHandler
      */
     protected void respond500(HttpExchange exchange)
     {
+        try
+        {
+            exchange.sendResponseHeaders(500, -1);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         exchange.close();
     }
 
-    protected Object getRequest(HttpExchange exchange, Class<?> type)
+    protected Object getRequest(HttpExchange exchange, Class<?> type) throws ServerException
     {
         try
         {
@@ -146,10 +143,12 @@ public abstract class APIHandler implements HttpHandler
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            throw new InternalErrorException("When reading the request, something broke");
         }
-
-        return null;
+        catch (JsonSyntaxException e)
+        {
+            throw new BadRequestException("Request included invalid JSON syntax");
+        }
     }
 
     protected AuthToken parseCookie(HttpExchange exchange) throws InternalErrorException
@@ -158,7 +157,7 @@ public abstract class APIHandler implements HttpHandler
         {
             String cookie = exchange.getRequestHeaders().getFirst("Cookie");
             AuthToken token = new AuthToken();
-            System.out.println("\nCookie: " + cookie);
+//            System.out.println("\nCookie: " + cookie);
             if(!cookie.matches(".*catan.user=.*"))
             {
                 return null;
@@ -174,7 +173,7 @@ public abstract class APIHandler implements HttpHandler
             if(cookie.matches(".*catan.game=.*"))
             {
 //                System.out.println("Cookie is now: " + cookie);
-                String parsingSucks = cookie.replaceAll("catan.user=[\\w%]*;?", "").replaceAll("catan.game=", "").replaceAll("\\s", "").replaceAll(";", "");
+//                String parsingSucks = cookie.replaceAll("catan.user=[\\w%]*;?", "").replaceAll("catan.game=", "").replaceAll("\\s", "").replaceAll(";", "");
 //                System.out.println("After the grinder: " + parsingSucks);
                 int gameId = Integer.parseInt(cookie.replaceAll("catan.user=[\\w%]*;?", "").replaceAll("catan.game=", "").replaceAll("\\s", "").replaceAll(";", ""));
                 token.setGameID(gameId);

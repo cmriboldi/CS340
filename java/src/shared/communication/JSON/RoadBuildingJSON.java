@@ -2,17 +2,15 @@ package shared.communication.JSON;
 
 import shared.locations.EdgeLocation;
 
-public class RoadBuildingJSON implements IJavaJSON
+public class RoadBuildingJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private EdgeLocationJSON spot1;
 	private EdgeLocationJSON spot2;
 
 	public RoadBuildingJSON(int playerIndex, EdgeLocation spot1, EdgeLocation spot2)
 	{
-		this.type = "Road_Building";
+		super("Road_Building");
 		this.playerIndex = playerIndex;
 		this.spot1 = new EdgeLocationJSON(spot1.getHexLoc(), spot1.getDir());
 		this.spot2 = new EdgeLocationJSON(spot2.getHexLoc(), spot2.getDir());

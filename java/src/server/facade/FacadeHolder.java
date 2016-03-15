@@ -1,11 +1,7 @@
 package server.facade;
 
-import client.data.GameInfo;
-import model.CatanModel;
-import server.AuthToken;
 import server.exception.FacadeNotInitializedException;
 import server.exception.ServerException;
-import shared.definitions.CatanColor;
 
 /**
  * The FacadeProxy is the static access object to whatever facade is defined for this build

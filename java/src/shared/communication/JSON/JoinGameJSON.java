@@ -3,7 +3,7 @@ package shared.communication.JSON;
 /**
  * Created by Joshua on 3/12/2016.
  */
-public class JoinGameJSON implements IJavaJSON
+public class JoinGameJSON
 {
     private int id;
     private String color;

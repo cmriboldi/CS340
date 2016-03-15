@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class ChangeLogLevelJSON implements IJavaJSON
+public class ChangeLogLevelJSON
 {
 	private String logLevel;
 

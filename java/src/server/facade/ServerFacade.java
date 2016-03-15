@@ -2,6 +2,8 @@ package server.facade;
 
 import client.data.GameInfo;
 import model.CatanModel;
+import model.players.Player;
+import model.players.PlayerTurnTracker;
 import server.AuthToken;
 import server.command.ICommand;
 import server.data.UserInfo;
@@ -9,6 +11,7 @@ import server.database.IDatabase;
 import server.exception.*;
 import shared.definitions.CatanColor;
 
+import java.io.SyncFailedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -86,37 +89,39 @@ public class ServerFacade implements IServerFacade
     {
         if(!isValidUser(token))
             throw new UnauthorizedException("Join Game attempt is not authorized");
+        System.out.println("In ServerFacade.joinGame()");
 
-        System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
+//        System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
         
-        CatanModel model = database.getGameModel(token.getGameID()); 
-        TurnTracker turnTracker = model.getPlayerManager().getTurnTracker().; 
+        CatanModel model = database.getGameModel(gameId);
+        PlayerTurnTracker turnTracker = model.getPlayerManager().getTurnTracker();
+
         
         // Game full and playerID not in list of current players
-        if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4) 
+        if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4)
         {
         	System.out.println("Join Game is already full and player " + token.getPlayerID() + " is not listed as a current player");
         	// do nothing because "playerID" can't join this game
-        	return ""; 	
+        	return "";
         }
-        
+
         //Player Joined Previously
         if (model.playerManager.containsId(token.getPlayerID()))
         {
-        	System.out.println("Player " + token.getPlayerID() + " is already part of this game" )
+        	System.out.println("Player " + token.getPlayerID() + " is already part of this game" );
         	// return the information that "playerID" needs on his client to start playing
-        	return ""; 
-        }      
-        
+        	return "";
+        }
+
         //Player can Join game first time
         if(!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() < 4)
         {
         	int playerIndex = getInitializedPlayerCount();
-        	Player newPlayer = Player(token.getName(),token.getPlayerID(), color, playerIndex); 
-        	model.playerManager.catanPlayers[playerIndex] = newPlayer; 
+        	Player newPlayer = new Player(token.getName(),token.getPlayerID(), color, playerIndex);
+        	model.playerManager.catanPlayers[playerIndex] = newPlayer;
         }
-        
-        
+
+
        if (model.playerManager.getCatanPlayers().length >=4)
     	   throw new UnauthorizedException("Join Game is already full");
         ////////////////////////////////////////////////////////////////////////////////////////

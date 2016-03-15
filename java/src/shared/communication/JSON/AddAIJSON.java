@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class AddAIJSON implements IJavaJSON
+public class AddAIJSON
 {
 	private String AIType;
 	

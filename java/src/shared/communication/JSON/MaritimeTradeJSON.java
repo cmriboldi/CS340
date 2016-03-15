@@ -1,9 +1,7 @@
 package shared.communication.JSON;
 
-public class MaritimeTradeJSON implements IJavaJSON
+public class MaritimeTradeJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private int ratio;
 	private String inputResource;
@@ -11,7 +9,7 @@ public class MaritimeTradeJSON implements IJavaJSON
 
 	public MaritimeTradeJSON(int playerIndex, int ratio, String inputResource, String outputResource)
 	{
-		this.type = "maritimeTrade";
+		super("maritimeTrade");
 		this.ratio = ratio;
 		this.playerIndex = playerIndex;
 		this.inputResource = inputResource;

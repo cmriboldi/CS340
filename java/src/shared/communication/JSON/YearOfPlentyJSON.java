@@ -1,16 +1,14 @@
 package shared.communication.JSON;
 
-public class YearOfPlentyJSON implements IJavaJSON
+public class YearOfPlentyJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private String resource1;
 	private String resource2;
 
 	public YearOfPlentyJSON(int playerIndex, String resource1, String resource2)
 	{
-		this.type = "Year_of_Plenty";
+		super("Year_of_Plenty");
 		this.playerIndex = playerIndex;
 		this.resource1 = resource1;
 		this.resource2 = resource2;

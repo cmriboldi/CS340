@@ -2,17 +2,15 @@ package shared.communication.JSON;
 
 import shared.locations.VertexLocation;
 
-public class BuildSettlementJSON implements IJavaJSON
+public class BuildSettlementJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private VertexLocationJSON vertexLocation;
 	private boolean free;
 
 	public BuildSettlementJSON(int playerIndex, VertexLocation vertexLocation, boolean free)
 	{
-		this.type = "buildSettlement";
+		super("buildSettlement");
 		this.playerIndex = playerIndex;
 		this.vertexLocation = new VertexLocationJSON(vertexLocation);
 		this.free = free;

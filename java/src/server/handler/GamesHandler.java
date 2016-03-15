@@ -32,7 +32,7 @@ public class GamesHandler extends APIHandler
             String uri = httpExchange.getRequestURI().toString();
             IServerFacade facade = FacadeHolder.getFacade();
             AuthToken token = parseCookie(httpExchange);
-            IJavaJSON json;
+            //IJavaJSON json;
             String response;
 
             switch(uri)
@@ -51,10 +51,11 @@ public class GamesHandler extends APIHandler
                     break;
 
                 case "/games/join":
-                    json = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
-//                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
-                    response = facade.joinGame(token, ((JoinGameJSON)json).getId(), CatanColor.toCatanColor(((JoinGameJSON)json).getColor()));
-//                    System.out.println("Response:" + response);
+                    JoinGameJSON json = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
+                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
+                    response = facade.joinGame(token, json.getId(), CatanColor.toCatanColor(json.getColor()));
+                    System.out.println("---Finally out of the facade!!!---");
+                    System.out.println("Response:" + response);
                     httpExchange.getResponseHeaders().add("Set-cookie", response);
                     success(httpExchange);
                     break;

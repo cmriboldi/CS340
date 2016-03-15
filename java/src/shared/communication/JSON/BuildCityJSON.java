@@ -2,16 +2,14 @@ package shared.communication.JSON;
 
 import shared.locations.VertexLocation;
 
-public class BuildCityJSON implements IJavaJSON
+public class BuildCityJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private VertexLocationJSON vertexLocation;
 
 	public BuildCityJSON(int playerIndex, VertexLocation vertexLocation)
 	{
-		this.type = "buildCity";
+		super("buildCity");
 		this.playerIndex = playerIndex;
 		this.vertexLocation = new VertexLocationJSON(vertexLocation);
 	}

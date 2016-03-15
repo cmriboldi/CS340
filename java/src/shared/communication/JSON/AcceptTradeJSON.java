@@ -1,15 +1,13 @@
 package shared.communication.JSON;
 
-public class AcceptTradeJSON implements IJavaJSON
+public class AcceptTradeJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private boolean willAccept;
 	
 	public AcceptTradeJSON(int playerIndex, boolean willAccept)
 	{
-		this.type = "acceptTrade";
+		super("acceptTrade");
 		this.playerIndex = playerIndex;
 		this.willAccept = willAccept;
 	}

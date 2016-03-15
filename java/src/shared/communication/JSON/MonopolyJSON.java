@@ -1,15 +1,13 @@
 package shared.communication.JSON;
 
-public class MonopolyJSON implements IJavaJSON
+public class MonopolyJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private String resource;
 	private int playerIndex;
 	
 	public MonopolyJSON(int playerIndex, String resource)
 	{
-		this.type = "Monopoly";
+		super("Monopoly");
 		this.resource = resource;
 		this.playerIndex = playerIndex;
 	}

@@ -2,16 +2,14 @@ package shared.communication.JSON;
 
 import model.resources.ResourceList;
 
-public class DiscardCardsJSON implements IJavaJSON
+public class DiscardCardsJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private ResourceList discardedCards;
 
 	public DiscardCardsJSON(int playerIndex, ResourceList discardedCards)
 	{
-		this.type = "discardCards";
+		super("discardCards");
 		this.playerIndex = playerIndex;
 		this.discardedCards = discardedCards;
 	}

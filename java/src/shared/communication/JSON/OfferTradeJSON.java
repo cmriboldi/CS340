@@ -2,17 +2,15 @@ package shared.communication.JSON;
 
 import model.resources.ResourceList;
 
-public class OfferTradeJSON implements IJavaJSON
+public class OfferTradeJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private ResourceList offer;
 	private int receiver;
 
 	public OfferTradeJSON(int playerIndex, ResourceList offer, int receiver)
 	{
-		this.type = "offerTrade";
+		super("offerTrade");
 		this.playerIndex = playerIndex;
 		this.offer = offer;
 		this.receiver = receiver;

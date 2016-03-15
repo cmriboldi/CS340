@@ -2,10 +2,8 @@ package shared.communication.JSON;
 
 import shared.locations.HexLocation;
 
-public class SoldierJSON implements IJavaJSON
+public class SoldierJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private int victimIndex;
 	@SuppressWarnings("unused")
@@ -13,7 +11,7 @@ public class SoldierJSON implements IJavaJSON
 	
 	public SoldierJSON(int playerIndex, int victimIndex, HexLocation location)
 	{
-		this.type = "Soldier";
+		super("Soldier");
 		this.playerIndex = playerIndex;
 		this.victimIndex = victimIndex;
 		this.location = new HexLocationJSON(location.getX(), location.getY());

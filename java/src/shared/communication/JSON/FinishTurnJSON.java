@@ -1,14 +1,12 @@
 package shared.communication.JSON;
 
-public class FinishTurnJSON implements IJavaJSON
+public class FinishTurnJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	
 	public FinishTurnJSON(int playerIndex)
 	{
-		this.type = "finishTurn";
+		super("finishTurn");
 		this.playerIndex = playerIndex;
 	}
 

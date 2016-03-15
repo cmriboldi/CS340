@@ -1,15 +1,13 @@
 package shared.communication.JSON;
 
-public class RollNumberJSON implements IJavaJSON
+public class RollNumberJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private int number;
 	
 	public RollNumberJSON(int playerIndex, int number)
 	{
-		this.type = "rollNumber";
+		super("rollNumber");
 		this.playerIndex = playerIndex;
 		this.number = number;
 	}

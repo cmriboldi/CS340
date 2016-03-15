@@ -10,9 +10,9 @@ public class CommandFactory
 		
 	}
 	
-	public ICommand buildCommand(AuthToken authToken, CommandType commandType, IJavaJSON jsonBody) {
+	public static ICommand buildCommand(AuthToken authToken, IJavaJSON jsonBody) {
 		ICommand command = null;
-		switch(commandType) {
+		switch(jsonBody.getCommand()) {
 			case ACCEPT_TRADE:
 				command = new AcceptTradeCommand(authToken, jsonBody);
 				break;

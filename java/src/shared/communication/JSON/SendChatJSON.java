@@ -1,15 +1,13 @@
 package shared.communication.JSON;
 
-public class SendChatJSON implements IJavaJSON
+public class SendChatJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	private String content;
 	
 	public SendChatJSON(int playerIndex, String content)
 	{
-		this.type = "sendChat";
+		super("sendChat");
 		this.playerIndex = playerIndex;
 		this.content = content;
 	}

@@ -1,14 +1,12 @@
 package shared.communication.JSON;
 
-public class MonumentJSON implements IJavaJSON
+public class MonumentJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	
 	public MonumentJSON(int playerIndex)
 	{
-		this.type = "Monument";
+		super("Monument");
 		this.playerIndex = playerIndex;
 	}
 

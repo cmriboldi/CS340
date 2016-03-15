@@ -2,17 +2,16 @@ package shared.communication.JSON;
 
 import shared.locations.EdgeLocation;
 
-public class BuildRoadJSON implements IJavaJSON
+public class BuildRoadJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
+
 	private int playerIndex;
 	private EdgeLocationJSON roadLocation;
 	private boolean free;
 
 	public BuildRoadJSON(int playerIndex, EdgeLocation roadLocation, boolean free)
 	{
-		this.type = "buildRoad";
+		super("buildRoad");
 		this.playerIndex = playerIndex;
 		this.roadLocation = new EdgeLocationJSON(roadLocation);
 		this.free = free;

@@ -33,7 +33,7 @@ public class UserHandler extends APIHandler
         {
             String uri = httpExchange.getRequestURI().toString();
             IServerFacade facade = FacadeHolder.getFacade();
-            IJavaJSON json;
+            LoginJSON json;
             String response;
 
             switch(uri)

@@ -1,6 +1,6 @@
 package shared.communication.JSON;
 
-public class SaveJSON implements IJavaJSON
+public class SaveJSON
 {
 	private int id;
 	private String name;

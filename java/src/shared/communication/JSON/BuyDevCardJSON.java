@@ -1,14 +1,12 @@
 package shared.communication.JSON;
 
-public class BuyDevCardJSON implements IJavaJSON
+public class BuyDevCardJSON extends IJavaJSON
 {
-	@SuppressWarnings("unused")
-	private String type;
 	private int playerIndex;
 	
 	public BuyDevCardJSON(int playerIndex)
 	{
-		this.type = "buyDevCard";
+		super("buyDevCard");
 		this.playerIndex = playerIndex;
 	}
 
