@@ -91,5 +91,10 @@ public class PlayerDevCards
 		return hasCard;
 	}
 
+	public int getCardTypeCountForPlayer(int playerIndex, DevCardType cardType)
+	{
+		return playerDevCards[playerIndex].getCardTypeCount(cardType);
+	}
+
 	
 }

@@ -27,6 +27,10 @@ import java.util.Set;
 public class MapManager implements IMapManager {
     private Map map;
 
+    public MapManager(boolean randomTile, boolean randomNumbers, boolean randomPorts) {
+		// TODO Auto-generated constructor stub
+	}
+
 
     public MapManager(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, Settlement> settlements_t,
                       HashMap<EdgeLocation, Port> ports_t, HashMap<EdgeLocation, Road> roads_t,
@@ -35,7 +39,7 @@ public class MapManager implements IMapManager {
         map = new Map(hexes_t, settlements_t, ports_t, roads_t, robber_t, radius_t);
     }
 
-    public Map getMap() {
+	public Map getMap() {
         return map;
     }
 

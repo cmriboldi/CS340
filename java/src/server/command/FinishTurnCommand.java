@@ -1,6 +1,19 @@
 package server.command;
 
+import server.AuthToken;
+import shared.communication.JSON.FinishTurnJSON;
+import shared.communication.JSON.IJavaJSON;
+
 public class FinishTurnCommand implements ICommand {
+
+	private AuthToken authToken = null;
+	private FinishTurnJSON body = null;
+	
+	public FinishTurnCommand(AuthToken authToken, IJavaJSON jsonBody)
+	{
+		this.authToken = authToken;
+		this.body = (FinishTurnJSON)jsonBody;
+	}
 
 	/**
 	 *

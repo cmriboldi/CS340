@@ -20,6 +20,14 @@ public class ResourceManager
 	private Trader trader = null;
 	private boolean[] hasPlayerDiscarded = null;
 
+	public ResourceManager()
+	{
+		PlayerResources newPlayerResources = new PlayerResources();
+		this.banker = new Banker(newPlayerResources);
+		this.trader = new Trader(newPlayerResources);
+		hasPlayerDiscarded = new boolean[] {false, false, false, false};
+	}
+	
 	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources, TradeOffer tradeOffer, boolean[] hasPlayerDiscarded)
 	{
 		PlayerResources newPlayerResources = new PlayerResources(playerResources);

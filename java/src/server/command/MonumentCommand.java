@@ -1,6 +1,19 @@
 package server.command;
 
+import server.AuthToken;
+import shared.communication.JSON.IJavaJSON;
+import shared.communication.JSON.MonumentJSON;
+
 public class MonumentCommand implements ICommand {
+
+	private AuthToken authToken = null;
+	private MonumentJSON body = null;
+	
+	public MonumentCommand(AuthToken authToken, IJavaJSON jsonBody)
+	{
+		this.authToken = authToken;
+		this.body = (MonumentJSON)jsonBody;
+	}
 
 	/**
 	 * 

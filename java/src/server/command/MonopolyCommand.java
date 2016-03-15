@@ -1,6 +1,19 @@
 package server.command;
 
+import server.AuthToken;
+import shared.communication.JSON.IJavaJSON;
+import shared.communication.JSON.MonopolyJSON;
+
 public class MonopolyCommand implements ICommand {
+
+	private AuthToken authToken = null;
+	private MonopolyJSON body = null;
+	
+	public MonopolyCommand(AuthToken authToken, IJavaJSON jsonBody)
+	{
+		this.authToken = authToken;
+		this.body = (MonopolyJSON)jsonBody;
+	}
 
 	/**
 	 * 
