@@ -2,10 +2,10 @@ package server.command;
 
 public class RoadBuildingCommand implements ICommand
 {
-    /**
-     *
-     * Updates the CatanModel to reflect a player using a Road Building Dev Card
-     *
+	/**
+	 * 
+	 * Updates the CatanModel to reflect playing the road building dev card
+	 * 
      * @return CatanModel, return the updated Catan model
      */
     @Override

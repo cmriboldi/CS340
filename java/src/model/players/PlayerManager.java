@@ -50,6 +50,17 @@ public class PlayerManager
 		turnTracker = new PlayerTurnTracker();
 	}
 	
+	public int getInitializedPlayerCount(){
+		
+		int initializedCount = 0; 
+		for (int i = 0; i < catanPlayers.length; i++)
+		{
+			if (catanPlayers[i].getName() != null) initializedCount++; 
+		}
+		
+		return initializedCount; 
+	}
+	
 	public Player[] getCatanPlayers() {
 		return catanPlayers;
 	}
@@ -71,6 +82,15 @@ public class PlayerManager
 		this.turnTracker.setStatus(status);
 	}
 	
+	public boolean containsId(int userID)
+	{
+		for (int i = 0; i < catanPlayers.length; i++)
+		{
+			if (catanPlayers[i].getId() == userID) return true; 
+		}
+		
+		return false; 
+	}
 	
 	public CatanColor getPlayerColor(String nameCheck) throws PlayerNameNotFoundException
 	{

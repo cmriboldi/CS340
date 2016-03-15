@@ -47,6 +47,21 @@ public class Player
 	public Player()
 	{
 		this.pieces = new Pieces();
+		this.name = null; // check to see if name is null. If it's null then this player hasn't been initialized. 
+	}
+	
+	//First Log In Constructor
+	public Player(String playerName, int playerID, CatanColor selectedColor, int playerIndex)
+	{
+		this.pieces = new Pieces();
+		this.name = playerName; 
+		this.id = playerID; 
+		this.color = selectedColor; 
+		this.longestRoad = false; 
+		this.largestArmy = false; 
+		this.points = 0; 
+		this.playerIndex = playerIndex; 
+		
 	}
 	
 	public int getSettlementsRemaining() {
