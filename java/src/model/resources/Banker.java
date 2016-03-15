@@ -20,6 +20,12 @@ public class Banker
 
 	private ResourceList bank;
 	private PlayerResources playerResources;
+	
+	public Banker(PlayerResources playerResources)
+	{
+		this.bank = new ResourceList(19,19,19,19,19);
+		this.playerResources = playerResources;
+	}
 
 	public Banker(PlayerResources playerResources, ResourceList bankResources)
 	{

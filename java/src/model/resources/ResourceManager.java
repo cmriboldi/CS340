@@ -22,7 +22,10 @@ public class ResourceManager
 
 	public ResourceManager()
 	{
-		// TODO Auto-generated constructor stub
+		PlayerResources newPlayerResources = new PlayerResources();
+		this.banker = new Banker(newPlayerResources);
+		this.trader = new Trader(newPlayerResources);
+		hasPlayerDiscarded = new boolean[] {false, false, false, false};
 	}
 	
 	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources, TradeOffer tradeOffer, boolean[] hasPlayerDiscarded)

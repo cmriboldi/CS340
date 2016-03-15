@@ -10,7 +10,11 @@ public class PlayerResources
 
 	public PlayerResources()
 	{
-
+		playerResources = new ResourceList[4];
+		for (int i = 0; i < 4; i++)
+		{
+			playerResources[i] = new ResourceList();
+		}
 	}
 
 	public PlayerResources(ResourceList[] playerResources)

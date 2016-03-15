@@ -26,11 +26,11 @@ public class DevCardManager
 
 	public DevCardManager()
 	{
-		devCardStack = new DevCardList();
+		devCardStack = new DevCardList(2, 5, 2, 14, 2);
 		newDevCards = new PlayerDevCards();
 		oldDevCards = new PlayerDevCards();
 		playedDevCards = new PlayerDevCards();
-		hasPlayedDevCardsList = new boolean[4];
+		hasPlayedDevCardsList = new boolean[] {false, false, false, false};
 	}
 
 	public DevCardManager(PlayerDevCards newDevCards, PlayerDevCards oldDevCards, PlayerDevCards playedDevCards, boolean[] hasPlayedDevCardsList, DevCardList devCardStack)
@@ -41,28 +41,6 @@ public class DevCardManager
 		this.hasPlayedDevCardsList = hasPlayedDevCardsList;
 		this.devCardStack = devCardStack;
 	}
-	
-	/*
-	// LARGEST ARMY
-	int GetIndexOfLargestArmy()
-	{
-		int largestArmyIndex = -1; 
-		int largestArmySize = -1; 
-		for (int i = 0; i < playedDevCards.length(); i++)
-		{
-			int playerIArmySize = playedDevCards.getDevCardsForPlayer(i).getSoldierCount();
-			
-			if (playerIArmySize > largestArmySize)
-			{
-				
-			}
-			
-		}
-		
-		return -1; 
-	}
-	*/
-	
 
 	/**
 	 * Draws a development card for the given player.
@@ -152,11 +130,26 @@ public class DevCardManager
 	{
 		return newDevCards.hasDevCard(playerIndex, devCard) || oldDevCards.hasDevCard(playerIndex, devCard);
 	}
+	
+	public int getIndexOfLargestArmy()
+	{
+		int largestArmyIndex = -1; 
+		int largestArmySize = -1; 
+		for (int i = 0; i < playedDevCards.length(); i++)
+		{
+			int playerIArmySize = playedDevCards.getCardTypeCountForPlayer(i, DevCardType.SOLDIER);
+			if (playerIArmySize > largestArmySize)
+			{
+				largestArmyIndex = i;
+			}
+		}
+		return largestArmyIndex; 
+	}
 
 	public Integer playerDevCardCount(int playerIndex, DevCardType devCard) {
 		int unusedCardsCount = 0;
 		if(playerIndex < 4 && playerIndex >= 0) {
-			unusedCardsCount = newDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard) + oldDevCards.getDevCardsForPlayer(playerIndex).getCardTypeCount(devCard);
+			unusedCardsCount = newDevCards.getCardTypeCountForPlayer(playerIndex, devCard) + oldDevCards.getCardTypeCountForPlayer(playerIndex, devCard);
 		}
 		return unusedCardsCount;
 	}

@@ -23,9 +23,15 @@ public class Trader
 	private PlayerResources playerResources = null;
 	private TradeOffer tradeOffer = null;
 
-	public Trader(PlayerResources newPlayerResources, TradeOffer tradeOffer)
+	public Trader(PlayerResources playerResources)
 	{
-		this.playerResources = newPlayerResources;
+		this.playerResources = playerResources;
+		this.tradeOffer = null;
+	}
+
+	public Trader(PlayerResources playerResources, TradeOffer tradeOffer)
+	{
+		this.playerResources = playerResources;
 		this.tradeOffer = tradeOffer;
 	}
 
