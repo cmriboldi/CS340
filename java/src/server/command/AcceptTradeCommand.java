@@ -1,14 +1,19 @@
 package server.command;
 
 import server.AuthToken;
+import shared.communication.JSON.AcceptTradeJSON;
 import shared.communication.JSON.IJavaJSON;
 
 public class AcceptTradeCommand implements ICommand {
+	
+	private AuthToken authToken = null;
+	private AcceptTradeJSON body = null;
 
 	
 	public AcceptTradeCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
-		// TODO Auto-generated constructor stub
+		this.authToken = authToken;
+		this.body = (AcceptTradeJSON)jsonBody;
 	}
 
 	/**

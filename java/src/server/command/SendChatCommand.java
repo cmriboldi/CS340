@@ -2,12 +2,17 @@ package server.command;
 
 import server.AuthToken;
 import shared.communication.JSON.IJavaJSON;
+import shared.communication.JSON.SendChatJSON;
 
 public class SendChatCommand implements ICommand {
 
+	private AuthToken authToken = null;
+	private SendChatJSON body = null;
+	
 	public SendChatCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
-		// TODO Auto-generated constructor stub
+		this.authToken = authToken;
+		this.body = (SendChatJSON)jsonBody;
 	}
 
 	/**

@@ -1,14 +1,18 @@
 package server.command;
 
 import server.AuthToken;
+import shared.communication.JSON.BuildCityJSON;
 import shared.communication.JSON.IJavaJSON;
 
 public class BuildCityCommand implements ICommand {
 
+	private AuthToken authToken = null;
+	private BuildCityJSON body = null;
 	
 	public BuildCityCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
-		// TODO Auto-generated constructor stub
+		this.authToken = authToken;
+		this.body = (BuildCityJSON)jsonBody;
 	}
 
 	/**

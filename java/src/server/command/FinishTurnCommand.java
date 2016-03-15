@@ -1,13 +1,18 @@
 package server.command;
 
 import server.AuthToken;
+import shared.communication.JSON.FinishTurnJSON;
 import shared.communication.JSON.IJavaJSON;
 
 public class FinishTurnCommand implements ICommand {
 
+	private AuthToken authToken = null;
+	private FinishTurnJSON body = null;
+	
 	public FinishTurnCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
-		// TODO Auto-generated constructor stub
+		this.authToken = authToken;
+		this.body = (FinishTurnJSON)jsonBody;
 	}
 
 	/**

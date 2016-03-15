@@ -2,12 +2,17 @@ package server.command;
 
 import server.AuthToken;
 import shared.communication.JSON.IJavaJSON;
+import shared.communication.JSON.SoldierJSON;
 
 public class SoldierCommand implements ICommand {
 
+	private AuthToken authToken = null;
+	private SoldierJSON body = null;
+	
 	public SoldierCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
-		// TODO Auto-generated constructor stub
+		this.authToken = authToken;
+		this.body = (SoldierJSON)jsonBody;
 	}
 
 	/**

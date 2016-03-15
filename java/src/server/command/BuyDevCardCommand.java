@@ -1,13 +1,18 @@
 package server.command;
 
 import server.AuthToken;
+import shared.communication.JSON.BuyDevCardJSON;
 import shared.communication.JSON.IJavaJSON;
 
 public class BuyDevCardCommand implements ICommand {
 
+	private AuthToken authToken = null;
+	private BuyDevCardJSON body = null;
+	
 	public BuyDevCardCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
-		// TODO Auto-generated constructor stub
+		this.authToken = authToken;
+		this.body = (BuyDevCardJSON)jsonBody;
 	}
 
 	/**
