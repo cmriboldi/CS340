@@ -30,7 +30,7 @@ public class ServerFacade implements IServerFacade
      * To allow for dependency injection, when constructed the database that will be used should be passed in
      * @param database The IDatabase that will be used for this build
      */
-    public ServerFacade(I1 database)
+    public ServerFacade(IDatabase database)
     {
     	this.database = database;
     }
