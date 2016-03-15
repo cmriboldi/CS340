@@ -28,10 +28,18 @@ public class CatanModel
 	public PlayerManager playerManager;
 	public ResourceManager resourceManager;
 	public int version;
-
-	public CatanModel()
+	public String gameName;
+	
+	public CatanModel(int version, String name, boolean randomTile, boolean randomNumbers, boolean randomPorts)
 	{
-
+		this.version = version;
+		this.gameName = name;
+		this.cardManager = new DevCardManager();
+		this.chatManager = new ChatManager();
+		this.playerManager = new PlayerManager();
+		this.resourceManager = new ResourceManager();
+		this.mapManager = new MapManager(randomTile, randomNumbers, randomPorts);
+		this.options = new Options(this);
 	}
 
 	public CatanModel(ResourceManager resourceManager, DevCardManager devCardManager, PlayerManager playerManager, MapManager mapManager, ChatManager chatManager, int version)

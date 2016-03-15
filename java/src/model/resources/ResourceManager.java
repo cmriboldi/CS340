@@ -20,6 +20,11 @@ public class ResourceManager
 	private Trader trader = null;
 	private boolean[] hasPlayerDiscarded = null;
 
+	public ResourceManager()
+	{
+		// TODO Auto-generated constructor stub
+	}
+	
 	public ResourceManager(ResourceList[] playerResources, ResourceList bankResources, TradeOffer tradeOffer, boolean[] hasPlayerDiscarded)
 	{
 		PlayerResources newPlayerResources = new PlayerResources(playerResources);

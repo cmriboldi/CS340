@@ -8,12 +8,17 @@ public class ChatManager
 	private List<Line> chatMessages;
 	private List<Line> gameHistory;
 	
+	public ChatManager()
+	{
+		// TODO Auto-generated constructor stub
+	}
+	
 	public ChatManager(List<Line> chatMessages, List<Line> gameHistory)
 	{
 		this.chatMessages = chatMessages;
 		this.gameHistory = gameHistory;
 	}
-	
+
 	/**
 	 * update the chatMessages list
 	 * @param player sending message
