@@ -207,5 +207,10 @@ public class ResourceManager
 	{
 		return banker.bankHasResource(resource);
 	}
+	
+	public ResourceList getBankResources()
+	{
+		return banker.getBankResources();
+	}
 
 };
