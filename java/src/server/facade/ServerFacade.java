@@ -83,7 +83,10 @@ public class ServerFacade implements IServerFacade
 
     @Override
     public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException {
-        return null;
+        
+    	System.out.println("[server facade ] Creating Game"); 
+    	//CatanModel newmodel = new CatanModel(); 
+    	return null;
     }
 
     @Override
