@@ -2,11 +2,13 @@ package model.map;
 
 //JAVA imports
 
+import shared.definitions.HexType;
+import shared.definitions.PortType;
+import shared.locations.*;
+
 import java.util.*;
 
 //Project Imports
-import shared.definitions.PortType;
-import shared.locations.*;
 
 /**
  * The Map class contains all information dealing with the map.
@@ -18,6 +20,8 @@ import shared.locations.*;
  * @author Joshua Van Steeter
  * @version 1.0 Build Jan, 2016.
  */
+@SuppressWarnings("ALL")
+
 public class Map {
     /**
      * container for all the tiles on the board
@@ -42,7 +46,7 @@ public class Map {
     /**
      * container for the robber
      */
-    HexLocation robber;
+    private HexLocation robber;
 
     /**
      * Represents the ratuys if the game board
@@ -58,10 +62,111 @@ public class Map {
      * Default constructor, initializes each variable to empty hashmaps
      */
     public Map() {
-        hexes = new HashMap<HexLocation, Hex>();
-        settlements = new HashMap<VertexLocation, Settlement>();
-        ports = new HashMap<EdgeLocation, Port>();
-        roads = new HashMap<EdgeLocation, Road>();
+        hexes = new HashMap<>();
+        settlements = new HashMap<>();
+        ports = new HashMap<>();
+        roads = new HashMap<>();
+    }
+
+    /**
+     * Constructor used by the server to create a new map
+     *
+     * @param randomTile
+     * @param randomNumbers
+     * @param randomPorts
+     */
+    public Map(boolean randomTile, boolean randomNumbers, boolean randomPorts) {
+        hexes = new HashMap<>();
+        settlements = new HashMap<>();
+        ports = new HashMap<>();
+        roads = new HashMap<>();
+
+        //list of all the possible xy combinations
+        List<xyPair> hexLocs = generateXYPairs();
+
+        //list of all possible port locations
+        List<EdgeLocation> portLocs = generatePortLocs();
+
+        //one desert, two sheep brick ore wheat wood
+        List<HexType> hexList = new ArrayList<HexType>();
+        hexList.addAll(Arrays.asList(HexType.DESERT,
+                HexType.BRICK, HexType.BRICK, HexType.BRICK,
+                HexType.SHEEP, HexType.SHEEP, HexType.SHEEP, HexType.SHEEP,
+                HexType.ORE, HexType.ORE, HexType.ORE,
+                HexType.WOOD, HexType.WOOD, HexType.WOOD, HexType.WOOD,
+                HexType.WHEAT, HexType.WHEAT, HexType.WHEAT, HexType.WHEAT)
+        );
+
+        //only one 2 and 12, no 7, two of 3-11
+        List<Integer> numbers = new ArrayList<>();
+        numbers.addAll(Arrays.asList(2, 12, 3, 3, 4, 4, 5, 5, 6, 6, 8, 8, 9, 9, 10, 10, 11, 11));
+
+        //
+        List<PortType> portTypes = new ArrayList<>();
+        portTypes.addAll(Arrays.asList(PortType.BRICK, PortType.ORE, PortType.SHEEP, PortType.WHEAT, PortType.WOOD,
+                PortType.THREE, PortType.THREE, PortType.THREE, PortType.THREE));
+
+        if (randomTile) {
+            //if the tiles should be randomized
+            //generate the desert port first, it does not get a number
+
+            //randomly generate Hexes from the contents of xValue, yValue, and hexList
+            //if the numbers should be randomized the numbers list can randomly assign numbers here
+            //NOT SURE HOW TO HANDLE NON RANDOM NUMBERS
+
+        }
+
+        if (!randomTile) {
+            //if the tiles should be standard
+            //place the desert tile first, the desert tile is independent of randomized numbers
+            hexes.put(new HexLocation(0, -2), new Hex(0, -2, HexType.DESERT, -1));
+
+            if (randomNumbers) {
+                //if the tiles should be standard and the numbers should be random
+            }
+
+            if (!randomNumbers) {
+                //if everything (other than ports) should be normal
+                hexes.put(new HexLocation(0, -1), new Hex(0, -1, HexType.WOOD, 3));
+                hexes.put(new HexLocation(0, 0), new Hex(0, 0, HexType.WHEAT, 11));
+                hexes.put(new HexLocation(0, 1), new Hex(0, 1, HexType.WOOD, 4));
+                hexes.put(new HexLocation(0, 2), new Hex(0, 2, HexType.WHEAT, 8));
+                hexes.put(new HexLocation(1, -2), new Hex(1, -2, HexType.BRICK, 4));
+                hexes.put(new HexLocation(1, -1), new Hex(1, -1, HexType.ORE, 9));
+                hexes.put(new HexLocation(1, 0), new Hex(1, 0, HexType.BRICK, 5));
+                hexes.put(new HexLocation(1, 1), new Hex(1, 1, HexType.SHEEP, 10));
+                hexes.put(new HexLocation(-1, -1), new Hex(-1, -1, HexType.BRICK, 8));
+                hexes.put(new HexLocation(-1, 0), new Hex(-1, 0, HexType.SHEEP, 10));
+                hexes.put(new HexLocation(-1, 1), new Hex(-1, 1, HexType.SHEEP, 9));
+                hexes.put(new HexLocation(-1, 2), new Hex(-1, 2, HexType.ORE, 3));
+                hexes.put(new HexLocation(-2, 0), new Hex(-2, 0, HexType.ORE, 5));
+                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, HexType.WHEAT, 3));
+                hexes.put(new HexLocation(-2, 2), new Hex(-2, 2, HexType.WOOD, 6));
+                hexes.put(new HexLocation(2, 0), new Hex(2, 0, HexType.WHEAT, 6));
+                hexes.put(new HexLocation(2, -1), new Hex(2, -1, HexType.SHEEP, 12));
+                hexes.put(new HexLocation(2, -2), new Hex(2, -2, HexType.WOOD, 11));
+            }
+        }
+
+        if (randomPorts) {
+            //if the ports should be randomized
+
+
+
+        }
+
+        if (!randomPorts) {
+            //if the ports should be standard
+            ports.put(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), new Port(-3, 0, EdgeDirection.SouthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), new Port(-3, 0, EdgeDirection.North, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), new Port(-3, 0, EdgeDirection.SouthWest, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-1, -3), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
+        }
     }
 
 
@@ -84,7 +189,61 @@ public class Map {
         radius = radius_t;
     }
 
-    
+    private class xyPair {
+        public int x;
+        public int y;
+
+        public xyPair(int x_p, int y_p) {
+            x = x_p;
+            y = y_p;
+        }
+    }
+
+    private List<xyPair> generateXYPairs() {
+        List<xyPair> returnThis = new ArrayList<>();
+        returnThis.add(new xyPair(0, 0));
+        returnThis.add(new xyPair(0, 1));
+        returnThis.add(new xyPair(0, 2));
+        returnThis.add(new xyPair(0, -1));
+        returnThis.add(new xyPair(0, -2));
+
+        returnThis.add(new xyPair(1, -2));
+        returnThis.add(new xyPair(1, -1));
+        returnThis.add(new xyPair(1, 0));
+        returnThis.add(new xyPair(1, 1));
+
+        returnThis.add(new xyPair(-1, -1));
+        returnThis.add(new xyPair(-1, 0));
+        returnThis.add(new xyPair(-1, 1));
+        returnThis.add(new xyPair(-1, 2));
+
+        returnThis.add(new xyPair(2, -2));
+        returnThis.add(new xyPair(2, -1));
+        returnThis.add(new xyPair(2, 0));
+
+        returnThis.add(new xyPair(-2, 0));
+        returnThis.add(new xyPair(-2, 1));
+        returnThis.add(new xyPair(-2, 2));
+
+        return returnThis;
+    }
+
+    private List<EdgeLocation> generatePortLocs() {
+        List<EdgeLocation> returnThis = new ArrayList<>();
+
+        returnThis.add(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast));
+        returnThis.add(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast));
+        returnThis.add(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast));
+        returnThis.add(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North));
+        returnThis.add(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest));
+        returnThis.add(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest));
+        returnThis.add(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest));
+        returnThis.add(new EdgeLocation(new HexLocation(-1, -3), EdgeDirection.South));
+        returnThis.add(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South));
+
+        return returnThis;
+    }
+
 
     /////////////////////////////////////////////////////////////////////
     //----- Navigation Methods
@@ -149,7 +308,7 @@ public class Map {
         vertex_t = vertex_t.getNormalizedLocation();
 
         //Initialize the return array;
-        List<EdgeLocation> edges = new ArrayList<EdgeLocation>();
+        List<EdgeLocation> edges = new ArrayList<>();
 
         //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
         if (vertex_t.getDir() == VertexDirection.NorthEast) {
@@ -179,7 +338,7 @@ public class Map {
         EdgeLocation temp_edge;
 
         //Initialize the return array;
-        List<EdgeLocation> edges = new ArrayList<EdgeLocation>();
+        List<EdgeLocation> edges = new ArrayList<>();
 
         //If the vertex is a NorthEast Vertex, return the local N and NE edges and the NE neighbor's NW edge
         if (vertex_t.getDir() == VertexDirection.NorthEast) {
@@ -224,67 +383,50 @@ public class Map {
     //----- Function: These methods DO STUFF, often using the navigational methods
     /////////////////////////////////////////////////////////////////////////////////
 
-    /**
-     * Queries the HashMap of hexes looking for tiles with a specific number value. Could
-     * potentially be hard coded at map creation
-     *
-     * @param number the number to look for inside each of the hexes
-     * @return An ArrayList of HexLocations of hexes assigned the given number.
-     */
-    public ArrayList<HexLocation> queryNumber(int number) {
-
-        return null;
-    }
-    
     /*
      * Checks to see if both starting settlments have a road adjacent to them.
      * If they don't return false
      */
-    public boolean canPlaceDuring2ndRoundSetup(EdgeLocation edge, int player)
-    {    	
-    	if (canPlaceRoad(edge, player) == false)
-    	{
-    		return false; 
-    	}
-    	
+    public boolean canPlaceDuring2ndRoundSetup(EdgeLocation edge, int player) {
+        if (!canPlaceRoad(edge, player)) {
+            return false;
+        }
+
         edge = edge.getNormalizedLocation();
-            		
-    	for (Settlement settle : settlements.values())
-    	{
- 
-    		if (settle.player == player){
-    			VertexLocation settleLoc = settle.location;
-    	        List<EdgeLocation> firstEdges = findEdges(settleLoc);
-    	        boolean hasAdjacentRoad = false; 
-    	        
-    	        for (EdgeLocation edge_t : firstEdges) {
-    	        	if (edge_t.equals(edge))
-    	        		hasAdjacentRoad = true; 
-    	        	
+
+        for (Settlement settle : settlements.values()) {
+
+            if (settle.player == player) {
+                VertexLocation settleLoc = settle.location;
+                List<EdgeLocation> firstEdges = findEdges(settleLoc);
+                boolean hasAdjacentRoad = false;
+
+                for (EdgeLocation edge_t : firstEdges) {
+                    if (edge_t.equals(edge))
+                        hasAdjacentRoad = true;
+
                     if (roads.containsKey(edge_t))
-                        if (roads.get(edge_t).owner == player )
-                        	hasAdjacentRoad = true; 
+                        if (roads.get(edge_t).owner == player)
+                            hasAdjacentRoad = true;
                 }
 
                 //if the player owns no adjoining edges, return false
-                if (hasAdjacentRoad == false)
+                if (!hasAdjacentRoad)
                     return false;
-    	        
-    		}
-    	}
-   
-    	return true; // both starting settlements have adjacent roads. Woohoo!
-    	
-    }
 
-    public void placeRoad(EdgeLocation edge, int player)
-    {
+            }
+        }
+
+        return true; // both starting settlements have adjacent roads. Woohoo!
 
     }
 
-    public void placeLocalRoad(EdgeLocation edge, int player)
-    {
-        if(!canPlaceRoad(edge, player))
+    public void placeRoad(EdgeLocation edge, int player) {
+
+    }
+
+    public void placeLocalRoad(EdgeLocation edge, int player) {
+        if (!canPlaceRoad(edge, player))
             return;
 
         Road newRoad = new Road(edge, player);
@@ -315,13 +457,11 @@ public class Map {
         VertexLocation right = findVertexRight(edge);
         boolean rightSetPresent = false;
 
-        if (settlements.containsKey(left))
-        {
+        if (settlements.containsKey(left)) {
             leftSetPresent = true;
             if (settlements.get(left).player == player)
                 return true;
         }
-
 
 
         if (settlements.containsKey(right)) {
@@ -332,7 +472,7 @@ public class Map {
 
         //----- is there a player owned road adj to the edgj
         //--- must consider the cases where a different player owns a settlement on either left or right
-        List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
+        List<EdgeLocation> adjEdges = new ArrayList<>();
 
         if (!leftSetPresent)
             adjEdges.addAll(findEdges(left, edge));
@@ -341,11 +481,11 @@ public class Map {
             adjEdges.addAll(findEdges(right, edge));
 
         //for each edge adj to the edge in question
-        for (int i = 0; i < adjEdges.size(); i++) {
+        for (EdgeLocation adjEdge : adjEdges) {
             //does roads contain each adj edge (does there exist roads next to the edge)
-            if (roads.containsKey(adjEdges.get(i))) {
+            if (roads.containsKey(adjEdge)) {
                 //does that road belong to the given player
-                if (roads.get(adjEdges.get(i)).owner == player)
+                if (roads.get(adjEdge).owner == player)
                     return true;
             }
         }
@@ -353,51 +493,10 @@ public class Map {
         return false;
     }
 
-   /* public boolean canPlaceRoadSetup(EdgeLocation edge, int player) {
-        //normalize the edge
-        edge = edge.getNormalizedLocation();
-
-        //--- check for ocean roads
-        //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
-        //check that there exists in hexes at least ONE of the hex locations
-        HexLocation one = edge.getHexLoc();
-        HexLocation two = one.getNeighborLoc(edge.getDir());
-
-        if (!hexes.containsKey(one) && !hexes.containsKey(two))
-            return false;
-
-        //is there a road already present at edge
-        if (roads.containsKey(edge))
-            return false;
-
-        //is there a road adj to this road ... that the placing player owns
-        VertexLocation left = findVertexLeft(edge);
-        VertexLocation right = findVertexRight(edge);
-
-        List<EdgeLocation> adjEdges = new ArrayList<EdgeLocation>();
-        adjEdges.addAll(findEdges(left, edge));
-        adjEdges.addAll(findEdges(right, edge));
-
-        //for each edge adj to the edge in question
-        for (int i = 0; i < adjEdges.size(); i++) {
-            //does roads contain each adj edge (does there exist roads next to the edge)
-            if (roads.containsKey(adjEdges.get(i))) {
-                if(roads.get(adjEdges.get(i)).owner == player)
-                    return false;
-            }
-        }
-
-        //check that at least one of the vertexes on this edge can have a settlement attached to it
-        if(!canPlaceSettlementSetup(left, player) && !canPlaceSettlementSetup(right, player))
-            return false;
-
-        return true;
-    }*/
-
     public HashSet<Integer> getPlayersOnHex(HexLocation hex) {
         //collect the 6 vertexes
-        ArrayList<VertexLocation> vertexes = new ArrayList<VertexLocation>();
-        HashSet<Integer> returnThis = new HashSet<Integer>();
+        ArrayList<VertexLocation> vertexes = new ArrayList<>();
+        HashSet<Integer> returnThis = new HashSet<>();
 
         VertexLocation northEast = new VertexLocation(hex, VertexDirection.NorthEast);
         VertexLocation northWest = new VertexLocation(hex, VertexDirection.NorthWest);
@@ -422,10 +521,10 @@ public class Map {
 
     public boolean canPlaceSettlement(VertexLocation vertex, int playerIndex, boolean setUp) {
         List<EdgeLocation> firstEdges = findEdges(vertex);
-        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
+        List<EdgeLocation> firstEdgesPlayer = new ArrayList<>();
 
         //----- check for an occupied vertex
-        if(settlements.containsKey(vertex))
+        if (settlements.containsKey(vertex))
             return false;
 
         //----- check for ocean tiles
@@ -434,17 +533,17 @@ public class Map {
         HexLocation two = vertex.getHexLoc().getNeighborLoc(EdgeDirection.North);
         HexLocation three;
 
-        if(vertex.getDir() == VertexDirection.NorthEast)
+        if (vertex.getDir() == VertexDirection.NorthEast)
             three = vertex.getHexLoc().getNeighborLoc(EdgeDirection.NorthEast);
         else
             three = vertex.getHexLoc().getNeighborLoc(EdgeDirection.NorthWest);
 
-        if(!hexes.containsKey(one) && !hexes.containsKey(two) && !hexes.containsKey(three))
+        if (!hexes.containsKey(one) && !hexes.containsKey(two) && !hexes.containsKey(three))
             return false;
 
         //----- must be adj to a player road
         //--- EXCEPTION: setup phase
-        if(!setUp) {
+        if (!setUp) {
             for (EdgeLocation edge_t : firstEdges) {
                 if (roads.containsKey(edge_t))
                     if (roads.get(edge_t).owner == playerIndex)
@@ -458,7 +557,7 @@ public class Map {
 
         //----- can not be within 2 edges of another settlement
         //--- in other words, there can't be a settlement 1 vertex away
-        Set<VertexLocation> firstVertex = new HashSet<VertexLocation>();
+        Set<VertexLocation> firstVertex = new HashSet<>();
         for (EdgeLocation edge_t : firstEdges) {
             firstVertex.add(findVertexLeft(edge_t));
             firstVertex.add(findVertexRight(edge_t));
@@ -474,94 +573,10 @@ public class Map {
         return true;
     }
 
-    public boolean canPlaceRobber(HexLocation hexLoc)
-    {
-        if(hexLoc == robber)
-            return false;
+    public boolean canPlaceRobber(HexLocation hexLoc) {
+        return hexLoc != robber && hexes.containsKey(hexLoc);
 
-        if(!hexes.containsKey(hexLoc))
-            return false;
-
-        return true;
     }
-
-/*
-    public boolean canPlaceSettlement(VertexLocation vertex, int player) {
-
-        //----- check for a player owned edge adjacent to the given vertex
-        List<EdgeLocation> firstEdges = findEdges(vertex);
-        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
-        for (EdgeLocation edge_t : firstEdges) {
-            if (roads.containsKey(edge_t))
-                if (roads.get(edge_t).owner == player)
-                    firstEdgesPlayer.add(edge_t);
-        }
-
-        //if the player owns no adjoining edges, return false
-        if (firstEdgesPlayer.size() == 0)
-            return false;
-
-        //---check for ANY settlements one edge away from given vertex
-        //--collect all the vertexes
-        Set<VertexLocation> firstVertex = new HashSet<VertexLocation>();
-        for (EdgeLocation edge_t : firstEdges) {
-            firstVertex.add(findVertexLeft(edge_t));
-            firstVertex.add(findVertexRight(edge_t));
-        }
-        //--remove the original vertex
-        firstVertex.remove(vertex);
-        //--check for settlements
-        for (VertexLocation vertex_t : firstVertex) {
-            if (settlements.containsKey(vertex_t))
-                return false;
-        }
-
-        //--acquire player owned edges 1 edge away from the given vertex
-        //-collect the vertexes connected to player roads
-        Set<VertexLocation> firstVertexPlayer = new HashSet<VertexLocation>();
-        for (EdgeLocation edge_t : firstEdgesPlayer) {
-            firstVertexPlayer.add(findVertexLeft(edge_t));
-            firstVertexPlayer.add(findVertexRight(edge_t));
-        }
-        firstVertexPlayer.remove(vertex);
-        //-collect second edges connected to player roads via vertex
-        Set<EdgeLocation> secondEdges = new HashSet<EdgeLocation>();
-        for (VertexLocation vertex_t : firstVertexPlayer) {
-            secondEdges.addAll(findEdges(vertex_t));
-        }
-        secondEdges.removeAll(firstEdges);
-
-        //--if any of the edges 2 edges away from the vertex (connected to the player roads) return true
-        for (EdgeLocation edge_t : secondEdges) {
-            if (roads.containsKey(edge_t))
-                if (roads.get(edge_t).owner == player)
-                    return true;
-        }
-
-        return false;
-    }
-*/
-
-/*
-    boolean canPlaceSettlementSetup(VertexLocation vertLoc, int playerIndex) {
-        //---check for a player owned edge adjacent to the given vertex
-        List<EdgeLocation> firstEdges = findEdges(vertLoc);
-        List<EdgeLocation> firstEdgesPlayer = new ArrayList<EdgeLocation>();
-        for (EdgeLocation edge_t : firstEdges) {
-            if (roads.containsKey(edge_t))
-                if (roads.get(edge_t).owner == playerIndex)
-                    firstEdgesPlayer.add(edge_t);
-        }
-
-        //-if the player owns no adjoinging edges, return false
-        if (firstEdgesPlayer.size() == 0) {
-            System.out.format("Map : canPlaceSettmentSetup : return false : no adjoining edges");
-            return false;
-        }
-
-        return true;
-    }
-*/
 
     public boolean canPlaceCity(VertexLocation location, int player) {
         if (!settlements.containsKey(location))
@@ -570,16 +585,14 @@ public class Map {
         if (settlements.get(location).player != player)
             return false;
 
-        if (settlements.get(location).isCity)
-            return false;
+        return !settlements.get(location).isCity;
 
-        return true;
     }
 
     public Set<PortType> canMaritimeTrade(int player) {
 
-        HashMap<VertexLocation, PortType> filterMap = new HashMap<VertexLocation, PortType>();
-        Set<PortType> openPorts = new HashSet<PortType>();
+        HashMap<VertexLocation, PortType> filterMap = new HashMap<>();
+        Set<PortType> openPorts = new HashSet<>();
 
         //---scan all the port edges and collect the vertexes
         //--classify the vertexes by port type (4 vertexes per type)

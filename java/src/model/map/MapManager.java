@@ -28,9 +28,8 @@ public class MapManager implements IMapManager {
     private Map map;
 
     public MapManager(boolean randomTile, boolean randomNumbers, boolean randomPorts) {
-		// TODO Auto-generated constructor stub
+        map = new Map(randomTile, randomNumbers, randomPorts);
 	}
-
 
     public MapManager(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, Settlement> settlements_t,
                       HashMap<EdgeLocation, Port> ports_t, HashMap<EdgeLocation, Road> roads_t,
