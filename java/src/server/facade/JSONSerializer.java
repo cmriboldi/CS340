@@ -132,12 +132,81 @@ public class JSONSerializer {
 			location.addProperty("y", p.location.getHexLoc().getY());
 			port.addProperty("resource", p.getType().toString());
 			port.add("location", location);
-			port.addProperty("direction", p.);
+			port.addProperty("direction", p.getRatio());
 			port.addProperty("ratio", p.location.getDir().toString());
 						
-			hexes.add(hex);
+			ports.add(port);
 		}
 		
+		JsonArray roads = new JsonArray();
+		HashMap<EdgeLocation, Road> roadsMap = mapManager.getRoads();
+		for(Road r : roadsMap.values())
+		{
+			JsonObject road = new JsonObject();			
+			JsonObject location = new JsonObject();
+			
+			
+			location.addProperty("x", r.location.getHexLoc().getX());
+			location.addProperty("y", r.location.getHexLoc().getY());
+			road.addProperty("owner", r.getOwner());
+			road.add("location", location);
+			road.addProperty("direction", r.location.getDir().toString());
+						
+			roads.add(road);
+		}
+		
+		JsonArray setts = new JsonArray();
+		HashMap<VertexLocation, Settlement> settMap = mapManager.getSettlements();
+		for(Settlement s : settMap.values())
+		{
+			if(s.isCity())
+				continue;
+			
+			JsonObject sett = new JsonObject();			
+			JsonObject location = new JsonObject();
+			
+			
+			location.addProperty("x", s.location.getHexLoc().getX());
+			location.addProperty("y", s.location.getHexLoc().getY());
+			sett.addProperty("owner", s.getPlayer());
+			sett.add("location", location);
+			sett.addProperty("direction", s.location.getDir().toString());
+						
+			setts.add(sett);
+		}
+		
+		JsonArray cities = new JsonArray();
+		for(Settlement s : settMap.values())
+		{
+			if(!s.isCity())
+				continue;
+			
+			JsonObject sett = new JsonObject();			
+			JsonObject location = new JsonObject();
+			
+			
+			location.addProperty("x", s.location.getHexLoc().getX());
+			location.addProperty("y", s.location.getHexLoc().getY());
+			sett.addProperty("owner", s.getPlayer());
+			sett.add("location", location);
+			sett.addProperty("direction", s.location.getDir().toString());
+						
+			cities.add(sett);
+		}
+		
+		map.add("hexes", hexes);
+		map.add("ports", ports);
+		map.add("roads", roads);
+		map.add("settlements", setts);
+		map.add("cities", cities);
+		
+		map.addProperty("radius", mapManager.getMapRadius());
+		
+		JsonObject robber = new JsonObject();
+		robber.addProperty("x", mapManager.getRobber().getX());
+		robber.addProperty("y", mapManager.getRobber().getY());
+		
+		map.add("robber", robber);		
 	}
 	
 	private String _serialize(CatanModel model)
