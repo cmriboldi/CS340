@@ -1,7 +1,6 @@
 package server.handler;
 
 import com.sun.net.httpserver.HttpExchange;
-import server.data.UserInfo;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.facade.FacadeHolder;
