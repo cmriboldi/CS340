@@ -41,6 +41,7 @@ public class ServerFacade implements IServerFacade
     @Override
     public String login(String username, String password) throws ServerException
     {
+    	System.out.println("Logging in (username): " + username + " (password): " + password); 
         if(!isValidUser(new AuthToken(username, password, -1, -1)))
             throw new InvalidCredentialsException("Login attempt invalid");
 
@@ -60,6 +61,7 @@ public class ServerFacade implements IServerFacade
     @Override
     public String register(String username, String password) throws ServerException
     {
+    	System.out.println("Registering (username): " + username + " (password): " + password); 
         UserInfo user = new UserInfo(username, password);
         database.addUser(user);
         try

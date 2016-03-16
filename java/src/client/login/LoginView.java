@@ -335,7 +335,7 @@ public class LoginView extends OverlayView implements ILoginView
         {
             this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 
-            this.add(lblRegister);
+            //this.add(lblRegister);
 
             this.add(Box.createVerticalGlue());
 

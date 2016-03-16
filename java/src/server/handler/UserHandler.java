@@ -35,6 +35,7 @@ public class UserHandler extends APIHandler
             IServerFacade facade = FacadeHolder.getFacade();
             LoginJSON json;
             String response;
+            System.out.println("handler: " + uri); 
 
             switch(uri)
             {
