@@ -174,4 +174,9 @@ public class Banker
 		return this.bank.getResourceTypeCount(resource) > 0;
 	}
 
+	public ResourceList getBankResources()
+	{
+		return this.bank;
+	}
+
 }
