@@ -6,7 +6,7 @@ import model.players.Player;
 import model.players.PlayerTurnTracker;
 import server.AuthToken;
 import server.command.ICommand;
-import server.data.UserInfo;
+import server.data.UserData;
 import server.database.IDatabase;
 import server.exception.*;
 import shared.definitions.CatanColor;
@@ -45,7 +45,7 @@ public class ServerFacade implements IServerFacade
         if(!isValidUser(new AuthToken(username, password, -1, -1)))
             throw new InvalidCredentialsException("Login attempt invalid");
 
-        UserInfo user = database.getUserByName(username);
+        UserData user = database.getUserByName(username);
         try
         {
             String userCookie = "catan.user=" + URLEncoder.encode(user.toJSON(), "UTF-8") + ";Path=/;";
@@ -61,8 +61,8 @@ public class ServerFacade implements IServerFacade
     @Override
     public String register(String username, String password) throws ServerException
     {
-    	System.out.println("Registering (username): " + username + " (password): " + password); 
-        UserInfo user = new UserInfo(username, password);
+    	System.out.println("Registering (username): " + username + " (password): " + password);
+        UserData user = new UserData(username, password);
         database.addUser(user);
         try
         {
@@ -101,9 +101,8 @@ public class ServerFacade implements IServerFacade
         CatanModel model = database.getGameModel(gameId);
         PlayerTurnTracker turnTracker = model.getPlayerManager().getTurnTracker();
 
-        
         // Game full and playerID not in list of current players
-        if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4)
+        /*if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4)
         {
         	System.out.println("Join Game is already full and player " + token.getPlayerID() + " is not listed as a current player");
         	// do nothing because "playerID" can't join this game
@@ -124,7 +123,7 @@ public class ServerFacade implements IServerFacade
         	int playerIndex = model.playerManager.getInitializedPlayerCount();
         	Player newPlayer = new Player(token.getName(),token.getPlayerID(), color, playerIndex);
         	model.playerManager.catanPlayers[playerIndex] = newPlayer;
-        }
+        }*/
 
 
        if (model.playerManager.getCatanPlayers().length >=4)

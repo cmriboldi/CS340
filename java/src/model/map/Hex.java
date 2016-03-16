@@ -48,7 +48,14 @@ public class Hex {
         location = new HexLocation(x_t, y_t);
         number = number_t;
         resource = resource_t; /*Depreciated*/
-        resourceHexType = HexType.valueOf(resource);
+        resourceHexType = HexType.valueOf(resource_t);
+    }
+
+    public Hex(int x_t, int y_t, HexType resource_t, int number_t)
+    {
+        location = new HexLocation(x_t, y_t);
+        number = number_t;
+        resourceHexType = resource_t;
     }
 
     /**
