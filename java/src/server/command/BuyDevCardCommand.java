@@ -1,6 +1,10 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
+import server.facade.FacadeHolder;
+import server.facade.IServerFacade;
 import shared.communication.JSON.BuyDevCardJSON;
 import shared.communication.JSON.IJavaJSON;
 
@@ -23,7 +27,17 @@ public class BuyDevCardCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
+		IServerFacade facade;
+		CatanModel cm = null;
+		try
+		{
+			facade = FacadeHolder.getFacade();
+			cm = facade.getGameModel(authToken);
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 

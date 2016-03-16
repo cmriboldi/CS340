@@ -174,9 +174,9 @@ public class Banker
 		return this.bank.getResourceTypeCount(resource) > 0;
 	}
 
-	public ResourceList getBankResources()
+	public int getBankResourceCount(ResourceType resource)
 	{
-		return this.bank;
+		return bank.getResourceTypeCount(resource);
 	}
 
 }
