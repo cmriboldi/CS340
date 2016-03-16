@@ -3,18 +3,18 @@ package server.data;
 /**
  * Created by Joshua on 3/11/2016.
  */
-public class UserInfo
+public class UserData
 {
     private int id;
     private String name;
     private String password;
 
-    public UserInfo()
+    public UserData()
     {
 
     }
 
-    public UserInfo(String name, String password)
+    public UserData(String name, String password)
     {
         this.name = name;
         this.password = password;
