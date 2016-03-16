@@ -116,7 +116,7 @@ public class ServerFacade implements IServerFacade
         //Player can Join game first time
         if(!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() < 4)
         {
-        	int playerIndex = getInitializedPlayerCount();
+        	int playerIndex = model.playerManager.getInitializedPlayerCount();
         	Player newPlayer = new Player(token.getName(),token.getPlayerID(), color, playerIndex);
         	model.playerManager.catanPlayers[playerIndex] = newPlayer;
         }
