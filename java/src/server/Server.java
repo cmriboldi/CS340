@@ -5,20 +5,22 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.logging.*;
+
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.google.inject.Injector;
 import com.sun.net.httpserver.*;
 import server.database.IDatabase;
 import server.database.VolatileDatabase;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
-import server.handler.GamesHandler;
-import server.handler.MovesHandler;
-import server.handler.SwaggerHandler;
-import server.handler.UserHandler;
+import server.guice.VolatileRealModule;
+import server.handler.*;
 
 /**
  * Created by Joshua on 3/9/2016.
- *
+ * <p/>
  * The HTTP Server that hosts the Catan Game API
  *
  * @author Christian Riboldi
@@ -28,67 +30,50 @@ import server.handler.UserHandler;
  * @author Joshua Van Steeter
  * @version 1.0 Build Winter 2016.
  */
-public class Server
-{
+public class Server {
     private static int SERVER_PORT_NUMBER = 8081;
     private static final int MAX_WAITING_CONNECTIONS = 10;
 
-//    private static Logger logger;
+    private HttpHandler userHandler;
+    private HttpHandler gamesHandler;
+    private HttpHandler gameHandler;
+    private HttpHandler movesHandler;
+    private HttpHandler swaggerHandler;
 
-//    static
-//    {
-//        try
-//        {
-//            initLog();
-//        }
-//        catch (IOException e)
-//        {
-//            System.out.println("Could not initialize log: " + e.getMessage());
-//        }
-//    }
-//
-//    private static void initLog() throws IOException
-//    {
-//        Level logLevel = Level.FINE;
-//
-//        logger = Logger.getLogger("contactmanager");
-//        logger.setLevel(logLevel);
-//        logger.setUseParentHandlers(false);
-//
-//        Handler consoleHandler = new ConsoleHandler();
-//        consoleHandler.setLevel(logLevel);
-//        consoleHandler.setFormatter(new SimpleFormatter());
-//        logger.addHandler(consoleHandler);
-//
-//        FileHandler fileHandler = new FileHandler("log.txt", false);
-//        fileHandler.setLevel(logLevel);
-//        fileHandler.setFormatter(new SimpleFormatter());
-//        logger.addHandler(fileHandler);
-//    }
+    private HttpServer server;
 
-    private static String getURL()
-    {
+    private Server() {
+        return;
+    }
+
+
+    public static void main(String[] args) {
+        new Server().run(args);
+    }
+
+    private static String getURL() {
         String result = "";
-        try
-        {
+        try {
             result = "http://" + InetAddress.getLocalHost().getHostName() + ":" + SERVER_PORT_NUMBER;
-        }
-        catch (UnknownHostException e)
-        {
+        } catch (UnknownHostException e) {
             e.printStackTrace();
         }
         return result;
     }
 
-    private HttpServer server;
 
-    private Server()
-    {
-        return;
-    }
+    private void run(String[] args) {
+        //Create the new Guice injector
+        Injector injector = Guice.createInjector(new VolatileRealModule());
 
-    private void run(String[] args)
-    {
+        //initialize the http handlers
+        userHandler = injector.getInstance(UserHandler.class);
+        gamesHandler = injector.getInstance(GamesHandler.class);
+        gameHandler = injector.getInstance(GameHandler.class);
+        movesHandler = injector.getInstance(MovesHandler.class);
+        swaggerHandler = injector.getInstance(SwaggerHandler.class);
+
+
         // Parse Arguments
 
 
@@ -98,7 +83,7 @@ public class Server
 //        logger.info("Initializing Model");
 
         // For now, we will use defaults
-        try
+        /*try
         {
             DIFactory factory = new DIFactory();
             factory.bind(IDatabase.class, VolatileDatabase.class);
@@ -111,17 +96,15 @@ public class Server
 //            logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
             return;
-        }
+        }*/
 
-//        logger.info("Initializing HTTP Server");
+//       logger.info("Initializing HTTP Server");
 
-        try
-        {
+
+        try {
             server = HttpServer.create(new InetSocketAddress(SERVER_PORT_NUMBER),
                     MAX_WAITING_CONNECTIONS);
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
 //            logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
             return;
@@ -142,15 +125,6 @@ public class Server
         server.start();
     }
 
-    private HttpHandler userHandler = new UserHandler();
-    private HttpHandler gamesHandler = new GamesHandler();
-    private HttpHandler gameHandler = new GamesHandler();
-    private HttpHandler movesHandler = new MovesHandler();
-    private HttpHandler swaggerHandler = new SwaggerHandler();
 
-    public static void main(String[] args)
-    {
-        new Server().run(args);
-    }
 }
 

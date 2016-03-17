@@ -1,16 +1,13 @@
 package server.handler;
 
+import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
-import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
-import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.LoginJSON;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URLDecoder;
 
 /**
  * Created by Joshua on 3/10/2016.
@@ -25,13 +22,17 @@ import java.net.URLDecoder;
  */
 public class UserHandler extends APIHandler
 {
+    @Inject
+    public UserHandler(IServerFacade facade_p) {
+        super(facade_p);
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException
     {
         try
         {
             String uri = httpExchange.getRequestURI().toString();
-            IServerFacade facade = FacadeHolder.getFacade();
             LoginJSON json;
             String response;
             System.out.println("handler: " + uri); 

@@ -90,11 +90,17 @@ public class PlayerManager
 	
 	public boolean containsId(int userID)
 	{
+		if (catanPlayers[0] == null)
+		{
+			return true;
+		}
 		for (int i = 0; i < catanPlayers.length; i++)
 		{
-			if (catanPlayers[i].getId() == userID) return true; 
+			if (catanPlayers[i].getId() == userID)
+			{
+				return true;
+			}
 		}
-		
 		return false; 
 	}
 	

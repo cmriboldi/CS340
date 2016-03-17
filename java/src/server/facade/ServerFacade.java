@@ -1,6 +1,7 @@
 package server.facade;
 
 import client.data.GameInfo;
+import com.google.inject.Inject;
 import model.CatanModel;
 import model.players.Player;
 import model.players.PlayerTurnTracker;
@@ -27,12 +28,13 @@ import java.net.URLEncoder;
  */
 public class ServerFacade implements IServerFacade
 {
-    private IDatabase database;
+    private final IDatabase database;
 
     /**
      * To allow for dependency injection, when constructed the database that will be used should be passed in
      * @param database The IDatabase that will be used for this build
      */
+    @Inject
     public ServerFacade(IDatabase database)
     {
     	this.database = database;
@@ -84,8 +86,8 @@ public class ServerFacade implements IServerFacade
     @Override
     public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException {
         
-    	System.out.println("[server facade ] Creating Game"); 
-    	//CatanModel newmodel = new CatanModel(); 
+    	System.out.println("[server facade ] Creating Game");
+        database.addGame(name, new CatanModel(randomTiles, randomNumbers, randomPorts));
     	return null;
     }
 

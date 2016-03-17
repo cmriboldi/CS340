@@ -1,5 +1,6 @@
 package server.handler;
 
+import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import server.AuthToken;
 import server.command.CommandFactory;
@@ -7,7 +8,6 @@ import server.command.ICommand;
 import server.exception.BadRequestException;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
-import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
 import shared.communication.JSON.*;
 
@@ -26,6 +26,14 @@ import java.io.IOException;
  */
 public class MovesHandler extends APIHandler
 {
+    private final CommandFactory commandFactory;
+
+    @Inject
+    public MovesHandler(IServerFacade facade_p) {
+        super(facade_p);
+        commandFactory = new CommandFactory(facade);
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException
     {
@@ -34,7 +42,7 @@ public class MovesHandler extends APIHandler
             System.out.println("In MovesHandler");
             AuthToken token = parseCookie(httpExchange);
             System.out.println("Parsed the cookie");
-            if(!FacadeHolder.getFacade().isValidUser(token))
+            if(!facade.isValidUser(token))
                 throw new InvalidCredentialsException("Invalid user credentials to issue command");
 
             String uri = httpExchange.getRequestURI().toString();
@@ -44,7 +52,7 @@ public class MovesHandler extends APIHandler
 
             IJavaJSON json = (IJavaJSON) getRequest(httpExchange, type);
             System.out.println("Got the request json");
-            ICommand command = CommandFactory.buildCommand(token, json);
+            ICommand command = commandFactory.buildCommand(token, json, facade);
             System.out.println("Command type returned: " + command.getClass());
             respond200(httpExchange, command.execute());
         }
