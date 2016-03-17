@@ -2,6 +2,7 @@ package server.handler;
 
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
+import server.exception.BadRequestException;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
@@ -35,31 +36,35 @@ public class UserHandler extends APIHandler
             String uri = httpExchange.getRequestURI().toString();
             LoginJSON json;
             String response;
-            System.out.println("handler: " + uri); 
+            System.out.println("USER_HANDLER: " + uri);
 
             switch(uri)
             {
                 case "/user/register":
                     json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
-                    response = facade.register(((LoginJSON)json).getUsername(), ((LoginJSON)json).getPassword());
+                    response = facade.register(json.getUsername(), json.getPassword());
                     httpExchange.getResponseHeaders().add("Set-cookie", response);
                     success(httpExchange);
                     break;
 
                 case "/user/login":
                     json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
-                    response = facade.login(((LoginJSON)json).getUsername(), ((LoginJSON)json).getPassword());
+                    response = facade.login(json.getUsername(), json.getPassword());
                     httpExchange.getResponseHeaders().add("Set-cookie", response);
                     success(httpExchange);
                     break;
+
+                default:
+                    respond404(httpExchange);
             }
-            System.out.println("Printing stuff out here: " + uri);
-            System.out.println("Hey I'm actually getting touched");
         }
         catch (ServerException e)
         {
+            if(e.getClass().equals(BadRequestException.class))
+                respond400(httpExchange);
             if(e.getClass().equals(InvalidCredentialsException.class))
                 respond401(httpExchange);
+            httpExchange.close();
             e.printStackTrace();
         }
     }

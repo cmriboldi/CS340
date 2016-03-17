@@ -1,6 +1,7 @@
 package server.facade;
 
 import client.data.GameInfo;
+import client.data.PlayerInfo;
 import com.google.inject.Inject;
 import model.CatanModel;
 import model.players.Player;
@@ -15,6 +16,8 @@ import shared.definitions.CatanColor;
 import java.io.SyncFailedException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * The ServerFacade class controls all interactions between the command classes, the handlers, and the database. 
@@ -88,8 +91,7 @@ public class ServerFacade implements IServerFacade
     public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException {
         
     	System.out.println("[server facade ] Creating Game");
-        database.addGame(name, new CatanModel(randomTiles, randomNumbers, randomPorts));
-    	return null;
+    	return database.createGame(randomTiles, randomNumbers, randomPorts, name);
     }
 
     @Override
@@ -97,19 +99,10 @@ public class ServerFacade implements IServerFacade
     {
         if(!isValidUser(token))
         {
-        	System.out.println(" invalid user"); 
             throw new UnauthorizedException("Join Game attempt is not authorized");
         }
 
-        System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
-        
         CatanModel model = database.getGameModel(gameId);
-
-        System.out.println("(1)");
-        System.out.println("init player count: " + model.getPlayerManager().getInitializedPlayerCount());
-        System.out.println("(2)");
-        PlayerTurnTracker turnTracker = model.getPlayerManager().getTurnTracker();
-
         
         // Game full and playerID not in list of current players
         if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4)
@@ -144,8 +137,6 @@ public class ServerFacade implements IServerFacade
         ////////////////////////////////////////////////////////////////////////////////////////
         //          Logic to add player to the Catan Model
         ////////////////////////////////////////////////////////////////////////////////////////
-       
-       System.out.println("init player count: " + model.getPlayerManager().getInitializedPlayerCount()); 
 
         return "catan.game=" + gameId + ";Path=/;";
     }

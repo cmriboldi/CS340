@@ -39,21 +39,18 @@ public class MovesHandler extends APIHandler
     {
         try
         {
-            System.out.println("In MovesHandler");
             AuthToken token = parseCookie(httpExchange);
-            System.out.println("Parsed the cookie");
             if(!facade.isValidUser(token))
                 throw new InvalidCredentialsException("Invalid user credentials to issue command");
 
             String uri = httpExchange.getRequestURI().toString();
-            System.out.println("URI=" + uri);
+            System.out.println("MOVES_HANDLER: " + uri);
             Class<?> type = IJavaJSON.getTypeFromURI(uri);
-            System.out.println("Type= " + type.toString());
+            if(type == null)
+                respond404(httpExchange, "Invalid Command type");
 
             IJavaJSON json = (IJavaJSON) getRequest(httpExchange, type);
-            System.out.println("Got the request json");
             ICommand command = commandFactory.buildCommand(token, json, facade);
-            System.out.println("Command type returned: " + command.getClass());
             respond200(httpExchange, command.execute());
         }
         catch (ServerException e)
@@ -62,6 +59,7 @@ public class MovesHandler extends APIHandler
                 respond400(httpExchange);
             if(e.getClass().equals(InvalidCredentialsException.class))
                 respond401(httpExchange);
+            e.printStackTrace();
         }
     }
 }

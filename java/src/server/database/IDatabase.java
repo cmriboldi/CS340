@@ -13,6 +13,8 @@ public interface IDatabase
 
     void addGame(String name, CatanModel game);
 
+    GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name);
+
     UserData getUserById(int id);
 
     UserData getUserByName(String name);

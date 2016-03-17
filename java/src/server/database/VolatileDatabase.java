@@ -47,6 +47,30 @@ public class VolatileDatabase implements IDatabase
     }
 
     @Override
+    public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name)
+    {
+        CatanModel newGame = new CatanModel(randomTiles, randomNumbers, randomPorts);
+        List players = new ArrayList<>();
+        Player[] playerArray = newGame.getPlayerManager().getCatanPlayers();
+
+        for(int j = 0; j < playerArray.length; j++)
+        {
+            if(playerArray[j] != null)
+            {
+                players.add(new PlayerInfo(playerArray[j].getId(), j, playerArray[j].getName(), playerArray[j].getColor().toString()));
+            }
+            else
+            {
+                players.add(new Object());
+            }
+        }
+        GameInfo game = new GameInfo(gameIndex, name, players);
+        addGame(name, newGame);
+
+        return game;
+    }
+
+    @Override
     public UserData getUserById(int id)
     {
         return players.get(id);
@@ -87,8 +111,6 @@ public class VolatileDatabase implements IDatabase
     @Override
     public GameInfo[] listGames()
     {
-        System.out.println("List Games");
-        System.out.println("(1)");
         List<GameInfo> gameList = new ArrayList<>();
 
         for(int i = 0; i < games.size(); i++)
@@ -96,23 +118,17 @@ public class VolatileDatabase implements IDatabase
             List players = new ArrayList<>();
             Player[] playerArray = this.games.get(i).getModel().getPlayerManager().getCatanPlayers();
 
-            System.out.println("(2)");
             for(int j = 0; j < playerArray.length; j++)
             {
-                System.out.println("(2.1): " + j);
                 if(playerArray[j] != null)
                 {
-                    System.out.println("(3): " + j);
-                    players.add(new PlayerInfo(playerArray[j].getId(), playerArray[j].getName(), playerArray[j].getColor().toString()));
+                    players.add(new PlayerInfo(playerArray[j].getId(), j, playerArray[j].getName(), playerArray[j].getColor().toString()));
                 }
                 else
                 {
-                    System.out.println("(3.1): " + j);
                     players.add(new Object());
-                    System.out.println("(3.2)");
                 }
             }
-            System.out.println("(4)");
             gameList.add(new GameInfo(i, this.games.get(i).getName(), players));
         }
 

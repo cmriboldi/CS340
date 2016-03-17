@@ -95,11 +95,39 @@ public abstract class APIHandler implements HttpHandler
         exchange.close();
     }
 
+    protected void respond400(HttpExchange exchange, String response)
+    {
+        try
+        {
+            exchange.sendResponseHeaders(400, response.length());
+            exchange.getResponseBody().write(response.getBytes());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        exchange.close();
+    }
+
     protected void respond401(HttpExchange exchange)
     {
         try
         {
             exchange.sendResponseHeaders(401, -1);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        exchange.close();
+    }
+
+    protected void respond401(HttpExchange exchange, String response)
+    {
+        try
+        {
+            exchange.sendResponseHeaders(401, response.length());
+            exchange.getResponseBody().write(response.getBytes());
         }
         catch (IOException e)
         {
@@ -115,6 +143,28 @@ public abstract class APIHandler implements HttpHandler
      */
     protected void respond404(HttpExchange exchange)
     {
+        try
+        {
+            exchange.sendResponseHeaders(404, -1);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        exchange.close();
+    }
+
+    protected void respond404(HttpExchange exchange, String response)
+    {
+        try
+        {
+            exchange.sendResponseHeaders(404, response.length());
+            exchange.getResponseBody().write(response.getBytes());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
         exchange.close();
     }
 

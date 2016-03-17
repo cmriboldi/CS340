@@ -4,6 +4,8 @@ import client.data.GameInfo;
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import server.AuthToken;
+import server.exception.BadRequestException;
+import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.exception.UnauthorizedException;
 import server.facade.IServerFacade;
@@ -37,6 +39,7 @@ public class GamesHandler extends APIHandler
         try
         {
             String uri = httpExchange.getRequestURI().toString();
+            System.out.println("GAMES_HANDLER: " + uri);
 
             switch(uri)
             {
@@ -53,21 +56,24 @@ public class GamesHandler extends APIHandler
                 case "/games/join":
                     AuthToken token = parseCookie(httpExchange);
                     JoinGameJSON joinJSON = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
-                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
+//                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
                     String cookie = facade.joinGame(token, joinJSON.getId(), CatanColor.toCatanColor(joinJSON.getColor()));
-                    System.out.println("---Finally out of the facade!!!---");
-                    System.out.println("Response:" + cookie);
+//                    System.out.println("---Finally out of the facade!!!---");
+//                    System.out.println("Response:" + cookie);
                     httpExchange.getResponseHeaders().add("Set-cookie", cookie);
                     success(httpExchange);
                     break;
+
+                default:
+                    respond404(httpExchange);
             }
         }
         catch (ServerException e)
         {
-            if(e.getClass().equals(UnauthorizedException.class))
-            {
+            if(e.getClass().equals(BadRequestException.class))
+                respond400(httpExchange);
+            if(e.getClass().equals(InvalidCredentialsException.class))
                 respond401(httpExchange);
-            }
             e.printStackTrace();
         }
     }
