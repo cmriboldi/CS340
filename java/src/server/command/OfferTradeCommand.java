@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.OfferTradeJSON;
 
@@ -8,11 +9,13 @@ public class OfferTradeCommand implements ICommand{
 
 	private AuthToken authToken = null;
 	private OfferTradeJSON body = null;
+	private final IServerFacade facade;
 	
-	public OfferTradeCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public OfferTradeCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (OfferTradeJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**

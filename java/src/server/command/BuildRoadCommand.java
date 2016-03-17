@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.BuildRoadJSON;
 import shared.communication.JSON.IJavaJSON;
 
@@ -11,11 +12,13 @@ public class BuildRoadCommand implements ICommand {
 
 	private AuthToken authToken = null;
 	private BuildRoadJSON body = null;
+	private final IServerFacade facade;
 	
-	public BuildRoadCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public BuildRoadCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (BuildRoadJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**

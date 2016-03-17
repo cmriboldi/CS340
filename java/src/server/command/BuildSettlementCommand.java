@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
 
@@ -8,11 +9,13 @@ public class BuildSettlementCommand implements ICommand {
 
 	private AuthToken authToken = null;
 	private BuildSettlementJSON body = null;
+	private final IServerFacade facade;
 	
-	public BuildSettlementCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public BuildSettlementCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (BuildSettlementJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**
