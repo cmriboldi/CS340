@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.MonumentJSON;
 
@@ -8,11 +9,13 @@ public class MonumentCommand implements ICommand {
 
 	private AuthToken authToken = null;
 	private MonumentJSON body = null;
+	private final IServerFacade facade;
 	
-	public MonumentCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public MonumentCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (MonumentJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**

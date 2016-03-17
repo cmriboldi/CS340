@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.YearOfPlentyJSON;
 
@@ -8,11 +9,13 @@ public class YearOfPlentyCommand implements ICommand {
 
 	private AuthToken authToken = null;
 	private YearOfPlentyJSON body = null;
+	private final IServerFacade facade;
 	
-	public YearOfPlentyCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public YearOfPlentyCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (YearOfPlentyJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**

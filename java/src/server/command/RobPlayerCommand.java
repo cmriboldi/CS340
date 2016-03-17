@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.RobPlayerJSON;
 
@@ -8,11 +9,13 @@ public class RobPlayerCommand implements ICommand
 {
 	private AuthToken authToken = null;
 	private RobPlayerJSON body = null;
+	private final IServerFacade facade;
 	
-	public RobPlayerCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public RobPlayerCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (RobPlayerJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**

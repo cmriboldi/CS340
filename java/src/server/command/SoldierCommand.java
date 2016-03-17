@@ -1,6 +1,7 @@
 package server.command;
 
 import server.AuthToken;
+import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.SoldierJSON;
 
@@ -8,11 +9,13 @@ public class SoldierCommand implements ICommand {
 
 	private AuthToken authToken = null;
 	private SoldierJSON body = null;
+	private final IServerFacade facade;
 	
-	public SoldierCommand(AuthToken authToken, IJavaJSON jsonBody)
+	public SoldierCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
 		this.authToken = authToken;
 		this.body = (SoldierJSON)jsonBody;
+		this.facade = facade;
 	}
 
 	/**
