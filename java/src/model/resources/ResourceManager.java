@@ -207,5 +207,10 @@ public class ResourceManager
 	{
 		return banker.bankHasResource(resource);
 	}
+	
+	public int getBankResourceCount(ResourceType resource)
+	{
+		return banker.getBankResourceCount(resource);
+	}
 
 };

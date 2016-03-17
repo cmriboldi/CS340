@@ -5,7 +5,6 @@ import model.map.MapManager;
 import model.messagelog.ChatManager;
 import model.options.Options;
 import model.players.PlayerManager;
-import model.players.PlayerTurnTracker;
 import model.resources.ResourceManager;
 
 /**

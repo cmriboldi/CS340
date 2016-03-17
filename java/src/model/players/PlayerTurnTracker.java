@@ -33,7 +33,7 @@ public class PlayerTurnTracker
 	
 	public PlayerTurnTracker()
 	{
-		status = "firstRound"; 
+		status = "FirstRound"; 
 		turnIndex = 0; 
 	}
 	

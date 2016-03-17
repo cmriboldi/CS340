@@ -36,4 +36,6 @@ public class Port extends EdgeObject {
     public PortType getType() {
         return type;
     }
+
+    public int getRatio(){return ratio;}
 }
