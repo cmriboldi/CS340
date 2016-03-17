@@ -16,6 +16,6 @@ public class VolatileRealModule extends AbstractModule {
     @Override
     protected void configure() {
         bind(IServerFacade.class).to(ServerFacade.class).in(Singleton.class);
-        bind(IDatabase.class).to(VolatileDatabase.class);
+        bind(IDatabase.class).to(VolatileDatabase.class).in(Singleton.class);
     }
 }
