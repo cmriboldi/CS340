@@ -7,11 +7,16 @@ import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuyDevCardJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.DevCardType;
+import shared.exceptions.development.NotEnoughDevCardsException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class BuyDevCardCommand implements ICommand {
 
 	private AuthToken authToken = null;
 	private BuyDevCardJSON body = null;
+	private DevCardType boughtDevCard = null;
 	
 	public BuyDevCardCommand(AuthToken authToken, IJavaJSON jsonBody)
 	{
@@ -33,12 +38,24 @@ public class BuyDevCardCommand implements ICommand {
 		{
 			facade = FacadeHolder.getFacade();
 			cm = facade.getGameModel(authToken);
-		} catch (ServerException e)
+			if(boughtDevCard == null) {
+				boughtDevCard = cm.cardManager.drawCard(body.getPlayerIndex());
+			} else {
+				cm.cardManager.addDevCard(boughtDevCard, body.getPlayerIndex());
+			}
+			cm.resourceManager.buyDevCard(body.getPlayerIndex());
+			
+		} catch (ServerException | NotEnoughDevCardsException | NotEnoughPlayerResourcesException | NotEnoughResourcesException e)
 		{
 			e.printStackTrace();
 		}
 		
-		return null;
+		if(cm != null) {
+			return "This is working";
+		} else {
+			return "This call didn't work.";
+		}
+		
 	}
 
 }

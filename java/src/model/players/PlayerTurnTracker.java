@@ -33,7 +33,8 @@ public class PlayerTurnTracker
 	
 	public PlayerTurnTracker()
 	{
-		
+		this.status = "firstround";
+		this.turnIndex = 0;
 	}
 	
 	public PlayerTurnTracker(int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException

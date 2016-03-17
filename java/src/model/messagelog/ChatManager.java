@@ -10,7 +10,8 @@ public class ChatManager
 	
 	public ChatManager()
 	{
-		// TODO Auto-generated constructor stub
+		this.chatMessages = new ArrayList<Line>();
+		this.gameHistory = new ArrayList<Line>();
 	}
 	
 	public ChatManager(List<Line> chatMessages, List<Line> gameHistory)
