@@ -1,6 +1,7 @@
 package server.handler;
 
 import client.data.GameInfo;
+import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import server.AuthToken;
 import server.exception.ServerException;
@@ -25,6 +26,7 @@ import java.io.IOException;
  */
 public class GamesHandler extends APIHandler
 {
+    @Inject
     public GamesHandler(IServerFacade facade_p) {
         super(facade_p);
     }
