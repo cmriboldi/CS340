@@ -1,6 +1,8 @@
 package server.handler;
 
+import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
+import server.facade.IServerFacade;
 
 import java.io.IOException;
 
@@ -17,6 +19,11 @@ import java.io.IOException;
  */
 public class GameHandler extends APIHandler
 {
+    @Inject
+    public GameHandler(IServerFacade facade_p) {
+        super(facade_p);
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 

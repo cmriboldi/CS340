@@ -3,12 +3,14 @@ package server.handler;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import server.AuthToken;
 import server.exception.BadRequestException;
 import server.exception.InternalErrorException;
 import server.exception.ServerException;
+import server.facade.IServerFacade;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -28,6 +30,14 @@ import java.net.URLDecoder;
  */
 public abstract class APIHandler implements HttpHandler
 {
+    protected final IServerFacade facade;
+
+    @Inject
+    public APIHandler(IServerFacade facade_p)
+    {
+        facade = facade_p;
+    }
+
     protected void success(HttpExchange exchange)
     {
         String response = "Success";
