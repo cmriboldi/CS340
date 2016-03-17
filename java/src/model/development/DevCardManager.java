@@ -153,6 +153,10 @@ public class DevCardManager
 		}
 		return unusedCardsCount;
 	}
+	
+	public Integer playedDevCardCount(int playerIndex, DevCardType devCard) {
+		return playedDevCards.getCardTypeCountForPlayer(playerIndex, devCard);
+	}
 
 	public boolean hasDevCards()
 	{
