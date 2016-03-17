@@ -1,5 +1,6 @@
 package server.handler;
 
+import client.data.GameInfo;
 import com.sun.net.httpserver.HttpExchange;
 import server.AuthToken;
 import server.exception.ServerException;
@@ -31,7 +32,6 @@ public class GamesHandler extends APIHandler
         {
             String uri = httpExchange.getRequestURI().toString();
             IServerFacade facade = FacadeHolder.getFacade();
-            String response;
 
             switch(uri)
             {
@@ -42,20 +42,19 @@ public class GamesHandler extends APIHandler
                     break;
 
                 case "/games/create":
-                    /*json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
-                    response = facade.login(((LoginJSON)json).getUsername(), ((LoginJSON)json).getPassword());
-                    httpExchange.getResponseHeaders().add("Set-cookie", response);
-                    success(httpExchange);*/
+                    CreateGameJSON json = (CreateGameJSON) getRequest(httpExchange, CreateGameJSON.class);
+                    GameInfo response = facade.createGame(json.isRandomTiles(), json.isRandomNumbers(), json.isRandomPorts(), json.getName());
+                    respond200(httpExchange, response);
                     break;
 
                 case "/games/join":
                     AuthToken token = parseCookie(httpExchange);
-                    JoinGameJSON json = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
+                    JoinGameJSON joinJSON = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
                     System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
-                    response = facade.joinGame(token, json.getId(), CatanColor.toCatanColor(json.getColor()));
+                    String cookie = facade.joinGame(token, joinJSON.getId(), CatanColor.toCatanColor(joinJSON.getColor()));
                     System.out.println("---Finally out of the facade!!!---");
-                    System.out.println("Response:" + response);
-                    httpExchange.getResponseHeaders().add("Set-cookie", response);
+                    System.out.println("Response:" + cookie);
+                    httpExchange.getResponseHeaders().add("Set-cookie", cookie);
                     success(httpExchange);
                     break;
             }
