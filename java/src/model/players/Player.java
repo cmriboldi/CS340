@@ -21,25 +21,25 @@ public class Player
 {
 
 	/** boolean value indicating whether or not this player currently possesses the longest road */
-	private boolean longestRoad;
+	private boolean longestRoad = false;
 
 	/** boolean value indicating whether or not this player currently possesses the largest army */
-	private boolean largestArmy;
+	private boolean largestArmy = false;
 
 	/** an integer count of how many points this player possesses */
-	private int points;
+	private int points = -1;
 
 	/** The color of this player's pieces */
-	private CatanColor color;
+	private CatanColor color = CatanColor.WHITE;
 
 	/** The name of this player */
-	private String name;
+	private String name = "uninitializedName";
 
 	/** Integer indication of this players turn index */
-	private int playerIndex;
+	private int playerIndex = -1;
 
 	/** A unique ID to distinguish from other players */
-	private int id;
+	private int id = -1;
 	
 	/** A list of the pieces the player can still play*/
 	private Pieces pieces;

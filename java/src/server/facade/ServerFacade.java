@@ -96,19 +96,22 @@ public class ServerFacade implements IServerFacade
             throw new UnauthorizedException("Join Game attempt is not authorized");
         System.out.println("In ServerFacade.joinGame()");
 
-//        System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
+        System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
         
         CatanModel model = database.getGameModel(gameId);
         PlayerTurnTracker turnTracker = model.getPlayerManager().getTurnTracker();
 
+        
         // Game full and playerID not in list of current players
-        /*if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4)
+        if (!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() >=4)
         {
         	System.out.println("Join Game is already full and player " + token.getPlayerID() + " is not listed as a current player");
         	// do nothing because "playerID" can't join this game
         	return "";
         }
 
+
+        
         //Player Joined Previously
         if (model.playerManager.containsId(token.getPlayerID()))
         {
@@ -116,17 +119,18 @@ public class ServerFacade implements IServerFacade
         	// return the information that "playerID" needs on his client to start playing
         	return "";
         }
-
+        
         //Player can Join game first time
         if(!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() < 4)
         {
+        	System.out.println("Joining game for first time!"); 
         	int playerIndex = model.playerManager.getInitializedPlayerCount();
         	Player newPlayer = new Player(token.getName(),token.getPlayerID(), color, playerIndex);
         	model.playerManager.catanPlayers[playerIndex] = newPlayer;
-        }*/
+        }
 
 
-       if (model.playerManager.getCatanPlayers().length >=4)
+       if (model.playerManager.getInitializedPlayerCount() >=4)
     	   throw new UnauthorizedException("Join Game is already full");
         ////////////////////////////////////////////////////////////////////////////////////////
         //          Logic to add player to the Catan Model

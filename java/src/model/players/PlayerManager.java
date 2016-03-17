@@ -47,6 +47,12 @@ public class PlayerManager
 	public PlayerManager()
 	{
 		catanPlayers = new Player[4];
+		
+		for ( int i = 0; i < catanPlayers.length; i++)
+		{
+			catanPlayers[i] = new Player(); 
+		}
+
 		turnTracker = new PlayerTurnTracker();
 	}
 	
