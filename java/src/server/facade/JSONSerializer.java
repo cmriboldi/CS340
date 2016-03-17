@@ -51,11 +51,11 @@ public class JSONSerializer {
 	{
 		bank = new JsonObject();
 		
-		bank.addProperty("brick", 0);
-		bank.addProperty("ore", 0);
-		bank.addProperty("sheep", 0);
-		bank.addProperty("wheat", 0);
-		bank.addProperty("wood", 0);
+		bank.addProperty("brick", resourceManager.getBankResourceCount(ResourceType.BRICK));
+		bank.addProperty("ore", resourceManager.getBankResourceCount(ResourceType.ORE));
+		bank.addProperty("sheep", resourceManager.getBankResourceCount(ResourceType.SHEEP));
+		bank.addProperty("wheat", resourceManager.getBankResourceCount(ResourceType.WHEAT));
+		bank.addProperty("wood", resourceManager.getBankResourceCount(ResourceType.WOOD));
 	}
 	
 	private void setChat()
@@ -207,6 +207,19 @@ public class JSONSerializer {
 		robber.addProperty("y", mapManager.getRobber().getY());
 		
 		map.add("robber", robber);		
+	}
+	
+	private void setPlayers()
+	{
+		Player[] playerList = playerManager.getCatanPlayers();
+		for(Player p : playerList)
+		{
+			players.addProperty("cities", p.getCitiesRemaining());
+			players.addProperty("color", p.getColor().toString());
+			players.addProperty("discarded", resourceManager.hasPlayerDiscarded(p.getPlayerIndex()));
+			players.addProperty("monuments", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.MONUMENT));
+			players.addProperty("name", p.getName());
+		}
 	}
 	
 	private String _serialize(CatanModel model)
