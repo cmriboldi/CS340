@@ -15,15 +15,15 @@ import java.util.*;
  */
 public class GameInfo
 {
-	private int id;
 	private String title;
+	private int id;
 	private List<PlayerInfo> players;
 	
 	public GameInfo()
 	{
 		setId(-1);
 		setTitle("");
-		players = new ArrayList<PlayerInfo>();
+		players = new ArrayList<>();
 	}
 	
 	public GameInfo(int id, String title, List<PlayerInfo> players)

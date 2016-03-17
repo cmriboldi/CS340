@@ -16,12 +16,11 @@ import shared.definitions.*;
  */
 public class PlayerInfo
 {
-	
+	private String color;
+	private String name;
 	private int id;
 	private int playerIndex;
-	private String name;
-	private String color;
-	
+
 	public PlayerInfo()
 	{
 		setId(-1);
@@ -32,9 +31,9 @@ public class PlayerInfo
 	public PlayerInfo(int id, String name, String color)
 	{
 		this.id = id;
-		setPlayerIndex(-1);
 		this.name = name;
 		this.color = color;
+		setPlayerIndex(-1);
 	}
 	
 	public PlayerInfo(int id, int playerIndex, String name, String color)

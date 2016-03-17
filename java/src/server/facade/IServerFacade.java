@@ -115,6 +115,8 @@ public interface IServerFacade
      */
     CatanModel getGameModel(AuthToken token) throws ServerException;
 
+    void updateGame(AuthToken token, CatanModel model) throws ServerException;
+
     /**
      * Adds an AI player to the game given in the AuthToken.
      * 

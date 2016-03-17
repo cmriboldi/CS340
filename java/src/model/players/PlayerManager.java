@@ -48,10 +48,10 @@ public class PlayerManager
 	{
 		catanPlayers = new Player[4];
 		
-		for ( int i = 0; i < catanPlayers.length; i++)
-		{
-			catanPlayers[i] = new Player(); 
-		}
+//		for ( int i = 0; i < catanPlayers.length; i++)
+//		{
+//			catanPlayers[i] = new Player();
+//		}
 
 		turnTracker = new PlayerTurnTracker();
 	}
@@ -61,7 +61,7 @@ public class PlayerManager
 		int initializedCount = 0; 
 		for (int i = 0; i < catanPlayers.length; i++)
 		{
-			if (catanPlayers[i].getName() != null) initializedCount++; 
+			if (catanPlayers[i] != null) initializedCount++;
 		}
 		
 		return initializedCount; 
@@ -90,13 +90,13 @@ public class PlayerManager
 	
 	public boolean containsId(int userID)
 	{
-		if (catanPlayers[0] == null)
-		{
-			return true;
-		}
 		for (int i = 0; i < catanPlayers.length; i++)
 		{
-			if (catanPlayers[i].getId() == userID)
+			if(catanPlayers[i] == null)
+			{
+				// do nothing.  This is only here because if you call .getId() on a null value the whole program will break
+			}
+			else if (catanPlayers[i].getId() == userID)
 			{
 				return true;
 			}

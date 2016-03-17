@@ -79,8 +79,9 @@ public class ServerFacade implements IServerFacade
     }
 
     @Override
-    public GameInfo[] listGames() throws ServerException {
-        return new GameInfo[0];
+    public GameInfo[] listGames() throws ServerException
+    {
+        return database.listGames();
     }
 
     @Override
@@ -103,8 +104,10 @@ public class ServerFacade implements IServerFacade
         System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
         
         CatanModel model = database.getGameModel(gameId);
-        
-        System.out.println("init player count: " + model.getPlayerManager().getInitializedPlayerCount()); 
+
+        System.out.println("(1)");
+        System.out.println("init player count: " + model.getPlayerManager().getInitializedPlayerCount());
+        System.out.println("(2)");
         PlayerTurnTracker turnTracker = model.getPlayerManager().getTurnTracker();
 
         
@@ -123,7 +126,7 @@ public class ServerFacade implements IServerFacade
         {
         	System.out.println("Player " + token.getPlayerID() + " is already part of this game" );
         	// return the information that "playerID" needs on his client to start playing
-        	return "";
+        	return "catan.game=" + gameId + ";Path=/;";
         }
         
         //Player can Join game first time
@@ -161,6 +164,12 @@ public class ServerFacade implements IServerFacade
     public CatanModel getGameModel(AuthToken token) throws ServerException
     {
         return database.getGameModel(token.getGameID());
+    }
+
+    @Override
+    public void updateGame(AuthToken token, CatanModel model) throws ServerException
+    {
+        database.updateGameModel(token.getGameID(), model);
     }
 
     @Override

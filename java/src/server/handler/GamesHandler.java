@@ -41,9 +41,7 @@ public class GamesHandler extends APIHandler
             switch(uri)
             {
                 case "/games/list":
-                    /*facade.listGames();
-                    httpExchange.getResponseHeaders().add("Set-cookie", response);
-                    success(httpExchange);*/
+                    respond200(httpExchange, facade.listGames());
                     break;
 
                 case "/games/create":
