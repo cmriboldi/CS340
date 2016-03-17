@@ -5,9 +5,9 @@ import com.sun.net.httpserver.HttpExchange;
 import server.AuthToken;
 import server.exception.ServerException;
 import server.exception.UnauthorizedException;
-import server.facade.FacadeHolder;
 import server.facade.IServerFacade;
-import shared.communication.JSON.*;
+import shared.communication.JSON.CreateGameJSON;
+import shared.communication.JSON.JoinGameJSON;
 import shared.definitions.CatanColor;
 
 import java.io.IOException;
@@ -25,13 +25,16 @@ import java.io.IOException;
  */
 public class GamesHandler extends APIHandler
 {
+    public GamesHandler(IServerFacade facade_p) {
+        super(facade_p);
+    }
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException
     {
         try
         {
             String uri = httpExchange.getRequestURI().toString();
-            IServerFacade facade = FacadeHolder.getFacade();
 
             switch(uri)
             {
