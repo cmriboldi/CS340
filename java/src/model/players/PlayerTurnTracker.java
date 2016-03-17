@@ -37,6 +37,12 @@ public class PlayerTurnTracker
 		turnIndex = 0; 
 	}
 	
+	
+	public void finishTurn()
+	{
+		
+	}
+	
 	public PlayerTurnTracker(int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
 	{
 		this.status = status; 
@@ -85,6 +91,8 @@ public class PlayerTurnTracker
 		
 		if (turnIndex < 0 | turnIndex > 3)
 			throw new TurnIndexException(); 
+		
+		this.status = "Rolling"; 
 		
 	}
 	

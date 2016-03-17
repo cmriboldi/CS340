@@ -93,12 +93,16 @@ public class ServerFacade implements IServerFacade
     public String joinGame(AuthToken token, int gameId, CatanColor color) throws ServerException
     {
         if(!isValidUser(token))
+        {
+        	System.out.println(" invalid user"); 
             throw new UnauthorizedException("Join Game attempt is not authorized");
-        System.out.println("In ServerFacade.joinGame()");
+        }
 
         System.out.println("AuthToken:\nName: " + token.getName() + "\nPassword: " + token.getPassword() + "\nPlayerID: " + token.getPlayerID() + "\nGameID: " + token.getGameID());
         
         CatanModel model = database.getGameModel(gameId);
+        
+        System.out.println("init player count: " + model.getPlayerManager().getInitializedPlayerCount()); 
         PlayerTurnTracker turnTracker = model.getPlayerManager().getTurnTracker();
 
         
@@ -135,6 +139,9 @@ public class ServerFacade implements IServerFacade
         ////////////////////////////////////////////////////////////////////////////////////////
         //          Logic to add player to the Catan Model
         ////////////////////////////////////////////////////////////////////////////////////////
+       
+       System.out.println("init player count: " + model.getPlayerManager().getInitializedPlayerCount()); 
+
         return "catan.game=" + gameId + ";Path=/;";
     }
 
@@ -166,6 +173,7 @@ public class ServerFacade implements IServerFacade
     @Override
     public boolean isValidUser(AuthToken token)
     {
+    	
         if(database.getUserByName(token.getName()) == null)
         {
             return false;

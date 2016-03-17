@@ -1,5 +1,6 @@
 package server.command;
 
+import clientfacade.Facade;
 import server.AuthToken;
 import shared.communication.JSON.FinishTurnJSON;
 import shared.communication.JSON.IJavaJSON;
@@ -23,7 +24,9 @@ public class FinishTurnCommand implements ICommand {
 	 */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
+		
+		Facade.getCatanModel().getPlayerManager().getTurnTracker().advancePhase();
+		
 		return null;
 	}
 
