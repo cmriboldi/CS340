@@ -22,4 +22,23 @@ public enum ResourceType
 				return null;
 		}
 	}
+	
+	public static ResourceType toEnum(String resource)
+	{
+		switch(resource)
+		{
+			case "wood":
+				return WOOD;
+			case "brick":
+				return BRICK;
+			case "sheep":
+				return SHEEP;
+			case "wheat":
+				return WHEAT;
+			case "ore":
+				return ORE;
+			default:
+				return null;
+		}
+	}
 }

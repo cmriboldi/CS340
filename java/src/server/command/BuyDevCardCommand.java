@@ -49,13 +49,7 @@ public class BuyDevCardCommand implements ICommand {
 		{
 			e.printStackTrace();
 		}
-		
-		if(cm != null) {
-			return "This is working";
-		} else {
-			return "This call didn't work.";
-		}
-		
+		return cm;
 	}
 
 }

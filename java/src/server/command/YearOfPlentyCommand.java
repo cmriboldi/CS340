@@ -1,9 +1,19 @@
 package server.command;
 
+import model.CatanModel;
+import model.resources.ResourceList;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.YearOfPlentyJSON;
+import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
+import shared.exceptions.development.NotEnoughDevCardsException;
+import shared.exceptions.resources.InvalidNumberOfResourcesRequested;
+import shared.exceptions.resources.NotEnoughBankResourcesException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class YearOfPlentyCommand implements ICommand {
 
@@ -26,8 +36,24 @@ public class YearOfPlentyCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			ResourceList rs = new ResourceList();
+			rs.addResource(ResourceType.toEnum(this.body.getResource1()), 1);
+			rs.addResource(ResourceType.toEnum(this.body.getResource2()), 1);
+			
+			cm.resourceManager.useYearOfPlentyCard(this.body.getPlayerIndex(), rs);
+			
+			cm.cardManager.playDevCard(DevCardType.YEAR_OF_PLENTY, this.body.getPlayerIndex());
+			
+		} catch (ServerException | NotEnoughBankResourcesException | InvalidNumberOfResourcesRequested | NotEnoughDevCardsException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }
