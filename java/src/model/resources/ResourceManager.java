@@ -213,4 +213,9 @@ public class ResourceManager
 		return banker.getBankResourceCount(resource);
 	}
 
+	public void discardCards(ResourceList discardedCards, int playerIndex) throws NotEnoughResourcesException
+	{
+		banker.discardCards(discardedCards, playerIndex);
+	}
+
 };

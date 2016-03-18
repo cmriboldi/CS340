@@ -179,4 +179,10 @@ public class Banker
 		return bank.getResourceTypeCount(resource);
 	}
 
+	public void discardCards(ResourceList discardedCards, int playerIndex) throws NotEnoughResourcesException
+	{
+		playerResources.takeResourcesFromPlayer(discardedCards, playerIndex);
+		bank.plus(discardedCards);
+	}
+
 }

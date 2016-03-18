@@ -1,9 +1,12 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.DiscardCardsJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class DiscardCardsCommand implements ICommand {
 
@@ -26,8 +29,20 @@ public class DiscardCardsCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			cm.resourceManager.discardCards(this.body.getDiscardedCards(), this.body.getPlayerIndex());
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException | NotEnoughResourcesException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }
