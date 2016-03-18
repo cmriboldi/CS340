@@ -82,14 +82,14 @@ public class Map {
         roads = new HashMap<>();
 
         //list of all the possible xy combinations
-        List<xyPair> hexLocs = generateXYPairs();
+        List<HexLocation> hexLocs = generateHexLocs();
 
         //list of all possible port locations
         List<EdgeLocation> portLocs = generatePortLocs();
 
         //one desert, two sheep brick ore wheat wood
         List<HexType> hexList = new ArrayList<HexType>();
-        hexList.addAll(Arrays.asList(HexType.DESERT,
+        hexList.addAll(Arrays.asList(
                 HexType.BRICK, HexType.BRICK, HexType.BRICK,
                 HexType.SHEEP, HexType.SHEEP, HexType.SHEEP, HexType.SHEEP,
                 HexType.ORE, HexType.ORE, HexType.ORE,
@@ -107,22 +107,75 @@ public class Map {
                 PortType.THREE, PortType.THREE, PortType.THREE, PortType.THREE));
 
         if (randomTile) {
-            //if the tiles should be randomized
-            //generate the desert port first, it does not get a number
+            // if the tiles should be randomized
+            //-- generate the desert port first, it does not get a number
+            Random rand = new Random();
+            HexLocation randHexLoc = removeAndReturn(hexLocs, rand.nextInt(hexLocs.size()));
 
-            //randomly generate Hexes from the contents of xValue, yValue, and hexList
-            //if the numbers should be randomized the numbers list can randomly assign numbers here
-            //NOT SURE HOW TO HANDLE NON RANDOM NUMBERS
+            if(randomNumbers)
+            {
+                hexes.put(randHexLoc, new Hex(randHexLoc.getX(), randHexLoc.getY(), HexType.DESERT, -1));
 
+                while(hexLocs.size() > 0)
+                {
+                    rand = new Random();
+                    randHexLoc = removeAndReturn(hexLocs, rand.nextInt(hexLocs.size()));
+                    int randNumber = removeAndReturn(numbers, rand.nextInt(numbers.size()));
+                    HexType randHexType = removeAndReturn(hexList, rand.nextInt(hexList.size()));
+
+                    hexes.put(randHexLoc, new Hex(randHexLoc.getX(), randHexLoc.getY(), randHexType, randNumber));
+                }
+            }
+
+            if(!randomNumbers)
+            {
+                hexes.put(new HexLocation(0, -1), new Hex(0, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
+                hexes.put(new HexLocation(0, 0), new Hex(0, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 11));
+                hexes.put(new HexLocation(0, 1), new Hex(0, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 4));
+                hexes.put(new HexLocation(0, 2), new Hex(0, 2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 8));
+                hexes.put(new HexLocation(1, -2), new Hex(1, -2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 4));
+                hexes.put(new HexLocation(1, -1), new Hex(1, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 9));
+                hexes.put(new HexLocation(1, 0), new Hex(1, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 5));
+                hexes.put(new HexLocation(1, 1), new Hex(1, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 10));
+                hexes.put(new HexLocation(-1, -1), new Hex(-1, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 8));
+                hexes.put(new HexLocation(-1, 0), new Hex(-1, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 10));
+                hexes.put(new HexLocation(-1, 1), new Hex(-1, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 9));
+                hexes.put(new HexLocation(-1, 2), new Hex(-1, 2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
+                hexes.put(new HexLocation(-2, 0), new Hex(-2, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 5));
+                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
+                hexes.put(new HexLocation(-2, 2), new Hex(-2, 2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 6));
+                hexes.put(new HexLocation(2, 0), new Hex(2, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 6));
+                hexes.put(new HexLocation(2, -1), new Hex(2, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 12));
+                hexes.put(new HexLocation(2, -2), new Hex(2, -2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 11));
+            }
         }
 
         if (!randomTile) {
             //if the tiles should be standard
             //place the desert tile first, the desert tile is independent of randomized numbers
+            Random rand = new Random();
             hexes.put(new HexLocation(0, -2), new Hex(0, -2, HexType.DESERT, -1));
 
             if (randomNumbers) {
                 //if the tiles should be standard and the numbers should be random
+                hexes.put(new HexLocation(0, -1), new Hex(0, -1, HexType.WOOD, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(0, 0), new Hex(0, 0, HexType.WHEAT, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(0, 1), new Hex(0, 1, HexType.WOOD, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(0, 2), new Hex(0, 2, HexType.WHEAT, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(1, -2), new Hex(1, -2, HexType.BRICK, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(1, -1), new Hex(1, -1, HexType.ORE, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(1, 0), new Hex(1, 0, HexType.BRICK, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(1, 1), new Hex(1, 1, HexType.SHEEP, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-1, -1), new Hex(-1, -1, HexType.BRICK, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-1, 0), new Hex(-1, 0, HexType.SHEEP, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-1, 1), new Hex(-1, 1, HexType.SHEEP, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-1, 2), new Hex(-1, 2, HexType.ORE, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-2, 0), new Hex(-2, 0, HexType.ORE, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, HexType.WHEAT, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(-2, 2), new Hex(-2, 2, HexType.WOOD, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(2, 0), new Hex(2, 0, HexType.WHEAT, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(2, -1), new Hex(2, -1, HexType.SHEEP, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
+                hexes.put(new HexLocation(2, -2), new Hex(2, -2, HexType.WOOD, removeAndReturn(numbers, rand.nextInt(numbers.size()))));
             }
 
             if (!randomNumbers) {
@@ -150,7 +203,15 @@ public class Map {
 
         if (randomPorts) {
             //if the ports should be randomized
-
+            ports.put(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), new Port(-3, 0, EdgeDirection.SouthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), new Port(-3, 0, EdgeDirection.North, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), new Port(-3, 0, EdgeDirection.SouthWest, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-1, -3), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
 
 
         }
@@ -199,31 +260,39 @@ public class Map {
         }
     }
 
-    private List<xyPair> generateXYPairs() {
-        List<xyPair> returnThis = new ArrayList<>();
-        returnThis.add(new xyPair(0, 0));
-        returnThis.add(new xyPair(0, 1));
-        returnThis.add(new xyPair(0, 2));
-        returnThis.add(new xyPair(0, -1));
-        returnThis.add(new xyPair(0, -2));
+    private <T> T removeAndReturn(List<T> list, int index)
+    {
+        T returnThis = list.get(index);
+        list.remove(index);
 
-        returnThis.add(new xyPair(1, -2));
-        returnThis.add(new xyPair(1, -1));
-        returnThis.add(new xyPair(1, 0));
-        returnThis.add(new xyPair(1, 1));
+        return returnThis;
+    }
 
-        returnThis.add(new xyPair(-1, -1));
-        returnThis.add(new xyPair(-1, 0));
-        returnThis.add(new xyPair(-1, 1));
-        returnThis.add(new xyPair(-1, 2));
+    private List<HexLocation> generateHexLocs() {
+        List<HexLocation> returnThis = new ArrayList<>();
+        returnThis.add(new HexLocation(0, 0));
+        returnThis.add(new HexLocation(0, 1));
+        returnThis.add(new HexLocation(0, 2));
+        returnThis.add(new HexLocation(0, -1));
+        returnThis.add(new HexLocation(0, -2));
 
-        returnThis.add(new xyPair(2, -2));
-        returnThis.add(new xyPair(2, -1));
-        returnThis.add(new xyPair(2, 0));
+        returnThis.add(new HexLocation(1, -2));
+        returnThis.add(new HexLocation(1, -1));
+        returnThis.add(new HexLocation(1, 0));
+        returnThis.add(new HexLocation(1, 1));
 
-        returnThis.add(new xyPair(-2, 0));
-        returnThis.add(new xyPair(-2, 1));
-        returnThis.add(new xyPair(-2, 2));
+        returnThis.add(new HexLocation(-1, -1));
+        returnThis.add(new HexLocation(-1, 0));
+        returnThis.add(new HexLocation(-1, 1));
+        returnThis.add(new HexLocation(-1, 2));
+
+        returnThis.add(new HexLocation(2, -2));
+        returnThis.add(new HexLocation(2, -1));
+        returnThis.add(new HexLocation(2, 0));
+
+        returnThis.add(new HexLocation(-2, 0));
+        returnThis.add(new HexLocation(-2, 1));
+        returnThis.add(new HexLocation(-2, 2));
 
         return returnThis;
     }
