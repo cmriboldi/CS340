@@ -36,19 +36,20 @@ public class JSONSerializer {
 	private PlayerManager playerManager;
 	private MapManager mapManager;
 	private ChatManager chatManager;
+	private PlayerTurnTracker playerTurnTracker;
 	
 	private JsonObject catan;
 	private JsonObject bank;
 	private JsonObject chat;
 	private JsonObject log;
 	private JsonObject map;
-	private JsonObject players;
+	private JsonArray players;
 	private JsonObject tradeOffer;
 	private JsonObject turnTracker;
 	
 	
 	private void setBank()
-	{
+	{		
 		bank = new JsonObject();
 		
 		bank.addProperty("brick", resourceManager.getBankResourceCount(ResourceType.BRICK));
@@ -214,12 +215,70 @@ public class JSONSerializer {
 		Player[] playerList = playerManager.getCatanPlayers();
 		for(Player p : playerList)
 		{
-			players.addProperty("cities", p.getCitiesRemaining());
-			players.addProperty("color", p.getColor().toString());
-			players.addProperty("discarded", resourceManager.hasPlayerDiscarded(p.getPlayerIndex()));
-			players.addProperty("monuments", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.MONUMENT));
-			players.addProperty("name", p.getName());
+			JsonObject player = new JsonObject();
+			
+			player.addProperty("cities", p.getCitiesRemaining());
+			player.addProperty("color", p.getColor().toString());
+			player.addProperty("discarded", resourceManager.hasPlayerDiscarded(p.getPlayerIndex()));
+			player.addProperty("monuments", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.MONUMENT));
+			player.addProperty("name", p.getName());
+			
+			JsonObject newDevCards = new JsonObject();
+			newDevCards.addProperty("monopoly", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONOPOLY));
+			newDevCards.addProperty("monument", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONUMENT));
+			newDevCards.addProperty("roadBuilding", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.ROAD_BUILD));
+			newDevCards.addProperty("soldier", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.SOLDIER));
+			newDevCards.addProperty("yearOfPlenty", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+			player.add("newDevCards", newDevCards);
+			
+			JsonObject oldDevCards = new JsonObject();
+			oldDevCards.addProperty("monopoly", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONOPOLY));
+			oldDevCards.addProperty("monument", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONUMENT));
+			oldDevCards.addProperty("roadBuilding", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.ROAD_BUILD));
+			oldDevCards.addProperty("soldier", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.SOLDIER));
+			oldDevCards.addProperty("yearOfPlenty", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+			player.add("oldDevCards", oldDevCards);
+			
+			player.addProperty("playerIndex", p.getPlayerIndex());
+			player.addProperty("playedDevCard", devCardManager.hasPlayedDevCard(p.getPlayerIndex()));
+			player.addProperty("playerID", p.getId());
+			
+			JsonObject resources = new JsonObject();
+			resources.addProperty("brick", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.BRICK));
+			resources.addProperty("ore", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.ORE));
+			resources.addProperty("sheep", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.SHEEP));
+			resources.addProperty("wheat", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.WHEAT));
+			resources.addProperty("wood", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.WOOD));
+			player.add("resources", resources);
+			
+			player.addProperty("roads", p.getRoadsRemaining());
+			player.addProperty("settlements", p.getSettlementsRemaining());
+			player.addProperty("soldiers", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.SOLDIER));
+			player.addProperty("victoryPoints", p.getPoints());
 		}
+		
+	}
+	
+	private void setTradeOffer()
+	{
+		tradeOffer.addProperty("sender", resourceManager.getTradeOffer().getSender());
+		tradeOffer.addProperty("receiver", resourceManager.getTradeOffer().getReceiver());
+		
+		JsonObject offer = new JsonObject();
+		offer.addProperty("brick", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.BRICK));
+		offer.addProperty("ore", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.ORE));
+		offer.addProperty("sheep", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.SHEEP));
+		offer.addProperty("wheat", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.WHEAT));
+		offer.addProperty("wood", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.WOOD));
+		tradeOffer.add("offer", offer);
+	}
+	
+	private void setTurnTracker()
+	{
+		turnTracker.addProperty("currentTurn", playerTurnTracker.getTurnIndex());
+		turnTracker.addProperty("status", playerTurnTracker.getStatus());
+		turnTracker.addProperty("longestRoad", playerManager.getIndexOfLongestRoad());
+		turnTracker.addProperty("largestArmy", playerManager.getIndexOfLargestArmy());
 	}
 	
 	private String _serialize(CatanModel model)
@@ -229,16 +288,26 @@ public class JSONSerializer {
 		this.playerManager = model.playerManager;
 		this.mapManager = model.mapManager;
 		this.chatManager = model.chatManager;
+		this.playerTurnTracker = playerManager.turnTracker;
 		
 		catan = new JsonObject();
 		
+		this.setBank();
 		catan.add("bank", bank);
+		this.setChat();
 		catan.add("chat", chat);
+		this.setLog();
 		catan.add("log", log);
+		this.setMap();
 		catan.add("map", map);
+		this.setPlayers();
 		catan.add("players", players);
+		this.setTradeOffer();
 		catan.add("tradeOffer", tradeOffer);
+		this.setTurnTracker();
 		catan.add("turnTracker", turnTracker);
+		catan.addProperty("version", 0);
+		catan.addProperty("winner", -1);
 		
 		return catan.getAsString();
 	}
