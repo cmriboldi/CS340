@@ -306,13 +306,13 @@ public class JSONSerializer {
 		catan.add("tradeOffer", tradeOffer);
 		this.setTurnTracker();
 		catan.add("turnTracker", turnTracker);
-		catan.addProperty("version", 0);
+		catan.addProperty("version", model.getVersion());
 		catan.addProperty("winner", -1);
 		
 		return catan.getAsString();
 	}
 	
-	public static String serialize(CatanModel model) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
+	public static String serialize(CatanModel model)
 	{
 		return instance()._serialize(model);
 	}
