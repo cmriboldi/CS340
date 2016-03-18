@@ -168,5 +168,11 @@ public class DevCardManager
 		newDevCards.addCardToPlayer(devCard, playerIndex);
 		devCardStack.removeDevCard(devCard);
 	}
+
+	public void playDevCard(DevCardType devCard, int playerIndex) throws NotEnoughDevCardsException
+	{
+		oldDevCards.removeCardFromPlayer(devCard, playerIndex);
+		playedDevCards.addCardToPlayer(devCard, playerIndex);
+	}
 	
 }

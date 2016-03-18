@@ -193,4 +193,9 @@ public class PlayerManager
 		return catanPlayers[playerIndex].hasPiece(piece);
 	}
 
+	public void incrementPlayerPoints(int playerIndex)
+	{
+		catanPlayers[playerIndex].incrementPoints();
+	}
+
 }

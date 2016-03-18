@@ -1,9 +1,14 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.MonopolyJSON;
+import shared.definitions.DevCardType;
+import shared.definitions.ResourceType;
+import shared.exceptions.development.NotEnoughDevCardsException;
 
 public class MonopolyCommand implements ICommand {
 
@@ -26,7 +31,20 @@ public class MonopolyCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			cm.cardManager.playDevCard(DevCardType.MONOPOLY, this.body.getPlayerIndex());
+			cm.resourceManager.useMonopolyCard(this.body.getPlayerIndex(), ResourceType.toEnum(this.body.getResource()));
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException | NotEnoughDevCardsException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 }

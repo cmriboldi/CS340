@@ -1,9 +1,13 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.MonumentJSON;
+import shared.definitions.DevCardType;
+import shared.exceptions.development.NotEnoughDevCardsException;
 
 public class MonumentCommand implements ICommand {
 
@@ -26,8 +30,22 @@ public class MonumentCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			cm.cardManager.playDevCard(DevCardType.MONUMENT, this.body.getPlayerIndex());
+			cm.playerManager.incrementPlayerPoints(this.body.getPlayerIndex());
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException | NotEnoughDevCardsException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }

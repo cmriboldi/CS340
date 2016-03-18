@@ -253,4 +253,9 @@ public class Player
 		return this.pieces.hasPiece(piece);
 	}
 
+	public void incrementPoints()
+	{
+		this.points++;
+	}
+
 }

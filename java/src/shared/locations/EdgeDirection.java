@@ -42,4 +42,25 @@ public enum EdgeDirection
 				return null;
 		}
 	}
+	
+	public static EdgeDirection toEnum(String dir)
+	{
+		switch(dir)
+		{
+			case "NW":
+				return NorthWest;
+			case "N":
+				return North;
+			case "NE":
+				return NorthEast;
+			case "SE":
+				return SouthEast;
+			case "S":
+				return South;
+			case "SW":
+				return SouthWest;
+			default:
+				return null;
+		}
+	}
 }

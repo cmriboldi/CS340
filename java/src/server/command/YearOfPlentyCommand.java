@@ -12,8 +12,6 @@ import shared.definitions.ResourceType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.resources.InvalidNumberOfResourcesRequested;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
-import shared.exceptions.resources.NotEnoughPlayerResourcesException;
-import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class YearOfPlentyCommand implements ICommand {
 
@@ -48,6 +46,8 @@ public class YearOfPlentyCommand implements ICommand {
 			cm.resourceManager.useYearOfPlentyCard(this.body.getPlayerIndex(), rs);
 			
 			cm.cardManager.playDevCard(DevCardType.YEAR_OF_PLENTY, this.body.getPlayerIndex());
+			
+			facade.updateGame(authToken, cm);
 			
 		} catch (ServerException | NotEnoughBankResourcesException | InvalidNumberOfResourcesRequested | NotEnoughDevCardsException e)
 		{

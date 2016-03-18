@@ -45,6 +45,8 @@ public class BuyDevCardCommand implements ICommand {
 			}
 			cm.resourceManager.buyDevCard(body.getPlayerIndex());
 			
+			facade.updateGame(authToken, cm);
+			
 		} catch (ServerException | NotEnoughDevCardsException | NotEnoughPlayerResourcesException | NotEnoughResourcesException e)
 		{
 			e.printStackTrace();

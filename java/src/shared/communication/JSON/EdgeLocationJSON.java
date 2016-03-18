@@ -47,5 +47,10 @@ public class EdgeLocationJSON
 	public void setDirection(String direction) {
 		this.direction = direction;
 	}
+	
+	public EdgeLocation getEdgeLocation() {
+		HexLocation hex = new HexLocation(this.x, this.y);
+		return new EdgeLocation(hex, EdgeDirection.toEnum(this.direction));
+	}
 
 }
