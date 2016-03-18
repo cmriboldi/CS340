@@ -33,7 +33,7 @@
 	<property name="java.dist" location="${java.dir}/dist"/>
 	<property name="java.lib" location="${java.dir}/lib"/>
 	<property name="java.test" location="test"/>
-	<property name="java.docs" location="demo/docs"/>
+	<property name="java.docs" location="${demo.dir}/docs"/>
   
 	<!-- CLASSPATHS -->
 	<!-- ********** -->
