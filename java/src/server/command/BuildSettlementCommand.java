@@ -29,7 +29,6 @@ public class BuildSettlementCommand implements ICommand {
 	@Override
 	public Object execute() {
 		
-		
 		CatanModel cm = null; 
 		try
 		{
