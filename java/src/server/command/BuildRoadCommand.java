@@ -39,7 +39,7 @@ public class BuildRoadCommand implements ICommand {
 		try
 		{
 			cm = facade.getGameModel(authToken);
-			cm.mapManager.placeRoad(body.getRoadLocation(), body.getPlayerIndex());			
+			cm.mapManager.placeRoad(body.getRoadLocation().getEdgeLocation(), body.getPlayerIndex());
 			facade.updateGame(authToken, cm);
 			
 		} catch (ServerException e)

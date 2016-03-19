@@ -6,6 +6,9 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 public class BuildSettlementCommand implements ICommand {
 
@@ -33,7 +36,13 @@ public class BuildSettlementCommand implements ICommand {
 		try
 		{
 			cm = facade.getGameModel(authToken);
-			cm.getMapManager().placeSettlement(body.getVertexLocation(), body.getPlayerIndex());
+
+			int settleLocX = body.getVertexLocation().getX();
+			int settleLocY = body.getVertexLocation(). getY();
+			VertexDirection settleLocDir = VertexDirection.valueOf(body.getVertexLocation().getDirection());
+			VertexLocation settleLoc = new VertexLocation(new HexLocation(settleLocX, settleLocY), settleLocDir);
+
+			cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
 			facade.updateGame(authToken, cm);
 			
 		} catch (ServerException e)
