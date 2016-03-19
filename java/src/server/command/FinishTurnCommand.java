@@ -1,7 +1,9 @@
 package server.command;
 
+import model.CatanModel;
 import clientfacade.Facade;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.FinishTurnJSON;
 import shared.communication.JSON.IJavaJSON;
@@ -28,9 +30,19 @@ public class FinishTurnCommand implements ICommand {
 	@Override
 	public Object execute() {
 		
-		Facade.getCatanModel().getPlayerManager().getTurnTracker().advancePhase();
-		
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			cm.getPlayerManager().getTurnTracker().advancePhase();
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+    	
+		return cm;
 	}
 
 }

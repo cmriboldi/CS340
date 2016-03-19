@@ -1,9 +1,13 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuildRoadJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.DevCardType;
+import shared.exceptions.development.NotEnoughDevCardsException;
 
 /**
  * Created by clayt on 3/9/2016.
@@ -19,6 +23,7 @@ public class BuildRoadCommand implements ICommand {
 		this.authToken = authToken;
 		this.body = (BuildRoadJSON)jsonBody;
 		this.facade = facade;
+		
 	}
 
 	/**
@@ -29,6 +34,19 @@ public class BuildRoadCommand implements ICommand {
      */
     @Override
     public Object execute() {
-        return null;
+    	
+    	CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			cm.mapManager.placeRoad(body.getRoadLocation(), body.getPlayerIndex());			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+    	
+		return cm;
     }
 }

@@ -1,6 +1,8 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuildCityJSON;
 import shared.communication.JSON.IJavaJSON;
@@ -26,7 +28,20 @@ public class BuildCityCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		CatanModel cm = null; 
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			cm.getMapManager().upgradeSettlement(body.getVertexLocation(), body.getPlayerIndex());
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+    	
+		return cm;
+
 	}
 }
