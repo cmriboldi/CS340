@@ -491,7 +491,7 @@ public class Map {
     }
 
     public void placeRoad(EdgeLocation edge, int player) {
-
+        roads.put(edge, new Road(edge, player));
     }
 
     public void placeLocalRoad(EdgeLocation edge, int player) {
