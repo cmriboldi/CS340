@@ -6,42 +6,52 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuildCityJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 public class BuildCityCommand implements ICommand {
 
-	private AuthToken authToken = null;
-	private BuildCityJSON body = null;
-	private final IServerFacade facade;
-	
-	public BuildCityCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
-	{
-		this.authToken = authToken;
-		this.body = (BuildCityJSON)jsonBody;
-		this.facade = facade;
-	}
+    private AuthToken authToken = null;
+    private BuildCityJSON body = null;
+    private final IServerFacade facade;
 
-	/**
-	 * 
-	 * Updates the CatanModel to reflect the building of a city
-	 * 
+    public BuildCityCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade) {
+        this.authToken = authToken;
+        this.body = (BuildCityJSON) jsonBody;
+        this.facade = facade;
+    }
+
+    /**
+     * Updates the CatanModel to reflect the building of a city
+     *
      * @return CatanModel, return the updated Catan model
      */
-	@Override
-	public Object execute() {
-		
-		CatanModel cm = null; 
-		try
-		{
-			cm = facade.getGameModel(authToken);
-			cm.getMapManager().upgradeSettlement(body.getVertexLocation(), body.getPlayerIndex());
-			facade.updateGame(authToken, cm);
-			
-		} catch (ServerException e)
-		{
-			e.printStackTrace();
-		}
-    	
-		return cm;
+    @Override
+    public Object execute() {
 
-	}
+        CatanModel cm = null;
+        try {
+            //Retrieve the game mode designated in the authToken from the Server Facade
+            cm = facade.getGameModel(authToken);
+
+            //Translate from JSONbody into a Java city location
+            int cityLocX = body.getVertexLocation().getX();
+            int cityLocY = body.getVertexLocation().getY();
+            VertexDirection cityLocDir = VertexDirection.valueOf(body.getVertexLocation().getDirection());
+            VertexLocation cityLoc = new VertexLocation(new HexLocation(cityLocX, cityLocY), cityLocDir);
+
+            //Make the cahnge to the model
+            cm.getMapManager().upgradeSettlement(cityLoc, body.getPlayerIndex());
+
+            //Update the changed model in the ServerFacade
+            facade.updateGame(authToken, cm);
+
+        } catch (ServerException e) {
+            e.printStackTrace();
+        }
+
+        //Return the new model to the HTTP Handler
+        return cm;
+    }
 }

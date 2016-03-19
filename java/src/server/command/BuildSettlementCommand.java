@@ -32,7 +32,7 @@ public class BuildSettlementCommand implements ICommand {
 
         CatanModel cm = null;
         try {
-            //Retrieve the game model
+            //Retrieve the game model designated by the authToken
             cm = facade.getGameModel(authToken);
 
             //Translate from JSONbody into a Java settlement location

@@ -55,6 +55,16 @@ public class MockFacade implements IServerFacade
     }
 
     @Override
+    public Object getGameModel(AuthToken token, int version) throws ServerException {
+        return null;
+    }
+
+    @Override
+    public void updateGame(AuthToken token, CatanModel model) throws ServerException {
+
+    }
+
+    @Override
     public void addAI(AuthToken token) throws ServerException {
 
     }
