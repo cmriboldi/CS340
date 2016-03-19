@@ -2,12 +2,14 @@ package server.handler;
 
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
+import model.CatanModel;
 import server.AuthToken;
 
 import server.exception.BadRequestException;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
+import server.facade.JSONSerializer;
 
 import java.io.IOException;
 
@@ -39,15 +41,39 @@ public class GameHandler extends APIHandler
             if(!facade.isValidUser(token))
                 throw new InvalidCredentialsException("Invalid user credentials to issue command");
 
-            String uri = httpExchange.getRequestURI().toString();
+            String uri = httpExchange.getRequestURI().getPath();
             System.out.println("GAME_HANDLER: " + uri);
 
             switch(uri)
             {
                 case "/game/model":
-                    success(httpExchange);
+                    //success(httpExchange);
                     //Not implemented yet, waiting on Model Serializer
-                    //respond200(httpExchange, facade.getGameModel(token));
+                    String query = httpExchange.getRequestURI().getQuery();
+                    if(query.matches(".*version=\\d*"))
+                    {
+                        int version = Integer.parseInt(query.replaceAll(".*version=", ""));
+                        Object response = facade.getGameModel(token, version);
+                        if(response.getClass().equals(CatanModel.class))
+                            respond200(httpExchange, JSONSerializer.serialize((CatanModel)response));
+                        else
+                            respond200(httpExchange, response);
+                        break;
+                    }
+                    System.out.println("About to Serialize");
+                    String response = JSONSerializer.serialize(facade.getGameModel(token));
+                    System.out.println("Finished Serializing");
+                    httpExchange.sendResponseHeaders(200, response.length());
+                    httpExchange.getResponseBody().write(response.getBytes());
+                    httpExchange.close();
+                    break;
+
+                case "/game/addAI":
+                    respond403(httpExchange, "Adding AI has not yet been implemented");
+                    break;
+
+                case "/game/listAI":
+                    respond200(httpExchange, facade.listAI(token));
                     break;
 
                 default:

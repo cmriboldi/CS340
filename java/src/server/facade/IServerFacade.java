@@ -115,6 +115,8 @@ public interface IServerFacade
      */
     CatanModel getGameModel(AuthToken token) throws ServerException;
 
+    Object getGameModel(AuthToken token, int version) throws ServerException;
+
     void updateGame(AuthToken token, CatanModel model) throws ServerException;
 
     /**

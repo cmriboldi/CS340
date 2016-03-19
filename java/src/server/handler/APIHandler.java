@@ -136,6 +136,33 @@ public abstract class APIHandler implements HttpHandler
         exchange.close();
     }
 
+    protected void respond403(HttpExchange exchange)
+    {
+        try
+        {
+            exchange.sendResponseHeaders(403, -1);
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        exchange.close();
+    }
+
+    protected void respond403(HttpExchange exchange, String response)
+    {
+        try
+        {
+            exchange.sendResponseHeaders(403, response.length());
+            exchange.getResponseBody().write(response.getBytes());
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        exchange.close();
+    }
+
     /**
      * If the client makes a request for a path that does not exist, respond with error code 404
      *
