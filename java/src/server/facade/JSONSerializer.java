@@ -42,6 +42,7 @@ public class JSONSerializer {
 	
 	private JsonObject catan;
 	private JsonObject bank;
+	private JsonObject deck;
 	private JsonObject chat;
 	private JsonObject log;
 	private JsonObject map;
@@ -61,6 +62,19 @@ public class JSONSerializer {
 		bank.addProperty("wood", resourceManager.getBankResourceCount(ResourceType.WOOD));
 		
 		//System.out.println(bank.toString());
+	}
+	
+	private void setDeck()
+	{
+		deck = new JsonObject();
+		
+		deck.addProperty("monopoly", devCardManager.getDevCardStack().getCardTypeCount(DevCardType.MONOPOLY));
+		deck.addProperty("monument", devCardManager.getDevCardStack().getCardTypeCount(DevCardType.MONUMENT));
+		deck.addProperty("roadBuilding", devCardManager.getDevCardStack().getCardTypeCount(DevCardType.ROAD_BUILD));
+		deck.addProperty("soldier", devCardManager.getDevCardStack().getCardTypeCount(DevCardType.SOLDIER));
+		deck.addProperty("yearOfPlenty", devCardManager.getDevCardStack().getCardTypeCount(DevCardType.YEAR_OF_PLENTY));
+		
+		//System.out.println(deck.toString());
 	}
 	
 	private void setChat()
@@ -311,6 +325,8 @@ public class JSONSerializer {
 		
 		this.setBank();
 		catan.add("bank", bank);
+		this.setDeck();
+		catan.add("deck", deck);
 		this.setChat();
 		catan.add("chat", chat);
 		this.setLog();
