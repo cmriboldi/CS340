@@ -87,7 +87,7 @@ public class ResourceManager
 	}
 
 	/**
-	 * @param resList ResourceList with the positive numbers going to the player and the negative
+	 * @param resList ResourceList with the negative numbers coming from the player and the positive
 	 *            numbers coming from the Bank.
 	 * @param toPlayerIndex The index of the player who is trading with the bank.
 	 * @throws NotEnoughPlayerResourcesException 

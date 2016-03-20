@@ -1,9 +1,15 @@
 package server.command;
 
+import model.CatanModel;
+import model.resources.ResourceList;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.MaritimeTradeJSON;
+import shared.definitions.ResourceType;
+import shared.exceptions.resources.NotEnoughBankResourcesException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 
 public class MaritimeTradeCommand implements ICommand {
 
@@ -26,8 +32,24 @@ public class MaritimeTradeCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			ResourceList rs = new ResourceList();
+			rs.addResource(ResourceType.toEnum(this.body.getOutputResource()), 1);
+			rs.removeResource(ResourceType.toEnum(this.body.getInputResource()), this.body.getRatio());
+			
+			cm.resourceManager.tradeWithBank(rs, this.body.getPlayerIndex());
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException | NotEnoughBankResourcesException | NotEnoughPlayerResourcesException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }
