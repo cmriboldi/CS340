@@ -314,7 +314,9 @@ public class JSONSerializer {
 	}
 	
 	private void setTurnTracker()
-	{	
+	{
+		turnTracker = new JsonObject();
+
 		turnTracker.addProperty("currentTurn", playerTurnTracker.getTurnIndex());
 		turnTracker.addProperty("status", playerTurnTracker.getStatus().toString());
 		turnTracker.addProperty("longestRoad", playerManager.getIndexOfLongestRoad());
