@@ -36,19 +36,19 @@ public class TestJSONSerializer {
         GameInfo info = facade.createGame(false, false, false, "this is a game");
 
         facade.register("bob", "bob");
-        facade.register("kat", "kat");
-        facade.register("sam", "sam");
-        facade.register("jen", "jen");
+        //facade.register("kat", "kat");
+        //facade.register("sam", "sam");
+        //facade.register("jen", "jen");
 
         bob = new AuthToken("bob", "bob", 0, info.getId());
-        kat = new AuthToken("kat", "kat", 1, info.getId());
-        sam = new AuthToken("sam", "sam", 2, info.getId());
-        jen = new AuthToken("jen", "jen", 3, info.getId());
+        //kat = new AuthToken("kat", "kat", 1, info.getId());
+        //sam = new AuthToken("sam", "sam", 2, info.getId());
+        //jen = new AuthToken("jen", "jen", 3, info.getId());
 
         facade.joinGame(bob, bob.getGameID(), CatanColor.BLUE);
-        facade.joinGame(kat, info.getId(), CatanColor.RED);
-        facade.joinGame(sam, info.getId(), CatanColor.GREEN);
-        facade.joinGame(jen, info.getId(), CatanColor.YELLOW);
+        //facade.joinGame(kat, info.getId(), CatanColor.RED);
+        //facade.joinGame(sam, info.getId(), CatanColor.GREEN);
+        //facade.joinGame(jen, info.getId(), CatanColor.YELLOW);
 
         model = facade.getGameModel(bob);
     }
@@ -56,6 +56,6 @@ public class TestJSONSerializer {
     @Test
     public void testSerialize()
     {
-        System.out.println(JSONSerializer.serialize(model));
+        JSONSerializer.serialize(model);
     }
 }

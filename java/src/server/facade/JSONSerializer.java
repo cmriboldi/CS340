@@ -245,48 +245,57 @@ public class JSONSerializer {
 		
 		for(Player p : playerList)
 		{
-			JsonObject player = new JsonObject();
-			
-			player.addProperty("cities", p.getCitiesRemaining());
-			player.addProperty("color", p.getColor().toString());
-			player.addProperty("discarded", resourceManager.hasPlayerDiscarded(p.getPlayerIndex()));
-			player.addProperty("monuments", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.MONUMENT));
-			player.addProperty("name", p.getName());
-			
-			JsonObject newDevCards = new JsonObject();
-			newDevCards.addProperty("monopoly", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONOPOLY));
-			newDevCards.addProperty("monument", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONUMENT));
-			newDevCards.addProperty("roadBuilding", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.ROAD_BUILD));
-			newDevCards.addProperty("soldier", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.SOLDIER));
-			newDevCards.addProperty("yearOfPlenty", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
-			player.add("newDevCards", newDevCards);
-			
-			JsonObject oldDevCards = new JsonObject();
-			oldDevCards.addProperty("monopoly", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONOPOLY));
-			oldDevCards.addProperty("monument", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONUMENT));
-			oldDevCards.addProperty("roadBuilding", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.ROAD_BUILD));
-			oldDevCards.addProperty("soldier", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.SOLDIER));
-			oldDevCards.addProperty("yearOfPlenty", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
-			player.add("oldDevCards", oldDevCards);
-			
-			player.addProperty("playerIndex", p.getPlayerIndex());
-			player.addProperty("playedDevCard", devCardManager.hasPlayedDevCard(p.getPlayerIndex()));
-			player.addProperty("playerID", p.getId());
-			
-			JsonObject resources = new JsonObject();
-			resources.addProperty("brick", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.BRICK));
-			resources.addProperty("ore", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.ORE));
-			resources.addProperty("sheep", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.SHEEP));
-			resources.addProperty("wheat", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.WHEAT));
-			resources.addProperty("wood", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.WOOD));
-			player.add("resources", resources);
-			
-			player.addProperty("roads", p.getRoadsRemaining());
-			player.addProperty("settlements", p.getSettlementsRemaining());
-			player.addProperty("soldiers", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.SOLDIER));
-			player.addProperty("victoryPoints", p.getPoints());
-			
-			players.add(player);
+			if(p != null)
+			{
+				JsonObject player = new JsonObject();
+
+				player.addProperty("cities", p.getCitiesRemaining());
+				player.addProperty("color", p.getColor().toString());
+				player.addProperty("discarded", resourceManager.hasPlayerDiscarded(p.getPlayerIndex()));
+				player.addProperty("monuments", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.MONUMENT));
+				player.addProperty("name", p.getName());
+
+				JsonObject newDevCards = new JsonObject();
+				newDevCards.addProperty("monopoly", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONOPOLY));
+				newDevCards.addProperty("monument", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONUMENT));
+				newDevCards.addProperty("roadBuilding", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.ROAD_BUILD));
+				newDevCards.addProperty("soldier", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.SOLDIER));
+				newDevCards.addProperty("yearOfPlenty", devCardManager.getNewDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+				player.add("newDevCards", newDevCards);
+
+				JsonObject oldDevCards = new JsonObject();
+				oldDevCards.addProperty("monopoly", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONOPOLY));
+				oldDevCards.addProperty("monument", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.MONUMENT));
+				oldDevCards.addProperty("roadBuilding", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.ROAD_BUILD));
+				oldDevCards.addProperty("soldier", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.SOLDIER));
+				oldDevCards.addProperty("yearOfPlenty", devCardManager.getOldDevCards().getCardTypeCountForPlayer(p.getPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+				player.add("oldDevCards", oldDevCards);
+
+				player.addProperty("playerIndex", p.getPlayerIndex());
+				player.addProperty("playedDevCard", devCardManager.hasPlayedDevCard(p.getPlayerIndex()));
+				player.addProperty("playerID", p.getId());
+
+				JsonObject resources = new JsonObject();
+				resources.addProperty("brick", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.BRICK));
+				resources.addProperty("ore", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.ORE));
+				resources.addProperty("sheep", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.SHEEP));
+				resources.addProperty("wheat", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.WHEAT));
+				resources.addProperty("wood", resourceManager.getResourceCount(p.getPlayerIndex(), ResourceType.WOOD));
+				player.add("resources", resources);
+
+				player.addProperty("roads", p.getRoadsRemaining());
+				player.addProperty("settlements", p.getSettlementsRemaining());
+				player.addProperty("soldiers", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.SOLDIER));
+				player.addProperty("victoryPoints", p.getPoints());
+
+				players.add(player);
+			}
+			else
+			{
+				JsonElement nullObject = null;
+				players.add(nullObject);
+			}
+
 		}
 		
 		//System.out.println(players.toString());
