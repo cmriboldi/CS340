@@ -29,7 +29,7 @@ public class MapManager implements IMapManager {
 
     public MapManager(boolean randomTile, boolean randomNumbers, boolean randomPorts) {
         map = new Map(randomTile, randomNumbers, randomPorts);
-	}
+    }
 
     public MapManager(HashMap<HexLocation, Hex> hexes_t, HashMap<VertexLocation, Settlement> settlements_t,
                       HashMap<EdgeLocation, Port> ports_t, HashMap<EdgeLocation, Road> roads_t,
@@ -38,7 +38,7 @@ public class MapManager implements IMapManager {
         map = new Map(hexes_t, settlements_t, ports_t, roads_t, robber_t, radius_t);
     }
 
-	public Map getMap() {
+    public Map getMap() {
         return map;
     }
 
@@ -64,10 +64,6 @@ public class MapManager implements IMapManager {
     public boolean canPlaceRoad(EdgeLocation edge, int player) {
         return map.canPlaceRoad(edge, player);
     }
-
-    /*public boolean canPlaceRoadSetup(EdgeLocation edge, int playerIndex) {
-        return map.canPlaceRoadSetup(edge, playerIndex);
-    }*/
 
     public boolean canPlaceSettlement(VertexLocation vert, int playerIndex) {
         return map.canPlaceSettlement(vert, playerIndex, false);

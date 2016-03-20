@@ -45,7 +45,7 @@ public class TestJSONSerializer {
         sam = new AuthToken("sam", "sam", 2, info.getId());
         jen = new AuthToken("jen", "jen", 3, info.getId());
 
-        facade.joinGame(bob, info.getId(), CatanColor.BLUE);
+        facade.joinGame(bob, bob.getGameID(), CatanColor.BLUE);
         facade.joinGame(kat, info.getId(), CatanColor.RED);
         facade.joinGame(sam, info.getId(), CatanColor.GREEN);
         facade.joinGame(jen, info.getId(), CatanColor.YELLOW);
