@@ -26,8 +26,8 @@ public class PlayerManager
 	public Player[] catanPlayers;
 	public PlayerTurnTracker turnTracker = null; 
 	int indexOfLargestArmy = -1; 
-	int indexOfLongestRoad = -1; 
-	
+	int indexOfLongestRoad = -1;
+
 
 	public int getIndexOfLargestArmy() {
 		return indexOfLargestArmy;
@@ -48,12 +48,6 @@ public class PlayerManager
 	public PlayerManager()
 	{
 		catanPlayers = new Player[4];
-		
-//	for ( int i = 0; i < catanPlayers.length; i++)
-//	{
-//			catanPlayers[i] = new Player();
-//	}
-
 		turnTracker = new PlayerTurnTracker();
 	}
 	
