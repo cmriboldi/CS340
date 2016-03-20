@@ -198,5 +198,10 @@ public class PlayerManager
 	{
 		catanPlayers[playerIndex].incrementPoints();
 	}
+	
+	public TurnType getTurnStatus()
+	{
+		return turnTracker.getStatus();
+	}
 
 }
