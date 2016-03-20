@@ -1,6 +1,9 @@
 package server.command;
 
+import model.CatanModel;
+import model.resources.TradeOffer;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.OfferTradeJSON;
@@ -26,8 +29,24 @@ public class OfferTradeCommand implements ICommand{
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			cm.playerManager.setTurnStatus("trading");
+			
+			TradeOffer tradeOffer = new TradeOffer(this.body.getOffer(), this.body.getPlayerIndex(), this.body.getReceiver());
+			
+			cm.resourceManager.setTradeOffer(tradeOffer);
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }

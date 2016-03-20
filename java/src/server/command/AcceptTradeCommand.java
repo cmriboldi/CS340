@@ -1,9 +1,15 @@
 package server.command;
 
+import model.CatanModel;
+import model.resources.TradeOffer;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.AcceptTradeJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.exceptions.player.InvalidPlayerIndexException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.TradeOfferNullException;
 
 public class AcceptTradeCommand implements ICommand {
 	
@@ -27,8 +33,25 @@ public class AcceptTradeCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			if(this.body.isWillAccept()) {
+				cm.resourceManager.acceptPlayerTrade(this.body.getPlayerIndex());
+			} else {
+				cm.resourceManager.declineTrade(this.body.getPlayerIndex());
+			}
+			cm.playerManager.setTurnStatus("playing");
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException | NotEnoughPlayerResourcesException | InvalidPlayerIndexException | TradeOfferNullException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }

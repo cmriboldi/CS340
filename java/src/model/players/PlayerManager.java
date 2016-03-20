@@ -198,4 +198,9 @@ public class PlayerManager
 		catanPlayers[playerIndex].incrementPoints();
 	}
 
+	public void setTurnStatus(String status)
+	{
+		turnTracker.setStatus(status);
+	}
+
 }

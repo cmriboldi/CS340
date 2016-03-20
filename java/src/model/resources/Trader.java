@@ -142,4 +142,9 @@ public class Trader
 		return playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer().invert());
 	}
 
+	public void setTradeOffer(TradeOffer tradeOffer)
+	{
+		this.tradeOffer = tradeOffer;
+	}
+
 }

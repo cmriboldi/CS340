@@ -218,4 +218,14 @@ public class ResourceManager
 		banker.discardCards(discardedCards, playerIndex);
 	}
 
+	public void setTradeOffer(TradeOffer tradeOffer)
+	{
+		trader.setTradeOffer(tradeOffer);
+	}
+
+	public void declineTrade(int playerIndex)
+	{
+		trader.setTradeOffer(null);
+	}
+
 };
