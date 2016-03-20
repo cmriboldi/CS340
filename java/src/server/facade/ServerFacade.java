@@ -112,7 +112,9 @@ public class ServerFacade implements IServerFacade
         	return "";
         }
 
-
+        //Case where the game is full
+        if (model.playerManager.getInitializedPlayerCount() >=4)
+            throw new UnauthorizedException("Join Game is already full");
         
         //Player Joined Previously
         if (model.playerManager.containsId(token.getPlayerID()))
@@ -132,8 +134,7 @@ public class ServerFacade implements IServerFacade
         }
 
 
-       if (model.playerManager.getInitializedPlayerCount() >=4)
-    	   throw new UnauthorizedException("Join Game is already full");
+
         ////////////////////////////////////////////////////////////////////////////////////////
         //          Logic to add player to the Catan Model
         ////////////////////////////////////////////////////////////////////////////////////////

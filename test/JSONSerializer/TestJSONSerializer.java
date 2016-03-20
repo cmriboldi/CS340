@@ -11,6 +11,7 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import server.facade.JSONSerializer;
 import server.guice.VolatileRealModule;
+import shared.definitions.CatanColor;
 
 /**
  * Created by clayt on 3/20/2016.
@@ -20,7 +21,11 @@ public class TestJSONSerializer {
     Injector injector;
     CatanModel model;
     IServerFacade facade;
-    AuthToken token = new AuthToken("bob", "bob", 0, 0);
+
+    AuthToken bob;
+    AuthToken kat;
+    AuthToken sam;
+    AuthToken jen;
 
     @Before
     public void setup() throws ServerException {
@@ -30,9 +35,22 @@ public class TestJSONSerializer {
 
         GameInfo info = facade.createGame(false, false, false, "this is a game");
 
-        token.setGameID(info.getId());
+        facade.register("bob", "bob");
+        facade.register("kat", "kat");
+        facade.register("sam", "sam");
+        facade.register("jen", "jen");
 
-        model = facade.getGameModel(token);
+        bob = new AuthToken("bob", "bob", 0, info.getId());
+        kat = new AuthToken("kat", "kat", 1, info.getId());
+        sam = new AuthToken("sam", "sam", 2, info.getId());
+        jen = new AuthToken("jen", "jen", 3, info.getId());
+
+        facade.joinGame(bob, info.getId(), CatanColor.BLUE);
+        facade.joinGame(kat, info.getId(), CatanColor.RED);
+        facade.joinGame(sam, info.getId(), CatanColor.GREEN);
+        facade.joinGame(jen, info.getId(), CatanColor.YELLOW);
+
+        model = facade.getGameModel(bob);
     }
 
     @Test
