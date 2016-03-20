@@ -89,6 +89,11 @@ public class PlayerManager
 		turnTracker.setStatus(status);
 	}
 	
+	public TurnType getTurnStatus()
+	{
+		return turnTracker.getStatus();
+	}
+	
 	public boolean containsId(int userID)
 	{
 		for (int i = 0; i < catanPlayers.length; i++)
@@ -198,10 +203,6 @@ public class PlayerManager
 	{
 		catanPlayers[playerIndex].incrementPoints();
 	}
-	
-	public TurnType getTurnStatus()
-	{
-		return turnTracker.getStatus();
-	}
+
 
 }
