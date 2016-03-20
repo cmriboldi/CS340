@@ -21,7 +21,7 @@ public class PlayerTurnTracker
 	public PlayerTurnTracker()
 	{
 		status = TurnType.FIRST_ROUND; 
-		turnIndex = 0; 
+		turnIndex = 0;
 	}
 	
 	

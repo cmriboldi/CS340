@@ -62,6 +62,7 @@ public class JSONSerializer {
 		bank.addProperty("wood", resourceManager.getBankResourceCount(ResourceType.WOOD));
 		
 		//System.out.println(bank.toString());
+		catan.add("bank", bank);
 	}
 	
 	private void setDeck()
@@ -75,6 +76,7 @@ public class JSONSerializer {
 		deck.addProperty("yearOfPlenty", devCardManager.getDevCardStack().getCardTypeCount(DevCardType.YEAR_OF_PLENTY));
 		
 		//System.out.println(deck.toString());
+		catan.add("deck", deck);
 	}
 	
 	private void setChat()
@@ -96,7 +98,8 @@ public class JSONSerializer {
 		}		
 		chat.add("lines", lines);
 		
-		//System.out.println(chat.toString());	
+		//System.out.println(chat.toString());
+		catan.add("chat", chat);
 	}
 	
 	private void setLog()
@@ -119,6 +122,7 @@ public class JSONSerializer {
 		log.add("lines", lines);
 		
 		//System.out.println(log.toString());
+		catan.add("log", log);
 	}
 	
 	private void setMap()
@@ -231,11 +235,14 @@ public class JSONSerializer {
 		map.add("robber", robber);	
 		
 		//System.out.println(map.toString());
+		catan.add("map", map);
 	}
 	
 	private void setPlayers()
 	{
 		Player[] playerList = playerManager.getCatanPlayers();
+		players = new JsonArray();
+		
 		for(Player p : playerList)
 		{
 			JsonObject player = new JsonObject();
@@ -278,14 +285,17 @@ public class JSONSerializer {
 			player.addProperty("settlements", p.getSettlementsRemaining());
 			player.addProperty("soldiers", devCardManager.playedDevCardCount(p.getPlayerIndex(), DevCardType.SOLDIER));
 			player.addProperty("victoryPoints", p.getPoints());
+			
+			players.add(player);
 		}
 		
 		//System.out.println(players.toString());
+		catan.add("players", players);
 	}
 	
 	private void setTradeOffer()
 	{
-		if(resourceManager.getTradeOffer().equals(null))
+		if(resourceManager.getTradeOffer() == null)
 			return;
 		
 		tradeOffer.addProperty("sender", resourceManager.getTradeOffer().getSender());
@@ -300,16 +310,18 @@ public class JSONSerializer {
 		tradeOffer.add("offer", offer);
 		
 		//System.out.println(tradeOffer.toString());
+		catan.add("tradeOffer", tradeOffer);
 	}
 	
 	private void setTurnTracker()
-	{
+	{	
 		turnTracker.addProperty("currentTurn", playerTurnTracker.getTurnIndex());
 		turnTracker.addProperty("status", playerTurnTracker.getStatus().toString());
 		turnTracker.addProperty("longestRoad", playerManager.getIndexOfLongestRoad());
 		turnTracker.addProperty("largestArmy", playerManager.getIndexOfLargestArmy());
 		
 		//System.out.println(turnTracker.toString());
+		catan.add("turnTracker", turnTracker);
 	}
 	
 	private String _serialize(CatanModel model)
@@ -324,21 +336,13 @@ public class JSONSerializer {
 		catan = new JsonObject();
 		
 		this.setBank();
-		catan.add("bank", bank);
 		this.setDeck();
-		catan.add("deck", deck);
 		this.setChat();
-		catan.add("chat", chat);
 		this.setLog();
-		catan.add("log", log);
 		this.setMap();
-		catan.add("map", map);
 		this.setPlayers();
-		catan.add("players", players);
 		this.setTradeOffer();
-		catan.add("tradeOffer", tradeOffer);
 		this.setTurnTracker();
-		catan.add("turnTracker", turnTracker);
 		catan.addProperty("version", model.getVersion());
 		catan.addProperty("winner", -1);
 		
