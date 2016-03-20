@@ -155,6 +155,7 @@ public class Map {
             //place the desert tile first, the desert tile is independent of randomized numbers
             Random rand = new Random();
             hexes.put(new HexLocation(0, -2), new Hex(0, -2, HexType.DESERT, -1));
+            robber = new HexLocation(0, -2);
 
             if (randomNumbers) {
                 //if the tiles should be standard and the numbers should be random
