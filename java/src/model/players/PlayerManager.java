@@ -6,6 +6,7 @@ import client.data.PlayerInfo;
 import clientfacade.Facade;
 import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
+import shared.definitions.TurnType;
 import shared.exceptions.player.*;
 
 /**
@@ -82,10 +83,10 @@ public class PlayerManager
 	public void setTurnTracker(PlayerTurnTracker turnTracker) {
 		this.turnTracker = turnTracker;
 	}
-
-	public void setStatus(String status)
+	
+	public void setTurnStatus(TurnType status)
 	{
-		this.turnTracker.setStatus(status);
+		turnTracker.setStatus(status);
 	}
 	
 	public boolean containsId(int userID)
@@ -196,11 +197,6 @@ public class PlayerManager
 	public void incrementPlayerPoints(int playerIndex)
 	{
 		catanPlayers[playerIndex].incrementPoints();
-	}
-
-	public void setTurnStatus(String status)
-	{
-		turnTracker.setStatus(status);
 	}
 
 }

@@ -12,6 +12,7 @@ import model.resources.ResourceList;
 import serverProxy.JSONDeserializer;
 import shared.definitions.Cost;
 import shared.definitions.DevCardType;
+import shared.definitions.TurnType;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 import shared.locations.*;
 import serverProxy.JsonLoader;
@@ -175,7 +176,7 @@ public class OptionsTest
 		assertEquals(options.canRollNumber(2), false);
 		assertEquals(options.canRollNumber(3), false);
 		
-		cm.playerManager.setStatus("Rolling");
+		cm.playerManager.setTurnStatus(TurnType.ROLLING);
 		
 		assertEquals(options.canRollNumber(0), true);
 		assertEquals(options.canRollNumber(1), false);
@@ -188,7 +189,7 @@ public class OptionsTest
 		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
 		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
 		
-		cm.playerManager.setStatus("Robbing");
+		cm.playerManager.setTurnStatus(TurnType.ROBBING);
 		
 		assertEquals(options.canPlaceRobber(new HexLocation(0,0)), true);
 		assertEquals(options.canPlaceRobber(new HexLocation(2,3)), false);
@@ -201,7 +202,7 @@ public class OptionsTest
 		assertEquals(options.canDiscardCards(2), false);
 		assertEquals(options.canDiscardCards(3), false);
 		
-		cm.playerManager.setStatus("Discarding");
+		cm.playerManager.setTurnStatus(TurnType.DISCARDING);
 		
 		assertEquals(options.canDiscardCards(0), true);
 		assertEquals(options.canDiscardCards(1), true);
@@ -214,7 +215,7 @@ public class OptionsTest
 		assertEquals(options.canFinishTurn(2), false);
 		assertEquals(options.canFinishTurn(3), false);
 		
-		cm.playerManager.setStatus("Playing");
+		cm.playerManager.setTurnStatus(TurnType.PLAYING);
 		
 		assertEquals(options.canFinishTurn(0), true);
 		assertEquals(options.canFinishTurn(1), false);
@@ -248,7 +249,7 @@ public class OptionsTest
 		
 		assertEquals(options.canPlaceRoad(0, pieceEdgeLocation),false); //nft
 		
-		assertEquals(options.canPlaceTown(0, pieceVertexLocation2),false); //nft
+		assertEquals(options.canPlaceTown(0, pieceVertexLocation2),true);
 		assertEquals(options.canPlaceTown(1, pieceVertexLocation2),false);
 		assertEquals(options.canPlaceTown(2, pieceVertexLocation2),false);
 		assertEquals(options.canPlaceTown(3, pieceVertexLocation2),false);

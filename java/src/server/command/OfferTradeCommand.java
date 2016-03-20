@@ -34,8 +34,6 @@ public class OfferTradeCommand implements ICommand{
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.playerManager.setTurnStatus("trading");
-			
 			TradeOffer tradeOffer = new TradeOffer(this.body.getOffer(), this.body.getPlayerIndex(), this.body.getReceiver());
 			
 			cm.resourceManager.setTradeOffer(tradeOffer);

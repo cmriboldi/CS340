@@ -5,7 +5,6 @@ import java.util.*;
 import client.map.view.IMapView;
 import client.map.view.IRobView;
 import clientfacade.Facade;
-//import com.sun.javafx.geom.Edge;
 import model.CatanModel;
 import model.map.Hex;
 import model.map.Port;
@@ -69,11 +68,11 @@ public class MapController extends Controller implements IMapController, Observe
 	        }
 	        
 	
-	        if(!Facade.getTurnStatus().equals("Robbing"))
+	        if(Facade.getTurnStatus() != TurnType.ROBBING)
 	        {
 	        	Facade.setRobbing(false);
 	        }
-	        if(Facade.getTurnStatus().equals("Robbing") && Facade.isMyturn() && !Facade.isRobbing())
+	        if(Facade.getTurnStatus() == TurnType.ROBBING && Facade.isMyturn() && !Facade.isRobbing())
 	        {
 	        	Facade.setRobbing(true);
 	        	getView().startDrop(PieceType.ROBBER, null, false);
@@ -86,21 +85,21 @@ public class MapController extends Controller implements IMapController, Observe
 	        	
 	        	int roadsRemaining = Facade.getLocalPlayerRoadsRemaining();  
 	        	int settlementsRemaining = Facade.getLocalPlayerSettlementsRemaining(); 
-	        	String status = Facade.getTurnStatus();  
+	        	TurnType status = Facade.getTurnStatus();  
 	        	
-	        	if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 5)
+	        	if (status == TurnType.FIRST_ROUND && roadsRemaining == 15 && settlementsRemaining == 5)
 	        	{
 	            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
 	        	}
-	        	else if (status.toLowerCase().equals("firstround")&&roadsRemaining == 15&&settlementsRemaining == 4)
+	        	else if (status == TurnType.FIRST_ROUND && roadsRemaining == 15 && settlementsRemaining == 4)
 	        	{
 	            	currentState.startMove(PieceType.ROAD, true, true, getView());
 	        	}
-	        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 4)
+	        	else if (status == TurnType.SECOND_ROUND && roadsRemaining == 14 && settlementsRemaining == 4)
 	        	{
 	            	currentState.startMove(PieceType.SETTLEMENT, true, false, getView());
 	        	}
-	        	else if (status.toLowerCase().equals("secondround")&&roadsRemaining == 14&&settlementsRemaining == 3)
+	        	else if (status == TurnType.SECOND_ROUND && roadsRemaining == 14 && settlementsRemaining == 3)
 	        	{
 	            	currentState.startMove(PieceType.ROAD, true, true, getView());
 	        	}
@@ -124,14 +123,13 @@ public class MapController extends Controller implements IMapController, Observe
     public void determineState() throws InvalidMapStateException {
         int localPlayerIndex = Facade.getLocalPlayerInfo().getPlayerIndex();
         int indexOfPlayingClient = Facade.getIndexOfClientWhoIsPlaying(); 
-        String status = Facade.getTurnStatus(); 
+        TurnType status = Facade.getTurnStatus();
 
-
-        if (localPlayerIndex != indexOfPlayingClient | status.equals("Discarding")) {
+        if (localPlayerIndex != indexOfPlayingClient | status == TurnType.DISCARDING) {
             currentState = new MapInactiveState();
-        } else if (status.equals("FirstRound") | status.equals("SecondRound")) {
+        } else if (status == TurnType.FIRST_ROUND | status == TurnType.SECOND_ROUND) {
             currentState = new MapSetupState();
-        } else if (status.equals("Rolling") | status.equals("Robbing") | status.equals("Playing") | status.equals("Robbing")) {
+        } else if (status == TurnType.ROLLING | status == TurnType.ROBBING | status == TurnType.PLAYING | status == TurnType.ROBBING) {
             currentState = new MapPlayingState();
         } else {
             throw new InvalidMapStateException();

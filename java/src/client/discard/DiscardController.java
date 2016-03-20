@@ -204,11 +204,11 @@ public class DiscardController extends Controller implements IDiscardController,
 
 	@Override
 	public void update(Observable o, Object arg) {
-		if(!Facade.getTurnStatus().equals("Discarding"))
+		if(Facade.getTurnStatus() != TurnType.DISCARDING)
 		{
 			Facade.setDiscarded(false);
 		}
-		if(Facade.getTurnStatus().equals("Discarding"))
+		if(Facade.getTurnStatus() == TurnType.DISCARDING)
 		{		
 			woodTotal = Facade.getResourceAmount(ResourceType.WOOD);
 			brickTotal = Facade.getResourceAmount(ResourceType.BRICK);

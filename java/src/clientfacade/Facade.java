@@ -23,6 +23,7 @@ import shared.definitions.CatanColor;
 import shared.definitions.DevCardType;
 import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
+import shared.definitions.TurnType;
 import shared.exceptions.player.PlayerNameNotFoundException;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
@@ -316,12 +317,12 @@ public class Facade extends Observable {
     	return instance()._isMyTurn();
     }
     
-    private String _getTurnStatus()
+    private TurnType _getTurnStatus()
     {
     	return this.catanModel.playerManager.turnTracker.getStatus();
     }
     
-    public static String getTurnStatus()
+    public static TurnType getTurnStatus()
 	{
 		return instance()._getTurnStatus();
 	}

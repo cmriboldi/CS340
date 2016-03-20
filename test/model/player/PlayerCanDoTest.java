@@ -5,18 +5,14 @@ import static org.junit.Assert.*;
 import org.junit.*;
 
 import model.CatanModel;
-import model.development.DevCardManager;
 import model.options.Options;
-import model.players.Player;
 import model.players.PlayerManager;
 import model.players.PlayerTurnTracker;
 import serverProxy.JSONDeserializer;
-import shared.definitions.DevCardType;
+import shared.definitions.TurnType;
 import shared.locations.HexLocation;
 import serverProxy.JsonLoader;
 import test.TestJSON;
-
-// Test for 'Rolling' or 'Robbing' or 'Playing' or 'Discarding' or 'FirstRound' or 'SecondRound']
 
 public class PlayerCanDoTest
 {
@@ -60,7 +56,6 @@ public class PlayerCanDoTest
 	@Test
 	public void testTurnTrackerInitialization()
 	{
-		
 		//turnTracker": {
         //"status": "Rolling",
         //"currentTurn": 0,
@@ -74,8 +69,7 @@ public class PlayerCanDoTest
 		assertEquals(playerManager.getTurnTracker().getTurnIndex(), 0); 
 		assertNotEquals(playerManager.getTurnTracker().getTurnIndex(), 1); 
 		assertNotEquals(playerManager.getTurnTracker().getTurnIndex(), -1); 
-		assertTrue(playerManager.getTurnTracker().getStatus().equals("Rolling")); 
-		assertFalse(playerManager.getTurnTracker().getStatus().equals("rolling")); 
+		assertTrue(playerManager.getTurnTracker().getStatus() == TurnType.ROLLING);
 
 	}
 	
@@ -153,8 +147,7 @@ public class PlayerCanDoTest
 	@Test
 	public void testCanPlayDuringPlayForPlayer1()
 	{
-		
-		turnTracker.setStatus("Playing");
+		turnTracker.setStatus(TurnType.PLAYING);
 		turnTracker.setTurnIndex(1);
 		boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
 		assertFalse(player0CanPlay); // can't play because status is currently rolling
@@ -169,7 +162,7 @@ public class PlayerCanDoTest
 	@Test
 	public void testCanRollDuringPlayForPlayer1()
 	{
-		turnTracker.setStatus("Playing");
+		turnTracker.setStatus(TurnType.PLAYING);
 		turnTracker.setTurnIndex(1);
 		
 		boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -186,7 +179,7 @@ public class PlayerCanDoTest
 	@Test
 	public void canDiscardCardsDuringPlayForPlayer1()
 	{
-		turnTracker.setStatus("Playing");
+		turnTracker.setStatus(TurnType.PLAYING);
 		turnTracker.setTurnIndex(1);
 		
 		boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -204,7 +197,7 @@ public class PlayerCanDoTest
 	@Test
 	public void testCanFinishTurnDuringPlayForPlayer1()
 	{
-		turnTracker.setStatus("Playing");
+		turnTracker.setStatus(TurnType.PLAYING);
 		turnTracker.setTurnIndex(1);
 		
 		boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -222,7 +215,7 @@ public class PlayerCanDoTest
 	@Test
 	public void testCanPlaceRobberDuringPlayForPlayer1()
 	{
-		turnTracker.setStatus("Playing");
+		turnTracker.setStatus(TurnType.PLAYING);
 		turnTracker.setTurnIndex(1);
 		
 		boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
@@ -242,8 +235,7 @@ public class PlayerCanDoTest
 		@Test
 		public void testCanPlayDuringRobbingForPlayer2()
 		{
-			
-			turnTracker.setStatus("Robbing");
+			turnTracker.setStatus(TurnType.ROBBING);
 			turnTracker.setTurnIndex(2);
 			boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
 			assertFalse(player0CanPlay); // can't play because status is currently rolling
@@ -258,7 +250,7 @@ public class PlayerCanDoTest
 		@Test
 		public void testCanRollDuringRobbingForPlayer2()
 		{
-			turnTracker.setStatus("Robbing");
+			turnTracker.setStatus(TurnType.ROBBING);
 			turnTracker.setTurnIndex(2);
 			
 			boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -275,7 +267,7 @@ public class PlayerCanDoTest
 		@Test
 		public void canDiscardCardsDuringRobbingForPlayer2()
 		{
-			turnTracker.setStatus("Robbing");
+			turnTracker.setStatus(TurnType.ROBBING);
 			turnTracker.setTurnIndex(2);
 			
 			boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -293,7 +285,7 @@ public class PlayerCanDoTest
 		@Test
 		public void testCanFinishTurnDuringRobbingForPlayer2()
 		{
-			turnTracker.setStatus("Robbing");
+			turnTracker.setStatus(TurnType.ROBBING);
 			turnTracker.setTurnIndex(2);
 			
 			boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -311,7 +303,7 @@ public class PlayerCanDoTest
 		@Test
 		public void testCanPlaceRobberDuringRobbingForPlayer2()
 		{
-			turnTracker.setStatus("Robbing");
+			turnTracker.setStatus(TurnType.ROBBING);
 			turnTracker.setTurnIndex(2);
 			
 			boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));
@@ -332,7 +324,7 @@ public class PlayerCanDoTest
 			public void testCanPlayDuringDiscardingForPlayer3()
 			{
 				
-				turnTracker.setStatus("Discarding");
+				turnTracker.setStatus(TurnType.DISCARDING);
 				turnTracker.setTurnIndex(3);
 				boolean player0CanPlay = options.canPlay(playerManager.getCatanPlayers()[0].getPlayerIndex());
 				assertFalse(player0CanPlay); // can't play because status is currently rolling
@@ -347,7 +339,7 @@ public class PlayerCanDoTest
 			@Test
 			public void testCanRollDuringDiscardingForPlayer3()
 			{
-				turnTracker.setStatus("Discarding");
+				turnTracker.setStatus(TurnType.DISCARDING);
 				turnTracker.setTurnIndex(3);
 				
 				boolean player0CanRoll = options.canRollNumber(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -364,7 +356,7 @@ public class PlayerCanDoTest
 			@Test
 			public void canDiscardCardsDuringDiscardingForPlayer3()
 			{
-				turnTracker.setStatus("Discarding");
+				turnTracker.setStatus(TurnType.DISCARDING);
 				turnTracker.setTurnIndex(3);
 				
 				boolean player0CanDiscard = options.canDiscardCards(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -382,7 +374,7 @@ public class PlayerCanDoTest
 			@Test
 			public void testCanFinishTurnDuringDiscardingForPlayer3()
 			{
-				turnTracker.setStatus("Discarding");
+				turnTracker.setStatus(TurnType.DISCARDING);
 				turnTracker.setTurnIndex(3);
 				
 				boolean player0CanFinish = options.canFinishTurn(playerManager.getCatanPlayers()[0].getPlayerIndex());
@@ -400,7 +392,7 @@ public class PlayerCanDoTest
 			@Test
 			public void testCanPlaceRobberDuringDiscardingForPlayer3()
 			{
-				turnTracker.setStatus("Discarding");
+				turnTracker.setStatus(TurnType.DISCARDING);
 				turnTracker.setTurnIndex(3);
 				
 				boolean player0CanPlaceRobber = options.canPlaceRobber(new HexLocation(2,3));

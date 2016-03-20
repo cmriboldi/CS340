@@ -6,6 +6,7 @@ import java.util.Observer;
 import client.base.*;
 import clientfacade.Facade;
 import serverProxy.ServerException;
+import shared.definitions.TurnType;
 
 
 /**
@@ -58,7 +59,7 @@ public class RollController extends Controller implements IRollController, Obser
     	
     	
     	
-        if (Facade.getTurnStatus().equals("Rolling") && Facade.isMyturn()) {
+        if (Facade.getTurnStatus() == TurnType.ROLLING && Facade.isMyturn()) {
         	
         	if (Facade.getMaxPoints() >= 10) 
     		{

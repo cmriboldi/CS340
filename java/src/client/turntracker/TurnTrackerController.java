@@ -148,23 +148,23 @@ public class TurnTrackerController extends Controller implements ITurnTrackerCon
 		else
 		{			
 			
-			switch (Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus().toLowerCase()) {
-			case "firstround":
+			switch (Facade.getTurnStatus()) {
+			case FIRST_ROUND:
 				getView().updateGameState("First Round", false);
 				break;
-			case "secondround":
+			case SECOND_ROUND:
 				getView().updateGameState("Second Round", false);
 				break;
-			case "rolling":
+			case ROLLING:
 				getView().updateGameState("Rolling", false);
 				break;
-			case "discarding":
+			case DISCARDING:
 				getView().updateGameState("Discarding", false);
 				break;
-			case "playing":
+			case PLAYING:
 				getView().updateGameState("Click to end your turn", true);
 				break;
-			case "robbing":
+			case ROBBING:
 				getView().updateGameState("Robbing", false);
 				break;
 			default:

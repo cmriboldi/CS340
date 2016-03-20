@@ -7,6 +7,7 @@ import clientfacade.Facade;
 import serverProxy.ServerException;
 import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
+import shared.definitions.TurnType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -39,28 +40,6 @@ public class MapSetupState implements MapControllerState
 		}
 	}
 
-	@Override
-	public void playSoldierCard(IMapView mapView)
-	{
-
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	/**
 	 * Initializes the MapControllerState from the Model passed in.
 	 */
@@ -77,9 +56,9 @@ public class MapSetupState implements MapControllerState
 		if(localPlayerIndex == -1)
 			return false;
 
-		String status = Facade.getCatanModel().getPlayerManager().getTurnTracker().getStatus().toLowerCase(); 
+		TurnType status = Facade.getTurnStatus(); 
 		
-		if (status.equals("secondround"))
+		if (status == TurnType.SECOND_ROUND)
 		{
 			return Facade.getCatanModel().getMapManager().getMap().canPlaceDuring2ndRoundSetup(edgeLoc, localPlayerIndex); 
 		}
@@ -87,14 +66,11 @@ public class MapSetupState implements MapControllerState
 		{
 			return Facade.getCatanModel().getMapManager().canPlaceRoad(edgeLoc, localPlayerIndex);
 		}
-		//return Facade.getCatanModel().getMapManager().canPlaceRoadSetup(edgeLoc, localPlayerIndex); //.getOptions().canPlaceRoad(localPlayerIndex, edgeLoc); // DURING SETUP
 	}
 
 	@Override
 	public boolean canPlaceSettlement(VertexLocation vertLoc)
 	{
-		/*int localPlayerId = Facade.getLocalPlayerInfo().getId();
-		return Facade.getCatanModel().getOptions().canPlaceTown(localPlayerId, vertLoc);  // DURING SETUP*/
 		int localPlayerIndex = Facade.getLocalPlayerIndex();
 		return Facade.getCatanModel().getMapManager().canPlaceSettlementSetup(vertLoc, localPlayerIndex);
 	}
@@ -110,8 +86,6 @@ public class MapSetupState implements MapControllerState
 	{
 		return false;
 	}
-
-
 
 	@Override
 	public void placeSettlement(VertexLocation vertLoc)
@@ -143,27 +117,30 @@ public class MapSetupState implements MapControllerState
 	@Override
 	public void cancelMove()
 	{
-		// ??? not sure what this does
-	}
-
-
-
-	@Override
-	public void placeRobber(HexLocation hexLoc, IRobView RobView) {
-		// Do nothing
-		
+		// do nothing
 	}
 
 	@Override
-	public void robPlayer(RobPlayerInfo victim, IRobView RobView) {
-		// TODO Auto-generated method stub
-		
+	public void placeRobber(HexLocation hexLoc, IRobView RobView) 
+	{
+		// do nothing
+	}
+
+	@Override
+	public void robPlayer(RobPlayerInfo victim, IRobView RobView) 
+	{
+		// do nothing
 	}
 
 	@Override
 	public void playRoadBuildingCard(IMapView iMapView)
 	{
-		// TODO Auto-generated method stub
-		
+		// do nothing
+	}
+	
+	@Override
+	public void playSoldierCard(IMapView mapView)
+	{
+		// do nothing
 	}
 }

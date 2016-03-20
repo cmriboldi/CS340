@@ -7,6 +7,7 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.AcceptTradeJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.TurnType;
 import shared.exceptions.player.InvalidPlayerIndexException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 import shared.exceptions.resources.TradeOfferNullException;
@@ -43,7 +44,7 @@ public class AcceptTradeCommand implements ICommand {
 			} else {
 				cm.resourceManager.declineTrade(this.body.getPlayerIndex());
 			}
-			cm.playerManager.setTurnStatus("playing");
+			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			
 			facade.updateGame(authToken, cm);
 			

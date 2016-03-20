@@ -395,7 +395,7 @@ public class JSONDeserializer
 		int currentTurn = turnTracker.getAsJsonPrimitive("currentTurn").getAsInt();
 	    String status = turnTracker.getAsJsonPrimitive("status").getAsString();
 	    
-	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker(currentTurn, status); 
+	    PlayerTurnTracker playerTurnTracker = new PlayerTurnTracker(currentTurn, TurnType.toEnum(status)); 
 	    playerManager.setTurnTracker(playerTurnTracker);
 	}
 	

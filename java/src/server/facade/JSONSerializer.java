@@ -305,7 +305,7 @@ public class JSONSerializer {
 	private void setTurnTracker()
 	{
 		turnTracker.addProperty("currentTurn", playerTurnTracker.getTurnIndex());
-		turnTracker.addProperty("status", playerTurnTracker.getStatus());
+		turnTracker.addProperty("status", playerTurnTracker.getStatus().toString());
 		turnTracker.addProperty("longestRoad", playerManager.getIndexOfLongestRoad());
 		turnTracker.addProperty("largestArmy", playerManager.getIndexOfLargestArmy());
 		

@@ -1,8 +1,6 @@
 package model.players;
 
-import java.util.ArrayList;
-
-import model.CatanModel;
+import shared.definitions.TurnType;
 import shared.exceptions.player.*;
 
 /**
@@ -17,23 +15,12 @@ import shared.exceptions.player.*;
  */
 public class PlayerTurnTracker
 {
-	
-	// 3 Turn Phases
-	// roll
-	// trade
-	// build
-	// 1. Rolling —> 2. Discarding (may be skipped) —> 3. Robbing (may be skipped) —> 4. Trade/Build/Play_Dev_Card
-
-	
 	int turnIndex = -1; 
-	
-	String status = null; 
-	
-	
+	TurnType status = null;
 	
 	public PlayerTurnTracker()
 	{
-		status = "FirstRound"; 
+		status = TurnType.FIRST_ROUND; 
 		turnIndex = 0; 
 	}
 	
@@ -43,17 +30,18 @@ public class PlayerTurnTracker
 		
 	}
 	
-	public PlayerTurnTracker(int turnIndex, String status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
+	public PlayerTurnTracker(int turnIndex, TurnType status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
 	{
+		if(status == null) {
+			throw new InvalidTurnStatusException();
+		}
+		
 		this.status = status; 
 		this.turnIndex = turnIndex; 
 		
-		if (turnIndex < 0 | turnIndex > 3)
-			throw new TurnIndexException(); 
-
-		if (!(status.toLowerCase().equals("rolling") | status.toLowerCase().equals("discarding") | status.toLowerCase().equals("robbing") | status.toLowerCase().equals("playing")
-				| status.toLowerCase().equals("firstround")  | status.toLowerCase().equals("secondround")))
-			throw new InvalidTurnStatusException(); 
+		if (turnIndex < 0 | turnIndex > 3) {
+			throw new TurnIndexException();
+		}
 	}
 
 	public int getTurnIndex() {
@@ -64,21 +52,15 @@ public class PlayerTurnTracker
 		this.turnIndex = turnIndex;
 	}
 
-	public String getStatus() {
+	public TurnType getStatus() {
 		return status;
 	}
 
-	public void setStatus(String status) {
+	public void setStatus(TurnType status) {
 		this.status = status;
 	}
 
-	/**
-	 * Queue that tracks the turn flow. Index 0 is the player with the current turn. Not that the
-	 * queue is constructed using an ArrayList
-	 **/
-	ArrayList<Integer> TurnQueue;
-
-	/** Advances the Queue when a turn is over **/
+	/** Advances the turn index when a turn is over **/
 	public void advanceTurn() throws TurnIndexException
 	{
 		if (turnIndex < 0 | turnIndex > 3)
@@ -92,20 +74,7 @@ public class PlayerTurnTracker
 		if (turnIndex < 0 | turnIndex > 3)
 			throw new TurnIndexException(); 
 		
-		this.status = "Rolling"; 
-		
+		this.status = TurnType.ROLLING;
 	}
-	
-	public void advancePhase()
-	{
-		
-	}
-	
-	
-	
-	
-	
-	
-	
 
 }

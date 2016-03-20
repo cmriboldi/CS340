@@ -7,6 +7,7 @@ import model.CatanModel;
 import model.players.PlayerTurnTracker;
 import shared.definitions.DevCardType;
 import shared.definitions.PortType;
+import shared.definitions.TurnType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -174,14 +175,14 @@ public class Options
 	public boolean canPlay(int playerIndex)
 	{
 		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 		
-		return (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Playing"));
+		return (playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus() == TurnType.PLAYING);
 	}
 
 	
 	public boolean canRollNumber(int playerIndex)
 	{
 		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 
-		return(playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus().equals("Rolling"));
+		return(playerIndex == turnTracker.getTurnIndex() && turnTracker.getStatus() == TurnType.ROLLING);
 	}
 
 	public boolean canPlaceRobber(HexLocation hex)
@@ -192,7 +193,7 @@ public class Options
 	public boolean canDiscardCards(int playerIndex)
 	{	
 		PlayerTurnTracker turnTracker = catanModel.playerManager.getTurnTracker(); 
-		return (turnTracker.getStatus().equals("Discarding"));
+		return (turnTracker.getStatus() == TurnType.DISCARDING);
 	}
 	
 	public boolean canFinishTurn(int playerIndex)

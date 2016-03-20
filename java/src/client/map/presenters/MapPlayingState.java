@@ -7,6 +7,7 @@ import clientfacade.Facade;
 import serverProxy.ServerException;
 import shared.definitions.CatanColor;
 import shared.definitions.PieceType;
+import shared.definitions.TurnType;
 import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexLocation;
@@ -103,7 +104,7 @@ public class MapPlayingState implements MapControllerState
 	public void robPlayer(RobPlayerInfo victim, IRobView RobView)
 	{
 		try {
-			if(Facade.getTurnStatus().equals("Robbing"))
+			if(Facade.getTurnStatus() == TurnType.ROBBING)
 				Facade.robPlayer(victim.getPlayerIndex(), robLocation);
 			else
 				Facade.playSoldierCard(victim.getPlayerIndex(), robLocation);
@@ -141,22 +142,4 @@ public class MapPlayingState implements MapControllerState
     	mapView.startDrop(PieceType.ROAD, playerColor, false);
 	}
 
-	/*
-	@Override
-	public boolean canPlaySoldier() {
-		//TODO
-		return false;
-	}
-
-	@Override
-	public boolean canPlayRoadBuildingCard() {
-		// TODO
-		return false;
-	}
-
-	@Override
-	public boolean canRobPlayer() {
-		// TODO
-		return false;
-	}*/
 }
