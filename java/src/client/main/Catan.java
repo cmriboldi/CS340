@@ -1,5 +1,7 @@
 package client.main;
 
+import java.io.IOException;
+
 import javax.swing.*;
 
 import client.catan.*;
@@ -8,6 +10,10 @@ import client.join.*;
 import client.misc.*;
 import client.base.*;
 import clientfacade.Facade;
+import server.facade.JSONSerializer;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 
 /**
  * Main entry point for the Catan program
@@ -44,6 +50,12 @@ public class Catan extends JFrame
 	
 	public static void main(final String[] args)
 	{
+		try {
+			JSONSerializer.test();
+		} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException | IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

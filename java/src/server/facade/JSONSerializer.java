@@ -8,11 +8,13 @@ import model.messagelog.*;
 import model.players.*;
 import model.resources.*;
 import serverProxy.JSONDeserializer;
+import serverProxy.JsonLoader;
 import shared.definitions.*;
 import shared.exceptions.player.*;
 import shared.locations.*;
 import shared.communication.IdNumber;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -57,6 +59,8 @@ public class JSONSerializer {
 		bank.addProperty("sheep", resourceManager.getBankResourceCount(ResourceType.SHEEP));
 		bank.addProperty("wheat", resourceManager.getBankResourceCount(ResourceType.WHEAT));
 		bank.addProperty("wood", resourceManager.getBankResourceCount(ResourceType.WOOD));
+		
+		//System.out.println(bank.toString());
 	}
 	
 	private void setChat()
@@ -78,6 +82,7 @@ public class JSONSerializer {
 		}		
 		chat.add("lines", lines);
 		
+		//System.out.println(chat.toString());	
 	}
 	
 	private void setLog()
@@ -98,6 +103,8 @@ public class JSONSerializer {
 			lines.add(line);
 		}		
 		log.add("lines", lines);
+		
+		//System.out.println(log.toString());
 	}
 	
 	private void setMap()
@@ -207,7 +214,9 @@ public class JSONSerializer {
 		robber.addProperty("x", mapManager.getRobber().getX());
 		robber.addProperty("y", mapManager.getRobber().getY());
 		
-		map.add("robber", robber);		
+		map.add("robber", robber);	
+		
+		//System.out.println(map.toString());
 	}
 	
 	private void setPlayers()
@@ -257,10 +266,14 @@ public class JSONSerializer {
 			player.addProperty("victoryPoints", p.getPoints());
 		}
 		
+		//System.out.println(players.toString());
 	}
 	
 	private void setTradeOffer()
 	{
+		if(resourceManager.getTradeOffer().equals(null))
+			return;
+		
 		tradeOffer.addProperty("sender", resourceManager.getTradeOffer().getSender());
 		tradeOffer.addProperty("receiver", resourceManager.getTradeOffer().getReceiver());
 		
@@ -271,6 +284,8 @@ public class JSONSerializer {
 		offer.addProperty("wheat", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.WHEAT));
 		offer.addProperty("wood", resourceManager.getTradeOffer().getResourcesOffer().getResourceTypeCount(ResourceType.WOOD));
 		tradeOffer.add("offer", offer);
+		
+		//System.out.println(tradeOffer.toString());
 	}
 	
 	private void setTurnTracker()
@@ -279,6 +294,8 @@ public class JSONSerializer {
 		turnTracker.addProperty("status", playerTurnTracker.getStatus());
 		turnTracker.addProperty("longestRoad", playerManager.getIndexOfLongestRoad());
 		turnTracker.addProperty("largestArmy", playerManager.getIndexOfLargestArmy());
+		
+		//System.out.println(turnTracker.toString());
 	}
 	
 	private String _serialize(CatanModel model)
@@ -309,11 +326,16 @@ public class JSONSerializer {
 		catan.addProperty("version", model.getVersion());
 		catan.addProperty("winner", -1);
 		
-		return catan.getAsString();
+		System.out.println(catan.toString());
+		return catan.toString();
 	}
 	
 	public static String serialize(CatanModel model)
 	{
 		return instance()._serialize(model);
+	}
+	
+	public static void test() throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException, IOException{
+		instance()._serialize(JSONDeserializer.deserialize(JsonLoader.readFile("/Users/JPPowers/OneDrive/CS Dev/workspace340/CS340/json/default.json")));
 	}
 }
