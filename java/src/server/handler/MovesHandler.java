@@ -8,6 +8,7 @@ import server.command.ICommand;
 import server.exception.BadRequestException;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
+import server.exception.UnauthorizedException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.*;
 
@@ -56,9 +57,12 @@ public class MovesHandler extends APIHandler
         catch (ServerException e)
         {
             if(e.getClass().equals(BadRequestException.class))
-                respond400(httpExchange);
+                respond400(httpExchange, e.getMessage());
             if(e.getClass().equals(InvalidCredentialsException.class))
-                respond401(httpExchange);
+                respond401(httpExchange, e.getMessage());
+            if(e.getClass().equals(UnauthorizedException.class))
+                respond401(httpExchange, e.getMessage());
+            httpExchange.close();
             e.printStackTrace();
         }
     }

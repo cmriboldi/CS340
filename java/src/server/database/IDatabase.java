@@ -3,6 +3,7 @@ package server.database;
 import client.data.GameInfo;
 import model.CatanModel;
 import server.data.UserData;
+import server.exception.ServerException;
 
 /**
  * Created by Joshua on 3/9/2016.

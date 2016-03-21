@@ -71,9 +71,12 @@ public class GamesHandler extends APIHandler
         catch (ServerException e)
         {
             if(e.getClass().equals(BadRequestException.class))
-                respond400(httpExchange);
+                respond400(httpExchange, e.getMessage());
             if(e.getClass().equals(InvalidCredentialsException.class))
-                respond401(httpExchange);
+                respond401(httpExchange, e.getMessage());
+            if(e.getClass().equals(UnauthorizedException.class))
+                respond401(httpExchange, e.getMessage());
+            httpExchange.close();
             e.printStackTrace();
         }
     }

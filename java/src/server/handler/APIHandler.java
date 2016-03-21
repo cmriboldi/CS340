@@ -99,6 +99,7 @@ public abstract class APIHandler implements HttpHandler
     {
         try
         {
+            exchange.getResponseHeaders().set("Content-Type", "text/html");
             exchange.sendResponseHeaders(400, response.length());
             exchange.getResponseBody().write(response.getBytes());
         }
@@ -126,6 +127,7 @@ public abstract class APIHandler implements HttpHandler
     {
         try
         {
+            exchange.getResponseHeaders().set("Content-Type", "text/html");
             exchange.sendResponseHeaders(401, response.length());
             exchange.getResponseBody().write(response.getBytes());
         }
@@ -153,6 +155,7 @@ public abstract class APIHandler implements HttpHandler
     {
         try
         {
+            exchange.getResponseHeaders().set("Content-Type", "text/html");
             exchange.sendResponseHeaders(403, response.length());
             exchange.getResponseBody().write(response.getBytes());
         }
@@ -185,6 +188,7 @@ public abstract class APIHandler implements HttpHandler
     {
         try
         {
+            exchange.getResponseHeaders().set("Content-Type", "text/html");
             exchange.sendResponseHeaders(404, response.length());
             exchange.getResponseBody().write(response.getBytes());
         }

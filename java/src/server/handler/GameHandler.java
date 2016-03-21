@@ -50,8 +50,9 @@ public class GameHandler extends APIHandler
                     //success(httpExchange);
                     //Not implemented yet, waiting on Model Serializer
                     String query = httpExchange.getRequestURI().getQuery();
-                    if(query.matches(".*version=\\d*"))
+                    if(query != null && query.matches(".*version=\\d*"))
                     {
+                        System.out.println("GAME_HANDLER QUERY: " + query);
                         int version = Integer.parseInt(query.replaceAll(".*version=", ""));
                         Object response = facade.getGameModel(token, version);
                         if(response.getClass().equals(CatanModel.class))
@@ -83,9 +84,9 @@ public class GameHandler extends APIHandler
         catch (ServerException e)
         {
             if(e.getClass().equals(BadRequestException.class))
-                respond400(httpExchange);
+                respond400(httpExchange, e.getMessage());
             if(e.getClass().equals(InvalidCredentialsException.class))
-                respond401(httpExchange);
+                respond401(httpExchange, e.getMessage());
             httpExchange.close();
             e.printStackTrace();
         }

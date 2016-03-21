@@ -67,6 +67,9 @@ public class ServerFacade implements IServerFacade
     public String register(String username, String password) throws ServerException
     {
     	System.out.println("Registering (username): " + username + " (password): " + password);
+        if(database.getUserByName(username) != null)
+            throw new BadRequestException("There is already a registered user with that username");
+
         UserData user = new UserData(username, password);
         database.addUser(user);
         try
@@ -99,7 +102,7 @@ public class ServerFacade implements IServerFacade
     {
         if(!isValidUser(token))
         {
-            throw new UnauthorizedException("Join Game attempt is not authorized");
+            throw new InvalidCredentialsException("Join Game attempt is not authorized");
         }
 
         CatanModel model = database.getGameModel(gameId);
