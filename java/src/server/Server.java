@@ -47,7 +47,7 @@ public class Server {
     }
 
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ServerException {
         new Server().run(args);
     }
 
@@ -62,7 +62,7 @@ public class Server {
     }
 
 
-    private void run(String[] args) {
+    private void run(String[] args) throws ServerException {
         //Create the new Guice injector
         Injector injector = Guice.createInjector(new VolatileRealModule());
 
@@ -73,32 +73,12 @@ public class Server {
         movesHandler = injector.getInstance(MovesHandler.class);
         swaggerHandler = injector.getInstance(SwaggerHandler.class);
 
+        IServerFacade facade = injector.getInstance(IServerFacade.class);
+        facade.register("Brooke", "brooke");
+        facade.register("Sam", "sam");
+        facade.register("Mark", "mark");
+        facade.register("Pete", "pete");
 
-        // Parse Arguments
-
-
-        //******************** Not yet implemented ************************
-
-
-//        logger.info("Initializing Model");
-
-        // For now, we will use defaults
-        /*try
-        {
-            DIFactory factory = new DIFactory();
-            factory.bind(IDatabase.class, VolatileDatabase.class);
-            factory.bind(IServerFacade.class, ServerFacade.class);
-
-            factory.buildFacade();
-        }
-        catch (ServerException e)
-        {
-//            logger.log(Level.SEVERE, e.getMessage(), e);
-            e.printStackTrace();
-            return;
-        }*/
-
-//       logger.info("Initializing HTTP Server");
 
 
         try {
