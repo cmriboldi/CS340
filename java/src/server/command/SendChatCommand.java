@@ -1,6 +1,8 @@
 package server.command;
 
+import model.CatanModel;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.SendChatJSON;
@@ -26,8 +28,20 @@ public class SendChatCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return "This is a test of awesomeness";
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			cm.chatManager.sendMessage(this.body.getContent(), cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }

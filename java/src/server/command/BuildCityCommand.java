@@ -41,7 +41,7 @@ public class BuildCityCommand implements ICommand {
             VertexDirection cityLocDir = VertexDirection.valueOf(body.getVertexLocation().getDirection());
             VertexLocation cityLoc = new VertexLocation(new HexLocation(cityLocX, cityLocY), cityLocDir);
 
-            //Make the cahnge to the model
+            //Make the change to the model
             cm.getMapManager().upgradeSettlement(cityLoc, body.getPlayerIndex());
 
             //Update the changed model in the ServerFacade

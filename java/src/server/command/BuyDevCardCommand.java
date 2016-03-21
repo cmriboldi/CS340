@@ -38,6 +38,8 @@ public class BuyDevCardCommand implements ICommand {
 		try
 		{
 			cm = facade.getGameModel(authToken);
+			
+			//The reason we are checking if this devCard is null is because we are planning on saving the commandObject in a list to be executed later.
 			if(boughtDevCard == null) {
 				boughtDevCard = cm.cardManager.drawCard(body.getPlayerIndex());
 			} else {

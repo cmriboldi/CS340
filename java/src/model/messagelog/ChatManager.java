@@ -26,7 +26,7 @@ public class ChatManager
 	 * @param string containing message
 	 * @return
 	 */
-	public void SendMessage(String message, String source)
+	public void sendMessage(String message, String source)
 	{
 		Line line = new Line(message, source);
 		chatMessages.add(line);

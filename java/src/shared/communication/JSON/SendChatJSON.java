@@ -12,12 +12,12 @@ public class SendChatJSON extends IJavaJSON
 		this.content = content;
 	}
 
-	public int getSendChat() {
+	public int getPlayerIndex() {
 		return playerIndex;
 	}
 
-	public void setSendChat(int sendChat) {
-		this.playerIndex = sendChat;
+	public void setPlayerIndex(int playerIndex) {
+		this.playerIndex = playerIndex;
 	}
 
 	public String getContent() {
