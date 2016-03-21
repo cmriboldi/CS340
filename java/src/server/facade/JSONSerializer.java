@@ -358,7 +358,7 @@ public class JSONSerializer {
 		catan.addProperty("version", model.getVersion());
 		catan.addProperty("winner", -1);
 		
-		System.out.println(catan.toString());
+		//System.out.println(catan.toString());
 		return catan.toString();
 	}
 	

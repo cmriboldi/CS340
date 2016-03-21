@@ -182,8 +182,10 @@ public class ServerFacade implements IServerFacade
     }
 
     @Override
-    public String[] listAI(AuthToken token) throws ServerException {
-        return new String[0];
+    public String[] listAI(AuthToken token) throws ServerException 
+    {
+    	String[] list = {"No AIs"};
+        return list;
     }
 
     @Override
