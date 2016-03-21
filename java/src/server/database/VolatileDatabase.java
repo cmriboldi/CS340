@@ -29,7 +29,7 @@ public class VolatileDatabase implements IDatabase
         commandStacks = new HashMap<>();
         playerIndex = 0;
         gameIndex = 0;
-        addGame("Default", new CatanModel(true, true, true));
+        addGame("Default", new CatanModel(false, false, false));
         addUser(new UserData("string", "string"));
     }
 

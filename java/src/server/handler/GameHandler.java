@@ -64,9 +64,7 @@ public class GameHandler extends APIHandler
                     System.out.println("About to Serialize");
                     String response = JSONSerializer.serialize(facade.getGameModel(token));
                     System.out.println("Finished Serializing");
-                    httpExchange.sendResponseHeaders(200, response.length());
-                    httpExchange.getResponseBody().write(response.getBytes());
-                    httpExchange.close();
+                    respond200(httpExchange, response);
                     break;
 
                 case "/game/addAI":
