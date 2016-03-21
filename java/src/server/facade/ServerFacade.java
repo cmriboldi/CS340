@@ -200,4 +200,10 @@ public class ServerFacade implements IServerFacade
         }
         return false;
     }
+
+    @Override
+    public void recordCommand(AuthToken token, ICommand command) throws ServerException
+    {
+        database.addCommand(token.getGameID(), command);
+    }
 }

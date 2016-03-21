@@ -2,6 +2,7 @@ package server.database;
 
 import client.data.GameInfo;
 import model.CatanModel;
+import server.command.ICommand;
 import server.data.UserData;
 import server.exception.ServerException;
 
@@ -13,6 +14,8 @@ public interface IDatabase
     void addUser(UserData user);
 
     void addGame(String name, CatanModel game);
+
+    void addCommand(int gameID, ICommand command);
 
     GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name);
 

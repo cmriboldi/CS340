@@ -4,6 +4,7 @@ import client.data.GameInfo;
 import client.data.PlayerInfo;
 import model.CatanModel;
 import model.players.Player;
+import server.command.ICommand;
 import server.data.UserData;
 
 import java.util.*;
@@ -16,6 +17,7 @@ public class VolatileDatabase implements IDatabase
     private Map<Integer, UserData> players;
     private Map<String, Integer> playerKeys;
     private Map<Integer, GameData> games;
+    private Map<Integer, Stack<ICommand>> commandStacks;
     private int playerIndex;
     private int gameIndex;
 
@@ -24,6 +26,7 @@ public class VolatileDatabase implements IDatabase
         players = new HashMap<>();
         playerKeys = new HashMap<>();
         games = new HashMap<>();
+        commandStacks = new HashMap<>();
         playerIndex = 0;
         gameIndex = 0;
         addGame("Default", new CatanModel(true, true, true));
@@ -43,7 +46,14 @@ public class VolatileDatabase implements IDatabase
     public void addGame(String name, CatanModel game)
     {
         games.put(gameIndex, new GameData(gameIndex, name, game));
+        commandStacks.put(gameIndex, new Stack<ICommand>());
         gameIndex++;
+    }
+
+    @Override
+    public void addCommand(int gameID, ICommand command)
+    {
+        commandStacks.get(gameID).add(command);
     }
 
     @Override

@@ -141,4 +141,6 @@ public interface IServerFacade
     String[] listAI(AuthToken token) throws ServerException;
 
     boolean isValidUser(AuthToken token) throws ServerException;
+
+    void recordCommand(AuthToken token, ICommand command) throws ServerException;
 }
