@@ -246,4 +246,9 @@ public class ResourceManager
 		}
 	}
 
+	public boolean havePlayersDiscarded()
+	{
+		return hasPlayerDiscarded(0) && hasPlayerDiscarded(1) && hasPlayerDiscarded(2) && hasPlayerDiscarded(3);
+	}
+
 };

@@ -6,6 +6,7 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.DiscardCardsJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.TurnType;
 import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class DiscardCardsCommand implements ICommand {
@@ -35,6 +36,9 @@ public class DiscardCardsCommand implements ICommand {
 			cm = facade.getGameModel(authToken);
 			
 			cm.resourceManager.discardCards(this.body.getDiscardedCards(), this.body.getPlayerIndex());
+			if(cm.resourceManager.havePlayersDiscarded()) {
+				cm.playerManager.setTurnStatus(TurnType.ROBBING);
+			}
 			
 			facade.updateGame(authToken, cm);
 			
