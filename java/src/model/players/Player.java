@@ -42,7 +42,7 @@ public class Player
 	private int id = -1;
 	
 	/** A list of the pieces the player can still play*/
-	private Pieces pieces;
+	private Pieces pieces = new Pieces();
 
 	public Player()
 	{
