@@ -25,9 +25,10 @@ public class PlayerTurnTracker
 	}
 	
 	
-	public void finishTurn()
+	public void finishTurn() throws TurnIndexException
 	{
-		
+		advanceTurn();
+		setStatus(TurnType.ROLLING);
 	}
 	
 	public PlayerTurnTracker(int turnIndex, TurnType status) throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException
