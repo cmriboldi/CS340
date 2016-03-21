@@ -102,8 +102,7 @@ public class MapManager implements IMapManager {
     }
 
     @Override
-    public ArrayList<ResourceList> distributeResources(int number) {
-        // TODO Auto-generated method stub
+    public ResourceList[] distributeResources(int number) {
         return null;
     }
 

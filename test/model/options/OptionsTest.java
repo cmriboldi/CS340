@@ -44,7 +44,7 @@ public class OptionsTest
 	@Test
 	public void testCanAffordMethods() throws Exception
 	{	
-		ArrayList<ResourceList> newPlayerResources = new ArrayList<ResourceList>();
+		ResourceList[] newPlayerResources = new ResourceList[4];
 		for(int i = 0; i < 4; i++)
 		{
 			assertEquals(options.canAffordCity(i), false);
@@ -54,10 +54,10 @@ public class OptionsTest
 			
 		}
 		
-		newPlayerResources.add(Cost.CITY.getCost());
-		newPlayerResources.add(Cost.ROAD.getCost());
-		newPlayerResources.add(Cost.SETTLEMENT.getCost());
-		newPlayerResources.add(Cost.DEVCARD.getCost());
+		newPlayerResources[0] = Cost.CITY.getCost();
+		newPlayerResources[1] = Cost.ROAD.getCost();
+		newPlayerResources[2] = Cost.SETTLEMENT.getCost();
+		newPlayerResources[3] = Cost.DEVCARD.getCost();
 		
 		try
 		{
@@ -93,7 +93,7 @@ public class OptionsTest
 	@Test
 	public void testCanDevCardMethods()
 	{	
-		ArrayList<ResourceList> newPlayerResources = new ArrayList<ResourceList>();
+		ResourceList[] newPlayerResources = new ResourceList[4];
 		
 		for(int i = 1; i < 4; i++)
 		{
@@ -104,10 +104,10 @@ public class OptionsTest
 			assertEquals(options.hasDevCard(i, DevCardType.YEAR_OF_PLENTY), false);
 		}
 		
-		newPlayerResources.add(Cost.DEVCARD.getCost());
-		newPlayerResources.add(new ResourceList());
-		newPlayerResources.add(Cost.DEVCARD.getCost());
-		newPlayerResources.add(new ResourceList());
+		newPlayerResources[0] = Cost.DEVCARD.getCost();
+		newPlayerResources[1] = new ResourceList();
+		newPlayerResources[2] = Cost.DEVCARD.getCost();
+		newPlayerResources[3] = new ResourceList();
 		
 		try
 		{

@@ -1,4 +1,4 @@
-package server;
+package test.server;
 
 import org.junit.After;
 import org.junit.AfterClass;

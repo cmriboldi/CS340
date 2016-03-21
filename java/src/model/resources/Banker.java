@@ -41,19 +41,15 @@ public class Banker
 	 * @param resLists An array of ResourceLists where the index of the ResourceList is the same as
 	 *            the index of the Player being paid.
 	 */
-	public void payPlayers(ArrayList<ResourceList> resLists) throws NotEnoughBankResourcesException
+	public void payPlayers(ResourceList[] resLists) throws NotEnoughBankResourcesException
 	{
-		int index = 0;
-		for(ResourceList resList : resLists) 
-		{
-			if(!bank.greaterThan(resList))
+		for(int i = 0; i < 4; i++) {
+			if(!bank.greaterThan(resLists[i]))
 			{
-				throw new NotEnoughBankResourcesException("There are not enough resources in the bank to give to player " + index + ".");
+				throw new NotEnoughBankResourcesException("There are not enough resources in the bank to give to player " + i + ".");
 			}
-			
-			playerResources.addResourcesToPlayer(resList, index);
-			bank.minus(resList);
-			index++;
+			playerResources.addResourcesToPlayer(resLists[i], i);
+			bank.minus(resLists[i]);
 		}
 	}
 

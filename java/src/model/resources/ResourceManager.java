@@ -63,7 +63,7 @@ public class ResourceManager
 	/**
 	 * This is the external call for generating resources for the CatanModel.
 	 */
-	public void payOutResources(ArrayList<ResourceList> resLists) throws NotEnoughBankResourcesException
+	public void payOutResources(ResourceList[] resLists) throws NotEnoughBankResourcesException
 	{
 		this.banker.payPlayers(resLists);
 	}

@@ -63,7 +63,7 @@ public interface IMapManager
 	 * @param number
 	 * @return
 	 */
-	public ArrayList<ResourceList> distributeResources(int number);
+	public ResourceList[] distributeResources(int number);
 
 	/**
 	 * Used by the facade to update the position of the robber token.

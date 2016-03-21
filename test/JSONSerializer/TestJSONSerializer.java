@@ -1,4 +1,4 @@
-package JSONSerializer;
+package test.JSONSerializer;
 
 import client.data.GameInfo;
 import com.google.inject.Guice;

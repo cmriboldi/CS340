@@ -46,7 +46,7 @@ public class RollNumberCommand implements ICommand {
 					cm.playerManager.setTurnStatus(TurnType.ROBBING);
 				}
 			} else {
-				ArrayList<ResourceList> resLists = cm.mapManager.distributeResources(this.body.getNumber());
+				ResourceList[] resLists = cm.mapManager.distributeResources(this.body.getNumber());
 				cm.resourceManager.payOutResources(resLists);
 			}
 			
