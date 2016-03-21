@@ -44,8 +44,12 @@ public class BuildSettlementCommand implements ICommand {
             //Make change to the model
             cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
 
+            cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+            
             //Update the model with the facade
             facade.updateGame(authToken, cm);
+            
+            facade.recordCommand(authToken, this);
 
         } catch (ServerException e) {
             e.printStackTrace();

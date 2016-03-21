@@ -50,7 +50,11 @@ public class RollNumberCommand implements ICommand {
 				cm.resourceManager.payOutResources(resLists);
 			}
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " rolled a " + this.body.getNumber() + ".", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException | NotEnoughBankResourcesException e)
 		{

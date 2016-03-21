@@ -37,6 +37,8 @@ public class SendChatCommand implements ICommand {
 			
 			facade.updateGame(authToken, cm);
 			
+			facade.recordCommand(authToken, this);
+			
 		} catch (ServerException e)
 		{
 			e.printStackTrace();

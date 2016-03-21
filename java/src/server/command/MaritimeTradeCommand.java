@@ -45,6 +45,8 @@ public class MaritimeTradeCommand implements ICommand {
 			
 			facade.updateGame(authToken, cm);
 			
+			facade.recordCommand(authToken, this);
+			
 		} catch (ServerException | NotEnoughBankResourcesException | NotEnoughPlayerResourcesException e)
 		{
 			e.printStackTrace();

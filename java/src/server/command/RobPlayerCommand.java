@@ -38,7 +38,11 @@ public class RobPlayerCommand implements ICommand
 			cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException | NotEnoughResourcesException e)
 		{

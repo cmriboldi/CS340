@@ -40,6 +40,8 @@ public class FinishTurnCommand implements ICommand {
 			cm.playerManager.setTurnStatus(TurnType.ROLLING);
 			facade.updateGame(authToken, cm);
 			
+			facade.recordCommand(authToken, this);
+			
 		} catch (ServerException | TurnIndexException e)
 		{
 			e.printStackTrace();

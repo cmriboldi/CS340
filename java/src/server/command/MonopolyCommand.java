@@ -39,7 +39,11 @@ public class MonopolyCommand implements ICommand {
 			cm.cardManager.playDevCard(DevCardType.MONOPOLY, this.body.getPlayerIndex());
 			cm.resourceManager.useMonopolyCard(this.body.getPlayerIndex(), ResourceType.toEnum(this.body.getResource()));
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a monopoly card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException | NotEnoughDevCardsException e)
 		{

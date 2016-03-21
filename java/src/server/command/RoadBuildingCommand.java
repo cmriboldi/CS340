@@ -39,7 +39,11 @@ public class RoadBuildingCommand implements ICommand
 			cm.mapManager.placeRoad(this.body.getSpot1().getEdgeLocation(), this.body.getPlayerIndex());
 			cm.mapManager.placeRoad(this.body.getSpot2().getEdgeLocation(), this.body.getPlayerIndex());
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a road building card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException | NotEnoughDevCardsException e)
 		{

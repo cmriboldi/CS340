@@ -39,7 +39,11 @@ public class MonumentCommand implements ICommand {
 			cm.cardManager.playDevCard(DevCardType.MONUMENT, this.body.getPlayerIndex());
 			cm.playerManager.incrementPlayerPoints(this.body.getPlayerIndex());
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a monument card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException | NotEnoughDevCardsException e)
 		{

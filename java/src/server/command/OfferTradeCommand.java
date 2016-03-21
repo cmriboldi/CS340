@@ -38,7 +38,11 @@ public class OfferTradeCommand implements ICommand{
 			
 			cm.resourceManager.setTradeOffer(tradeOffer);
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " offered a trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException e)
 		{

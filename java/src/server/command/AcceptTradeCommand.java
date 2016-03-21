@@ -46,7 +46,11 @@ public class AcceptTradeCommand implements ICommand {
 			}
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " accepted a trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
+			
+			facade.recordCommand(authToken, this);
 			
 		} catch (ServerException | NotEnoughPlayerResourcesException | InvalidPlayerIndexException | TradeOfferNullException e)
 		{
