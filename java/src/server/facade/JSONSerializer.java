@@ -140,7 +140,7 @@ public class JSONSerializer {
 			location.addProperty("x", h.location.getX());
 			location.addProperty("y", h.location.getY());
 			hex.add("location", location);
-			hex.addProperty("resource", h.getResource().toString());
+			hex.addProperty("resource", h.getResource().toString().toLowerCase());
 			hex.addProperty("number", h.getNumber());
 						
 			hexes.add(hex);
@@ -156,10 +156,11 @@ public class JSONSerializer {
 			
 			location.addProperty("x", p.location.getHexLoc().getX());
 			location.addProperty("y", p.location.getHexLoc().getY());
-			port.addProperty("resource", p.getType().toString());
+			if(p.getType() != PortType.THREE)
+				port.addProperty("resource", p.getType().toString().toLowerCase());
 			port.add("location", location);
-			port.addProperty("direction", p.getRatio());
-			port.addProperty("ratio", p.location.getDir().toString());
+			port.addProperty("direction", p.location.getDir().toString());
+			port.addProperty("ratio", p.getRatio());
 						
 			ports.add(port);
 		}

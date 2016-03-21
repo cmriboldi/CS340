@@ -50,12 +50,12 @@ public class Catan extends JFrame
 	
 	public static void main(final String[] args)
 	{
-		/*try {
+		try {
 			JSONSerializer.test();
 		} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException | IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}*/
+		}
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
