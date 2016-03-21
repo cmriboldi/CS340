@@ -230,4 +230,20 @@ public class ResourceManager
 		trader.setTradeOffer(null);
 	}
 
+	public int getGreatestCardCount()
+	{
+		return banker.getGreatestCardCount();
+	}
+
+	public void setPlayerDiscard()
+	{
+		for(int i = 0; i < 4; i++) {
+			if(banker.getTotalResourceCount(i) > 7) {
+				hasPlayerDiscarded[i] = false;
+			} else {
+				hasPlayerDiscarded[i] = true;
+			}
+		}
+	}
+
 };

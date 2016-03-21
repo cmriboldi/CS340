@@ -41,6 +41,7 @@ public class RollNumberCommand implements ICommand {
 			if(this.body.getNumber() == 7) {
 				if(cm.resourceManager.getGreatestCardCount() > 7) {
 					cm.playerManager.setTurnStatus(TurnType.DISCARDING);
+					cm.resourceManager.setPlayerDiscard();
 				} else {
 					cm.playerManager.setTurnStatus(TurnType.ROBBING);
 				}
