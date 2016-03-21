@@ -20,6 +20,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
+/*
 public class RealProxyTest 
 {
 	private static RealProxy server;

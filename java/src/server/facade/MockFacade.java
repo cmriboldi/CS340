@@ -78,4 +78,9 @@ public class MockFacade implements IServerFacade
     public boolean isValidUser(AuthToken token) throws ServerException {
         return false;
     }
+
+    @Override
+    public void recordCommand(AuthToken token, ICommand command) throws ServerException {
+
+    }
 }
