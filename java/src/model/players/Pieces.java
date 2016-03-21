@@ -1,6 +1,5 @@
 package model.players;
 
-import shared.definitions.CatanColor;
 /** The Pieces class keeps track of how many settlements, cities, and roads a player has.
 * @author Christian Riboldi
 * @author Clayton Condie
@@ -10,7 +9,6 @@ import shared.definitions.CatanColor;
 * @version 1.0 Build Jan, 2016.
 */
 import shared.definitions.PieceType;
-import shared.exceptions.player.InvalidColorException;
 
 public class Pieces
 {
@@ -20,7 +18,9 @@ public class Pieces
 
 	public Pieces()
 	{
-
+		this.settlements = 5;
+		this.cities = 4;
+		this.roads = 15;
 	}
 
 	/**
@@ -30,7 +30,20 @@ public class Pieces
 	 */
 	public void addPiece(PieceType piece)
 	{
-
+		switch (piece)
+		{
+		case ROAD:
+			this.roads++;
+			break;
+		case SETTLEMENT:
+			this.settlements++;
+			break;
+		case CITY:
+			this.cities++;
+			break;
+		default:
+			break;
+		}
 	}
 
 	/**
@@ -40,7 +53,20 @@ public class Pieces
 	 */
 	public void removePiece(PieceType piece)
 	{
-
+		switch (piece)
+		{
+		case ROAD:
+			this.roads--;
+			break;
+		case SETTLEMENT:
+			this.settlements--;
+			break;
+		case CITY:
+			this.cities--;
+			break;
+		default:
+			break;
+		}
 	}
 
 	public int getSettlements()
