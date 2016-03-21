@@ -197,6 +197,11 @@ public class PlayerManager
 	{
 		catanPlayers[playerIndex].incrementPoints();
 	}
+	
+	public void advanceTurn() throws TurnIndexException
+	{
+		turnTracker.advanceTurn();
+	}
 
 
 }

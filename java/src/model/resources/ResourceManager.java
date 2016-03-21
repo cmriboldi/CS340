@@ -1,5 +1,7 @@
 package model.resources;
 
+import java.util.ArrayList;
+
 /** The ResourceManger class manages all transactions other packages need to make concerning resources.
 * @author Christian Riboldi
 * @author Clayton Condie
@@ -61,7 +63,7 @@ public class ResourceManager
 	/**
 	 * This is the external call for generating resources for the CatanModel.
 	 */
-	public void payOutResources(ResourceList[] resLists) throws NotEnoughBankResourcesException
+	public void payOutResources(ArrayList<ResourceList> resLists) throws NotEnoughBankResourcesException
 	{
 		this.banker.payPlayers(resLists);
 	}

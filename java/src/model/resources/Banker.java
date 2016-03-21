@@ -1,5 +1,7 @@
 package model.resources;
 
+import java.util.ArrayList;
+
 import shared.definitions.Cost;
 import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
@@ -39,17 +41,19 @@ public class Banker
 	 * @param resLists An array of ResourceLists where the index of the ResourceList is the same as
 	 *            the index of the Player being paid.
 	 */
-	public void payPlayers(ResourceList[] resLists) throws NotEnoughBankResourcesException
+	public void payPlayers(ArrayList<ResourceList> resLists) throws NotEnoughBankResourcesException
 	{
-		for(int index = 0; index < 4; index++)
+		int index = 0;
+		for(ResourceList resList : resLists) 
 		{
-			if(!bank.greaterThan(resLists[index]))
+			if(!bank.greaterThan(resList))
 			{
 				throw new NotEnoughBankResourcesException("There are not enough resources in the bank to give to player " + index + ".");
 			}
 			
-			playerResources.addResourcesToPlayer(resLists[index], index);
-			bank.minus(resLists[index]);
+			playerResources.addResourcesToPlayer(resList, index);
+			bank.minus(resList);
+			index++;
 		}
 	}
 
@@ -183,6 +187,11 @@ public class Banker
 	{
 		playerResources.takeResourcesFromPlayer(discardedCards, playerIndex);
 		bank.plus(discardedCards);
+	}
+
+	public int getGreatestCardCount()
+	{
+		return playerResources.getGreatestCardCount();
 	}
 
 }

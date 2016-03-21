@@ -1,9 +1,16 @@
 package server.command;
 
+import java.util.ArrayList;
+
+import model.CatanModel;
+import model.resources.ResourceList;
 import server.AuthToken;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.RollNumberJSON;
+import shared.definitions.TurnType;
+import shared.exceptions.resources.NotEnoughBankResourcesException;
 
 public class RollNumberCommand implements ICommand {
 
@@ -26,8 +33,29 @@ public class RollNumberCommand implements ICommand {
      */
 	@Override
 	public Object execute() {
-		// TODO Auto-generated method stub
-		return null;
+		CatanModel cm = null;
+		try
+		{
+			cm = facade.getGameModel(authToken);
+			
+			if(this.body.getNumber() == 7) {
+				if(cm.resourceManager.getGreatestCardCount() > 7) {
+					cm.playerManager.setTurnStatus(TurnType.DISCARDING);
+				} else {
+					cm.playerManager.setTurnStatus(TurnType.ROBBING);
+				}
+			} else {
+				ArrayList<ResourceList> resLists = cm.mapManager.distributeResources(this.body.getNumber());
+				cm.resourceManager.payOutResources(resLists);
+			}
+			
+			facade.updateGame(authToken, cm);
+			
+		} catch (ServerException | NotEnoughBankResourcesException e)
+		{
+			e.printStackTrace();
+		}
+		return cm;
 	}
 
 }

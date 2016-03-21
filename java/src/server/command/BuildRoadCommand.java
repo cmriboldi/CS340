@@ -7,7 +7,9 @@ import server.facade.IServerFacade;
 import shared.communication.JSON.BuildRoadJSON;
 import shared.communication.JSON.IJavaJSON;
 import shared.definitions.DevCardType;
+import shared.definitions.TurnType;
 import shared.exceptions.development.NotEnoughDevCardsException;
+import shared.exceptions.player.TurnIndexException;
 
 /**
  * Created by clayt on 3/9/2016.
@@ -40,9 +42,22 @@ public class BuildRoadCommand implements ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			cm.mapManager.placeRoad(body.getRoadLocation().getEdgeLocation(), body.getPlayerIndex());
+			
+			if(cm.playerManager.getTurnStatus() == TurnType.FIRST_ROUND) {
+				if(body.getPlayerIndex() == 3) {
+					cm.playerManager.setTurnStatus(TurnType.SECOND_ROUND);
+				}
+				cm.playerManager.advanceTurn();
+			} else if (cm.playerManager.getTurnStatus() == TurnType.SECOND_ROUND) {
+				if(body.getPlayerIndex() == 3) {
+					cm.playerManager.setTurnStatus(TurnType.ROLLING);
+				}
+				cm.playerManager.advanceTurn();
+			}
+			
 			facade.updateGame(authToken, cm);
 			
-		} catch (ServerException e)
+		} catch (ServerException | TurnIndexException e)
 		{
 			e.printStackTrace();
 		}

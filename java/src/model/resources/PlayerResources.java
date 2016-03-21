@@ -82,5 +82,10 @@ public class PlayerResources
 	{
 		return playerResources[playerIndex].getResourceCount();
 	}
+
+	public int getGreatestCardCount()
+	{
+		return Math.max( getTotalResourceCount(0), Math.max( getTotalResourceCount(1), Math.max( getTotalResourceCount(2), getTotalResourceCount(3) )));
+	}
 	
 }
