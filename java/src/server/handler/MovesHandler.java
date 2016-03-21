@@ -2,6 +2,7 @@ package server.handler;
 
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
+import model.CatanModel;
 import server.AuthToken;
 import server.command.CommandFactory;
 import server.command.ICommand;
@@ -10,6 +11,7 @@ import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.exception.UnauthorizedException;
 import server.facade.IServerFacade;
+import server.facade.JSONSerializer;
 import shared.communication.JSON.*;
 
 import java.io.IOException;
@@ -52,7 +54,7 @@ public class MovesHandler extends APIHandler
 
             IJavaJSON json = (IJavaJSON) getRequest(httpExchange, type);
             ICommand command = commandFactory.buildCommand(token, json, facade);
-            respond200(httpExchange, command.execute());
+            respond200(httpExchange, JSONSerializer.serialize((CatanModel)command.execute()));
         }
         catch (ServerException e)
         {
