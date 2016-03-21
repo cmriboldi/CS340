@@ -76,6 +76,20 @@ public abstract class APIHandler implements HttpHandler
             throw new InternalErrorException("Error in APIHandler respond200");
         }
     }
+    protected void respond200(HttpExchange exchange, String json) throws InternalErrorException {
+        try
+        {
+            exchange.getResponseHeaders().set("Content-Type", "application/json");
+            exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, json.getBytes().length);
+            exchange.getResponseBody().write(json.getBytes());
+            exchange.getResponseBody().close();
+        }
+        catch (IOException e)
+        {
+            e.printStackTrace();
+            throw new InternalErrorException("Error in APIHandler respond200");
+        }
+    }
 
     /**
      * If the client made a bad, or otherwise incompatible request, respond with an error code 400
