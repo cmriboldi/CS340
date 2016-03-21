@@ -7,6 +7,7 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.FinishTurnJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.TurnType;
 import shared.exceptions.player.TurnIndexException;
 
 public class FinishTurnCommand implements ICommand {
@@ -35,7 +36,8 @@ public class FinishTurnCommand implements ICommand {
 		try
 		{
 			cm = facade.getGameModel(authToken);
-			cm.playerManager.turnTracker.advanceTurn();
+			cm.playerManager.advanceTurn();
+			cm.playerManager.setTurnStatus(TurnType.ROLLING);
 			facade.updateGame(authToken, cm);
 			
 		} catch (ServerException | TurnIndexException e)
