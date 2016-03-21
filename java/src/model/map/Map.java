@@ -80,6 +80,7 @@ public class Map {
         settlements = new HashMap<>();
         ports = new HashMap<>();
         roads = new HashMap<>();
+        radius = 3;
 
         //list of all the possible xy combinations
         List<HexLocation> hexLocs = generateHexLocs();

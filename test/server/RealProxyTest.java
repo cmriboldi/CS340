@@ -1,4 +1,4 @@
-package test.server;
+package server;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -20,11 +20,11 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-/*
-public class RealProxyTest 
+
+public class RealProxyTest
 {
 	private static RealProxy server;
-	
+
 	/*
 	 * If the code reaches the assert(true) then it means that it passed. The server will break the code before reaching the assert.
 	 */
