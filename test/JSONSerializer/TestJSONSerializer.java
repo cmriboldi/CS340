@@ -11,7 +11,9 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import server.facade.JSONSerializer;
 import server.guice.VolatileRealModule;
+import serverProxy.JSONDeserializer;
 import shared.definitions.CatanColor;
+import test.*;
 
 /**
  * Created by clayt on 3/20/2016.
@@ -57,5 +59,19 @@ public class TestJSONSerializer {
     public void testSerialize()
     {
         JSONSerializer.serialize(model);
+    }
+    
+    @Test
+    public void testDefaultJson()
+    {
+    	CatanModel model = JSONDeserializer.deserialize(JsonFileLoader.readFile("json/default.json"));
+    	assert(JSONSerializer.serialize(model).equals(JsonFileLoader.readFile("json/defaultTest.json")));
+    }
+    
+    @Test
+    public void testEmptyJson()
+    {
+    	JSONDeserializer.deserialize(JsonFileLoader.readFile("json/empty.json"));
+    	assert(JSONSerializer.serialize(model).equals(JsonFileLoader.readFile("json/emptyTest.json")));
     }
 }

@@ -368,6 +368,6 @@ public class JSONSerializer {
 	}
 	
 	public static void test() throws TurnIndexException, InvalidTurnStatusException, GeneralPlayerException, IOException{
-		instance()._serialize(JSONDeserializer.deserialize(JsonLoader.readFile("/Users/JPPowers/OneDrive/CS Dev/workspace340/CS340/json/default.json")));
+		instance()._serialize(JSONDeserializer.deserialize(JsonLoader.readFile("/Users/JPPowers/OneDrive/CS Dev/workspace340/CS340/json/empty.json")));
 	}
 }
