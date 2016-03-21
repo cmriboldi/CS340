@@ -251,4 +251,9 @@ public class ResourceManager
 		return hasPlayerDiscarded(0) && hasPlayerDiscarded(1) && hasPlayerDiscarded(2) && hasPlayerDiscarded(3);
 	}
 
+	public void robPlayer(int victimIndex, int playerIndex) throws NotEnoughResourcesException
+	{
+		trader.robPlayer(victimIndex, playerIndex);
+	}
+
 };

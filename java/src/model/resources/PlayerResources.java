@@ -87,5 +87,10 @@ public class PlayerResources
 	{
 		return Math.max( getTotalResourceCount(0), Math.max( getTotalResourceCount(1), Math.max( getTotalResourceCount(2), getTotalResourceCount(3) )));
 	}
+
+	public ResourceType takeRandomResource(int victimIndex) throws NotEnoughResourcesException
+	{
+		return playerResources[victimIndex].removeRandomResource();
+	}
 	
 }

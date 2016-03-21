@@ -315,5 +315,20 @@ public class ResourceList implements Comparable<ResourceList>
 		}
 	}
 
+	public ResourceType removeRandomResource() throws NotEnoughResourcesException
+	{
+		ResourceType resource = null;
+		if(this.getResourceCount() <= 0) {
+			throw new NotEnoughResourcesException("Not enough resources to rob from player.");
+		}
+		while(resource == null) {
+			ResourceType random = ResourceType.values()[(int)(Math.random()*(ResourceType.values().length))];
+			if(this.getResourceTypeCount(random) > 0) {
+				resource = random;
+			}
+		}
+		return resource;
+	}
+
 
 }

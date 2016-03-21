@@ -147,4 +147,14 @@ public class Trader
 		this.tradeOffer = tradeOffer;
 	}
 
+	public void robPlayer(int victimIndex, int playerIndex) throws NotEnoughResourcesException
+	{
+		if(playerResources.getTotalResourceCount(victimIndex) > 0) {
+			ResourceType resource = playerResources.takeRandomResource(victimIndex);
+			ResourceList rs = new ResourceList();
+			rs.addResource(resource, 1);
+			playerResources.addResourcesToPlayer(rs, playerIndex);
+		}
+	}
+
 }
