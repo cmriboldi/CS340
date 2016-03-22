@@ -8,6 +8,7 @@ import clientfacade.Facade;
 import serverProxy.ServerException;
 
 import java.util.List;
+import java.util.concurrent.SynchronousQueue;
 
 
 /**
@@ -186,6 +187,7 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 		this.gameToJoin = game;
 		for(PlayerInfo player : game.getPlayers())
 		{
+			System.out.println("PLayer: " + player.getName() + " Color: " + player.getColor().toString() + " ID: " + player.getId() + " P index: " + player.getPlayerIndex());
 			if(player.getColor() != null && !Facade.getLocalPlayerInfo().equals(player))
 			{
 				getSelectColorView().setColorEnabled(player.getColor(), false);

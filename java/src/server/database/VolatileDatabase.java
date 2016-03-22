@@ -1,7 +1,7 @@
 package server.database;
 
 import client.data.GameInfo;
-import client.data.PlayerInfo;
+import server.data.PlayerInfo;
 import model.CatanModel;
 import model.players.Player;
 import server.command.ICommand;
@@ -67,7 +67,7 @@ public class VolatileDatabase implements IDatabase
         {
             if(playerArray[j] != null)
             {
-                players.add(new PlayerInfo(playerArray[j].getId(), j, playerArray[j].getName(), playerArray[j].getColor().toString()));
+                players.add(new PlayerInfo(playerArray[j].getId(), playerArray[j].getName(), playerArray[j].getColor().toString()));
             }
             else
             {
@@ -132,7 +132,7 @@ public class VolatileDatabase implements IDatabase
             {
                 if(playerArray[j] != null)
                 {
-                    players.add(new PlayerInfo(playerArray[j].getId(), j, playerArray[j].getName(), playerArray[j].getColor().toString()));
+                    players.add(new PlayerInfo(playerArray[j].getId(), -1, playerArray[j].getName(), playerArray[j].getColor().toString()));
                 }
                 else
                 {

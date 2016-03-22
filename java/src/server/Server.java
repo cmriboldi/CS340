@@ -6,6 +6,7 @@ import java.net.InetSocketAddress;
 import java.net.UnknownHostException;
 import java.util.logging.*;
 
+import client.data.GameInfo;
 import com.google.inject.Guice;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
@@ -17,6 +18,7 @@ import server.facade.IServerFacade;
 import server.facade.ServerFacade;
 import server.guice.VolatileRealModule;
 import server.handler.*;
+import shared.definitions.CatanColor;
 
 /**
  * Created by Joshua on 3/9/2016.
@@ -73,11 +75,23 @@ public class Server {
         movesHandler = injector.getInstance(MovesHandler.class);
         swaggerHandler = injector.getInstance(SwaggerHandler.class);
 
+
+
+
         IServerFacade facade = injector.getInstance(IServerFacade.class);
+
         facade.register("Brooke", "brooke");
         facade.register("Sam", "sam");
         facade.register("Mark", "mark");
         facade.register("Pete", "pete");
+
+        GameInfo info = facade.createGame(false, false, false, "Nothing Random");
+
+        facade.joinGame(new AuthToken("Brooke", "brooke", 1, -1), info.getId(), CatanColor.BLUE);
+        facade.joinGame(new AuthToken("Sam", "sam", 2, -1), info.getId(), CatanColor.RED);
+        facade.joinGame(new AuthToken("Mark", "mark", 3, -1), info.getId(), CatanColor.ORANGE);
+        facade.joinGame(new AuthToken("Pete", "pete", 4, -1), info.getId(), CatanColor.GREEN);
+
 
 
 

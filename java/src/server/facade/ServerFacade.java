@@ -1,7 +1,6 @@
 package server.facade;
 
 import client.data.GameInfo;
-import client.data.PlayerInfo;
 import com.google.inject.Inject;
 import model.CatanModel;
 import model.players.Player;
@@ -115,10 +114,6 @@ public class ServerFacade implements IServerFacade
         	return "";
         }
 
-        //Case where the game is full
-        if (model.playerManager.getInitializedPlayerCount() >=4)
-            throw new UnauthorizedException("Join Game is already full");
-        
         //Player Joined Previously
         if (model.playerManager.containsId(token.getPlayerID()))
         {
@@ -126,6 +121,10 @@ public class ServerFacade implements IServerFacade
         	// return the information that "playerID" needs on his client to start playing
         	return "catan.game=" + gameId + ";Path=/;";
         }
+
+        //Case where the game is full
+        if (model.playerManager.getInitializedPlayerCount() >=4)
+            throw new UnauthorizedException("Join Game is already full");
         
         //Player can Join game first time
         if(!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() < 4)
@@ -135,7 +134,6 @@ public class ServerFacade implements IServerFacade
         	Player newPlayer = new Player(token.getName(),token.getPlayerID(), color, playerIndex);
         	model.playerManager.catanPlayers[playerIndex] = newPlayer;
         }
-
 
 
         ////////////////////////////////////////////////////////////////////////////////////////
