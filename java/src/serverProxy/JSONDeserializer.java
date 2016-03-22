@@ -321,7 +321,7 @@ public class JSONDeserializer
 			int x = location.getAsJsonPrimitive("x").getAsInt();
 			int y = location.getAsJsonPrimitive("y").getAsInt();
 			int owner = settlement.getAsJsonPrimitive("owner").getAsInt();
-			String direction = settlement.getAsJsonPrimitive("direction").getAsString();
+			String direction = location.getAsJsonPrimitive("direction").getAsString();
 
 			//compile into Map structure
 			HexLocation hexLocation = new HexLocation(x,y);

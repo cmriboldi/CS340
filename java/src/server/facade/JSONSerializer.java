@@ -197,7 +197,7 @@ public class JSONSerializer {
 			location.addProperty("y", s.location.getHexLoc().getY());
 			sett.addProperty("owner", s.getPlayer());
 			sett.add("location", location);
-			sett.addProperty("direction", s.location.getDir().toString());
+			location.addProperty("direction", s.location.getDir().toString());
 						
 			setts.add(sett);
 		}
@@ -216,7 +216,7 @@ public class JSONSerializer {
 			location.addProperty("y", s.location.getHexLoc().getY());
 			sett.addProperty("owner", s.getPlayer());
 			sett.add("location", location);
-			sett.addProperty("direction", s.location.getDir().toString());
+			location.addProperty("direction", s.location.getDir().toString());
 						
 			cities.add(sett);
 		}
