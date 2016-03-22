@@ -7,6 +7,7 @@ import server.facade.IServerFacade;
 import shared.communication.JSON.BuildRoadJSON;
 import shared.communication.JSON.IJavaJSON;
 import shared.definitions.DevCardType;
+import shared.definitions.PieceType;
 import shared.definitions.TurnType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.player.TurnIndexException;
@@ -55,6 +56,7 @@ public class BuildRoadCommand implements ICommand {
 				cm.playerManager.advanceTurn();
 			}
 			
+			cm.playerManager.decrimentPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a road.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
 			facade.updateGame(authToken, cm);

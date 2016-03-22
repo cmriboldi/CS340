@@ -6,6 +6,7 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuildCityJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.PieceType;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -44,6 +45,7 @@ public class BuildCityCommand implements ICommand {
             //Make the change to the model
             cm.getMapManager().upgradeSettlement(cityLoc, body.getPlayerIndex());
 
+            cm.playerManager.decrimentPieceCount(this.body.getPlayerIndex(), PieceType.CITY);
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a city.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
             //Update the changed model in the ServerFacade

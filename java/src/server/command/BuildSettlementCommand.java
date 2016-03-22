@@ -6,6 +6,7 @@ import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.definitions.PieceType;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -50,6 +51,7 @@ public class BuildSettlementCommand implements ICommand {
 
             //Make change to the model
             cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
+            cm.playerManager.decrimentPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
 
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
