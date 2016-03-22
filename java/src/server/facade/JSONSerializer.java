@@ -177,7 +177,7 @@ public class JSONSerializer {
 			location.addProperty("y", r.location.getHexLoc().getY());
 			road.addProperty("owner", r.getOwner());
 			road.add("location", location);
-			road.addProperty("direction", r.location.getDir().toString());
+			location.addProperty("direction", r.location.getDir().toString());
 						
 			roads.add(road);
 		}
