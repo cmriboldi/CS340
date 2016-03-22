@@ -108,4 +108,9 @@ public class CatanModel
 	public int getVersion() {
 		return this.version;
 	}
+
+	public void incrementVersion()
+	{
+		this.version++;
+	}
 }

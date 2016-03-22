@@ -171,7 +171,8 @@ public class ServerFacade implements IServerFacade
     @Override
     public void updateGame(AuthToken token, CatanModel model) throws ServerException
     {
-        database.updateGameModel(token.getGameID(), model);
+        model.incrementVersion();
+    	database.updateGameModel(token.getGameID(), model);
     }
 
     @Override

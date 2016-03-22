@@ -44,6 +44,9 @@ public class BuildRoadCommand implements ICommand {
 			cm = facade.getGameModel(authToken);
 			cm.mapManager.placeRoad(body.getRoadLocation().getEdgeLocation(), body.getPlayerIndex());
 			
+			System.out.println("turn type is: " + cm.playerManager.getTurnStatus().toString());
+			System.out.println("player index is: " + body.getPlayerIndex());
+			
 			if(cm.playerManager.getTurnStatus() == TurnType.FIRST_ROUND) {
 				if(body.getPlayerIndex() == 3) {
 					cm.playerManager.setTurnStatus(TurnType.SECOND_ROUND);

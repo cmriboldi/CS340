@@ -46,6 +46,7 @@ public class BuildCityCommand implements ICommand {
             cm.getMapManager().upgradeSettlement(cityLoc, body.getPlayerIndex());
 
             cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.CITY);
+            cm.playerManager.incrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a city.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
             //Update the changed model in the ServerFacade

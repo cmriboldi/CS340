@@ -73,9 +73,7 @@ public class PlayerTurnTracker
 			turnIndex ++; 
 		
 		if (turnIndex < 0 | turnIndex > 3)
-			throw new TurnIndexException(); 
-		
-		this.status = TurnType.ROLLING;
+			throw new TurnIndexException();
 	}
 
 }
