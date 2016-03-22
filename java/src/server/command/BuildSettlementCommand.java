@@ -17,6 +17,8 @@ public class BuildSettlementCommand implements ICommand {
     private final IServerFacade facade;
 
     public BuildSettlementCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade) {
+        System.out.println("Creating a Build Settlement Command");
+
         this.authToken = authToken;
         this.body = (BuildSettlementJSON) jsonBody;
         this.facade = facade;
@@ -30,6 +32,8 @@ public class BuildSettlementCommand implements ICommand {
     @Override
     public Object execute() {
 
+        System.out.println("Executing buildSettlementCommand");
+
         CatanModel cm = null;
         try {
             //Retrieve the game model designated by the authToken
@@ -38,7 +42,10 @@ public class BuildSettlementCommand implements ICommand {
             //Translate from JSONbody into a Java settlement location
             int settleLocX = body.getVertexLocation().getX();
             int settleLocY = body.getVertexLocation().getY();
-            VertexDirection settleLocDir = VertexDirection.valueOf(body.getVertexLocation().getDirection());
+            VertexDirection settleLocDir = VertexDirection.toEnum(body.getVertexLocation().getDirection());
+
+            System.out.println(settleLocDir.toString());
+
             VertexLocation settleLoc = new VertexLocation(new HexLocation(settleLocX, settleLocY), settleLocDir);
 
             //Make change to the model

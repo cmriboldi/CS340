@@ -53,6 +53,7 @@ public class MapManager implements IMapManager {
 
     @Override
     public void placeRoad(EdgeLocation edge, int player) {
+        System.out.println("MAP MANAGER : placeRoad");
         map.placeRoad(edge, player);
     }
 
@@ -79,8 +80,7 @@ public class MapManager implements IMapManager {
 
     @Override
     public void placeSettlement(VertexLocation vertex, int player) {
-        // TODO Auto-generated method stub
-
+        map.placeSettlement(vertex, player);
     }
 
     public HashSet<Integer> getPlayersOnHex(HexLocation hex) {
@@ -93,8 +93,7 @@ public class MapManager implements IMapManager {
 
     @Override
     public void upgradeSettlement(VertexLocation vertex, int player) {
-        // TODO Auto-generated method stub
-
+        map.upgradeSettlement(vertex, player);
     }
 
     public boolean canPlaceRobber(HexLocation hexLoc) {

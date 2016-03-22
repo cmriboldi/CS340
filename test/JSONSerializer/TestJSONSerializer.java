@@ -1,4 +1,4 @@
-package test.JSONSerializer;
+package JSONSerializer;
 
 import client.data.GameInfo;
 import com.google.inject.Guice;
@@ -13,7 +13,13 @@ import server.facade.JSONSerializer;
 import server.guice.VolatileRealModule;
 import serverProxy.JSONDeserializer;
 import shared.definitions.CatanColor;
-import test.*;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
+import test.JsonFileLoader;
+
+import java.io.IOException;
+
 
 /**
  * Created by clayt on 3/20/2016.
@@ -62,15 +68,13 @@ public class TestJSONSerializer {
     }
     
     @Test
-    public void testDefaultJson()
-    {
+    public void testDefaultJson() throws IOException, GeneralPlayerException, InvalidTurnStatusException, TurnIndexException {
     	CatanModel model = JSONDeserializer.deserialize(JsonFileLoader.readFile("json/default.json"));
     	assert(JSONSerializer.serialize(model).equals(JsonFileLoader.readFile("json/defaultTest.json")));
     }
     
     @Test
-    public void testEmptyJson()
-    {
+    public void testEmptyJson() throws IOException, GeneralPlayerException, InvalidTurnStatusException, TurnIndexException {
     	JSONDeserializer.deserialize(JsonFileLoader.readFile("json/empty.json"));
     	assert(JSONSerializer.serialize(model).equals(JsonFileLoader.readFile("json/emptyTest.json")));
     }

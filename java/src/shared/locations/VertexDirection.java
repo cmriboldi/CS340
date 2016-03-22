@@ -41,4 +41,25 @@ public enum VertexDirection
 				return null;
 		}
 	}
+
+	public static VertexDirection toEnum(String input)
+	{
+		switch(input)
+		{
+			case "W":
+				return West;
+			case "NW":
+				return NorthWest;
+			case "NE":
+				return NorthEast;
+			case "E":
+				return East;
+			case "SE":
+				return SouthEast;
+			case "SW":
+				return SouthWest;
+			default:
+				return null;
+		}
+	}
 }

@@ -113,12 +113,10 @@ public class Map {
             Random rand = new Random();
             HexLocation randHexLoc = removeAndReturn(hexLocs, rand.nextInt(hexLocs.size()));
 
-            if(randomNumbers)
-            {
+            if (randomNumbers) {
                 hexes.put(randHexLoc, new Hex(randHexLoc.getX(), randHexLoc.getY(), HexType.DESERT, -1));
 
-                while(hexLocs.size() > 0)
-                {
+                while (hexLocs.size() > 0) {
                     rand = new Random();
                     randHexLoc = removeAndReturn(hexLocs, rand.nextInt(hexLocs.size()));
                     int randNumber = removeAndReturn(numbers, rand.nextInt(numbers.size()));
@@ -128,8 +126,7 @@ public class Map {
                 }
             }
 
-            if(!randomNumbers)
-            {
+            if (!randomNumbers) {
                 hexes.put(new HexLocation(0, -1), new Hex(0, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
                 hexes.put(new HexLocation(0, 0), new Hex(0, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 11));
                 hexes.put(new HexLocation(0, 1), new Hex(0, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 4));
@@ -205,30 +202,21 @@ public class Map {
 
         if (randomPorts) {
             //if the ports should be randomized
-            ports.put(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), new Port(-3, 0, EdgeDirection.SouthEast, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), new Port(-3, 0, EdgeDirection.North, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), new Port(-3, 0, EdgeDirection.SouthWest, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-1, -3), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
 
 
         }
 
         if (!randomPorts) {
             //if the ports should be standard
-            ports.put(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), new Port(-3, 0, EdgeDirection.SouthEast, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast), new Port(-3, 0, EdgeDirection.NorthEast, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), new Port(-3, 0, EdgeDirection.North, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), new Port(-3, 0, EdgeDirection.NorthWest, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), new Port(-3, 0, EdgeDirection.SouthWest, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-1, -3), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
-            ports.put(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South), new Port(-3, 0, EdgeDirection.South, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), new Port(-3, 0, EdgeDirection.SouthEast, PortType.THREE, 3));
+            ports.put(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), new Port(-3, 2, EdgeDirection.NorthEast, PortType.WOOD, 2));
+            ports.put(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast), new Port(-2, 3, EdgeDirection.NorthEast, PortType.BRICK, 2));
+            ports.put(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), new Port(-0, 3, EdgeDirection.North, PortType.THREE, 3));
+            ports.put(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest), new Port(2, 1, EdgeDirection.NorthWest, PortType.THREE, 3));
+            ports.put(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), new Port(3, -1, EdgeDirection.NorthWest, PortType.SHEEP, 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), new Port(3, -3, EdgeDirection.SouthWest, PortType.THREE, 3));
+            ports.put(new EdgeLocation(new HexLocation(1, -3), EdgeDirection.South), new Port(1, -3, EdgeDirection.South, PortType.ORE, 2));
+            ports.put(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South), new Port(-1, -2, EdgeDirection.South, PortType.WHEAT, 2));
         }
     }
 
@@ -262,8 +250,7 @@ public class Map {
         }
     }
 
-    private <T> T removeAndReturn(List<T> list, int index)
-    {
+    private <T> T removeAndReturn(List<T> list, int index) {
         T returnThis = list.get(index);
         list.remove(index);
 
@@ -493,6 +480,8 @@ public class Map {
     }
 
     public void placeRoad(EdgeLocation edge, int player) {
+        System.out.println("MAP : placeRoad");
+
         roads.put(edge, new Road(edge, player));
     }
 
@@ -642,6 +631,14 @@ public class Map {
         }
 
         return true;
+    }
+
+    public void placeSettlement(VertexLocation vertLoc, int playerIndex) {
+        settlements.put(vertLoc, new Settlement(vertLoc, playerIndex));
+    }
+
+    public void upgradeSettlement(VertexLocation vertLoc, int playerIndex) {
+        settlements.get(vertLoc).makeCity();
     }
 
     public boolean canPlaceRobber(HexLocation hexLoc) {
