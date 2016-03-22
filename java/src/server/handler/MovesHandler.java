@@ -56,7 +56,7 @@ public class MovesHandler extends APIHandler
             ICommand command = commandFactory.buildCommand(token, json, facade);
             respond200(httpExchange, JSONSerializer.serialize((CatanModel)command.execute()));
         }
-        catch (ServerException e)
+        catch (Exception e)
         {
             if(e.getClass().equals(BadRequestException.class))
                 respond400(httpExchange, e.getMessage());

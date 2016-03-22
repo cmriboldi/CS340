@@ -68,7 +68,7 @@ public class GamesHandler extends APIHandler
                     respond404(httpExchange);
             }
         }
-        catch (ServerException e)
+        catch (Exception e)
         {
             if(e.getClass().equals(BadRequestException.class))
                 respond400(httpExchange, e.getMessage());
