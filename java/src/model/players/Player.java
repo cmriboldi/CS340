@@ -258,9 +258,14 @@ public class Player
 		this.points++;
 	}
 
-	public void decrimentPieceCount(PieceType piece)
+	public void decrementPieceCount(PieceType piece)
 	{
 		this.pieces.removePiece(piece);
+	}
+
+	public void incrementPieceCount(PieceType piece)
+	{
+		this.pieces.addPiece(piece);
 	}
 
 }

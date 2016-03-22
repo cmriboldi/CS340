@@ -203,9 +203,14 @@ public class PlayerManager
 		turnTracker.advanceTurn();
 	}
 
-	public void decrimentPieceCount(int playerIndex, PieceType piece)
+	public void decrementPieceCount(int playerIndex, PieceType piece)
 	{
-		catanPlayers[playerIndex].decrimentPieceCount(piece);
+		catanPlayers[playerIndex].decrementPieceCount(piece);
+	}
+	
+	public void incrementPieceCount(int playerIndex, PieceType piece)
+	{
+		catanPlayers[playerIndex].incrementPieceCount(piece);
 	}
 
 

@@ -51,7 +51,7 @@ public class BuildSettlementCommand implements ICommand {
 
             //Make change to the model
             cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
-            cm.playerManager.decrimentPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
+            cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
 
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
