@@ -15,59 +15,59 @@ public class CommandFactory
 		facadeInstance = facade_p;
 	}
 	
-	public ICommand buildCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade) {
+	public ICommand buildCommand(AuthToken authToken, IJavaJSON jsonBody) {
 		ICommand command = null;
 		switch(jsonBody.getCommand()) {
 			case ACCEPT_TRADE:
-				command = new AcceptTradeCommand(authToken, jsonBody, facade);
+				command = new AcceptTradeCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case BUILD_CITY:
-				command = new BuildCityCommand(authToken, jsonBody, facade);
+				command = new BuildCityCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case BUILD_ROAD:
-				command = new BuildRoadCommand(authToken, jsonBody, facade);
+				command = new BuildRoadCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case BUILD_SETTLEMENT:
-				command = new BuildSettlementCommand(authToken, jsonBody, facade);
+				command = new BuildSettlementCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case BUY_DEVCARD:
-				command = new BuyDevCardCommand(authToken, jsonBody, facade);
+				command = new BuyDevCardCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case DISCARD_CARDS:
-				command = new DiscardCardsCommand(authToken, jsonBody, facade);
+				command = new DiscardCardsCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case FINISH_TURN:
-				command = new FinishTurnCommand(authToken, jsonBody, facade);
+				command = new FinishTurnCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case MARITIME_TRADE:
-				command = new MaritimeTradeCommand(authToken, jsonBody, facade);
+				command = new MaritimeTradeCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case MONOPOLY:
-				command = new MonopolyCommand(authToken, jsonBody, facade);
+				command = new MonopolyCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case MONUMENT:
-				command = new MonumentCommand(authToken, jsonBody, facade);
+				command = new MonumentCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case OFFER_TRADE:
-				command = new OfferTradeCommand(authToken, jsonBody, facade);
+				command = new OfferTradeCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case ROAD_BUILDING:
-				command = new RoadBuildingCommand(authToken, jsonBody, facade);
+				command = new RoadBuildingCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case ROB_PLAYER:
-				command = new RobPlayerCommand(authToken, jsonBody, facade);
+				command = new RobPlayerCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case ROLL_NUMBER:
-				command = new RollNumberCommand(authToken, jsonBody, facade);
+				command = new RollNumberCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case SEND_CHAT:
-				command = new SendChatCommand(authToken, jsonBody, facade);
+				command = new SendChatCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case SOLDIER:
-				command = new SoldierCommand(authToken, jsonBody, facade);
+				command = new SoldierCommand(authToken, jsonBody, facadeInstance);
 				break;
 			case YEAR_OF_PLENTY:
-				command = new YearOfPlentyCommand(authToken, jsonBody, facade);
+				command = new YearOfPlentyCommand(authToken, jsonBody, facadeInstance);
 				break;
 		}
 		return command;

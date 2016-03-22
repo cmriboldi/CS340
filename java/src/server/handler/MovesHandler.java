@@ -53,7 +53,7 @@ public class MovesHandler extends APIHandler
                 respond404(httpExchange, "Invalid Command type");
 
             IJavaJSON json = (IJavaJSON) getRequest(httpExchange, type);
-            ICommand command = commandFactory.buildCommand(token, json, facade);
+            ICommand command = commandFactory.buildCommand(token, json);
             respond200(httpExchange, JSONSerializer.serialize((CatanModel)command.execute()));
         }
         catch (Exception e)
