@@ -1,4 +1,4 @@
-package test.phase3Tests;
+package phase3Tests;
 
 import static org.junit.Assert.*;
 
