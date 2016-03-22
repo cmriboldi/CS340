@@ -60,10 +60,12 @@ public class MovesHandler extends APIHandler
         {
             if(e.getClass().equals(BadRequestException.class))
                 respond400(httpExchange, e.getMessage());
-            if(e.getClass().equals(InvalidCredentialsException.class))
+            else if(e.getClass().equals(InvalidCredentialsException.class))
                 respond401(httpExchange, e.getMessage());
-            if(e.getClass().equals(UnauthorizedException.class))
+            else if(e.getClass().equals(UnauthorizedException.class))
                 respond401(httpExchange, e.getMessage());
+            else
+                respond400(httpExchange, e.getMessage());
             httpExchange.close();
             e.printStackTrace();
         }

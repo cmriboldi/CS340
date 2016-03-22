@@ -56,10 +56,7 @@ public class GamesHandler extends APIHandler
                 case "/games/join":
                     AuthToken token = parseCookie(httpExchange);
                     JoinGameJSON joinJSON = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
-//                    System.out.println("Authtoken Parsed:\nname: " + token.getName() + "\npassword: " + token.getPassword() + "\nplayerid: " + token.getPlayerID() + "\ngameId: " + token.getGameID());
                     String cookie = facade.joinGame(token, joinJSON.getId(), CatanColor.toCatanColor(joinJSON.getColor()));
-//                    System.out.println("---Finally out of the facade!!!---");
-//                    System.out.println("Response:" + cookie);
                     httpExchange.getResponseHeaders().add("Set-cookie", cookie);
                     success(httpExchange);
                     break;

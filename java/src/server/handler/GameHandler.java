@@ -47,8 +47,6 @@ public class GameHandler extends APIHandler
             switch(uri)
             {
                 case "/game/model":
-                    //success(httpExchange);
-                    //Not implemented yet, waiting on Model Serializer
                     String query = httpExchange.getRequestURI().getQuery();
                     if(query != null && query.matches(".*version=\\d*"))
                     {
@@ -61,9 +59,7 @@ public class GameHandler extends APIHandler
                             respond200(httpExchange, response);
                         break;
                     }
-                    System.out.println("About to Serialize");
                     String response = JSONSerializer.serialize(facade.getGameModel(token));
-                    System.out.println("Finished Serializing");
                     respond200(httpExchange, response);
                     break;
 
