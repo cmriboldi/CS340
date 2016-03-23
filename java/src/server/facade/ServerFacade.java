@@ -10,10 +10,10 @@ import server.command.ICommand;
 import server.data.UserData;
 import server.database.IDatabase;
 import server.exception.*;
+import serverProxy.JSONDeserializer;
 import shared.definitions.CatanColor;
 
-import java.io.SyncFailedException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -144,13 +144,51 @@ public class ServerFacade implements IServerFacade
     }
 
     @Override
-    public void saveGame(int gameId, String fileName) {
+    public void saveGame(int gameId, String fileName) throws ServerException
+    {
+        try
+        {
+            File saveFile = new File("save/" + fileName + ".json");
+            if(!saveFile.getParentFile().exists())
+                saveFile.getParentFile().mkdir();
 
+            FileWriter writer = new FileWriter(saveFile);
+            writer.write(JSONSerializer.serialize(database.getGameModel(gameId)));
+            writer.flush();
+            writer.close();
+        }
+        catch (Exception e)
+        {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
     @Override
-    public void loadGame(String fileName) {
+    public void loadGame(String fileName) throws ServerException
+    {
+        try
+        {
+            File loadFile = new File("save/" + fileName + ".json");
+            if(!loadFile.exists())
+                throw new BadRequestException("Not a valid file name");
 
+            BufferedReader reader = new BufferedReader(new FileReader(loadFile));
+            StringBuilder builder = new StringBuilder();
+            String line = reader.readLine();
+            while(line != null)
+            {
+                builder.append(line);
+                line = reader.readLine();
+            }
+            String result = builder.toString();
+
+            CatanModel model = JSONDeserializer.deserialize(result);
+            database.addGame(fileName, model);
+        }
+        catch (Exception e)
+        {
+            throw new BadRequestException(e.getMessage());
+        }
     }
 
     @Override

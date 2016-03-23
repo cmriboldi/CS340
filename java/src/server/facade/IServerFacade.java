@@ -93,7 +93,7 @@ public interface IServerFacade
      * @param gameId
      * @param fileName
      */
-    void saveGame(int gameId, String fileName);
+    void saveGame(int gameId, String fileName) throws ServerException;
     
     /**
      * This method is for testing and debugging purposes. Loads the state of the game with the given name.
@@ -102,7 +102,7 @@ public interface IServerFacade
      * 
      * @param fileName
      */
-    void loadGame(String fileName);
+    void loadGame(String fileName) throws ServerException;
 
     /**
      * Gets the CatanModel given the AuthToken for the user.

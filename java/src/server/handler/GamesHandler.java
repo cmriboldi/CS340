@@ -11,6 +11,8 @@ import server.exception.UnauthorizedException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.CreateGameJSON;
 import shared.communication.JSON.JoinGameJSON;
+import shared.communication.JSON.LoadJSON;
+import shared.communication.JSON.SaveJSON;
 import shared.definitions.CatanColor;
 
 import java.io.IOException;
@@ -58,6 +60,18 @@ public class GamesHandler extends APIHandler
                     JoinGameJSON joinJSON = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
                     String cookie = facade.joinGame(token, joinJSON.getId(), CatanColor.toCatanColor(joinJSON.getColor()));
                     httpExchange.getResponseHeaders().add("Set-cookie", cookie);
+                    success(httpExchange);
+                    break;
+
+                case "/games/save":
+                    SaveJSON saveJSON = (SaveJSON) getRequest(httpExchange, SaveJSON.class);
+                    facade.saveGame(saveJSON.getId(), saveJSON.getName());
+                    success(httpExchange);
+                    break;
+
+                case "/games/load":
+                    LoadJSON loadJSON = (LoadJSON) getRequest(httpExchange, LoadJSON.class);
+                    facade.loadGame(loadJSON.getName());
                     success(httpExchange);
                     break;
 
