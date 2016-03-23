@@ -69,12 +69,12 @@ public class TestServer
         facade.register("Mark", "mark");
         facade.register("Pete", "pete");
 
-        GameInfo info = facade.createGame(false, false, false, "Nothing Random");
-
-        facade.joinGame(new AuthToken("Brooke", "brooke", 1, -1), info.getId(), CatanColor.BLUE);
-        facade.joinGame(new AuthToken("Sam", "sam", 2, -1), info.getId(), CatanColor.RED);
-        facade.joinGame(new AuthToken("Mark", "mark", 3, -1), info.getId(), CatanColor.ORANGE);
-        facade.joinGame(new AuthToken("Pete", "pete", 4, -1), info.getId(), CatanColor.GREEN);
+        GameInfo info = facade.createGame(false, false, false, "Test Game");
+//
+//        facade.joinGame(new AuthToken("Brooke", "brooke", 1, -1), info.getId(), CatanColor.BLUE);
+//        facade.joinGame(new AuthToken("Sam", "sam", 2, -1), info.getId(), CatanColor.RED);
+//        facade.joinGame(new AuthToken("Mark", "mark", 3, -1), info.getId(), CatanColor.ORANGE);
+//        facade.joinGame(new AuthToken("Pete", "pete", 4, -1), info.getId(), CatanColor.GREEN);
 
         try
         {
@@ -93,11 +93,9 @@ public class TestServer
         server.createContext("/games", gamesHandler);
         server.createContext("/game", gameHandler);
         server.createContext("/moves", movesHandler);
-        server.createContext("/docs/api/data", new SwaggerHandler.JSONAppender(""));
-        server.createContext("/docs/api/view", new SwaggerHandler.BasicFile(""));
-        server.createContext("/", swaggerHandler);
-
-        System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  About to start  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
+//        server.createContext("/docs/api/data", new SwaggerHandler.JSONAppender(""));
+//        server.createContext("/docs/api/view", new SwaggerHandler.BasicFile(""));
+//        server.createContext("/", swaggerHandler);
 
         server.start();
     }
@@ -105,6 +103,5 @@ public class TestServer
     public void stop()
     {
         server.stop(0);
-        System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Server has Stopped  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
     }
 }

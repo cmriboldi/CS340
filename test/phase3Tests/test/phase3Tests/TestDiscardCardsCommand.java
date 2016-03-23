@@ -27,7 +27,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class TestBuildSettlementCommand {
+public class TestDiscardCardsCommand {
 
     private IServerFacade facade;
     private CommandFactory commandFactory;

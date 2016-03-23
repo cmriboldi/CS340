@@ -1,4 +1,4 @@
-package phase3Tests;
+package test.phase3Tests;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class TestBuildSettlementCommand {
+public class TestBuyDevCardCommand {
 
     private IServerFacade facade;
     private CommandFactory commandFactory;
@@ -77,7 +77,7 @@ public class TestBuildSettlementCommand {
         //Run the command object
         actualCommand.execute();
 
-        facade.getGameModel(token)
+//        facade.getGameModel(token)
         
         //Check that something changed
         assert true;

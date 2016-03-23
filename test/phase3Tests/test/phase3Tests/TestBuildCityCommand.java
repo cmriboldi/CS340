@@ -57,7 +57,7 @@ public class TestBuildCityCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildSettlementCommand() throws server.exception.ServerException {
+    public void testBuildCityCommand() throws server.exception.ServerException {
 
         //Create a default game to test against
         GameInfo info = facade.createGame(false, false, false, "BuildCityCommandTest");

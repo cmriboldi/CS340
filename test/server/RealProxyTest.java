@@ -36,23 +36,26 @@ public class RealProxyTest
 	{
 		System.out.println("here");
 		testServer = new TestServer();
+		System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Starting Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
 		testServer.run();
 		//Thread.sleep(5000);
 		System.out.println("Server is running");
 		server = new RealProxy();
+		server.userLogin("Brooke", "brooke");
+		server.joinGame(0, CatanColor.BLUE);
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception 
 	{
 		testServer.stop();
+		System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Stopping Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
 	}
 
 	@Before
 	public void setUp() throws Exception 
 	{
-		server.userLogin("Pete", "pete");
-		server.joinGame(0, CatanColor.ORANGE);
+
 	}
 
 	@After
@@ -69,14 +72,14 @@ public class RealProxyTest
 	@Test
 	public void createGame() throws ServerException 
 	{
-		server.createGame(true, true, true, "JUnitTest Game");
+		server.createGame(false, false, false, "JUnitTest Game");
 		assert(true);
 	}
 	
 	@Test
 	public void joinGame() throws ServerException 
 	{
-		server.joinGame(0, CatanColor.ORANGE);
+		server.joinGame(0, CatanColor.BLUE);
 		assert(true);
 	}
 	
