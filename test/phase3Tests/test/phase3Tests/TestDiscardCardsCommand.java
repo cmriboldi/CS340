@@ -1,4 +1,4 @@
-package phase3Tests;
+package test.phase3Tests.test.phase3Tests;
 
 import static org.junit.Assert.*;
 
@@ -77,7 +77,7 @@ public class TestDiscardCardsCommand {
         //Run the command object
         actualCommand.execute();
 
-        facade.getGameModel(token)
+//        facade.getGameModel(token)
         
         //Check that something changed
         assert true;
