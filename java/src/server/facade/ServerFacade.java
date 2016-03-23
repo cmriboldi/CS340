@@ -129,7 +129,7 @@ public class ServerFacade implements IServerFacade
 
         //Case where the game is full
         if (model.playerManager.getInitializedPlayerCount() >=4)
-            throw new UnauthorizedException("Join Game is already full");
+            throw new UnauthorizedException("Join Game is already full.");
         
         //Player can Join game first time
         if(!model.playerManager.containsId(token.getPlayerID()) && model.playerManager.getInitializedPlayerCount() < 4)
