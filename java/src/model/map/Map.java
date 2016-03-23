@@ -2,8 +2,10 @@ package model.map;
 
 //JAVA imports
 
+import model.resources.ResourceList;
 import shared.definitions.HexType;
 import shared.definitions.PortType;
+import shared.definitions.ResourceType;
 import shared.locations.*;
 
 import java.util.*;
@@ -440,6 +442,62 @@ public class Map {
     //----- Functional Methods
     //----- Function: These methods DO STUFF, often using the navigational methods
     /////////////////////////////////////////////////////////////////////////////////
+
+    public ResourceList[] distributeResources(int number) {
+
+        //initialize the list of resourceLists to return
+        ResourceList[] resourceLists = new ResourceList[4];
+        for(int i = 0; i < resourceLists.length; i++)
+            resourceLists[i] = new ResourceList(0,0,0,0,0);
+
+        //get hexes that match the inputed number
+        Set<Hex> matchingHexes = new HashSet<>();
+        for (Hex currentHex : hexes.values()) {
+            if (currentHex.getNumber() == number)
+                matchingHexes.add(currentHex);
+        }
+
+        //identify any settlements attached to said hexes, and increment the resource for the owning player
+        Set<Settlement> matchingSettlements = new HashSet<>();
+        for(Hex currentHex : matchingHexes)
+        {
+            int playerIndex;
+
+            //check NE
+            if(settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.NorthEast))) {
+                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.NorthEast)).getPlayer();
+                resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
+            //check NW
+            if(settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.NorthWest))) {
+                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.NorthWest)).getPlayer();
+                resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
+            //check W
+            if(settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.West))) {
+                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.West)).getPlayer();
+                resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
+            //check E
+            if(settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.East))) {
+                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.East)).getPlayer();
+                resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
+            //check SE
+            if(settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.SouthEast))) {
+                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.SouthEast)).getPlayer();
+                resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
+            //check SW
+            if(settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.SouthWest))) {
+                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.SouthWest)).getPlayer();
+                resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
+        }
+
+        return resourceLists;
+    }
+
 
     /*
      * Checks to see if both starting settlments have a road adjacent to them.

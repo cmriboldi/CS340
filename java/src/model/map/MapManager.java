@@ -102,7 +102,7 @@ public class MapManager implements IMapManager {
 
     @Override
     public ResourceList[] distributeResources(int number) {
-        return null;
+        return map.distributeResources(number);
     }
 
     @Override
