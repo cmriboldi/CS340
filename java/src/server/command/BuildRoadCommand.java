@@ -1,6 +1,7 @@
 package server.command;
 
 import model.CatanModel;
+import model.resources.ResourceList;
 import server.AuthToken;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
@@ -11,6 +12,7 @@ import shared.definitions.PieceType;
 import shared.definitions.TurnType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.player.TurnIndexException;
+import shared.exceptions.resources.NotEnoughBankResourcesException;
 
 /**
  * Created by clayt on 3/9/2016.
@@ -55,7 +57,8 @@ public class BuildRoadCommand implements ICommand {
 			} else if (cm.playerManager.getTurnStatus() == TurnType.SECOND_ROUND) {
 				if(body.getPlayerIndex() == 3) {
 					cm.playerManager.setTurnStatus(TurnType.ROLLING);
-					//distribute initial resources
+					ResourceList[] resLists = cm.mapManager.distributeSetupResources();
+					cm.resourceManager.payOutResources(resLists);
 				}
 				cm.playerManager.advanceTurn();
 			}
@@ -67,7 +70,7 @@ public class BuildRoadCommand implements ICommand {
 			
 			facade.recordCommand(authToken, this);
 			
-		} catch (ServerException | TurnIndexException e)
+		} catch (ServerException | TurnIndexException | NotEnoughBankResourcesException e)
 		{
 			e.printStackTrace();
 		}
