@@ -256,4 +256,20 @@ public class DevCardList
 		this.yearOfPlenty -= devCards.yearOfPlenty;
 	}
 
+	public void plus(DevCardList devCards)
+	{
+		this.monopoly += devCards.monopoly;
+		this.monument += devCards.monument;
+		this.roadBuilder += devCards.roadBuilder;
+		this.soldier += devCards.soldier;
+		this.yearOfPlenty += devCards.yearOfPlenty;
+	}
+
+	@Override
+	public String toString()
+	{
+		return "DevCardList [monopoly=" + monopoly + ", monument=" + monument + ", roadBuilder=" + roadBuilder
+				+ ", soldier=" + soldier + ", yearOfPlenty=" + yearOfPlenty + "]";
+	}
+
 }

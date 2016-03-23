@@ -29,8 +29,7 @@ public class CatanModel
 	public int version;
 	
 	public CatanModel(boolean randomTile, boolean randomNumbers, boolean randomPorts)
-	{
-		System.out.println("creating default model"); 
+	{ 
 		this.version = 0;
 		this.cardManager = new DevCardManager();
 		this.chatManager = new ChatManager();

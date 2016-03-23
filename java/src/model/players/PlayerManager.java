@@ -225,8 +225,10 @@ public class PlayerManager
 
 	public void setNewLongestRoad(int playerIndex)
 	{
-		this.decrementPlayerPoints(this.indexOfLongestRoad);
-		this.decrementPlayerPoints(this.indexOfLongestRoad);
+		if(this.indexOfLongestRoad != -1) {
+			this.decrementPlayerPoints(this.indexOfLongestRoad);
+			this.decrementPlayerPoints(this.indexOfLongestRoad);
+		}
 		
 		this.setIndexOfLongestRoad(playerIndex);
 		

@@ -80,9 +80,6 @@ public class MapController extends Controller implements IMapController, Observe
 	        
 	        if (currentState.getClass().toString().equals(new MapSetupState().getClass().toString()))
 	        {
-	        	//MODAL ERROR HERE
-	        	//currentState.startMove(pieceType, isFree, allowDisconnected, mapView);
-	        	
 	        	int roadsRemaining = Facade.getLocalPlayerRoadsRemaining();  
 	        	int settlementsRemaining = Facade.getLocalPlayerSettlementsRemaining(); 
 	        	TurnType status = Facade.getTurnStatus();  

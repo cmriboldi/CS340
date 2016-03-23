@@ -53,6 +53,9 @@ public class RollNumberCommand implements ICommand {
 			else
 			{
 				ResourceList[] resLists = cm.mapManager.distributeResources(this.body.getNumber());
+//				for(int i = 0; i < resLists.length; i++) {
+//					System.out.println("Player " + i + "'s resources are " + resLists[i].toString());
+//				}
 				cm.resourceManager.payOutResources(resLists);
 				cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			}

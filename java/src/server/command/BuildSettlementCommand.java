@@ -55,7 +55,7 @@ public class BuildSettlementCommand implements ICommand {
             cm.playerManager.incrementPlayerPoints(this.body.getPlayerIndex());
             cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
             if(cm.playerManager.getTurnStatus() == TurnType.PLAYING) {
-            	cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);
+            	cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
             }
 
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));

@@ -40,19 +40,16 @@ public class RobPlayerCommand implements ICommand
 			
 			if(this.body.getVictimIndex() > -1 && this.body.getVictimIndex() < 4) {
 				cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			}
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 
 			//Translate from JSONbody into a Java settlement location
 			int hexLocX = body.getLocation().getX();
-			System.out.println("hexLocX is: " + hexLocX);
 			int hexLocY = body.getLocation().getY();
-			System.out.println("hexLocY is: " + hexLocY);
 			HexLocation hexLoc = new HexLocation(hexLocX, hexLocY);
 
 			cm.getMapManager().placeRobber(hexLoc);
-			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
 			facade.updateGame(authToken, cm);
 			

@@ -96,5 +96,10 @@ public class PlayerDevCards
 		return playerDevCards[playerIndex].getCardTypeCount(cardType);
 	}
 
+	public void addDevCards(int playerIndex, DevCardList devCards)
+	{
+		playerDevCards[playerIndex].plus(devCards);
+	}
+
 	
 }

@@ -174,5 +174,11 @@ public class DevCardManager
 		oldDevCards.removeCardFromPlayer(devCard, playerIndex);
 		playedDevCards.addCardToPlayer(devCard, playerIndex);
 	}
+
+	public void finishTurnRotateCards(int playerIndex)
+	{
+		oldDevCards.addDevCards(playerIndex, newDevCards.getDevCardsForPlayer(playerIndex));
+		newDevCards.setDevCardsForPlayer(playerIndex, new DevCardList());
+	}
 	
 }

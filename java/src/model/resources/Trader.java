@@ -107,8 +107,9 @@ public class Trader
 		{
 			throw new InvalidPlayerIndexException("The player index must match the index of the trade offer reciever.");
 		}
-		boolean senderCanAfforTrade = playerResources.canPlayerAfford(tradeOffer.getSender(), tradeOffer.getResourcesOffer().invert());
-		boolean recieverCanAfforTrade = playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer());
+		
+		boolean senderCanAfforTrade = playerResources.canPlayerAfford(tradeOffer.getSender(), tradeOffer.getResourcesOffer());
+		boolean recieverCanAfforTrade = playerResources.canPlayerAfford(tradeOffer.getReceiver(), tradeOffer.getResourcesOffer().invert());
 	
 		if(!senderCanAfforTrade)
 		{

@@ -35,9 +35,8 @@ public class FinishTurnCommand implements ICommand {
 		CatanModel cm = null;
 		try
 		{
-			System.out.println("FinishTurnCommand");
-
 			cm = facade.getGameModel(authToken);
+			cm.cardManager.finishTurnRotateCards(this.body.getPlayerIndex());
 			cm.playerManager.advanceTurn();
 			cm.playerManager.setTurnStatus(TurnType.ROLLING);
 			facade.updateGame(authToken, cm);
