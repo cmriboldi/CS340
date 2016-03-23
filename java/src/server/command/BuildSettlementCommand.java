@@ -44,9 +44,6 @@ public class BuildSettlementCommand implements ICommand {
             int settleLocX = body.getVertexLocation().getX();
             int settleLocY = body.getVertexLocation().getY();
             VertexDirection settleLocDir = VertexDirection.toEnum(body.getVertexLocation().getDirection());
-
-            System.out.println(settleLocDir.toString());
-
             VertexLocation settleLoc = new VertexLocation(new HexLocation(settleLocX, settleLocY), settleLocDir);
 
             //Make change to the model
