@@ -45,7 +45,6 @@ public class ServerFacade implements IServerFacade
     @Override
     public String login(String username, String password) throws ServerException
     {
-    	System.out.println("Logging in (username): " + username + " (password): " + password); 
         if(!isValidUser(new AuthToken(username, password, -1, -1)))
             throw new InvalidCredentialsException("Login attempt invalid");
 
@@ -92,7 +91,6 @@ public class ServerFacade implements IServerFacade
     @Override
     public GameInfo createGame(boolean randomTiles, boolean randomNumbers, boolean randomPorts, String name) throws ServerException {
 
-    	System.out.println("[server facade ] Creating Game");
     	return database.createGame(randomTiles, randomNumbers, randomPorts, name);
     }
 
@@ -117,7 +115,7 @@ public class ServerFacade implements IServerFacade
         //Player Joined Previously
         if (model.playerManager.containsId(token.getPlayerID()))
         {
-            System.out.println("Player " + token.getName() + " is already part of this game" );
+            System.out.println("Player " + token.getName() + " is already part of this game");
             for(Player player : model.getPlayerManager().getCatanPlayers())
             {
                 if(player != null && player.getName().equals(token.getName()))

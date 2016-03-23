@@ -329,7 +329,7 @@ public class AuthProxy
 	public CatanModel monopoly(int playerIndex, ResourceType resource) throws ServerException
 	{
 		MonopolyJSON data = new MonopolyJSON(playerIndex, resource.toString());
-		String response = (String) post("/moves/Soldier", data);
+		String response = (String) post("/moves/Monopoly", data);
 		CatanModel model;
 		try 
 		{
