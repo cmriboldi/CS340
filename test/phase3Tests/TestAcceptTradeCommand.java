@@ -1,4 +1,4 @@
-package test.phase3Tests.test.phase3Tests;
+package test.phase3Tests;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class TestMonumentCommand {
+public class TestAcceptTradeCommand {
 
     private IServerFacade facade;
     private CommandFactory commandFactory;
@@ -57,7 +57,7 @@ public class TestMonumentCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildSettlementCommand() throws server.exception.ServerException {
+    public void testAcceptTradeCommand() throws server.exception.ServerException {
 
         //Create a default game to test against
         GameInfo info = facade.createGame(false, false, false, "BuildSettlementCommandTest");
@@ -77,7 +77,7 @@ public class TestMonumentCommand {
         //Run the command object
         actualCommand.execute();
 
-//        facade.getGameModel(token)
+        //facade.getGameModel(token);
         
         //Check that something changed
         assert true;

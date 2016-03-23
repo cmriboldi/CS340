@@ -1,4 +1,4 @@
-package test.phase3Tests.test.phase3Tests;
+package test.phase3Tests;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class TestRobPlayerCommand {
+public class TestBuildCityCommand {
 
     private IServerFacade facade;
     private CommandFactory commandFactory;
@@ -57,10 +57,10 @@ public class TestRobPlayerCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildSettlementCommand() throws server.exception.ServerException {
+    public void testBuildCityCommand() throws server.exception.ServerException {
 
         //Create a default game to test against
-        GameInfo info = facade.createGame(false, false, false, "BuildSettlementCommandTest");
+        GameInfo info = facade.createGame(false, false, false, "BuildCityCommandTest");
 
         //Create a default player ... user:String pass:string is a default in our ViolatleDatabase
         AuthToken userString = new AuthToken("String", "string", 0, -1);    //If we were creating a new player we would first need to do facade.register(... , ...)
@@ -70,15 +70,12 @@ public class TestRobPlayerCommand {
 
         //Build the command object
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);   //IMPORTANT: be sure to check that the player you are playing as is logged into the game and that you have the correct playerID (not player index)
-        
         IJavaJSON commandJSON = new BuildSettlementJSON(0, new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast), true); //IMPORTANT: again, check that you have the right unique playerID
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
 
         //Run the command object
         actualCommand.execute();
 
-//        facade.getGameModel(token)
-        
         //Check that something changed
         assert true;
     }

@@ -1,4 +1,4 @@
-package test.phase3Tests.test.phase3Tests;
+package test.phase3Tests;
 
 import static org.junit.Assert.*;
 
@@ -27,7 +27,7 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class TestJoinCommand {
+public class TestRollNumberCommand {
 
     private IServerFacade facade;
     private CommandFactory commandFactory;
