@@ -107,8 +107,7 @@ public class MapManager implements IMapManager {
 
     @Override
     public void placeRobber(HexLocation hex) {
-        // TODO Auto-generated method stub
-
+        map.placeRobber(hex);
     }
 
     public int getMapRadius() {
