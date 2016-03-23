@@ -55,6 +55,13 @@ public class Map {
      */
     private int radius;
 
+    /**
+     * Represents the number a player must hit to win the longestRoad card
+     */
+    private int longestRoadToMeet;
+
+    private int indexOfLongestRoadOwner;
+
     /////////////////////////////////////////////////////////////////////
     //----- Constructor Methods
     //----- Function: Implicit
@@ -68,6 +75,8 @@ public class Map {
         settlements = new HashMap<>();
         ports = new HashMap<>();
         roads = new HashMap<>();
+        longestRoadToMeet = 5;
+        indexOfLongestRoadOwner = -1;
     }
 
     /**
@@ -83,6 +92,8 @@ public class Map {
         ports = new HashMap<>();
         roads = new HashMap<>();
         radius = 3;
+        longestRoadToMeet = 5;
+        indexOfLongestRoadOwner = -1;
 
         //list of all the possible xy combinations
         List<HexLocation> hexLocs = generateHexLocs();
@@ -540,6 +551,20 @@ public class Map {
         System.out.println("MAP : placeRoad");
 
         roads.put(edge, new Road(edge, player));
+
+        Set<Road> playerRoads = new HashSet<>();
+        for (Road currentRoad : roads.values()) {
+            if (currentRoad.getOwner() == player)
+                playerRoads.add(currentRoad);
+        }
+        if (playerRoads.size() == longestRoadToMeet) {
+            longestRoadToMeet++;
+            indexOfLongestRoadOwner = player;
+        }
+    }
+
+    public int getIndexOfLongestRoadOwner(){
+        return indexOfLongestRoadOwner;
     }
 
     public void placeLocalRoad(EdgeLocation edge, int player) {
