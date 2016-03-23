@@ -1,4 +1,4 @@
-package phase3Tests;
+package test.phase3Tests;
 
 import static org.junit.Assert.*;
 
@@ -58,6 +58,8 @@ public class TestBuildSettlementCommand {
 
     @Test
     public void testBuildSettlementCommand() throws server.exception.ServerException {
+    	
+    	System.out.println("***"); 
 
         //Create a default game to test against
         GameInfo info = facade.createGame(false, false, false, "BuildSettlementCommandTest");
@@ -77,7 +79,6 @@ public class TestBuildSettlementCommand {
         //Run the command object
         actualCommand.execute();
 
-        facade.getGameModel(token)
         
         //Check that something changed
         assert true;
