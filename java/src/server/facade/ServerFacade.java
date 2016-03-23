@@ -136,6 +136,7 @@ public class ServerFacade implements IServerFacade
             int playerIndex = model.playerManager.getInitializedPlayerCount();
             Player newPlayer = new Player(token.getName(),token.getPlayerID(), color, playerIndex);
             model.playerManager.catanPlayers[playerIndex] = newPlayer;
+            return "catan.game=" + gameId + ";Path=/;";
         }
 
 
@@ -143,7 +144,7 @@ public class ServerFacade implements IServerFacade
         //          Logic to add player to the Catan Model
         ////////////////////////////////////////////////////////////////////////////////////////
 
-        return "catan.game=" + gameId + ";Path=/;";
+       return "";
     }
 
     @Override

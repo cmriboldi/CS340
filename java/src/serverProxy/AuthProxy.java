@@ -8,16 +8,12 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-//import com.google.gson.JsonObject;
 
 import model.CatanModel;
 import model.resources.ResourceList;
-import shared.communication.*;
 import shared.communication.JSON.*;
 import shared.definitions.ResourceType;
 import shared.exceptions.player.GeneralPlayerException;
@@ -27,12 +23,14 @@ import shared.locations.*;
 
 public class AuthProxy 
 {
-	private String authCookie;
+	private String userCookie;
+	private String gameCookie;
 	private String urlBase;
 	
 	public AuthProxy(String urlBase, String authCookie)
 	{
-		this.authCookie = "catan.user=" + authCookie;
+		this.userCookie = "catan.user=" + authCookie;
+		this.gameCookie = "";
 		this.urlBase = urlBase;
 	}
 	
@@ -47,7 +45,7 @@ public class AuthProxy
 			conn.setConnectTimeout(5000);
 			conn.setReadTimeout(10000);
 			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Cookie", authCookie);
+			conn.setRequestProperty("Cookie", userCookie + gameCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 			conn.connect();
@@ -63,7 +61,7 @@ public class AuthProxy
 				cookie = cookie.replace("catan.game=", "");
 				cookie = cookie.replace(";Path=/;", "");
 				int gameID = Integer.parseInt(cookie);
-				authCookie = authCookie.concat("; catan.game=" + gameID);
+				gameCookie = "; catan.game=" + gameID;
 				BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()));
 				StringBuilder sb = new StringBuilder();
 				String line;
@@ -489,7 +487,7 @@ public class AuthProxy
 			conn.setConnectTimeout(5000);
 			conn.setReadTimeout(10000);
 			conn.setRequestMethod("GET");
-			conn.setRequestProperty("Cookie", authCookie);
+			conn.setRequestProperty("Cookie", userCookie + gameCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 			conn.connect();
@@ -541,7 +539,7 @@ public class AuthProxy
 			conn.setConnectTimeout(5000);
 			conn.setReadTimeout(10000);
 			conn.setRequestMethod("POST");
-			conn.setRequestProperty("Cookie", authCookie);
+			conn.setRequestProperty("Cookie", userCookie + gameCookie);
 			conn.setDoInput(true);
 			conn.setDoOutput(true);
 			conn.connect();
