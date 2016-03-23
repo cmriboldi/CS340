@@ -37,6 +37,10 @@ public class SoldierCommand implements ICommand {
 			
 			cm.cardManager.playDevCard(DevCardType.SOLDIER, this.body.getPlayerIndex());
 			
+			if(cm.playerManager.getIndexOfLargestArmy() != this.body.getPlayerIndex() && cm.cardManager.getIndexOfLargestArmy() == this.body.getPlayerIndex()) {
+				cm.playerManager.setNewLargestArmy(this.body.getPlayerIndex());
+			}
+			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a soldier card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
 			facade.updateGame(authToken, cm);

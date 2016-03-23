@@ -52,6 +52,7 @@ public class BuildSettlementCommand implements ICommand {
 
             //Make change to the model
             cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
+            cm.playerManager.incrementPlayerPoints(this.body.getPlayerIndex());
             cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
             if(cm.playerManager.getTurnStatus() == TurnType.PLAYING) {
             	cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);

@@ -218,5 +218,32 @@ public class PlayerManager
 		turnTracker.reverseAdvanceTurn();
 	}
 
+	public void decrementPlayerPoints(int playerIndex)
+	{
+		catanPlayers[playerIndex].decrementPoints();
+	}
+
+	public void setNewLongestRoad(int playerIndex)
+	{
+		this.decrementPlayerPoints(this.indexOfLongestRoad);
+		this.decrementPlayerPoints(this.indexOfLongestRoad);
+		
+		this.setIndexOfLongestRoad(playerIndex);
+		
+		this.incrementPlayerPoints(playerIndex);
+		this.incrementPlayerPoints(playerIndex);
+	}
+
+	public void setNewLargestArmy(int playerIndex)
+	{
+		this.decrementPlayerPoints(this.indexOfLargestArmy);
+		this.decrementPlayerPoints(this.indexOfLargestArmy);
+		
+		this.setIndexOfLargestArmy(playerIndex);
+		
+		this.incrementPlayerPoints(playerIndex);
+		this.incrementPlayerPoints(playerIndex);
+	}
+
 
 }

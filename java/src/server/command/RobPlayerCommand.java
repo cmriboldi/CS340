@@ -45,7 +45,9 @@ public class RobPlayerCommand implements ICommand
 
 			//Translate from JSONbody into a Java settlement location
 			int hexLocX = body.getLocation().getX();
+			System.out.println("hexLocX is: " + hexLocX);
 			int hexLocY = body.getLocation().getY();
+			System.out.println("hexLocY is: " + hexLocY);
 			HexLocation hexLoc = new HexLocation(hexLocX, hexLocY);
 
 			cm.getMapManager().placeRobber(hexLoc);

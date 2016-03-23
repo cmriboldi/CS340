@@ -68,6 +68,11 @@ public class BuildRoadCommand implements ICommand {
 			}
 			
 			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
+			
+			if(cm.playerManager.getIndexOfLongestRoad() != this.body.getPlayerIndex() && cm.mapManager.findLargestRoad() == this.body.getPlayerIndex()) {
+				cm.playerManager.setNewLongestRoad(this.body.getPlayerIndex());
+			}
+			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a road.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
 			facade.updateGame(authToken, cm);

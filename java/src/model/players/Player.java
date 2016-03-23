@@ -268,4 +268,9 @@ public class Player
 		this.pieces.addPiece(piece);
 	}
 
+	public void decrementPoints()
+	{
+		this.points--;
+	}
+
 }
