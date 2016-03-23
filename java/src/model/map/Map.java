@@ -565,8 +565,10 @@ public class Map {
             //get each hex adj to the settlement
             Set<Hex> adjHexes = findHexes(currentSettlement.location);
             //for each hex, add one of the resource to the owning player
-            for (Hex currentHex : adjHexes)
-                resourceLists[currentSettlement.getPlayer()].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            for (Hex currentHex : adjHexes) {
+                if (currentHex.resourceHexType != HexType.DESERT)
+                    resourceLists[currentSettlement.getPlayer()].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
+            }
         }
 
         return resourceLists;
