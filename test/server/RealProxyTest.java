@@ -19,10 +19,12 @@ import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
+import test.TestServer;
 
 
 public class RealProxyTest
 {
+	private static TestServer testServer;
 	private static RealProxy server;
 
 	/*
@@ -32,13 +34,18 @@ public class RealProxyTest
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception 
 	{
+		System.out.println("here");
+		testServer = new TestServer();
+		testServer.run();
+		//Thread.sleep(5000);
+		System.out.println("Server is running");
 		server = new RealProxy();
 	}
 
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception 
 	{
-		
+		testServer.stop();
 	}
 
 	@Before
@@ -87,26 +94,26 @@ public class RealProxyTest
 		assert(true);
 	}
 	
-	@Test
-	public void getCommands() throws ServerException 
-	{
-		server.getCommands();
-		assert(true);
-	}
-	
-	@Test
-	public void resetGame() throws ServerException 
-	{
-		server.resetGame();
-		assert(true);
-	}
-	
-	@Test
-	public void setCommands() throws ServerException 
-	{
-		server.setCommands(new JsonArray());
-		assert(true);
-	}
+//	@Test
+//	public void getCommands() throws ServerException
+//	{
+//		server.getCommands();
+//		assert(true);
+//	}
+//
+//	@Test
+//	public void resetGame() throws ServerException
+//	{
+//		server.resetGame();
+//		assert(true);
+//	}
+//
+//	@Test
+//	public void setCommands() throws ServerException
+//	{
+//		server.setCommands(new JsonArray());
+//		assert(true);
+//	}
 	
 	@Test
 	public void listAI() throws ServerException 
@@ -234,11 +241,11 @@ public class RealProxyTest
 		assert(true);
 	}
 	
-	@Test
-	public void changeLogLevel() throws ServerException 
-	{
-		server.changeLogLevel(LogLevel.ALL);
-		assert(true);
-	}
+//	@Test
+//	public void changeLogLevel() throws ServerException
+//	{
+//		server.changeLogLevel(LogLevel.ALL);
+//		assert(true);
+//	}
 
 }
