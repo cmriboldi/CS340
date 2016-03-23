@@ -521,33 +521,39 @@ public class Map {
             int playerIndex;
 
             //check NE
-            if (settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.NorthEast))) {
-                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.NorthEast)).getPlayer();
+            VertexLocation NEVertex = (new VertexLocation(currentHex.location, VertexDirection.NorthEast)).getNormalizedLocation();
+            if (settlements.containsKey(NEVertex)) {
+                playerIndex = settlements.get(NEVertex).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
             //check NW
-            if (settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.NorthWest))) {
-                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.NorthWest)).getPlayer();
+            VertexLocation NWVertex = (new VertexLocation(currentHex.location, VertexDirection.NorthWest)).getNormalizedLocation();
+            if (settlements.containsKey(NWVertex)) {
+                playerIndex = settlements.get(NWVertex).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
             //check W
-            if (settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.West))) {
-                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.West)).getPlayer();
+            VertexLocation WVertex = (new VertexLocation(currentHex.location, VertexDirection.West)).getNormalizedLocation();
+            if (settlements.containsKey(WVertex)) {
+                playerIndex = settlements.get(WVertex).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
             //check E
-            if (settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.East))) {
-                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.East)).getPlayer();
+            VertexLocation EVertex = (new VertexLocation(currentHex.location, VertexDirection.East)).getNormalizedLocation();
+            if (settlements.containsKey(EVertex)) {
+                playerIndex = settlements.get(EVertex).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
             //check SE
-            if (settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.SouthEast))) {
-                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.SouthEast)).getPlayer();
+            VertexLocation SEVertex = (new VertexLocation(currentHex.location, VertexDirection.SouthEast)).getNormalizedLocation();
+            if (settlements.containsKey(SEVertex)) {
+                playerIndex = settlements.get(SEVertex).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
             //check SW
-            if (settlements.containsKey(new VertexLocation(currentHex.location, VertexDirection.SouthWest))) {
-                playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.SouthWest)).getPlayer();
+            VertexLocation SWVertex = (new VertexLocation(currentHex.location, VertexDirection.SouthWest)).getNormalizedLocation();
+            if (settlements.containsKey(SWVertex)) {
+                playerIndex = settlements.get(SWVertex).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
         }
