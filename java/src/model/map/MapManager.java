@@ -109,7 +109,6 @@ public class MapManager implements IMapManager {
         return map.distributeSetupResources();
     }
 
-
     @Override
     public void placeRobber(HexLocation hex) {
         map.placeRobber(hex);

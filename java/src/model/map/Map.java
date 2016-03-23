@@ -459,34 +459,36 @@ public class Map {
         if (vertLoc.getDir() == VertexDirection.NorthEast) {
             //if the inputed vertex is in the NE corner
             //check for the native hex (won't be present if an ocean is to the south)
-            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY()))){
+            if (hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY()))) {
                 returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY())));
             }
 
             //check for the hex up and to the right
-            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX() + 1, vertLoc.getHexLoc().getY() - 1))){
+            if (hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX() + 1, vertLoc.getHexLoc().getY() - 1))) {
                 returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX() + 1, vertLoc.getHexLoc().getY() - 1)));
             }
 
             //check for the hex directly above
-            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1))){
+            if (hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1))) {
                 returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1)));
             }
 
-        } else {
+        }
+
+        if (vertLoc.getDir() == VertexDirection.NorthWest) {
             //if the inputed vertex is in the NW corner
             //check for the native hex (won't be present if an ocean is to the south)
-            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY()))){
+            if (hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY()))) {
                 returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY())));
             }
 
             //check for the hex up and to the left
-            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX() - 1, vertLoc.getHexLoc().getY() - 1))){
-                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX() - 1, vertLoc.getHexLoc().getY() - 1)));
+            if (hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX() - 1, vertLoc.getHexLoc().getY()))) {
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX() - 1, vertLoc.getHexLoc().getY())));
             }
 
             //check for the hex directly above
-            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1))){
+            if (hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1))) {
                 returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1)));
             }
         }
@@ -563,7 +565,7 @@ public class Map {
             //get each hex adj to the settlement
             Set<Hex> adjHexes = findHexes(currentSettlement.location);
             //for each hex, add one of the resource to the owning player
-            for(Hex currentHex : adjHexes)
+            for (Hex currentHex : adjHexes)
                 resourceLists[currentSettlement.getPlayer()].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
         }
 
