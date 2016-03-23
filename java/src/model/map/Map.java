@@ -217,9 +217,22 @@ public class Map {
         }
 
         if (randomPorts) {
+            Random rand = new Random();
             //if the ports should be randomized
+            ports.put(new EdgeLocation(new HexLocation(-3, 0), EdgeDirection.SouthEast), new Port(-3, 0, EdgeDirection.SouthEast, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(-3, 2), EdgeDirection.NorthEast), new Port(-3, 2, EdgeDirection.NorthEast, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(-2, 3), EdgeDirection.NorthEast), new Port(-2, 3, EdgeDirection.NorthEast, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(0, 3), EdgeDirection.North), new Port(-0, 3, EdgeDirection.North, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(2, 1), EdgeDirection.NorthWest), new Port(2, 1, EdgeDirection.NorthWest, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -1), EdgeDirection.NorthWest), new Port(3, -1, EdgeDirection.NorthWest, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(3, -3), EdgeDirection.SouthWest), new Port(3, -3, EdgeDirection.SouthWest, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(1, -3), EdgeDirection.South), new Port(1, -3, EdgeDirection.South, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
+            ports.put(new EdgeLocation(new HexLocation(-1, -2), EdgeDirection.South), new Port(-1, -2, EdgeDirection.South, removeAndReturn(portTypes, rand.nextInt(portTypes.size())), 2));
 
-
+            for(Port currentPort : ports.values()){
+                if(currentPort.getType() == PortType.THREE)
+                    currentPort.setRatio(3);
+            }
         }
 
         if (!randomPorts) {

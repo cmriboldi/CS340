@@ -38,4 +38,9 @@ public class Port extends EdgeObject {
     }
 
     public int getRatio(){return ratio;}
+
+    public void setRatio(int newRatio)
+    {
+        ratio = newRatio;
+    }
 }
