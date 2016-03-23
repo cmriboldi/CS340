@@ -17,16 +17,16 @@ public class HexLocationJSON
 		this.y = "" + y;
 	}
 
-	public String getX() {
-		return x;
+	public int getX() {
+		return Integer.parseInt(x);
 	}
 
 	public void setX(String x) {
 		this.x = x;
 	}
 
-	public String getY() {
-		return y;
+	public int getY() {
+		return Integer.parseInt(y);
 	}
 
 	public void setY(String y) {

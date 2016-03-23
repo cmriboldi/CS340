@@ -8,6 +8,9 @@ import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.RobPlayerJSON;
 import shared.definitions.TurnType;
 import shared.exceptions.resources.NotEnoughResourcesException;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 public class RobPlayerCommand implements ICommand
 {
@@ -37,6 +40,13 @@ public class RobPlayerCommand implements ICommand
 			
 			cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
+
+			//Translate from JSONbody into a Java settlement location
+			int hexLocX = body.getLocation().getX();
+			int hexLocY = body.getLocation().getY();
+			HexLocation hexLoc = new HexLocation(hexLocX, hexLocY);
+
+			cm.getMapManager().placeRobber(hexLoc);
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
