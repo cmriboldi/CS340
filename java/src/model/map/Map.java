@@ -128,6 +128,7 @@ public class Map {
 
             if (randomNumbers) {
                 hexes.put(randHexLoc, new Hex(randHexLoc.getX(), randHexLoc.getY(), HexType.DESERT, -1));
+                robber = randHexLoc;
 
                 while (hexLocs.size() > 0) {
                     rand = new Random();
@@ -141,6 +142,7 @@ public class Map {
 
             if (!randomNumbers) {
                 hexes.put(new HexLocation(0, -2), new Hex(0, -2, HexType.DESERT, -1));
+                robber = new HexLocation(0, -2);
                 hexes.put(new HexLocation(0, -1), new Hex(0, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
                 hexes.put(new HexLocation(0, 0), new Hex(0, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 11));
                 hexes.put(new HexLocation(0, 1), new Hex(0, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 4));
