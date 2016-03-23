@@ -63,10 +63,11 @@ public class BuildRoadCommand implements ICommand {
 				} else {
 					cm.playerManager.reverseAdvanceTurn();
 				}
+			} else {
+				cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.ROAD);
 			}
 			
 			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
-			cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.ROAD);
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a road.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
 			facade.updateGame(authToken, cm);

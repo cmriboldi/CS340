@@ -7,6 +7,7 @@ import server.facade.IServerFacade;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
 import shared.definitions.PieceType;
+import shared.definitions.TurnType;
 import shared.exceptions.resources.InvalidPieceTypeException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 import shared.exceptions.resources.NotEnoughResourcesException;
@@ -52,7 +53,9 @@ public class BuildSettlementCommand implements ICommand {
             //Make change to the model
             cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
             cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
-            cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);
+            if(cm.playerManager.getTurnStatus() == TurnType.PLAYING) {
+            	cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);
+            }
 
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
