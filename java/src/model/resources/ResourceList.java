@@ -327,6 +327,7 @@ public class ResourceList implements Comparable<ResourceList>
 				resource = random;
 			}
 		}
+		this.removeResource(resource, 1);
 		return resource;
 	}
 
