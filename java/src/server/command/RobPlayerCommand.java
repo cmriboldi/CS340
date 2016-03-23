@@ -38,7 +38,9 @@ public class RobPlayerCommand implements ICommand
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
+			if(this.body.getVictimIndex() > -1 && this.body.getVictimIndex() < 4) {
+				cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
+			}
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 
 			//Translate from JSONbody into a Java settlement location
