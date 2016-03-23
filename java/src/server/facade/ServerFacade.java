@@ -157,7 +157,7 @@ public class ServerFacade implements IServerFacade
             if(!saveFile.getParentFile().exists())
                 saveFile.getParentFile().mkdir();
 
-            FileWriter writer = new FileWriter(saveFile);
+            FileWriter writer = new FileWriter(saveFile, false);
             writer.write(JSONSerializer.serialize(database.getGameModel(gameId)));
             writer.flush();
             writer.close();
