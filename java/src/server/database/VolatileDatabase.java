@@ -88,6 +88,8 @@ public class VolatileDatabase implements IDatabase {
     @Override
     public CatanModel getGameModel(int gameId)
     {
+        System.out.println("There are games #: " + games.size());
+        System.out.println("Trying to join game: " + gameId);
         return games.get(gameId).getModel();
     }
 

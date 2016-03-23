@@ -160,7 +160,9 @@ public class Trader
 
 	public boolean hasTradeOffer()
 	{
-		return this.tradeOffer.getReceiver() != -1;
+		if(tradeOffer == null)
+			return false;
+		return (this.tradeOffer.getReceiver() != -1);
 	}
 
 }
