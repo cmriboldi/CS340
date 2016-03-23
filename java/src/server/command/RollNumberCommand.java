@@ -37,26 +37,31 @@ public class RollNumberCommand implements ICommand {
 		try
 		{
 			cm = facade.getGameModel(authToken);
-			
-			if(this.body.getNumber() == 7) {
-				if(cm.resourceManager.getGreatestCardCount() > 7) {
+
+			if(this.body.getNumber() == 7)
+			{
+				if(cm.resourceManager.getGreatestCardCount() > 7)
+				{
 					cm.playerManager.setTurnStatus(TurnType.DISCARDING);
 					cm.resourceManager.setPlayerDiscard();
-				} else {
+				}
+				else
+				{
 					cm.playerManager.setTurnStatus(TurnType.ROBBING);
 				}
-			} else {
+			}
+			else
+			{
 				ResourceList[] resLists = cm.mapManager.distributeResources(this.body.getNumber());
 				cm.resourceManager.payOutResources(resLists);
 				cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			}
-			
+
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " rolled a " + this.body.getNumber() + ".", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
-			
+
 			facade.updateGame(authToken, cm);
-			
 			facade.recordCommand(authToken, this);
-			
+
 		} catch (ServerException | NotEnoughBankResourcesException e)
 		{
 			e.printStackTrace();

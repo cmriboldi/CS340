@@ -117,7 +117,12 @@ public class ServerFacade implements IServerFacade
         //Player Joined Previously
         if (model.playerManager.containsId(token.getPlayerID()))
         {
-        	System.out.println("Player " + token.getPlayerID() + " is already part of this game" );
+        	System.out.println("Player " + token.getName() + " is already part of this game" );
+            for(Player player : model.getPlayerManager().getCatanPlayers())
+            {
+                if(player != null && player.getName().equals(token.getName()))
+                    player.setColor(color);
+            }
         	// return the information that "playerID" needs on his client to start playing
         	return "catan.game=" + gameId + ";Path=/;";
         }
