@@ -191,6 +191,7 @@ public class ResourceManager {
 
     public void discardCards(ResourceList discardedCards, int playerIndex) throws NotEnoughResourcesException {
         banker.discardCards(discardedCards, playerIndex);
+        this.hasPlayerDiscarded[playerIndex] = true;
     }
 
     public void setTradeOffer(TradeOffer tradeOffer) {
