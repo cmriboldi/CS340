@@ -48,6 +48,7 @@ public class RollNumberCommand implements ICommand {
 			} else {
 				ResourceList[] resLists = cm.mapManager.distributeResources(this.body.getNumber());
 				cm.resourceManager.payOutResources(resLists);
+				cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			}
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " rolled a " + this.body.getNumber() + ".", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
