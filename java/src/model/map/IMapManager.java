@@ -66,6 +66,12 @@ public interface IMapManager
 	public ResourceList[] distributeResources(int number);
 
 	/**
+	 * Returns an array of ResourceLists indicating how many resources each player gets at the start of the game
+	 * @return
+     */
+	public ResourceList[] distributeSetupResources();
+
+	/**
 	 * Used by the facade to update the position of the robber token.
 	 * 
 	 * @param hex

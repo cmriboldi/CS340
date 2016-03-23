@@ -449,6 +449,50 @@ public class Map {
         return null;
     }
 
+    private Set<Hex> findHexes(VertexLocation vertLoc) {
+        //Normalize the input vertex
+        vertLoc = vertLoc.getNormalizedLocation();
+
+        //Initiailze the return Set
+        Set<Hex> returnThis = new HashSet<>();
+
+        if (vertLoc.getDir() == VertexDirection.NorthEast) {
+            //if the inputed vertex is in the NE corner
+            //check for the native hex (won't be present if an ocean is to the south)
+            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY()))){
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY())));
+            }
+
+            //check for the hex up and to the right
+            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX() + 1, vertLoc.getHexLoc().getY() - 1))){
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX() + 1, vertLoc.getHexLoc().getY() - 1)));
+            }
+
+            //check for the hex directly above
+            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1))){
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1)));
+            }
+
+        } else {
+            //if the inputed vertex is in the NW corner
+            //check for the native hex (won't be present if an ocean is to the south)
+            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY()))){
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY())));
+            }
+
+            //check for the hex up and to the left
+            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX() - 1, vertLoc.getHexLoc().getY() - 1))){
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX() - 1, vertLoc.getHexLoc().getY() - 1)));
+            }
+
+            //check for the hex directly above
+            if(hexes.containsKey(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1))){
+                returnThis.add(hexes.get(new HexLocation(vertLoc.getHexLoc().getX(), vertLoc.getHexLoc().getY() - 1)));
+            }
+        }
+        return returnThis;
+    }
+
     /////////////////////////////////////////////////////////////////////////////////
     //----- Functional Methods
     //----- Function: These methods DO STUFF, often using the navigational methods
@@ -503,6 +547,24 @@ public class Map {
                 playerIndex = settlements.get(new VertexLocation(currentHex.location, VertexDirection.SouthWest)).getPlayer();
                 resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
+        }
+
+        return resourceLists;
+    }
+
+    public ResourceList[] distributeSetupResources() {
+        //initialize the list of resourceLists to return
+        ResourceList[] resourceLists = new ResourceList[4];
+        for (int i = 0; i < resourceLists.length; i++)
+            resourceLists[i] = new ResourceList(0, 0, 0, 0, 0);
+
+        //for each settlemet
+        for (Settlement currentSettlement : settlements.values()) {
+            //get each hex adj to the settlement
+            Set<Hex> adjHexes = findHexes(currentSettlement.location);
+            //for each hex, add one of the resource to the owning player
+            for(Hex currentHex : adjHexes)
+                resourceLists[currentSettlement.getPlayer()].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
         }
 
         return resourceLists;
@@ -563,7 +625,7 @@ public class Map {
         }
     }
 
-    public int getIndexOfLongestRoadOwner(){
+    public int getIndexOfLongestRoadOwner() {
         return indexOfLongestRoadOwner;
     }
 

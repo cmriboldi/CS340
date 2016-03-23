@@ -55,6 +55,7 @@ public class BuildRoadCommand implements ICommand {
 			} else if (cm.playerManager.getTurnStatus() == TurnType.SECOND_ROUND) {
 				if(body.getPlayerIndex() == 3) {
 					cm.playerManager.setTurnStatus(TurnType.ROLLING);
+					//distribute initial resources
 				}
 				cm.playerManager.advanceTurn();
 			}
