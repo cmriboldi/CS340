@@ -6,6 +6,13 @@ public class TradeOffer
 	private int sender;
 	private int receiver;
 	
+	public TradeOffer()
+	{
+		this.sender = -1;
+		this.receiver = -1;
+		this.resourcesOffer = new ResourceList();
+	}
+	
 	public TradeOffer(ResourceList resourcesOffer, int sender, int receiver)
 	{
 		this.setResourcesOffer(resourcesOffer);

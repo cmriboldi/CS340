@@ -305,8 +305,10 @@ public class JSONSerializer {
 	
 	private void setTradeOffer()
 	{
-		if(resourceManager.getTradeOffer() == null)
+		if(!resourceManager.hasTradeOffer())
 			return;
+		
+		tradeOffer = new JsonObject();
 		
 		tradeOffer.addProperty("sender", resourceManager.getTradeOffer().getSender());
 		tradeOffer.addProperty("receiver", resourceManager.getTradeOffer().getReceiver());

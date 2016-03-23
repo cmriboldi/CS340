@@ -26,7 +26,7 @@ public class Trader
 	public Trader(PlayerResources playerResources)
 	{
 		this.playerResources = playerResources;
-		this.tradeOffer = null;
+		this.tradeOffer = new TradeOffer();
 	}
 
 	public Trader(PlayerResources playerResources, TradeOffer tradeOffer)
@@ -98,7 +98,7 @@ public class Trader
 
 	public void acceptPlayerTrade(int playerIndex) throws InvalidPlayerIndexException, NotEnoughPlayerResourcesException, TradeOfferNullException
 	{
-		if(tradeOffer == null)
+		if(!hasTradeOffer())
 		{
 			throw new TradeOfferNullException("There is no trade offer initialized.");
 		}
@@ -155,6 +155,11 @@ public class Trader
 			rs.addResource(resource, 1);
 			playerResources.addResourcesToPlayer(rs, playerIndex);
 		}
+	}
+
+	public boolean hasTradeOffer()
+	{
+		return this.tradeOffer.getReceiver() != -1;
 	}
 
 }

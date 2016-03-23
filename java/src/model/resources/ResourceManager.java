@@ -72,6 +72,7 @@ public class ResourceManager {
     public void acceptPlayerTrade(int playerIndex) throws NotEnoughPlayerResourcesException, InvalidPlayerIndexException, TradeOfferNullException {
         try {
             trader.acceptPlayerTrade(playerIndex);
+            trader.setTradeOffer(new TradeOffer());
         } catch (Exception e) {
             throw e;
         }
@@ -199,7 +200,7 @@ public class ResourceManager {
     }
 
     public void declineTrade(int playerIndex) {
-        trader.setTradeOffer(null);
+        trader.setTradeOffer(new TradeOffer());
     }
 
     public int getGreatestCardCount() {
@@ -223,5 +224,10 @@ public class ResourceManager {
     public void robPlayer(int victimIndex, int playerIndex) throws NotEnoughResourcesException {
         trader.robPlayer(victimIndex, playerIndex);
     }
+
+	public boolean hasTradeOffer()
+	{
+		return trader.hasTradeOffer();
+	}
 
 };
