@@ -7,6 +7,9 @@ import server.facade.IServerFacade;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
 import shared.definitions.PieceType;
+import shared.exceptions.resources.InvalidPieceTypeException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -49,6 +52,7 @@ public class BuildSettlementCommand implements ICommand {
             //Make change to the model
             cm.getMapManager().placeSettlement(settleLoc, body.getPlayerIndex());
             cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
+            cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);
 
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
@@ -57,7 +61,7 @@ public class BuildSettlementCommand implements ICommand {
             
             facade.recordCommand(authToken, this);
 
-        } catch (ServerException e) {
+        } catch (ServerException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e) {
             e.printStackTrace();
         }
 

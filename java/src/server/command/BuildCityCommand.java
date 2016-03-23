@@ -7,6 +7,9 @@ import server.facade.IServerFacade;
 import shared.communication.JSON.BuildCityJSON;
 import shared.communication.JSON.IJavaJSON;
 import shared.definitions.PieceType;
+import shared.exceptions.resources.InvalidPieceTypeException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -47,6 +50,7 @@ public class BuildCityCommand implements ICommand {
 
             cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.CITY);
             cm.playerManager.incrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
+            cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a city.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
             //Update the changed model in the ServerFacade
@@ -54,7 +58,7 @@ public class BuildCityCommand implements ICommand {
             
             facade.recordCommand(authToken, this);
 
-        } catch (ServerException e) {
+        } catch (ServerException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e) {
             e.printStackTrace();
         }
 

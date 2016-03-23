@@ -12,7 +12,10 @@ import shared.definitions.PieceType;
 import shared.definitions.TurnType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.player.TurnIndexException;
+import shared.exceptions.resources.InvalidPieceTypeException;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 /**
  * Created by clayt on 3/9/2016.
@@ -46,9 +49,6 @@ public class BuildRoadCommand implements ICommand {
 			cm = facade.getGameModel(authToken);
 			cm.mapManager.placeRoad(body.getRoadLocation().getEdgeLocation(), body.getPlayerIndex());
 			
-			System.out.println("turn type is: " + cm.playerManager.getTurnStatus().toString());
-			System.out.println("player index is: " + body.getPlayerIndex());
-			
 			if(cm.playerManager.getTurnStatus() == TurnType.FIRST_ROUND) {
 				if(body.getPlayerIndex() == 3) {
 					cm.playerManager.setTurnStatus(TurnType.SECOND_ROUND);
@@ -66,13 +66,14 @@ public class BuildRoadCommand implements ICommand {
 			}
 			
 			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
+			cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.ROAD);
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a road.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
 			facade.updateGame(authToken, cm);
 			
 			facade.recordCommand(authToken, this);
 			
-		} catch (ServerException | TurnIndexException | NotEnoughBankResourcesException e)
+		} catch (ServerException | TurnIndexException | NotEnoughBankResourcesException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e)
 		{
 			e.printStackTrace();
 		}
