@@ -39,7 +39,7 @@ public class BuildCityCommand implements ICommand {
             //Translate from JSONbody into a Java city location
             int cityLocX = body.getVertexLocation().getX();
             int cityLocY = body.getVertexLocation().getY();
-            VertexDirection cityLocDir = VertexDirection.valueOf(body.getVertexLocation().getDirection());
+            VertexDirection cityLocDir = VertexDirection.toEnum(body.getVertexLocation().getDirection());
             VertexLocation cityLoc = new VertexLocation(new HexLocation(cityLocX, cityLocY), cityLocDir);
 
             //Make the change to the model
