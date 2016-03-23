@@ -64,16 +64,34 @@ public class PlayerTurnTracker
 	/** Advances the turn index when a turn is over **/
 	public void advanceTurn() throws TurnIndexException
 	{
-		if (turnIndex < 0 | turnIndex > 3)
-			throw new TurnIndexException(); 
-		
-		if (turnIndex == 3)
-			turnIndex = 0; 
-		else
-			turnIndex ++; 
-		
-		if (turnIndex < 0 | turnIndex > 3)
+		if (turnIndex < 0 | turnIndex > 3) {
 			throw new TurnIndexException();
+		}
+		
+		this.turnIndex++;
+		if(this.turnIndex == 4) {
+			this.turnIndex = 0;
+		}
+		
+		if (turnIndex < 0 | turnIndex > 3) {
+			throw new TurnIndexException();
+		}
+	}
+
+	public void reverseAdvanceTurn() throws TurnIndexException
+	{
+		if (turnIndex < 0 | turnIndex > 3) {
+			throw new TurnIndexException();
+		}
+		
+		this.turnIndex--;
+		if(this.turnIndex == -1) {
+			this.turnIndex = 3;
+		}
+		
+		if (turnIndex < 0 | turnIndex > 3) {
+			throw new TurnIndexException();
+		}
 	}
 
 }

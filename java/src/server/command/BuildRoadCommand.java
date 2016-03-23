@@ -52,15 +52,17 @@ public class BuildRoadCommand implements ICommand {
 			if(cm.playerManager.getTurnStatus() == TurnType.FIRST_ROUND) {
 				if(body.getPlayerIndex() == 3) {
 					cm.playerManager.setTurnStatus(TurnType.SECOND_ROUND);
+				} else {
+					cm.playerManager.advanceTurn();
 				}
-				cm.playerManager.advanceTurn();
 			} else if (cm.playerManager.getTurnStatus() == TurnType.SECOND_ROUND) {
-				if(body.getPlayerIndex() == 3) {
+				if(body.getPlayerIndex() == 0) {
 					cm.playerManager.setTurnStatus(TurnType.ROLLING);
 					ResourceList[] resLists = cm.mapManager.distributeSetupResources();
 					cm.resourceManager.payOutResources(resLists);
+				} else {
+					cm.playerManager.reverseAdvanceTurn();
 				}
-				cm.playerManager.advanceTurn();
 			}
 			
 			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);

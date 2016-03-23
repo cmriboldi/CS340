@@ -213,5 +213,10 @@ public class PlayerManager
 		catanPlayers[playerIndex].incrementPieceCount(piece);
 	}
 
+	public void reverseAdvanceTurn() throws TurnIndexException
+	{
+		turnTracker.reverseAdvanceTurn();
+	}
+
 
 }
