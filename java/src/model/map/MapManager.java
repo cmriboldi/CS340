@@ -47,8 +47,7 @@ public class MapManager implements IMapManager {
      */
     @Override
     public int findLargestRoad() {
-        // TODO Auto-generated method stub
-        return 0;
+        return map.getIndexOfLongestRoadOwner();
     }
 
     @Override
