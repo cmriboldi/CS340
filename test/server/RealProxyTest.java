@@ -1,4 +1,4 @@
-package test.server;
+package server;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -6,13 +6,10 @@ import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.google.gson.JsonArray;
-
 import model.resources.ResourceList;
 import serverProxy.RealProxy;
 import serverProxy.ServerException;
 import shared.definitions.CatanColor;
-import shared.definitions.LogLevel;
 import shared.definitions.ResourceType;
 import shared.locations.EdgeDirection;
 import shared.locations.EdgeLocation;
@@ -212,7 +209,7 @@ public class RealProxyTest
 	@Test
 	public void buildCity() throws ServerException 
 	{
-		server.buildCity(0, new VertexLocation(new HexLocation(1,1), VertexDirection.East));
+		server.buildCity(0, new VertexLocation(new HexLocation(0,3), VertexDirection.NorthWest));
 		assert(true);
 	}
 	
