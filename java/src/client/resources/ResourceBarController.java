@@ -136,7 +136,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 		}
 		
-		if(Facade.isMyturn() && !gameOver) {
+		if(!Facade.hasPlayedDevCard() && Facade.isMyturn() && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
 		}
 		else {

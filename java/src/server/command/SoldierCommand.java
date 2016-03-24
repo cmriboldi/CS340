@@ -44,6 +44,7 @@ public class SoldierCommand implements ICommand {
 			
 			cm.getMapManager().placeRobber(this.body.getHexLocation());
 			cm.cardManager.playDevCard(DevCardType.SOLDIER, this.body.getPlayerIndex());
+			cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
 			
 			if(cm.playerManager.getIndexOfLargestArmy() != this.body.getPlayerIndex() && cm.cardManager.getIndexOfLargestArmy() == this.body.getPlayerIndex()) {
 				cm.playerManager.setNewLargestArmy(this.body.getPlayerIndex());

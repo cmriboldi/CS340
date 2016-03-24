@@ -134,15 +134,16 @@ public class DevCardManager
 	public int getIndexOfLargestArmy()
 	{
 		int largestArmyIndex = -1; 
-		int largestArmySize = -1; 
-		for (int i = 0; i < playedDevCards.length(); i++)
-		{
-			int playerIArmySize = playedDevCards.getCardTypeCountForPlayer(i, DevCardType.SOLDIER);
-			if (playerIArmySize > largestArmySize)
-			{
+		int currentLargestArmy = 3; 
+		
+		for(int i = 0; i < 4; i++) {
+			int playerArmy = playedDevCards.getCardTypeCountForPlayer(i, DevCardType.SOLDIER);
+			if(playerArmy >= currentLargestArmy) {
+				currentLargestArmy = playerArmy;
 				largestArmyIndex = i;
 			}
 		}
+		
 		return largestArmyIndex; 
 	}
 
@@ -179,6 +180,12 @@ public class DevCardManager
 	{
 		oldDevCards.addDevCards(playerIndex, newDevCards.getDevCardsForPlayer(playerIndex));
 		newDevCards.setDevCardsForPlayer(playerIndex, new DevCardList());
+		this.setHasPlayedDevCard(playerIndex, false);
+	}
+
+	public void setHasPlayedDevCard(int playerIndex, boolean hasPlayed)
+	{
+		hasPlayedDevCardsList[playerIndex] = hasPlayed;
 	}
 	
 }

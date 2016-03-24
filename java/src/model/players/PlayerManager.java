@@ -238,8 +238,10 @@ public class PlayerManager
 
 	public void setNewLargestArmy(int playerIndex)
 	{
-		this.decrementPlayerPoints(this.indexOfLargestArmy);
-		this.decrementPlayerPoints(this.indexOfLargestArmy);
+		if(this.indexOfLargestArmy != -1) {
+			this.decrementPlayerPoints(this.indexOfLargestArmy);
+			this.decrementPlayerPoints(this.indexOfLargestArmy);
+		}
 		
 		this.setIndexOfLargestArmy(playerIndex);
 		

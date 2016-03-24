@@ -44,6 +44,7 @@ public class YearOfPlentyCommand implements ICommand {
 			rs.addResource(ResourceType.toEnum(this.body.getResource2()), 1);
 			
 			cm.resourceManager.useYearOfPlentyCard(this.body.getPlayerIndex(), rs);
+			cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
 			
 			cm.cardManager.playDevCard(DevCardType.YEAR_OF_PLENTY, this.body.getPlayerIndex());
 			

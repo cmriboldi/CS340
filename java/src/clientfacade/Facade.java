@@ -932,5 +932,10 @@ public class Facade extends Observable {
 	{
 		return getCatanModel().getMapManager().canPlaceSettlementSetup(vertLoc, playerIndex);
 	}
+
+	public static boolean hasPlayedDevCard()
+	{
+		return getCatanModel().getCardManager().hasPlayedDevCard(getLocalPlayerIndex());
+	}
 	
 }

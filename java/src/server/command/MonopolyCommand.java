@@ -41,6 +41,7 @@ public class MonopolyCommand implements ICommand {
 			ResourceType resource = ResourceType.toEnum(this.body.getResource());
 			if(resource != null) {
 				cm.resourceManager.useMonopolyCard(this.body.getPlayerIndex(), resource);
+				cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
 			}
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a monopoly card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
