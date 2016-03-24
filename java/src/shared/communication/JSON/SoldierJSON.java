@@ -32,5 +32,9 @@ public class SoldierJSON extends IJavaJSON
 	public void setVictimIndex(int victimIndex) {
 		this.victimIndex = victimIndex;
 	}
+	
+	public HexLocation getHexLocation() {
+		return new HexLocation(this.location.getX(), this.location.getY());
+	}
 
 }

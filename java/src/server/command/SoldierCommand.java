@@ -8,6 +8,8 @@ import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.SoldierJSON;
 import shared.definitions.DevCardType;
 import shared.exceptions.development.NotEnoughDevCardsException;
+import shared.exceptions.resources.NotEnoughResourcesException;
+import shared.locations.HexLocation;
 
 public class SoldierCommand implements ICommand {
 
@@ -35,6 +37,12 @@ public class SoldierCommand implements ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
+			if(this.body.getVictimIndex() > -1 && this.body.getVictimIndex() < 4) {
+				cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			}
+			
+			cm.getMapManager().placeRobber(this.body.getHexLocation());
 			cm.cardManager.playDevCard(DevCardType.SOLDIER, this.body.getPlayerIndex());
 			
 			if(cm.playerManager.getIndexOfLargestArmy() != this.body.getPlayerIndex() && cm.cardManager.getIndexOfLargestArmy() == this.body.getPlayerIndex()) {
@@ -47,7 +55,7 @@ public class SoldierCommand implements ICommand {
 			
 			facade.recordCommand(authToken, this);
 			
-		} catch (ServerException | NotEnoughDevCardsException e)
+		} catch (ServerException | NotEnoughDevCardsException | NotEnoughResourcesException e)
 		{
 			e.printStackTrace();
 		}

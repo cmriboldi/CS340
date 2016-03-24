@@ -64,6 +64,7 @@ public class Banker
 	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException, InvalidPieceTypeException, NotEnoughResourcesException
 	{
 		Cost product = null;
+		System.out.println("piece is: " + piece.toString());
 		switch (piece)
 		{
 		case CITY:
