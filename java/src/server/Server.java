@@ -64,7 +64,22 @@ public class Server {
     }
 
 
-    private void run(String[] args) throws ServerException {
+    private void run(String[] args) throws ServerException
+    {
+        //parse command line arguments
+        try
+        {
+            if(args.length > 0)
+            {
+                SERVER_PORT_NUMBER = Integer.parseInt(args[0]);
+            }
+        }
+        catch(Exception e)
+        {
+            System.out.println("COMMAND LINE ARGUMENT MUST BE A VALID PORT NUMBER!");
+            e.printStackTrace();
+            return;
+        }
         //Create the new Guice injector
         Injector injector = Guice.createInjector(new VolatileRealModule());
 

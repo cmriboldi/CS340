@@ -50,23 +50,19 @@ public class Catan extends JFrame
 	
 	public static void main(final String[] args)
 	{
-		/*try {
-			JSONSerializer.test();
-		} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException | IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
 		try
 		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			if(args.length == 2)
+			if(args.length > 0)
 			{
 				Facade.connectToServer(args[0], Integer.parseInt(args[1]));
 			}
 		}
 		catch(Exception e)
 		{
+			System.out.println("INVALID SYNTAX: to specify host and port arguments should be:\njava -jar catan-client.jar <HOST NAME> <PORT NUMBER>");
 			e.printStackTrace();
+			return;
 		}
 		
 		SwingUtilities.invokeLater(new Runnable() {
