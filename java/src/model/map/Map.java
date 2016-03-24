@@ -645,8 +645,8 @@ public class Map {
             if (currentRoad.getOwner() == player)
                 playerRoads.add(currentRoad);
         }
-        if (playerRoads.size() == longestRoadToMeet) {
-            longestRoadToMeet++;
+        if (playerRoads.size() >= longestRoadToMeet) {
+            longestRoadToMeet = playerRoads.size() + 1;
             indexOfLongestRoadOwner = player;
         }
     }
