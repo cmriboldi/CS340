@@ -593,11 +593,11 @@ public class Facade extends Observable {
 
     private List<Boolean> _getPlayerDevPlayables() {
         List<Boolean> play = new ArrayList<Boolean>();
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.MONOPOLY));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.MONUMENT));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.ROAD_BUILD));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.SOLDIER));
-        play.add(this.catanModel.cardManager.canPlayDevCard(this._getLocalPlayerIndex(), DevCardType.YEAR_OF_PLENTY));
+        play.add(canPlayDevCard(DevCardType.MONOPOLY));
+        play.add(canPlayDevCard(DevCardType.MONUMENT));
+        play.add(canPlayDevCard(DevCardType.ROAD_BUILD));
+        play.add(canPlayDevCard(DevCardType.SOLDIER));
+        play.add(canPlayDevCard(DevCardType.YEAR_OF_PLENTY));
         return play;
     }
 
@@ -936,6 +936,26 @@ public class Facade extends Observable {
 	public static boolean hasPlayedDevCard()
 	{
 		return getCatanModel().getCardManager().hasPlayedDevCard(getLocalPlayerIndex());
+	}
+
+	public static Integer getPlayerPoints()
+	{
+		return getCatanModel().getPlayerManager().getPlayerPoints(getLocalPlayerIndex());
+	}
+	
+	public static int getPlayerCardTypeCountTotal(DevCardType cardType) 
+	{
+		return getCatanModel().cardManager.getPlayerCardTypeCountTotal(getLocalPlayerIndex(), cardType);
+	}
+
+	public static boolean canPlayDevCard(DevCardType devCard)
+	{
+		return getCatanModel().cardManager.canPlayDevCard(getLocalPlayerIndex(), devCard);
+	}
+
+	public static boolean canPlayMonumentCard()
+	{
+		return getPlayerCardTypeCountTotal(DevCardType.MONUMENT) + getPlayerPoints() > 10;
 	}
 	
 }

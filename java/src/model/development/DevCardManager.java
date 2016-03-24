@@ -56,11 +56,13 @@ public class DevCardManager
 	 */
 	public DevCardType drawCard(int playerIndex) throws NotEnoughDevCardsException
 	{
-		DevCardType cardType;
-		do{
-			int randomInt = new Random().nextInt(4);
-			cardType = DevCardType.values()[randomInt];
-		} while (!devCardStack.hasDevCard(cardType));
+		DevCardType cardType = DevCardType.SOLDIER;
+		if(devCardStack.getDevCardCount() > 0) {
+			do{
+				int randomInt = new Random().nextInt(5);
+				cardType = DevCardType.values()[randomInt];
+			} while (!devCardStack.hasDevCard(cardType));
+		}
 	    
 	    devCardStack.removeDevCard(cardType);
 	    newDevCards.addCardToPlayer(cardType, playerIndex);
@@ -186,6 +188,11 @@ public class DevCardManager
 	public void setHasPlayedDevCard(int playerIndex, boolean hasPlayed)
 	{
 		hasPlayedDevCardsList[playerIndex] = hasPlayed;
+	}
+
+	public int getPlayerCardTypeCountTotal(int playerIndex, DevCardType cardType)
+	{
+		return newDevCards.getCardTypeCountForPlayer(playerIndex, cardType) + oldDevCards.getCardTypeCountForPlayer(playerIndex, cardType);
 	}
 	
 }

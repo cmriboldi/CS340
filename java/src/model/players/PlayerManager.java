@@ -249,5 +249,10 @@ public class PlayerManager
 		this.incrementPlayerPoints(playerIndex);
 	}
 
+	public int getPlayerPoints(int playerIndex)
+	{
+		return catanPlayers[playerIndex].getPoints();
+	}
+
 
 }

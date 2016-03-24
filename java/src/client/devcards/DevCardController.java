@@ -191,8 +191,12 @@ public class DevCardController extends Controller implements IDevCardController,
 				}
 				if(cards.get(i) == DevCardType.MONUMENT)
 				{
-					if(cardAmounts.get(i) > 0)
+					if(Facade.canPlayMonumentCard()) {
 						getPlayCardView().setCardEnabled(cards.get(i), true);
+					} else {
+						getPlayCardView().setCardEnabled(cards.get(i), false);
+					}
+						
 				}
 				
 			}

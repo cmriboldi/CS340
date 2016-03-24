@@ -5,6 +5,7 @@ import java.util.*;
 import client.base.*;
 import clientfacade.Facade;
 import model.resources.ResourceList;
+import shared.definitions.DevCardType;
 import shared.definitions.PieceType;
 import shared.definitions.ResourceType;
 
@@ -136,7 +137,7 @@ public class ResourceBarController extends Controller implements IResourceBarCon
 			getView().setElementEnabled(ResourceBarElement.BUY_CARD, false);
 		}
 		
-		if(!Facade.hasPlayedDevCard() && Facade.isMyturn() && !gameOver) {
+		if((!Facade.hasPlayedDevCard() || Facade.canPlayMonumentCard()) && Facade.isMyturn() && !gameOver) {
 			getView().setElementEnabled(ResourceBarElement.PLAY_CARD, true);
 		}
 		else {
