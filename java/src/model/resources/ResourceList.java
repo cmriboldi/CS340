@@ -190,19 +190,19 @@ public class ResourceList implements Comparable<ResourceList>
 		switch (resource)
 		{
 		case BRICK:
-			resourceCount = brick;
+			resourceCount = this.brick;
 			break;
 		case ORE:
-			resourceCount = ore;
+			resourceCount = this.ore;
 			break;
 		case SHEEP:
-			resourceCount = sheep;
+			resourceCount = this.sheep;
 			break;
 		case WHEAT:
-			resourceCount = wheat;
+			resourceCount = this.wheat;
 			break;
 		case WOOD:
-			resourceCount = wood;
+			resourceCount = this.wood;
 			break;
 		}
 		return resourceCount;

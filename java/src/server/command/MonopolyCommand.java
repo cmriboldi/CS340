@@ -37,7 +37,11 @@ public class MonopolyCommand implements ICommand {
 			cm = facade.getGameModel(authToken);
 			
 			cm.cardManager.playDevCard(DevCardType.MONOPOLY, this.body.getPlayerIndex());
-			cm.resourceManager.useMonopolyCard(this.body.getPlayerIndex(), ResourceType.toEnum(this.body.getResource()));
+			
+			ResourceType resource = ResourceType.toEnum(this.body.getResource());
+			if(resource != null) {
+				cm.resourceManager.useMonopolyCard(this.body.getPlayerIndex(), resource);
+			}
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a monopoly card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			

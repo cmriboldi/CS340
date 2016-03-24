@@ -60,37 +60,23 @@ public class Trader
 	 */
 	public void useMonopolyCard(int playerIndex, ResourceType resource)
 	{
-		ResourceList monopolizedResources = new ResourceList();
+		System.out.println("resourse is: " + resource.toString());
 		
 		for(int index = 0; index < 4; index++)
 		{
+			ResourceList monopolizedResources = new ResourceList();
 			int resourceCount = playerResources.getResourceCount(index, resource);
-			switch (resource)
-			{
-			case BRICK:
-				monopolizedResources.addBrick(resourceCount);
-				break;
-			case ORE:
-				monopolizedResources.addOre(resourceCount);
-				break;
-			case SHEEP:
-				monopolizedResources.addSheep(resourceCount);
-				break;
-			case WHEAT:
-				monopolizedResources.addWheat(resourceCount);
-				break;
-			case WOOD:
-				monopolizedResources.addWood(resourceCount);
-				break;
-			}
-			try
-			{
-				playerResources.takeResourcesFromPlayer(monopolizedResources, index);
-				playerResources.addResourcesToPlayer(monopolizedResources, playerIndex);
-			} catch (NotEnoughResourcesException e)
-			{
-				System.out.println(e);
-				e.printStackTrace();
+			monopolizedResources.addResource(resource, resourceCount);
+			if(index != playerIndex) {
+				try
+				{
+					playerResources.takeResourcesFromPlayer(monopolizedResources, index);
+					playerResources.addResourcesToPlayer(monopolizedResources, playerIndex);
+				} catch (NotEnoughResourcesException e)
+				{
+					System.out.println(e);
+					e.printStackTrace();
+				}
 			}
 		}
 		
