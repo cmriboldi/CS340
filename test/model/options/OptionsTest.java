@@ -59,14 +59,8 @@ public class OptionsTest
 		newPlayerResources[2] = Cost.SETTLEMENT.getCost();
 		newPlayerResources[3] = Cost.DEVCARD.getCost();
 		
-		try
-		{
-			cm.resourceManager.payOutResources(newPlayerResources);
-		} catch (NotEnoughBankResourcesException e)
-		{
-			System.out.println("Exeption: " + e.getMessage());
-			e.printStackTrace();
-		}
+
+		cm.resourceManager.payOutResources(newPlayerResources);
 		
 		assertEquals(options.canAffordCity(0), true);
 		assertEquals(options.canAffordRoad(1), true);
@@ -109,14 +103,7 @@ public class OptionsTest
 		newPlayerResources[2] = Cost.DEVCARD.getCost();
 		newPlayerResources[3] = new ResourceList();
 		
-		try
-		{
-			cm.resourceManager.payOutResources(newPlayerResources);
-		} catch (NotEnoughBankResourcesException e)
-		{
-			System.out.println("Exeption: " + e.getMessage());
-			e.printStackTrace();
-		}
+		cm.resourceManager.payOutResources(newPlayerResources);
 		
 		assertEquals(options.canBuyDevCard(0), true);
 		assertEquals(options.canBuyDevCard(1), false);
