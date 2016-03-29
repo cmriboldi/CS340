@@ -7,6 +7,7 @@ import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import shared.communication.JSON.RoadBuildingJSON;
 import shared.definitions.DevCardType;
+import shared.definitions.PieceType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 
 public class RoadBuildingCommand implements ICommand
@@ -38,6 +39,8 @@ public class RoadBuildingCommand implements ICommand
 			cm.cardManager.playDevCard(DevCardType.ROAD_BUILD, this.body.getPlayerIndex());
 			cm.mapManager.placeRoad(this.body.getSpot1().getEdgeLocation(), this.body.getPlayerIndex());
 			cm.mapManager.placeRoad(this.body.getSpot2().getEdgeLocation(), this.body.getPlayerIndex());
+			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
+			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
 			cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a road building card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));

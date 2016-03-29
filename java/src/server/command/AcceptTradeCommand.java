@@ -41,12 +41,14 @@ public class AcceptTradeCommand implements ICommand {
 			
 			if(this.body.isWillAccept()) {
 				cm.resourceManager.acceptPlayerTrade(this.body.getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " accepted a trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			} else {
 				cm.resourceManager.declineTrade(this.body.getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " declined trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			}
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " accepted a trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			
 			facade.updateGame(authToken, cm);
 			

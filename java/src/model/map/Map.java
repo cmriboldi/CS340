@@ -526,8 +526,11 @@ public class Map {
         //get hexes that match the inputed number
         Set<Hex> matchingHexes = new HashSet<>();
         for (Hex currentHex : hexes.values()) {
-            if (currentHex.getNumber() == number)
-                matchingHexes.add(currentHex);
+            if (currentHex.getNumber() == number && !currentHex.location.equals(robber)) {
+                System.out.println("hex location is: " + currentHex.location.toString());
+                System.out.println("robber is: " + robber.toString());
+            	matchingHexes.add(currentHex);
+            }
         }
 
         //identify any settlements attached to said hexes, and increment the resource for the owning player

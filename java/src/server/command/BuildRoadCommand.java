@@ -79,7 +79,7 @@ public class BuildRoadCommand implements ICommand {
 			
 			facade.recordCommand(authToken, this);
 			
-		} catch (ServerException | TurnIndexException | NotEnoughBankResourcesException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e)
+		} catch (ServerException | TurnIndexException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e)
 		{
 			e.printStackTrace();
 		}
