@@ -9,6 +9,8 @@ import java.awt.image.BufferedImage;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -85,6 +87,25 @@ public class RollView extends OverlayView implements IRollView {
 	@Override
 	public void setMessage(String message) {
 		label.setText(message);
+	}
+
+	@Override
+	public void showModal()
+	{
+		super.showModal();
+
+		TimerTask rollTask = new TimerTask()
+		{
+			@Override
+			public void run()
+			{
+				closeModal();
+				getController().rollDice();
+			}
+		};
+
+		Timer timer = new Timer(true);
+		timer.schedule(rollTask, javax.management.timer.Timer.ONE_SECOND * 7);
 	}
 
 }
