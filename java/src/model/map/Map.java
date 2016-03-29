@@ -551,7 +551,7 @@ public class Map {
                 if(settlements.get(NWVertex).isCity)
                     resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 2);
                 else
-                    resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 2);
+                    resourceLists[playerIndex].addResource(ResourceType.valueOf(currentHex.resourceHexType.toString()), 1);
             }
             //check W
             VertexLocation WVertex = (new VertexLocation(currentHex.location, VertexDirection.West)).getNormalizedLocation();
