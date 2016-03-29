@@ -65,7 +65,7 @@ public class RollNumberCommand implements ICommand {
 			facade.updateGame(authToken, cm);
 			facade.recordCommand(authToken, this);
 
-		} catch (ServerException | NotEnoughBankResourcesException e)
+		} catch (ServerException e)
 		{
 			e.printStackTrace();
 		}
