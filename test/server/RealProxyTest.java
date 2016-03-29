@@ -18,16 +18,29 @@ import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 import test.TestServer;
 
-
+/**
+ * TAs READ ME FIRST!!!
+ *
+ * Test the functionality of the Server Proxy for the client.
+ * These tests are designed to check for connectivity with the server, not necessarily that the action run is correct.
+ * The RealProxy is designed to complete a request only if the response from the server is a 200 code, any other response code
+ * will result in a thrown exception.
+ * Therefore, server.method(); assert(true); is still a valid test, because we will only reach the assert
+ * statement if communication with the server was successful.
+ *
+ * This test initializes it's own server for the purposes of testing.  This server runs on the default port of 8081, having this
+ * port already occupied may result in unexpected errors.
+ */
 public class RealProxyTest
 {
 	private static TestServer testServer;
 	private static RealProxy server;
 
-	/*
-	 * If the code reaches the assert(true) then it means that it passed. The server will break the code before reaching the assert.
-	 */
-	
+	/**
+	 * Start the test server on port 8081 that the RealProxy will communicate with
+	 *
+	 * @throws Exception
+     */
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception 
 	{
@@ -35,28 +48,21 @@ public class RealProxyTest
 		testServer = new TestServer();
 		System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Starting Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
 		testServer.run();
-		//Thread.sleep(5000);
 		System.out.println("Server is running");
 		server = new RealProxy();
 		server.userLogin("Brooke", "brooke");
 		server.joinGame(0, CatanColor.BLUE);
 	}
 
+	/**
+	 * Stop the test server
+	 * @throws Exception
+     */
 	@AfterClass
 	public static void tearDownAfterClass() throws Exception 
 	{
 		testServer.stop();
 		System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Stopping Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
-	}
-
-	@Before
-	public void setUp() throws Exception 
-	{
-
-	}
-
-	@After
-	public void tearDown() throws Exception {
 	}
 
 	@Test
@@ -93,28 +99,7 @@ public class RealProxyTest
 		server.getGameModel(2);
 		assert(true);
 	}
-	
-//	@Test
-//	public void getCommands() throws ServerException
-//	{
-//		server.getCommands();
-//		assert(true);
-//	}
-//
-//	@Test
-//	public void resetGame() throws ServerException
-//	{
-//		server.resetGame();
-//		assert(true);
-//	}
-//
-//	@Test
-//	public void setCommands() throws ServerException
-//	{
-//		server.setCommands(new JsonArray());
-//		assert(true);
-//	}
-	
+
 	@Test
 	public void listAI() throws ServerException 
 	{
@@ -223,7 +208,7 @@ public class RealProxyTest
 	@Test
 	public void acceptTrade() throws ServerException 
 	{
-		server.acceptTrade(1, true);
+		server.acceptTrade(1, false);
 		assert(true);
 	}
 	
@@ -240,12 +225,4 @@ public class RealProxyTest
 		server.discardCards(0, new ResourceList(1,1,1,1,1));
 		assert(true);
 	}
-	
-//	@Test
-//	public void changeLogLevel() throws ServerException
-//	{
-//		server.changeLogLevel(LogLevel.ALL);
-//		assert(true);
-//	}
-
 }

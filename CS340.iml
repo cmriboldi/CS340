@@ -11,5 +11,6 @@
     <orderEntry type="library" name="lib1" level="project" />
     <orderEntry type="library" name="guice-3.0" level="project" />
     <orderEntry type="module" module-name="CS3401" />
+    <orderEntry type="module" module-name="CS3401" />
   </component>
 </module>

@@ -44,20 +44,26 @@ public class Server {
 
     private HttpServer server;
 
-    private Server() {
+    private Server()
+    {
         return;
     }
 
 
-    public static void main(String[] args) throws ServerException {
+    public static void main(String[] args) throws ServerException
+    {
         new Server().run(args);
     }
 
-    private static String getURL() {
+    private static String getURL()
+    {
         String result = "";
-        try {
+        try
+        {
             result = "http://" + InetAddress.getLocalHost().getHostName() + ":" + SERVER_PORT_NUMBER;
-        } catch (UnknownHostException e) {
+        }
+        catch (UnknownHostException e)
+        {
             e.printStackTrace();
         }
         return result;
@@ -100,21 +106,24 @@ public class Server {
         facade.register("Brooke", "brooke");
         facade.register("Mark", "mark");
 
-        GameInfo info = facade.createGame(false, false, false, "Nothing Random");
-
-        facade.joinGame(new AuthToken("Pete", "pete", 1, -1), info.getId(), CatanColor.RED);
-        facade.joinGame(new AuthToken("Sam", "sam", 2, -1), info.getId(), CatanColor.ORANGE);
-        facade.joinGame(new AuthToken("Brooke", "brooke", 3, -1), info.getId(), CatanColor.BLUE);
-        facade.joinGame(new AuthToken("Mark", "mark", 4, -1), info.getId(), CatanColor.GREEN);
+//        GameInfo info = facade.createGame(false, false, false, "Nothing Random");
+//
+//        facade.joinGame(new AuthToken("Pete", "pete", 1, -1), info.getId(), CatanColor.RED);
+//        facade.joinGame(new AuthToken("Sam", "sam", 2, -1), info.getId(), CatanColor.ORANGE);
+//        facade.joinGame(new AuthToken("Brooke", "brooke", 3, -1), info.getId(), CatanColor.BLUE);
+//        facade.joinGame(new AuthToken("Mark", "mark", 4, -1), info.getId(), CatanColor.GREEN);
         
 
 
 
 
-        try {
+        try
+        {
             server = HttpServer.create(new InetSocketAddress(SERVER_PORT_NUMBER),
                     MAX_WAITING_CONNECTIONS);
-        } catch (IOException e) {
+        }
+        catch (IOException e)
+        {
 //            logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
             return;
