@@ -31,6 +31,7 @@ public class RollView extends OverlayView implements IRollView {
     private JLabel imageLabel;
 	private JButton rollButton;
 	private JPanel buttonPanel;
+	private boolean hasRolled;
 
 	public RollView() {
 		
@@ -74,6 +75,7 @@ public class RollView extends OverlayView implements IRollView {
 				closeModal();
 				
 				getController().rollDice();
+				hasRolled = true;
 			}
 		}	
 	};
@@ -92,6 +94,7 @@ public class RollView extends OverlayView implements IRollView {
 	@Override
 	public void showModal()
 	{
+		hasRolled = false;
 		super.showModal();
 
 		TimerTask rollTask = new TimerTask()
@@ -99,8 +102,10 @@ public class RollView extends OverlayView implements IRollView {
 			@Override
 			public void run()
 			{
-				closeModal();
-				getController().rollDice();
+				if(!hasRolled) {
+					closeModal();
+					getController().rollDice();
+				}
 			}
 		};
 

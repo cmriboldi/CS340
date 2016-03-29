@@ -39,6 +39,9 @@ public class FinishTurnCommand implements ICommand {
 			cm.cardManager.finishTurnRotateCards(this.body.getPlayerIndex());
 			cm.playerManager.advanceTurn();
 			cm.playerManager.setTurnStatus(TurnType.ROLLING);
+			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " finished his turn.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			
 			facade.updateGame(authToken, cm);
 			
 			facade.recordCommand(authToken, this);
