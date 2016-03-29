@@ -156,7 +156,7 @@ public class Map {
                 hexes.put(new HexLocation(-1, 1), new Hex(-1, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 9));
                 hexes.put(new HexLocation(-1, 2), new Hex(-1, 2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
                 hexes.put(new HexLocation(-2, 0), new Hex(-2, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 5));
-                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 3));
+                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 2));
                 hexes.put(new HexLocation(-2, 2), new Hex(-2, 2, removeAndReturn(hexList, rand.nextInt(hexList.size())), 6));
                 hexes.put(new HexLocation(2, 0), new Hex(2, 0, removeAndReturn(hexList, rand.nextInt(hexList.size())), 6));
                 hexes.put(new HexLocation(2, -1), new Hex(2, -1, removeAndReturn(hexList, rand.nextInt(hexList.size())), 12));
@@ -208,7 +208,7 @@ public class Map {
                 hexes.put(new HexLocation(-1, 1), new Hex(-1, 1, HexType.SHEEP, 9));
                 hexes.put(new HexLocation(-1, 2), new Hex(-1, 2, HexType.ORE, 3));
                 hexes.put(new HexLocation(-2, 0), new Hex(-2, 0, HexType.ORE, 5));
-                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, HexType.WHEAT, 3));
+                hexes.put(new HexLocation(-2, 1), new Hex(-2, 1, HexType.WHEAT, 2));
                 hexes.put(new HexLocation(-2, 2), new Hex(-2, 2, HexType.WOOD, 6));
                 hexes.put(new HexLocation(2, 0), new Hex(2, 0, HexType.WHEAT, 6));
                 hexes.put(new HexLocation(2, -1), new Hex(2, -1, HexType.SHEEP, 12));
