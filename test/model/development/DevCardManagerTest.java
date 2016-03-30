@@ -66,23 +66,23 @@ public class DevCardManagerTest
 				switch (devCard)
 				{
 				case MONOPOLY:
-					System.out.println("The player drew a monopoly card.");
+					//System.out.println("The player drew a monopoly card.");
 					assertEquals(oldMonopolyCount - 1, devManager.getDevCardStack().getCardTypeCount(devCard));
 					break;
 				case MONUMENT:
-					System.out.println("The player drew a monument card.");
+					//System.out.println("The player drew a monument card.");
 					assertEquals(oldMonumentCount - 1, devManager.getDevCardStack().getCardTypeCount(devCard));
 					break;
 				case ROAD_BUILD:
-					System.out.println("The player drew a road builder card.");
+					//System.out.println("The player drew a road builder card.");
 					assertEquals(oldRoadBuilderCount - 1, devManager.getDevCardStack().getCardTypeCount(devCard));
 					break;
 				case SOLDIER:
-					System.out.println("The player drew a soldier card.");
+					//System.out.println("The player drew a soldier card.");
 					assertEquals(oldSoldierCount - 1, devManager.getDevCardStack().getCardTypeCount(devCard));
 					break;
 				case YEAR_OF_PLENTY:
-					System.out.println("The player drew a year of plenty card.");
+					//System.out.println("The player drew a year of plenty card.");
 					assertEquals(oldYearOfPlentyCount - 1, devManager.getDevCardStack().getCardTypeCount(devCard));
 					break;
 				}

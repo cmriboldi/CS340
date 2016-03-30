@@ -44,11 +44,10 @@ public class RealProxyTest
 	@BeforeClass
 	public static void setUpBeforeClass() throws Exception 
 	{
-		System.out.println("here");
 		testServer = new TestServer();
-		System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Starting Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
+		//System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Starting Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
 		testServer.run();
-		System.out.println("Server is running");
+		//System.out.println("Server is running");
 		server = new RealProxy();
 		server.userLogin("Brooke", "brooke");
 		server.joinGame(0, CatanColor.BLUE);
@@ -62,7 +61,7 @@ public class RealProxyTest
 	public static void tearDownAfterClass() throws Exception 
 	{
 		testServer.stop();
-		System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Stopping Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
+		//System.out.println("---!!!!!!!!!!!!!!!!!!!!!!!!  Stopping Server  !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!---");
 	}
 
 	@Test

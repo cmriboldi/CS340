@@ -59,7 +59,6 @@ public class TestAcceptTradeCommand {
     @Test
     public void testAcceptTradeCommand() throws server.exception.ServerException {
 
-    	System.out.println("I am running now!!!!!!!!!!");
         //Create a default game to test against
         GameInfo info = facade.createGame(false, false, false, "BuildSettlementCommandTest");
 

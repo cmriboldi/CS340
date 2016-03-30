@@ -73,7 +73,7 @@ public class DevCardListTest
 			devCardList.removeDevCard(DevCardType.YEAR_OF_PLENTY);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 			e.printStackTrace();
 		}
 
@@ -93,7 +93,7 @@ public class DevCardListTest
 			devCardList.removeDevCard(DevCardType.MONOPOLY);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -101,7 +101,7 @@ public class DevCardListTest
 			devCardList.removeDevCard(DevCardType.MONUMENT);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -109,7 +109,7 @@ public class DevCardListTest
 			devCardList.removeDevCard(DevCardType.ROAD_BUILD);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -117,7 +117,7 @@ public class DevCardListTest
 			devCardList.removeDevCard(DevCardType.SOLDIER);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -125,7 +125,7 @@ public class DevCardListTest
 			devCardList.removeDevCard(DevCardType.YEAR_OF_PLENTY);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 
 		assertEquals(0, devCardList.getDevCardCount());

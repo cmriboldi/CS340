@@ -91,7 +91,7 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.MONOPOLY, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -99,14 +99,14 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.MONUMENT, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		try
 		{
 			playerDevCards.removeCardFromPlayer(DevCardType.MONUMENT, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -114,7 +114,7 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.ROAD_BUILD, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -122,7 +122,7 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.SOLDIER, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -130,7 +130,7 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.YEAR_OF_PLENTY, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -138,7 +138,7 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.YEAR_OF_PLENTY, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		try
@@ -146,7 +146,7 @@ public class PlayerDevCardsTest
 			playerDevCards.removeCardFromPlayer(DevCardType.YEAR_OF_PLENTY, playerIndex);
 		} catch (NotEnoughDevCardsException e)
 		{
-			System.out.println(e.getMessage());
+			//System.out.println(e.getMessage());
 		}
 		
 		assertEquals(0, playerDevCards.getDevCardsForPlayer(playerIndex).getMonopolyCount());

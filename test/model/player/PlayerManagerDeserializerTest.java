@@ -61,7 +61,7 @@ public class PlayerManagerDeserializerTest
 	
 	public void testPlayer1()
 	{
-		System.out.println("Player 1 Testing"); 
+		//System.out.println("Player 1 Testing"); 
 		Player player1 = playerManager.getCatanPlayers()[0]; 
 		assertEquals(player1.getRoadsRemaining(), 13); 
 		assertEquals(player1.getCitiesRemaining(), 4); 
