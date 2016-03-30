@@ -955,7 +955,7 @@ public class Facade extends Observable {
 
 	public static boolean canPlayMonumentCard()
 	{
-		return getPlayerCardTypeCountTotal(DevCardType.MONUMENT) + getPlayerPoints() > 10;
+		return getPlayerCardTypeCountTotal(DevCardType.MONUMENT) + getPlayerPoints() >= 10;
 	}
 	
 }
