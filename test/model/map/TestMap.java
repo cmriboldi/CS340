@@ -1,4 +1,4 @@
-package model.map;
+package test.model.map;
 
 import model.CatanModel;
 import model.map.Map;

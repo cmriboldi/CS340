@@ -16,8 +16,9 @@ public class JsonFileLoader {
 
 	        while (line != null) {
 	            sb.append(line);
-	            sb.append("\n");
 	            line = br.readLine();
+	            if(line != null)
+	            	sb.append("\n");
 	        }
 	        return sb.toString();
 	    } finally {
