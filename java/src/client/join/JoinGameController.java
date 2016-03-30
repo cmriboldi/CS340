@@ -157,10 +157,11 @@ public class JoinGameController extends Controller implements IJoinGameControlle
 			GameInfo newGame = Facade.createGame(view.getRandomlyPlaceHexes(), view.getRandomlyPlaceNumbers(), view.getUseRandomPorts(), view.getTitle());
 			Facade.joinGame(newGame.getId(), CatanColor.RED, true);
 			
-			GameInfo[] games = Facade.listGames();
-			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
-			getJoinGameView().setGames(games, localPlayer);
+//			GameInfo[] games = Facade.listGames();
+//			PlayerInfo localPlayer = Facade.getLocalPlayerInfo();
+//			getJoinGameView().setGames(games, localPlayer);
 			this.getNewGameView().closeModal();
+			this.start();
 			
 		}
 		catch (ServerException e)
