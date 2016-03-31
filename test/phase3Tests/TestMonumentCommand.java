@@ -50,33 +50,65 @@ public class TestMonumentCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
+    public void testMonumentForPlayer0() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new MonumentJSON(0);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        assertEquals(facade.getGameModel(commandAuth).getPlayerManager().getPlayerPoints(0), 2);
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertEquals(model.getPlayerManager().getPlayerPoints(0), 3);
+    }
+    
+    
+    @Test
+    public void testMonumentForPlayer1() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new MonumentJSON(1);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertEquals(facade.getGameModel(commandAuth).getPlayerManager().getPlayerPoints(1), 2);
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        //assertEquals(model.getPlayerManager().getPlayerPoints(1), 3);
     }
     
     @Test
-    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
+    public void testMonumentForPlayer2() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new MonumentJSON(2);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        assertEquals(facade.getGameModel(commandAuth).getPlayerManager().getPlayerPoints(2), 2);
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        //assertEquals(model.getPlayerManager().getPlayerPoints(2), 3);
     }
+    
+    @Test
+    public void testMonumentForPlayer3() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        
+        IJavaJSON commandJSON = new MonumentJSON(3);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertEquals(facade.getGameModel(commandAuth).getPlayerManager().getPlayerPoints(3), 2);
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        //assertEquals(model.getPlayerManager().getPlayerPoints(3), 3);
+    }
+    
+    
 
 }
