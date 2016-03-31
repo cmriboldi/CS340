@@ -1,28 +1,34 @@
 package test.phase3Tests;
 
 import static org.junit.Assert.*;
-
 import client.data.GameInfo;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import model.CatanModel;
+
 import org.junit.*;
-
-
-import org.junit.Before;
-import org.junit.Test;
 
 import server.AuthToken;
 import server.command.CommandFactory;
 import server.command.ICommand;
 import server.facade.IServerFacade;
+import server.guice.VolatileMockModule;
 import server.guice.VolatileRealModule;
 import serverProxy.MockProxy;
 import serverProxy.ServerException;
 import serverProxy.ServerProxy;
 import clientfacade.Facade;
+import shared.communication.JSON.BuildRoadJSON;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.communication.JSON.SoldierJSON;
+import shared.communication.JSON.YearOfPlentyJSON;
 import shared.definitions.CatanColor;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -41,7 +47,7 @@ public class TestSoldierCommand {
     @Before
     public void setUp() throws Exception {
         //Set up the injector and the ServerFacade
-        injector = Guice.createInjector(new VolatileRealModule());
+        injector = Guice.createInjector(new VolatileMockModule());
         facade = injector.getInstance(IServerFacade.class);
 
         //Inject an instance of the CommandFactory ... this command factory will be connected to the same facade as above
@@ -57,30 +63,34 @@ public class TestSoldierCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildSettlementCommand() throws server.exception.ServerException {
-
-        //Create a default game to test against
-        GameInfo info = facade.createGame(false, false, false, "BuildSettlementCommandTest");
-
-        //Create a default player ... user:String pass:string is a default in our ViolatleDatabase
-        AuthToken userString = new AuthToken("String", "string", 0, -1);    //If we were creating a new player we would first need to do facade.register(... , ...)
-
-        //May need to join a player into the game
-        facade.joinGame(userString, info.getId(), CatanColor.BLUE);
-
-        //Build the command object
-        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);   //IMPORTANT: be sure to check that the player you are playing as is logged into the game and that you have the correct playerID (not player index)
+    public void testSoldierPlacement() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        //EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildSettlementJSON(0, new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast), true); //IMPORTANT: again, check that you have the right unique playerID
+        //IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+       //IJavaJSON commandJSON = new YearOfPlentyJSON(0, "wood", "wood");
+        IJavaJSON commandJSON = new SoldierJSON(0, 2, new HexLocation(0,0));
+
+        
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
-
-        //Run the command object
-        actualCommand.execute();
-
-//        facade.getGameModel(token)
         
-        //Check that something changed
-        assert true;
-    }
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WOOD), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.BRICK), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.ORE), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.SHEEP), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WHEAT), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(0),50); 
+        
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(0),50); 
+        
+        assertTrue(true); 
+         }
+    
+    
+    
+    
 
 }
