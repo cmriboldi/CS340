@@ -1,28 +1,36 @@
 package test.phase3Tests;
 
 import static org.junit.Assert.*;
-
 import client.data.GameInfo;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+
+import model.CatanModel;
+
 import org.junit.*;
-
-
-import org.junit.Before;
-import org.junit.Test;
 
 import server.AuthToken;
 import server.command.CommandFactory;
 import server.command.ICommand;
 import server.facade.IServerFacade;
+import server.guice.VolatileMockModule;
 import server.guice.VolatileRealModule;
 import serverProxy.MockProxy;
 import serverProxy.ServerException;
 import serverProxy.ServerProxy;
 import clientfacade.Facade;
+import shared.communication.JSON.BuildRoadJSON;
 import shared.communication.JSON.BuildSettlementJSON;
 import shared.communication.JSON.IJavaJSON;
+import shared.communication.JSON.RobPlayerJSON;
+import shared.communication.JSON.RollNumberJSON;
+import shared.communication.JSON.SoldierJSON;
+import shared.communication.JSON.YearOfPlentyJSON;
 import shared.definitions.CatanColor;
+import shared.definitions.ResourceType;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
@@ -41,7 +49,7 @@ public class TestRobPlayerCommand {
     @Before
     public void setUp() throws Exception {
         //Set up the injector and the ServerFacade
-        injector = Guice.createInjector(new VolatileRealModule());
+        injector = Guice.createInjector(new VolatileMockModule());
         facade = injector.getInstance(IServerFacade.class);
 
         //Inject an instance of the CommandFactory ... this command factory will be connected to the same facade as above
@@ -57,30 +65,129 @@ public class TestRobPlayerCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildSettlementCommand() throws server.exception.ServerException {
+    public void testRobPlayer1() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+  
+        IJavaJSON commandJSON = new RobPlayerJSON(3, 1, new HexLocation(0,0));
 
-        //Create a default game to test against
-        GameInfo info = facade.createGame(false, false, false, "BuildSettlementCommandTest");
-
-        //Create a default player ... user:String pass:string is a default in our ViolatleDatabase
-        AuthToken userString = new AuthToken("String", "string", 0, -1);    //If we were creating a new player we would first need to do facade.register(... , ...)
-
-        //May need to join a player into the game
-        facade.joinGame(userString, info.getId(), CatanColor.BLUE);
-
-        //Build the command object
-        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);   //IMPORTANT: be sure to check that the player you are playing as is logged into the game and that you have the correct playerID (not player index)
         
-        IJavaJSON commandJSON = new BuildSettlementJSON(0, new VertexLocation(new HexLocation(0, 0), VertexDirection.NorthEast), true); //IMPORTANT: again, check that you have the right unique playerID
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
-
-        //Run the command object
-        actualCommand.execute();
-
-//        facade.getGameModel(token)
         
-        //Check that something changed
-        assert true;
-    }
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WOOD), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.BRICK), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.ORE), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.SHEEP), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WHEAT), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(0),50); 
+        
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.WOOD), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.BRICK), 0);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.ORE), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.SHEEP), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(1),6); 
+        
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.WOOD), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.BRICK), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.ORE), 0);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.SHEEP), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(2),6); 
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.WOOD), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.BRICK), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.ORE), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.SHEEP), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(3),6);
+       
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertEquals(model.getResourceManager().getTotalResourceCount(3),7); 
+        assertEquals(model.getResourceManager().getTotalResourceCount(1),5); 
+        
+        assertEquals(model.getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.WOOD), 1);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.BRICK), 2);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.ORE), 0);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.SHEEP), 2);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(model.getResourceManager().getTotalResourceCount(2),6); 
+        
+        assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WOOD), 10);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.BRICK), 10);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.ORE), 10);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.SHEEP), 10);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WHEAT), 10);
+        assertEquals(model.getResourceManager().getTotalResourceCount(0),50); 
+        
+        
+         }
+    
+    
+    @Test
+    public void testRobPlayer2() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+  
+        IJavaJSON commandJSON = new RobPlayerJSON(2, 0, new HexLocation(0,0));
+
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WOOD), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.BRICK), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.ORE), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.SHEEP), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WHEAT), 10);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(0),50); 
+        
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.WOOD), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.BRICK), 0);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.ORE), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.SHEEP), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(1),6); 
+        
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.WOOD), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.BRICK), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.ORE), 0);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.SHEEP), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(2).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(2),6); 
+        
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.WOOD), 2);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.BRICK), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.ORE), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.SHEEP), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(facade.getGameModel(commandAuth).getResourceManager().getTotalResourceCount(3),6);
+       
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertEquals(model.getResourceManager().getTotalResourceCount(2),7); 
+        assertEquals(model.getResourceManager().getTotalResourceCount(0),49); 
+        
+        assertEquals(model.getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.WOOD), 2);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.BRICK), 0);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.ORE), 1);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.SHEEP), 2);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(1).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(model.getResourceManager().getTotalResourceCount(1),6); 
+        
+        assertEquals(model.getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.WOOD), 2);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.BRICK), 1);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.ORE), 1);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.SHEEP), 1);
+        assertEquals(model.getResourceManager().getResourcesForPlayer(3).getResourceTypeCount(ResourceType.WHEAT), 1);
+        assertEquals(model.getResourceManager().getTotalResourceCount(3),6);
+        
+        
+         }
+    
+    
 
 }

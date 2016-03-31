@@ -138,9 +138,6 @@ public class TestYearOfPlentyCommand {
         assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.SHEEP), 10);
         assertEquals(model.getResourceManager().getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WHEAT), 11);
 
-        
-        
-        
          }
     
     
