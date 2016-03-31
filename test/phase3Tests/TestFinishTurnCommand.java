@@ -50,33 +50,16 @@ public class TestFinishTurnCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
+    public void testFinishTurn() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
-        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new FinishTurnJSON(0);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        assertTrue(facade.getGameModel(commandAuth).playerManager.turnTracker.getTurnIndex() == 0);
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertTrue(model.playerManager.turnTracker.getTurnIndex() == 1);
     }
-    
-    @Test
-    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
-        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
-        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
-        
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
-        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
-        
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
-        
-        CatanModel model = (CatanModel)actualCommand.execute();
-        
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
-    }
-
 }
