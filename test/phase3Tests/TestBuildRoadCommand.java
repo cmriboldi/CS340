@@ -50,7 +50,7 @@ public class TestBuildRoadCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
+    public void testBuildRoadCommandPlacementFree() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
@@ -65,9 +65,26 @@ public class TestBuildRoadCommand {
     }
     
     @Test
-    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
+    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, false);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+    }
+    
+    @Test
+    public void testBuildRoadCommandDecrementFree() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        int wood = facade.getGameModel(commandAuth).resourceManager.getResourceCount(0, ResourceType.WOOD);
+        int brick = facade.getGameModel(commandAuth).resourceManager.getResourceCount(0, ResourceType.BRICK);
         
         IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
@@ -76,7 +93,58 @@ public class TestBuildRoadCommand {
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertTrue(model.resourceManager.getResourceCount(0, ResourceType.WOOD) == wood-1);
+        assertTrue(model.resourceManager.getResourceCount(0, ResourceType.BRICK) == brick-1);
+    }
+    
+    @Test
+    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        int wood = facade.getGameModel(commandAuth).resourceManager.getResourceCount(0, ResourceType.WOOD);
+        int brick = facade.getGameModel(commandAuth).resourceManager.getResourceCount(0, ResourceType.BRICK);
+        
+        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, false);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.resourceManager.getResourceCount(0, ResourceType.WOOD) == (wood-1));
+        assertTrue(model.resourceManager.getResourceCount(0, ResourceType.BRICK) == (brick-1));
+    }
+    
+    @Test
+    public void testBuildRoadCommandCountFree() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        int roads = facade.getGameModel(commandAuth).playerManager.getPlayerByIndex(0).getRoadsRemaining();
+        
+        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.playerManager.getPlayerByIndex(0).getRoadsRemaining() == (roads-1));
+    }
+    
+    @Test
+    public void testBuildRoadCountDecrement() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        int roads = facade.getGameModel(commandAuth).playerManager.getPlayerByIndex(0).getRoadsRemaining();
+        
+        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, false);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.playerManager.getPlayerByIndex(0).getRoadsRemaining() == (roads-1));
     }
 
 }

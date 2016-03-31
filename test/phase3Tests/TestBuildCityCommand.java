@@ -48,35 +48,30 @@ public class TestBuildCityCommand {
 
 
     // ========================= TESTS ================================ //
-
-    @Test
-    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
+    public void testBuildCityCommand() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
-        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        VertexLocation loc = new VertexLocation(new HexLocation(1,2), VertexDirection.NorthWest);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new BuildCityJSON(0, loc);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        assertTrue(facade.getGameModel(commandAuth).getMapManager().getSettlements().containsKey(loc));
+        assertTrue(!facade.getGameModel(commandAuth).getMapManager().getSettlements().get(loc).isCity());
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertTrue(model.getMapManager().getSettlements().get(loc).isCity());
     }
     
     @Test
-    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
+    public void testBuildCityCommandFail() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
-        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        VertexLocation loc = new VertexLocation(new HexLocation(0,0), VertexDirection.East);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new BuildCityJSON(0, loc);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
-        
-        CatanModel model = (CatanModel)actualCommand.execute();
-        
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getSettlements().containsKey(loc));
     }
 
 }
