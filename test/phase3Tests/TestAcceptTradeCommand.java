@@ -23,10 +23,6 @@ import serverProxy.ServerException;
 import serverProxy.ServerProxy;
 import clientfacade.Facade;
 import model.CatanModel;
-<<<<<<< 1274532891a38a7b0c511bc7486dda6776a3f7ca
-=======
-import model.resources.ResourceList;
->>>>>>> made 18 tests
 import shared.communication.JSON.*;
 import shared.definitions.*;
 import shared.locations.*;
