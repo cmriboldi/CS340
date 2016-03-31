@@ -20,7 +20,8 @@ import serverProxy.MockProxy;
 import serverProxy.ServerException;
 import serverProxy.ServerProxy;
 import clientfacade.Facade;
-import model.CatanModel;
+import model.*;
+import model.resources.*;
 import shared.communication.JSON.*;
 import shared.definitions.*;
 import shared.locations.*;
@@ -50,33 +51,33 @@ public class TestDiscardCardsCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
+    public void testEmptyDiscard() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(0,0,0,0,0));
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceCount() == count);
     }
     
     @Test
-    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
+    public void testDiscard() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(10,10,5,0,0));
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceCount() == count-25);
     }
 
 }
