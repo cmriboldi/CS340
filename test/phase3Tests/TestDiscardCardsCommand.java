@@ -79,5 +79,80 @@ public class TestDiscardCardsCommand {
         
         assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceCount() == count-25);
     }
+    
+    @Test
+    public void testDiscardBrick() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(10,0,0,0,0));
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceTypeCount(ResourceType.BRICK) == 0);
+    }
+    
+    @Test
+    public void testDiscardOre() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(0,10,0,0,0));
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceTypeCount(ResourceType.ORE) == 0);
+    }
+    
+    @Test
+    public void testDiscardSheep() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(0,0,10,0,0));
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceTypeCount(ResourceType.SHEEP) == 0);
+    }
+    
+    @Test
+    public void testDiscardWheat() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(0,0,0,10,0));
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WHEAT) == 0);
+    }
+    
+    @Test
+    public void testDiscardWood() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new DiscardCardsJSON(0, new ResourceList(0,0,0,0,10));
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        int count = facade.getGameModel(commandAuth).resourceManager.getResourcesForPlayer(0).getResourceCount();
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.resourceManager.getResourcesForPlayer(0).getResourceTypeCount(ResourceType.WOOD) == 0);
+    }
 
 }
