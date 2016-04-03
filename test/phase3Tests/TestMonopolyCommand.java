@@ -54,7 +54,7 @@ public class TestMonopolyCommand {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        IJavaJSON commandJSON = new MonumentJson(0);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
         assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));

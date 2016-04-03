@@ -50,17 +50,33 @@ public class TestBuyDevCardCommand {
     // ========================= TESTS ================================ //
 
     @Test
-    public void testBuildRoadCommandPlacementFree() throws server.exception.ServerException {
+    public void testBuildRoadCommandPlacement() throws server.exception.ServerException {
         AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
         EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
         
-        IJavaJSON commandJSON = new BuyDevCardJSON(0);
+        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
         ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
         
-        int cards = facade.getGameModel(commandAuth).cardManager.getNewDevCards().getDevCardsForPlayer(0).getDevCardCount();
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
         
         CatanModel model = (CatanModel)actualCommand.execute();
         
-        assertTrue(model.cardManager.getNewDevCards().getDevCardsForPlayer(0).getDevCardCount() == cards+1);
+        assertTrue(model.getMapManager().getRoads().containsKey(edge));
     }
+    
+    @Test
+    public void testBuildRoadCommandDecrement() throws server.exception.ServerException {
+        AuthToken commandAuth = new AuthToken("String", "string", 0, -1);
+        EdgeLocation edge = new EdgeLocation(new HexLocation(0,0), EdgeDirection.South);
+        
+        IJavaJSON commandJSON = new BuildRoadJSON(0, edge, true);
+        ICommand actualCommand = commandFactory.buildCommand(commandAuth, commandJSON);
+        
+        assertFalse(facade.getGameModel(commandAuth).getMapManager().getRoads().containsKey(edge));
+        
+        CatanModel model = (CatanModel)actualCommand.execute();
+        
+        assertTrue(model.getMapManager().getRoads().containsKey(edge));
+    }
+
 }
