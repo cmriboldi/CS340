@@ -42,9 +42,9 @@ public class DiscardCardsCommand implements ICommand {
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " discarded cards.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | NotEnoughResourcesException e)
 		{

@@ -21,14 +21,14 @@ public interface IGameDAO
      * @return Object representing game data stored in the database
      * @throws DatabaseException
      */
-    Object getGame(int gameID) throws DatabaseException;
+    GameData getGame(int gameID) throws DatabaseException;
 
     /**
      * Returns all game data currently stored in the database
      * @return An array of all objects representing game data stored in the database
      * @throws DatabaseException
      */
-    Object[] getAllGames() throws DatabaseException;
+    GameData[] getAllGames() throws DatabaseException;
 
     /**
      * Update the data stored in the database to reflect the command objects also stored in the database

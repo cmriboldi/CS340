@@ -61,9 +61,9 @@ public class BuildSettlementCommand implements ICommand {
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a settlement.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
             //Update the model with the facade
-            facade.updateGame(authToken, cm);
+
             
-            facade.recordCommand(authToken, this);
+
 
         } catch (ServerException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e) {
             e.printStackTrace();

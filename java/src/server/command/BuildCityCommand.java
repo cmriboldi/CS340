@@ -55,9 +55,9 @@ public class BuildCityCommand implements ICommand {
             cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a city.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
             
             //Update the changed model in the ServerFacade
-            facade.updateGame(authToken, cm);
+
             
-            facade.recordCommand(authToken, this);
+
 
         } catch (ServerException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e) {
             e.printStackTrace();

@@ -21,14 +21,14 @@ public interface IUserDAO
      * @return Object representing game data stored in the database
      * @throws DatabaseException
      */
-    Object getUser(int userID) throws DatabaseException;
+    UserData getUser(int userID) throws DatabaseException;
 
     /**
      * Returns all user data currently stored in the database
      * @return An array of all objects representing game data stored in the database
      * @throws DatabaseException
      */
-    Object[] getAllUsers() throws DatabaseException;
+    UserData[] getAllUsers() throws DatabaseException;
 
     /**
      * Delete the data stored in the database representing a specific user

@@ -43,9 +43,9 @@ public class MaritimeTradeCommand implements ICommand {
 			
 			cm.resourceManager.tradeWithBank(rs, this.body.getPlayerIndex());
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | NotEnoughBankResourcesException | NotEnoughPlayerResourcesException e)
 		{

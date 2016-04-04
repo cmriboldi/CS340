@@ -50,9 +50,9 @@ public class YearOfPlentyCommand implements ICommand {
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a year of plenty card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | NotEnoughBankResourcesException | InvalidNumberOfResourcesRequested | NotEnoughDevCardsException e)
 		{

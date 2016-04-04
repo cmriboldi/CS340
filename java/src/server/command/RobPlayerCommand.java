@@ -51,9 +51,9 @@ public class RobPlayerCommand implements ICommand
 
 			cm.getMapManager().placeRobber(hexLoc);
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | NotEnoughResourcesException e)
 		{

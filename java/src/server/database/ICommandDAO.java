@@ -22,7 +22,7 @@ public interface ICommandDAO
      * @return Object representing game data stored in the database
      * @throws DatabaseException
      */
-    Object getCommand(int commandID) throws DatabaseException;
+    ICommand getCommand(int commandID) throws DatabaseException;
 
     /**
      * Returns all command data currently stored in the database for a specific game in order of execution
@@ -30,7 +30,7 @@ public interface ICommandDAO
      * @return An array of all objects representing game data stored in the database
      * @throws DatabaseException
      */
-    Object[] getAllCommands(int gameID) throws DatabaseException;
+    ICommand[] getAllCommands(int gameID) throws DatabaseException;
 
     /**
      * Returns all command data currently stored in the database for a specific game in order of execution
@@ -40,7 +40,7 @@ public interface ICommandDAO
      * @return All command objects that occurred at the index and after
      * @throws DatabaseException
      */
-    Object[] getAllCommands(int gameID, int index) throws DatabaseException;
+    ICommand[] getAllCommands(int gameID, int index) throws DatabaseException;
 
     /**
      * Delete the data stored in the database representing a specific command

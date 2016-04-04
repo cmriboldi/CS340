@@ -75,9 +75,9 @@ public class BuildRoadCommand implements ICommand {
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a road.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | TurnIndexException | NotEnoughPlayerResourcesException | InvalidPieceTypeException | NotEnoughResourcesException e)
 		{

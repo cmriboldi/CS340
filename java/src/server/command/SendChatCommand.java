@@ -35,9 +35,9 @@ public class SendChatCommand implements ICommand {
 			
 			cm.chatManager.sendMessage(this.body.getContent(), cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException e)
 		{

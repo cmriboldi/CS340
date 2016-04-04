@@ -50,9 +50,9 @@ public class AcceptTradeCommand implements ICommand {
 			
 			
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | NotEnoughPlayerResourcesException | InvalidPlayerIndexException | TradeOfferNullException e)
 		{

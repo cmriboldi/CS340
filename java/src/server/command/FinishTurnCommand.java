@@ -42,9 +42,9 @@ public class FinishTurnCommand implements ICommand {
 			
 			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " finished his turn.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
 			
-			facade.updateGame(authToken, cm);
+
 			
-			facade.recordCommand(authToken, this);
+
 			
 		} catch (ServerException | TurnIndexException e)
 		{
