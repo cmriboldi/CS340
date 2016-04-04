@@ -1,7 +1,7 @@
-CREATE TABLE commands
+CREATE TABLE command
 (
 command_id INT PRIMARY KEY NOT NULL,
 game_id INT NOT NULL,
-player_index_id INT NOT NULL,
-command_type TEXT NOT NULL,
+order_of_execution INT NOT NULL,
+command BLOB NOT NULL,
 );
