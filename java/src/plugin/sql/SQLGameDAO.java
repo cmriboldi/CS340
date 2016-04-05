@@ -1,26 +1,35 @@
-package server.database.sql;
+package plugin.sql;
 
 import model.CatanModel;
+import server.database.GameData;
 import server.database.IGameDAO;
 import server.exception.DatabaseException;
 
 /**
  * Created by Joshua on 4/3/2016.
  */
-public class SQLGameDAO implements IGameDAO {
+public class SQLGameDAO implements IGameDAO
+{
+    private final SQLPlugin database;
+
+    public SQLGameDAO(SQLPlugin database)
+    {
+        this.database = database;
+    }
+
     @Override
     public void addGame(CatanModel game) throws DatabaseException {
 
     }
 
     @Override
-    public Object getGame(int gameID) throws DatabaseException {
+    public GameData getGame(int gameID) throws DatabaseException {
         return null;
     }
 
     @Override
-    public Object[] getAllGames() throws DatabaseException {
-        return new Object[0];
+    public GameData[] getAllGames() throws DatabaseException {
+        return new GameData[0];
     }
 
     @Override
