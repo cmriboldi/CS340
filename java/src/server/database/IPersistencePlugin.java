@@ -20,6 +20,12 @@ public interface IPersistencePlugin
     void stopTransaction() throws DatabaseException;
     
     /**
+     * Clears the database.
+     * @throws DatabaseException
+     */
+    void clear() throws DatabaseException;
+    
+    /**
      * Load all the pertinent data contained in the database into memory.
      * @throws DatabaseException
      */
@@ -45,4 +51,5 @@ public interface IPersistencePlugin
      * @throws DatabaseException
      */
     ICommandDAO getCommandDAO() throws DatabaseException;
+
 }
