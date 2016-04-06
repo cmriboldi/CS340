@@ -12,15 +12,15 @@ import shared.communication.JSON.RollNumberJSON;
 import shared.definitions.TurnType;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 
-public class RollNumberCommand implements ICommand {
+public class RollNumberCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private RollNumberJSON body = null;
 	private final IServerFacade facade;
 	
 	public RollNumberCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (RollNumberJSON)jsonBody;
 		this.facade = facade;
 	}

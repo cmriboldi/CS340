@@ -15,16 +15,15 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class BuildSettlementCommand implements ICommand {
+public class BuildSettlementCommand extends ICommand {
 
-    private AuthToken authToken = null;
+
     private BuildSettlementJSON body = null;
     private final IServerFacade facade;
 
-    public BuildSettlementCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade) {
-        System.out.println("Creating a Build Settlement Command");
-
-        this.authToken = authToken;
+    public BuildSettlementCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
+    {
+        super(authToken);
         this.body = (BuildSettlementJSON) jsonBody;
         this.facade = facade;
     }

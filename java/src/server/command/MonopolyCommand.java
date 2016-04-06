@@ -10,15 +10,15 @@ import shared.definitions.DevCardType;
 import shared.definitions.ResourceType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 
-public class MonopolyCommand implements ICommand {
+public class MonopolyCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private MonopolyJSON body = null;
 	private final IServerFacade facade;
 	
 	public MonopolyCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (MonopolyJSON)jsonBody;
 		this.facade = facade;
 	}

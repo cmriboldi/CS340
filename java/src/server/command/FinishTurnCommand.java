@@ -10,15 +10,15 @@ import shared.communication.JSON.IJavaJSON;
 import shared.definitions.TurnType;
 import shared.exceptions.player.TurnIndexException;
 
-public class FinishTurnCommand implements ICommand {
+public class FinishTurnCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private FinishTurnJSON body = null;
 	private final IServerFacade facade;
 	
 	public FinishTurnCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (FinishTurnJSON)jsonBody;
 		this.facade = facade;
 	}

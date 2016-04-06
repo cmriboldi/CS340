@@ -9,15 +9,15 @@ import shared.communication.JSON.MonumentJSON;
 import shared.definitions.DevCardType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 
-public class MonumentCommand implements ICommand {
+public class MonumentCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private MonumentJSON body = null;
 	private final IServerFacade facade;
 	
 	public MonumentCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (MonumentJSON)jsonBody;
 		this.facade = facade;
 	}

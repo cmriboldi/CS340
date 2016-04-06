@@ -9,15 +9,15 @@ import shared.communication.JSON.IJavaJSON;
 import shared.definitions.TurnType;
 import shared.exceptions.resources.NotEnoughResourcesException;
 
-public class DiscardCardsCommand implements ICommand {
+public class DiscardCardsCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private DiscardCardsJSON body = null;
 	private final IServerFacade facade;
 	
 	public DiscardCardsCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (DiscardCardsJSON)jsonBody;
 		this.facade = facade;
 	}

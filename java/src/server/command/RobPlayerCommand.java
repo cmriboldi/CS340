@@ -12,15 +12,15 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class RobPlayerCommand implements ICommand
+public class RobPlayerCommand extends ICommand
 {
-	private AuthToken authToken = null;
+
 	private RobPlayerJSON body = null;
 	private final IServerFacade facade;
 	
 	public RobPlayerCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (RobPlayerJSON)jsonBody;
 		this.facade = facade;
 	}

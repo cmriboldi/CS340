@@ -12,16 +12,16 @@ import shared.exceptions.player.InvalidPlayerIndexException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 import shared.exceptions.resources.TradeOfferNullException;
 
-public class AcceptTradeCommand implements ICommand {
+public class AcceptTradeCommand extends ICommand {
 	
-	private AuthToken authToken = null;
+
 	private AcceptTradeJSON body = null;
 	private final IServerFacade facade;
 
 	
 	public AcceptTradeCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade_p)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (AcceptTradeJSON)jsonBody;
 		this.facade = facade_p;
 	}

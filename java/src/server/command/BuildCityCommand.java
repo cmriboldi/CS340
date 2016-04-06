@@ -14,14 +14,14 @@ import shared.locations.HexLocation;
 import shared.locations.VertexDirection;
 import shared.locations.VertexLocation;
 
-public class BuildCityCommand implements ICommand {
+public class BuildCityCommand extends ICommand {
 
-    private AuthToken authToken = null;
+
     private BuildCityJSON body = null;
     private final IServerFacade facade;
 
     public BuildCityCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade) {
-        this.authToken = authToken;
+        super(authToken);
         this.body = (BuildCityJSON) jsonBody;
         this.facade = facade;
     }

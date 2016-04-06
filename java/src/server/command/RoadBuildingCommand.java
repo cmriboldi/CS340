@@ -10,16 +10,16 @@ import shared.definitions.DevCardType;
 import shared.definitions.PieceType;
 import shared.exceptions.development.NotEnoughDevCardsException;
 
-public class RoadBuildingCommand implements ICommand
+public class RoadBuildingCommand extends ICommand
 {
 
-	private AuthToken authToken = null;
+
 	private RoadBuildingJSON body = null;
 	private final IServerFacade facade;
 	
 	public RoadBuildingCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (RoadBuildingJSON)jsonBody;
 		this.facade = facade;
 	}

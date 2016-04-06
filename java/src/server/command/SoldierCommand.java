@@ -11,15 +11,15 @@ import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.resources.NotEnoughResourcesException;
 import shared.locations.HexLocation;
 
-public class SoldierCommand implements ICommand {
+public class SoldierCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private SoldierJSON body = null;
 	private final IServerFacade facade;
 	
 	public SoldierCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (SoldierJSON)jsonBody;
 		this.facade = facade;
 	}

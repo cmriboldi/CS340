@@ -11,9 +11,9 @@ import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 import shared.exceptions.resources.NotEnoughResourcesException;
 
-public class BuyDevCardCommand implements ICommand {
+public class BuyDevCardCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private BuyDevCardJSON body = null;
 	private DevCardType boughtDevCard = null;
 
@@ -21,8 +21,8 @@ public class BuyDevCardCommand implements ICommand {
 
 	public BuyDevCardCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade_p)
 	{
+		super(authToken);
 		this.facade = facade_p;
-		this.authToken = authToken;
 		this.body = (BuyDevCardJSON)jsonBody;
 	}
 

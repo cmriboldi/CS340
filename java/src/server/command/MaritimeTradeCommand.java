@@ -11,15 +11,15 @@ import shared.definitions.ResourceType;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 
-public class MaritimeTradeCommand implements ICommand {
+public class MaritimeTradeCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private MaritimeTradeJSON body = null;
 	private final IServerFacade facade;
 	
 	public MaritimeTradeCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (MaritimeTradeJSON)jsonBody;
 		this.facade = facade;
 	}

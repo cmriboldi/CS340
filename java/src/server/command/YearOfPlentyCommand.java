@@ -13,15 +13,15 @@ import shared.exceptions.development.NotEnoughDevCardsException;
 import shared.exceptions.resources.InvalidNumberOfResourcesRequested;
 import shared.exceptions.resources.NotEnoughBankResourcesException;
 
-public class YearOfPlentyCommand implements ICommand {
+public class YearOfPlentyCommand extends ICommand {
 
-	private AuthToken authToken = null;
+
 	private YearOfPlentyJSON body = null;
 	private final IServerFacade facade;
 	
 	public YearOfPlentyCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		this.authToken = authToken;
+		super(authToken);
 		this.body = (YearOfPlentyJSON)jsonBody;
 		this.facade = facade;
 	}
