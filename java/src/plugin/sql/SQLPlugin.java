@@ -57,6 +57,11 @@ public class SQLPlugin implements IPersistencePlugin
     private SQLGameDAO gameDAO;
     private SQLCommandDAO commandDAO;
     private Connection connection;
+    
+    public Connection getConnection(){
+    	return connection; 
+    	
+    }
 
     @Inject
     public SQLPlugin(IServerFacade facade)
@@ -66,6 +71,7 @@ public class SQLPlugin implements IPersistencePlugin
         gameDAO = new SQLGameDAO(this);
         commandDAO = new SQLCommandDAO(this);
         connection = null;
+
         try
         {
             SQLPlugin.initialize();
