@@ -18,6 +18,12 @@ public interface IPersistencePlugin
      * @throws DatabaseException
      */
     void stopTransaction() throws DatabaseException;
+    
+    /**
+     * Load all the pertinent data contained in the database into memory.
+     * @throws DatabaseException
+     */
+    void thaw() throws DatabaseException;
 
     /**
      * Get the DAO used to access game data in the persistent database

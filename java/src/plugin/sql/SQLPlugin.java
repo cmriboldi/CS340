@@ -105,4 +105,11 @@ public class SQLPlugin implements IPersistencePlugin
     {
         return commandDAO;
     }
+
+	@Override
+	public void thaw() throws DatabaseException
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
