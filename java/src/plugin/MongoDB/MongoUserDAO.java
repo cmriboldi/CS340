@@ -19,6 +19,7 @@ import com.mongodb.DBCursor;
 
 import com.mongodb.ServerAddress;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.bson.Document;
 
@@ -32,26 +33,68 @@ public class MongoUserDAO implements IUserDAO {
 	
 	@Override
 	public void addUser(UserData user) throws DatabaseException {
-		// TODO Auto-generated method stub
+		String id = Integer.toString(user.getId());
+		String name = user.getName();
+		String password = user.getPassword();
+		
+		DBObject object = new BasicDBObject();
+		object.put("name", name);
+		object.put("password", password);
+		
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Users");
+		Document doc = coll.find().first();
+		doc.append(id, object);
 		
 	}
 
 	@Override
 	public UserData getUser(int userID) throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		String id = Integer.toString(userID);
+		
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Users");
+		Document doc = coll.find().first();
+		DBObject object = (DBObject) doc.get(id);
+		String name = (String) object.get("name");
+		String password = (String) object.get("password");
+		
+		UserData user = new UserData(name,password);
+		user.setId(userID);
+		return user;
 	}
 
 	@Override
 	public UserData[] getAllUsers() throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Users");
+		Document doc = coll.find().first();
+		Set<String> ids = doc.keySet();
+		UserData[] users = new UserData[ids.size()];
+		
+		int i = 0;
+		for(String id : ids)
+		{
+			DBObject object = (DBObject) doc.get(id);
+			String name = (String) object.get("name");
+			String password = (String) object.get("password");
+			UserData user = new UserData(name,password);
+			user.setId(Integer.parseInt(id));
+			users[i] = user;
+			i++;
+		}
+		
+		return users;
 	}
 
 	@Override
 	public void deleteUser(int userID) throws DatabaseException {
-		// TODO Auto-generated method stub
+		String id = Integer.toString(userID);
 		
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Users");
+		Document doc = coll.find().first();
+		doc.remove(id);		
 	}
 
 }
