@@ -1,5 +1,9 @@
-package server.database;
+package plugin.MongoDB;
 
+import server.database.ICommandDAO;
+import server.database.IGameDAO;
+import server.database.IPersistencePlugin;
+import server.database.IUserDAO;
 import server.exception.DatabaseException;
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -14,9 +18,13 @@ import com.mongodb.DBCursor;
 import com.mongodb.ServerAddress;
 import java.util.Arrays;
 
-public class MongoDBJDBC implements IPersistencePlugin {
-	MongoClient mongoClient;
+/**
+ * Created by Joshua Powers on 4/4/2016.
+ */
+
+public class MongoPlugin implements IPersistencePlugin {
 	
+	private MongoClient mongoClient;
 	
 	@Override
 	public void startTransaction() throws DatabaseException {
@@ -29,21 +37,24 @@ public class MongoDBJDBC implements IPersistencePlugin {
 	}
 
 	@Override
-	public IGameDAO getGameDAO() throws DatabaseException {
+	public void thaw() throws DatabaseException {
 		// TODO Auto-generated method stub
-		return null;
+		
+	}
+
+	@Override
+	public IGameDAO getGameDAO() throws DatabaseException {
+		return new MongoGameDAO(mongoClient);
 	}
 
 	@Override
 	public IUserDAO getUserDAO() throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		return new MongoUserDAO(mongoClient);
 	}
 
 	@Override
 	public ICommandDAO getCommandDAO() throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		return new MongoCommandDAO(mongoClient);
 	}
-
 }
+
