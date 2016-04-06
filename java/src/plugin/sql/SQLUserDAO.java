@@ -20,12 +20,22 @@ public class SQLUserDAO implements IUserDAO
         this.database = database;
     }
 
+    /*
+        CREATE TABLE users
+		(
+		id INT PRIMARY KEY NOT NULL,
+		user_name TEXT NOT NULL,
+		user_password TEXT NOT NULL,
+		);
+     */
+    
+    
     @Override
     public void addUser(UserData user) throws DatabaseException {
     	PreparedStatement stmt = null; 
     	
     	try {
-    		String query = "insert into users (username, password) values (? , ? )"; 
+    		String query = "insert into users (user_name, user_password) values (? , ? )"; 
     		try {
 				stmt = database.getConnection().prepareStatement(query);
 				stmt.setString(1, user.getName());
@@ -62,7 +72,7 @@ public class SQLUserDAO implements IUserDAO
     	String username = null; 
     	String password = null; 
     	
-		String query = "select * from users where userID = ?"; 
+		String query = "select * from users where id = ?"; 
 		try {
 			stmt = database.getConnection().prepareStatement(query);
 			stmt.setInt(1, userID);
@@ -150,7 +160,7 @@ public class SQLUserDAO implements IUserDAO
     	PreparedStatement stmt = null; 
     	
     	try {
-    		String query = "delete from users where userID = ?"; 
+    		String query = "delete from users where id = ?"; 
     		try {
 				stmt = database.getConnection().prepareStatement(query);
 				stmt.setInt(1, userID);
