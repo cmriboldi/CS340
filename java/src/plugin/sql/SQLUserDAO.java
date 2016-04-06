@@ -125,10 +125,7 @@ public class SQLUserDAO implements IUserDAO
 				index ++; 
 			}
 			
-
-	    	
 			stmt.close();
-		
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -149,6 +146,33 @@ public class SQLUserDAO implements IUserDAO
 
     @Override
     public void deleteUser(int userID) throws DatabaseException {
-
+    	
+    	PreparedStatement stmt = null; 
+    	
+    	try {
+    		String query = "delete from users where userID = ?"; 
+    		try {
+				stmt = database.getConnection().prepareStatement(query);
+				stmt.setInt(1, userID);
+	    		if (stmt.executeUpdate() != 1)
+	    		{
+	    			throw new DatabaseException(" delete user failed"); 
+	    		}
+	    		
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} 
+    	
+    		
+    	}
+    	finally{
+    		try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+    	}
     }
 }
