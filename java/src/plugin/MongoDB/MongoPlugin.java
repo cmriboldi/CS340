@@ -62,5 +62,12 @@ public class MongoPlugin implements IPersistencePlugin {
 	public ICommandDAO getCommandDAO() throws DatabaseException {
 		return new MongoCommandDAO(mongoClient);
 	}
+
+	@Override
+	public void clear() throws DatabaseException
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
 

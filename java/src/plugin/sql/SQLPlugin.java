@@ -118,4 +118,11 @@ public class SQLPlugin implements IPersistencePlugin
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public void clear() throws DatabaseException
+	{
+		// TODO Auto-generated method stub
+		
+	}
 }
