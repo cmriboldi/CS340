@@ -1,6 +1,7 @@
 package plugin.MongoDB;
 
 import server.command.ICommand;
+import server.data.UserData;
 import server.database.ICommandDAO;
 import server.exception.DatabaseException;
 
@@ -19,6 +20,7 @@ import com.mongodb.DBCursor;
 
 import com.mongodb.ServerAddress;
 import java.util.Arrays;
+import java.util.Set;
 
 import org.bson.Document;
 
@@ -32,20 +34,55 @@ public class MongoCommandDAO implements ICommandDAO {
 	
 	@Override
 	public void addCommand(ICommand command) throws DatabaseException {
-		// TODO Auto-generated method stub
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Commands");
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		replace.append(command.toString(), command);	
+		coll.findOneAndReplace(origin, replace);
 		
 	}
 
 	@Override
 	public ICommand getCommand(int commandID) throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		String id = Integer.toString(commandID);
+		
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Commands");
+		Document doc = coll.find().first();
+		ICommand command = (ICommand)doc.get(id);
+		
+		return command;
 	}
 
 	@Override
 	public ICommand[] getAllCommands(int gameID) throws DatabaseException {
-		// TODO Auto-generated method stub
-		return null;
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Commands");
+		Document doc = coll.find().first();
+		Set<String> ids = doc.keySet();
+		
+		int n = 0;
+		for(String id : ids)
+		{
+			if(id.equals(Integer.toString(gameID)))
+					n++;
+		}
+		ICommand[] commands = new ICommand[n];
+		
+		int i = 0;
+		for(String id : ids)
+		{
+			if(id.equals(Integer.toString(gameID)))
+			{
+				ICommand command = (ICommand) doc.get(id);
+				commands[i] = command;
+				i++;
+			}
+		}
+		
+		return commands;
 	}
 
 	@Override
@@ -56,8 +93,15 @@ public class MongoCommandDAO implements ICommandDAO {
 
 	@Override
 	public void deleteCommand(int commandID) throws DatabaseException {
-		// TODO Auto-generated method stub
+		String id = Integer.toString(commandID);
 		
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Commands");
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		replace.remove(id);
+		coll.findOneAndReplace(origin, replace);		
 	}
 
 }

@@ -45,8 +45,11 @@ public class MongoGameDAO implements IGameDAO{
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
-		Document doc = coll.find().first();
-		doc.append(id, dbobject);
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		replace.append(id, dbobject);		
+		coll.findOneAndReplace(origin, replace);
 	}
 
 	@Override
@@ -100,8 +103,15 @@ public class MongoGameDAO implements IGameDAO{
 
 	@Override
 	public void deleteGame(int gameID) throws DatabaseException {
-		// TODO Auto-generated method stub
+		String id = Integer.toString(gameID);
 		
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Games");
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		replace.remove(id);
+		coll.findOneAndReplace(origin, replace);		
 	}
 
 }

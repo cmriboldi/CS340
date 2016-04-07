@@ -43,8 +43,11 @@ public class MongoUserDAO implements IUserDAO {
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Users");
-		Document doc = coll.find().first();
-		doc.append(id, object);
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		replace.append(id, object);		
+		coll.findOneAndReplace(origin, replace);
 		
 	}
 
@@ -93,8 +96,11 @@ public class MongoUserDAO implements IUserDAO {
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Users");
-		Document doc = coll.find().first();
-		doc.remove(id);		
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		replace.remove(id);	
+		coll.findOneAndReplace(origin, replace);
 	}
 
 }
