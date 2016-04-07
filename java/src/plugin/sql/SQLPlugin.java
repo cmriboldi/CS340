@@ -10,11 +10,11 @@ import server.exception.DatabaseException;
 import server.facade.IServerFacade;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 /**
  * Created by Joshua on 4/4/2016.
@@ -26,24 +26,30 @@ public class SQLPlugin implements IPersistencePlugin
     private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
             File.separator + DATABASE_FILE;
 
-    public static void initialize() throws DatabaseException
+    private void initialize() throws DatabaseException
     {
         try
         {
             final String driver = "org.sqlite.JDBC";
             Class.forName(driver);
-            File newFile = new File(DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
-            if(!newFile.getParentFile().getParentFile().getParentFile().exists())
+            File sqliteFile = new File(DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
+            if(!sqliteFile.getParentFile().getParentFile().getParentFile().exists())
+                sqliteFile.getParentFile().getParentFile().getParentFile().mkdir();
+            if(!sqliteFile.getParentFile().getParentFile().exists())
+                sqliteFile.getParentFile().getParentFile().mkdir();
+            if(!sqliteFile.getParentFile().exists())
+                sqliteFile.getParentFile().mkdir();
+            if(!sqliteFile.exists())
             {
-                newFile.getParentFile().getParentFile().getParentFile().mkdir();
-                newFile.getParentFile().getParentFile().mkdir();
-                newFile.getParentFile().mkdir();
+                sqliteFile.createNewFile();
+                startTransaction();
+                Statement statement = getConnection().createStatement();
+                statement.execute(SQLQuery.createGameTable());
+                statement.execute(SQLQuery.createUserTable());
+                statement.execute(SQLQuery.createCommandTable());
+                endTransaction(true);
+                statement.close();
             }
-
-            FileWriter writer = new FileWriter(newFile, false);
-            writer.write("stuff");
-            writer.flush();
-            writer.close();
         }
         catch(ClassNotFoundException e)
         {
@@ -51,7 +57,12 @@ public class SQLPlugin implements IPersistencePlugin
         }
         catch (IOException e)
         {
-            e.printStackTrace();
+            throw new DatabaseException(e.getMessage());
+        }
+        catch (SQLException e)
+        {
+            endTransaction(false);
+            throw new DatabaseException(e.getMessage());
         }
     }
 
@@ -65,7 +76,7 @@ public class SQLPlugin implements IPersistencePlugin
             }
             catch (SQLException e)
             {
-                throw new DatabaseException("Error occured while attempting to close the connection to the database");
+                throw new DatabaseException("Error occurred while attempting to close the connection to the database");
             }
         }
     }
@@ -92,7 +103,7 @@ public class SQLPlugin implements IPersistencePlugin
 
         try
         {
-            SQLPlugin.initialize();
+            initialize();
         }
         catch (DatabaseException e)
         {
@@ -148,8 +159,22 @@ public class SQLPlugin implements IPersistencePlugin
     }
 
     @Override
-    public void clear() throws DatabaseException {
-
+    public void clear() throws DatabaseException
+    {
+        try
+        {
+            startTransaction();
+            Statement statement = getConnection().createStatement();
+            statement.execute(SQLQuery.deleteAllGames());
+            statement.execute(SQLQuery.deleteAllUsers());
+            statement.execute(SQLQuery.deleteAllCommands());
+            endTransaction(true);
+            statement.close();
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
     }
 
     @Override

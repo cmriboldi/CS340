@@ -13,5 +13,6 @@
     <orderEntry type="module" module-name="CS3401" />
     <orderEntry type="module" module-name="CS3401" />
     <orderEntry type="module" module-name="CS3401" />
+    <orderEntry type="library" name="mongo-java-driver-3.2.2-javadoc" level="project" />
   </component>
 </module>

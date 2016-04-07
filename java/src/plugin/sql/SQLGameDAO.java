@@ -1,6 +1,5 @@
 package plugin.sql;
 
-import model.CatanModel;
 import server.database.GameData;
 import server.database.IGameDAO;
 import server.exception.DatabaseException;
@@ -18,7 +17,7 @@ public class SQLGameDAO implements IGameDAO
     }
 
     @Override
-    public void addGame(CatanModel game) throws DatabaseException
+    public void addGame(GameData game) throws DatabaseException
     {
 
     }

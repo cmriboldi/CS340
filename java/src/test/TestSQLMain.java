@@ -3,6 +3,7 @@ package test;
 import plugin.sql.SQLPlugin;
 import server.database.IPersistencePlugin;
 import server.database.VolatileDatabase;
+import server.exception.DatabaseException;
 import server.facade.ServerFacade;
 
 /**
@@ -14,5 +15,13 @@ public class TestSQLMain
     {
         IPersistencePlugin plugin = new SQLPlugin(new ServerFacade(new VolatileDatabase()));
         System.out.println("Got this far");
+        try
+        {
+            plugin.clear();
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
+        }
     }
 }

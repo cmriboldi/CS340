@@ -38,7 +38,7 @@ public class MongoPlugin implements IPersistencePlugin {
 	}
 
 	@Override
-	public void stopTransaction() throws DatabaseException {
+	public void endTransaction(boolean commit) throws DatabaseException {
 		mongoClient.close();		
 	}
 

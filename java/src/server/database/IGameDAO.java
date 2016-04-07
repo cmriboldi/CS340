@@ -13,7 +13,7 @@ public interface IGameDAO
      * @param game
      * @throws DatabaseException
      */
-    void addGame(CatanModel game) throws DatabaseException;
+    void addGame(GameData game) throws DatabaseException;
 
     /**
      * Returns game object for a game stored at unique ID
