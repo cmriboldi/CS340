@@ -1,6 +1,7 @@
 package plugin.sql;
 
 import com.google.inject.Inject;
+
 import server.database.ICommandDAO;
 import server.database.IGameDAO;
 import server.database.IPersistencePlugin;
@@ -12,6 +13,8 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 /**
  * Created by Joshua on 4/4/2016.
@@ -59,6 +62,14 @@ public class SQLPlugin implements IPersistencePlugin
     private Connection connection;
     
     public Connection getConnection(){
+    	if (connection == null){
+    		try {
+				connection = DriverManager.getConnection(DATABASE_URL);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} 
+    	}
+    	
     	return connection; 
     	
     }
@@ -114,13 +125,6 @@ public class SQLPlugin implements IPersistencePlugin
 
 	@Override
 	public void thaw() throws DatabaseException
-	{
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void clear() throws DatabaseException
 	{
 		// TODO Auto-generated method stub
 		

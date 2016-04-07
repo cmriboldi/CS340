@@ -1,9 +1,15 @@
 package plugin.sql;
 
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import com.google.gson.*;
+
 import server.command.ICommand;
+import server.data.UserData;
 import server.database.ICommandDAO;
 import server.exception.DatabaseException;
 
@@ -34,13 +40,16 @@ public class SQLCommandDAO implements ICommandDAO
 
     	PreparedStatement stmt = null; 
     	
-    	/*
+    	int gameID = command.getGameID(); 
+		byte[] data = new Gson().toJson(command).getBytes();
+		InputStream is = new ByteArrayInputStream(data);
+    	
     	try {
-    		String query = "insert into command (game_id, order_of_execution, command) values (? , ?, ? )"; 
+    		String query = "insert into command (game_id, command) values (? , ? )"; 
     		try {
 				stmt = database.getConnection().prepareStatement(query);
-				stmt.setString(1,command.toString());
-	    		stmt.setString(2, user.getPassword()); 
+				stmt.setInt(1,gameID);
+				stmt.setBlob(2, is);
 	    		if (stmt.executeUpdate() != 1)
 	    		{
 	    			throw new DatabaseException(" add user failed"); 
@@ -49,9 +58,7 @@ public class SQLCommandDAO implements ICommandDAO
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			} 
-    	
-    		
+			}     		
     	}
     	finally{
     		try {
@@ -60,18 +67,69 @@ public class SQLCommandDAO implements ICommandDAO
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    	} */
+    	} 
     	
     }
 
     @Override
     public ICommand getCommand(int commandID) throws DatabaseException {
+    	
+    	
+    	
+    	
         return null;
     }
 
     @Override
     public ICommand[] getAllCommands(int gameID) throws DatabaseException {
-        return new ICommand[0];
+    	
+    	PreparedStatement stmt = null; 
+
+       	ResultSet rs = null; 
+    	
+    	ICommand[] returnCommands = null; 
+    	
+		String query = "select * from command where game_id = ?"; 
+		try {
+			stmt = database.getConnection().prepareStatement(query);
+			stmt.setInt(1,gameID);
+						
+			rs = stmt.executeQuery(); 
+			
+			int rowcount = 0;
+			if (rs.last()) {
+			  rowcount = rs.getRow();
+			  rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+			}
+			
+			returnCommands = new ICommand[rowcount]; 
+			int index = 0; 
+			
+			while (rs.next()) {
+			  // do your standard per row stuff
+				//returnCommands[index] = new ICommand();   // MAKE NEW COMMAND OBJECTS HERE,
+				index ++; 
+			}
+			
+			stmt.close();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				stmt.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		}
+    	
+    	
+    	
+        return returnCommands;
     }
 
     @Override
