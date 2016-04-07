@@ -17,7 +17,7 @@ public interface IPersistencePlugin
      * End the current transaction with the persistent database
      * @throws DatabaseException
      */
-    void stopTransaction() throws DatabaseException;
+    void endTransaction(boolean commit) throws DatabaseException;
     
     /**
      * Clears the database.

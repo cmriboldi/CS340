@@ -18,7 +18,8 @@ public class SQLGameDAO implements IGameDAO
     }
 
     @Override
-    public void addGame(CatanModel game) throws DatabaseException {
+    public void addGame(CatanModel game) throws DatabaseException
+    {
 
     }
 

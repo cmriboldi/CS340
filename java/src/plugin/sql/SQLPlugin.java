@@ -55,23 +55,30 @@ public class SQLPlugin implements IPersistencePlugin
         }
     }
 
+    private void safeClose(Connection conn) throws DatabaseException
+    {
+        if (conn != null)
+        {
+            try
+            {
+                conn.close();
+            }
+            catch (SQLException e)
+            {
+                throw new DatabaseException("Error occured while attempting to close the connection to the database");
+            }
+        }
+    }
+
     private final IServerFacade facade;
     private SQLUserDAO userDAO;
     private SQLGameDAO gameDAO;
     private SQLCommandDAO commandDAO;
     private Connection connection;
     
-    public Connection getConnection(){
-    	if (connection == null){
-    		try {
-				connection = DriverManager.getConnection(DATABASE_URL);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} 
-    	}
-    	
-    	return connection; 
-    	
+    public Connection getConnection()
+    {
+    	return connection;
     }
 
     @Inject
@@ -96,12 +103,52 @@ public class SQLPlugin implements IPersistencePlugin
     @Override
     public void startTransaction() throws DatabaseException
     {
-
+        try
+        {
+            if(connection == null)
+            {
+                connection = DriverManager.getConnection(DATABASE_URL);
+                connection.setAutoCommit(false);
+            }
+            else
+                throw new DatabaseException("There is already an active connection");
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Could not connect to database");
+        }
     }
 
     @Override
-    public void stopTransaction() throws DatabaseException
+    public void endTransaction(boolean commit) throws DatabaseException
     {
+        if (connection != null)
+        {
+            try
+            {
+                if (commit)
+                {
+                    connection.commit();
+                }
+                else
+                {
+                    connection.rollback();
+                }
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                safeClose(connection);
+                connection = null;
+            }
+        }
+    }
+
+    @Override
+    public void clear() throws DatabaseException {
 
     }
 
