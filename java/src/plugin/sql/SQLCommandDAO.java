@@ -107,7 +107,8 @@ public class SQLCommandDAO implements ICommandDAO
 			
 			while (rs.next()) {
 			  // do your standard per row stuff
-				//returnCommands[index] = new ICommand();   // MAKE NEW COMMAND OBJECTS HERE,
+				ICommand newCommand = new Gson().fromJson(rs.toString(), ICommand.class); 
+				returnCommands[index] = newCommand;  // MAKE NEW COMMAND OBJECTS HERE,
 				index ++; 
 			}
 			
