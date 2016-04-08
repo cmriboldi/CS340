@@ -6,7 +6,9 @@ import model.CatanModel;
 import server.AuthToken;
 import server.command.CommandFactory;
 import server.command.ICommand;
+import server.database.IPersistencePlugin;
 import server.exception.BadRequestException;
+import server.exception.DatabaseException;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
 import server.exception.UnauthorizedException;
@@ -30,11 +32,13 @@ import java.io.IOException;
 public class MovesHandler extends APIHandler
 {
     private final CommandFactory commandFactory;
+    private final IPersistencePlugin plugin;
 
     @Inject
-    public MovesHandler(IServerFacade facade_p) {
+    public MovesHandler(IServerFacade facade_p, IPersistencePlugin _plugin) {
         super(facade_p);
         commandFactory = new CommandFactory(facade);
+        plugin = _plugin;
     }
 
     @Override
@@ -54,9 +58,16 @@ public class MovesHandler extends APIHandler
 
             IJavaJSON json = (IJavaJSON) getRequest(httpExchange, type);
             ICommand command = commandFactory.buildCommand(token, json);
+            
+            plugin.startTransaction();
 
             respond200(httpExchange, JSONSerializer.serialize((CatanModel)command.execute()));
-            facade.recordCommand(token, command);
+            
+            plugin.getCommandDAO().addCommand(command); //Need to make sure that each of the addCommand methods check for the nth command and do the clearning needed.
+            
+            plugin.endTransaction(true);
+            
+            facade.recordCommand(token, command); // Probably don't need this because it's stored in the databases.
         }
         catch (Exception e)
         {
@@ -69,6 +80,13 @@ public class MovesHandler extends APIHandler
             else
                 respond400(httpExchange, e.getMessage());
             httpExchange.close();
+            try
+			{
+				plugin.endTransaction(false);
+			} catch (DatabaseException e1)
+			{
+				e1.printStackTrace();
+			}
             e.printStackTrace();
         }
     }

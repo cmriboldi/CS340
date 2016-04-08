@@ -14,6 +14,7 @@ import jcommander.JCommander;
 import jcommander.Parameter;
 import server.database.EmptyPlugin;
 import server.database.IDatabase;
+import server.database.IPersistencePlugin;
 import server.database.IPluginClass;
 import server.database.VolatileDatabase;
 import server.exception.ServerException;
@@ -130,7 +131,9 @@ public class Server {
                 e.printStackTrace();
             }
         }
-
+        
+        IPersistencePlugin plugin = injector.getInstance(IPersistencePlugin.class);
+        plugin.thaw();
 
         //initialize the http handlers
         userHandler = injector.getInstance(UserHandler.class);
@@ -145,7 +148,6 @@ public class Server {
         facade.register("Sam", "sam");
         facade.register("Brooke", "brooke");
         facade.register("Mark", "mark");
-
 
         try
         {
