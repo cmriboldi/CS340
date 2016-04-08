@@ -217,4 +217,9 @@ public class MockFacade implements IServerFacade
     {
 
     }
+
+    @Override
+    public IDatabase getDatabase() throws ServerException {
+        return null;
+    }
 }

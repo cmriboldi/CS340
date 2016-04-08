@@ -32,21 +32,20 @@ public final class SQLQuery
     {
         return "CREATE TABLE command\n" +
                 "(\n" +
-                "command_id INTEGER PRIMARY KEY,\n" +
+                "id INTEGER PRIMARY KEY,\n" +
                 "game_id INT NOT NULL,\n" +
-                "order_of_execution INT NOT NULL,\n" +
                 "command BLOB NOT NULL\n" +
                 ");";
     }
 
-    public static String getGame()
+    public static String getGame(int gameID)
     {
-        return "SELECT * FROM game WHERE id = ?;";
+        return "SELECT * FROM game WHERE id = " + gameID + ";";
     }
 
     public static String getAllGames()
     {
-        return "SELECT id, game_name, model FROM game;";
+        return "SELECT id, game_name, model FROM game ORDER BY id;";
     }
 
     public static String addGame()

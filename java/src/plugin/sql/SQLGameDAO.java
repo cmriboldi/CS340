@@ -37,7 +37,8 @@ public class SQLGameDAO implements IGameDAO
             PreparedStatement pstmt = database.getConnection().prepareStatement(SQLQuery.addGame());
             pstmt.setString(1, game.getName());
             pstmt.setInt(2, game.getModel().getVersion());
-            byte[] data = new Gson().toJson(JSONSerializer.serialize(game.getModel())).getBytes();
+            System.out.println("Attempting to add: " + JSONSerializer.serialize(game.getModel()).replace("\\", "\\\\"));
+            byte[] data = JSONSerializer.serialize(game.getModel()).replace("\\", "\\\\").getBytes();
             pstmt.setBytes(3, data);
 
             if(pstmt.executeUpdate() != 1)
@@ -64,17 +65,16 @@ public class SQLGameDAO implements IGameDAO
         GameData game = null;
         try
         {
-            PreparedStatement pstmt = database.getConnection().prepareStatement(SQLQuery.getGame());
-            pstmt.setInt(1, gameID);
+            Statement statement = database.getConnection().createStatement();
 
-            ResultSet result = pstmt.executeQuery();
+            ResultSet result = statement.executeQuery(SQLQuery.getGame(gameID + 1));
             if(result.next())
             {
                 int id = result.getInt(1) - 1;
                 String game_name = result.getString(2);
                 CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(4)));
             }
-            pstmt.close();
+            statement.close();
         }
         catch (SQLException e)
         {
@@ -146,19 +146,19 @@ public class SQLGameDAO implements IGameDAO
     {
         try
         {
-            CatanModel newVersion = database.getFacade().getGameModel(new AuthToken("", "", -1, gameID - 1));
+            CatanModel newVersion = database.getFacade().getGameModel(new AuthToken("", "", -1, gameID));
             PreparedStatement pstmt = database.getConnection().prepareStatement(SQLQuery.updateGame());
             pstmt.setInt(1, newVersion.getVersion());
             byte[] data = new Gson().toJson(JSONSerializer.serialize(newVersion)).getBytes();
             pstmt.setBytes(2, data);
-            pstmt.setInt(3, gameID);
+            pstmt.setInt(3, gameID + 1);
 
             if(pstmt.executeUpdate() != 1)
                 throw new DatabaseException("Cannot update game");
             else
             {
                 Statement statement = database.getConnection().createStatement();
-                statement.execute(SQLQuery.deleteAllCommandsForGame(gameID));
+                statement.execute(SQLQuery.deleteAllCommandsForGame(gameID + 1));
                 statement.close();
             }
             pstmt.close();
@@ -179,7 +179,7 @@ public class SQLGameDAO implements IGameDAO
         try
         {
             Statement statement = database.getConnection().createStatement();
-            statement.execute(SQLQuery.deleteGame(gameID));
+            statement.execute(SQLQuery.deleteGame(gameID + 1));
             statement.close();
         }
         catch (SQLException e)

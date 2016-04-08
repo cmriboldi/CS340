@@ -2,6 +2,8 @@ package server.handler;
 
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
+import server.data.UserData;
+import server.database.IPersistencePlugin;
 import server.exception.BadRequestException;
 import server.exception.InvalidCredentialsException;
 import server.exception.ServerException;
@@ -23,9 +25,13 @@ import java.io.IOException;
  */
 public class UserHandler extends APIHandler
 {
+    private IPersistencePlugin plugin;
+
     @Inject
-    public UserHandler(IServerFacade facade_p) {
+    public UserHandler(IServerFacade facade_p, IPersistencePlugin plugin)
+    {
         super(facade_p);
+        this.plugin = plugin;
     }
 
     @Override
@@ -45,6 +51,14 @@ public class UserHandler extends APIHandler
                     response = facade.register(json.getUsername(), json.getPassword());
                     httpExchange.getResponseHeaders().add("Set-cookie", response);
                     success(httpExchange);
+
+                    //account for persistence
+                    if(plugin != null)
+                    {
+                        plugin.startTransaction();
+                        plugin.getUserDAO().addUser(new UserData(json.getUsername(), json.getPassword()));
+                        plugin.endTransaction(true);
+                    }
                     break;
 
                 case "/user/login":

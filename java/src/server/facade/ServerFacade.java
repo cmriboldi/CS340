@@ -249,4 +249,10 @@ public class ServerFacade implements IServerFacade
     {
         database.addCommand(token.getGameID(), command);
     }
+
+    @Override
+    public IDatabase getDatabase() throws ServerException
+    {
+        return database;
+    }
 }

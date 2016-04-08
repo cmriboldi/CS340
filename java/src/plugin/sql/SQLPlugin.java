@@ -2,11 +2,11 @@ package plugin.sql;
 
 import com.google.inject.Inject;
 
-import server.database.ICommandDAO;
-import server.database.IGameDAO;
-import server.database.IPersistencePlugin;
-import server.database.IUserDAO;
+import server.command.ICommand;
+import server.data.UserData;
+import server.database.*;
 import server.exception.DatabaseException;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 
 import java.io.File;
@@ -206,7 +206,30 @@ public class SQLPlugin implements IPersistencePlugin
 	@Override
 	public void thaw() throws DatabaseException
 	{
-		// TODO Auto-generated method stub
-		
+        try
+        {
+            startTransaction();
+            UserData[] users = userDAO.getAllUsers();
+            for(UserData user : users)
+            {
+                facade.register(user.getName(), user.getPassword());
+            }
+            GameData[] games = gameDAO.getAllGames();
+            for(GameData game : games)
+            {
+                facade.getDatabase().addGame(game.getName(), game.getModel());
+                ICommand[] commands = commandDAO.getAllCommands(game.getGameID());
+                for(ICommand command : commands)
+                {
+                    command.execute();
+                }
+            }
+
+        }
+        catch (ServerException e)
+        {
+            e.printStackTrace();
+        }
+
 	}
 }

@@ -143,4 +143,6 @@ public interface IServerFacade
     boolean isValidUser(AuthToken token) throws ServerException;
 
     void recordCommand(AuthToken token, ICommand command) throws ServerException;
+
+    IDatabase getDatabase() throws ServerException;
 }
