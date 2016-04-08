@@ -46,14 +46,7 @@ public class MongoCommandDAO implements ICommandDAO {
 
 	@Override
 	public ICommand getCommand(int commandID) throws DatabaseException {
-		String id = Integer.toString(commandID);
-		
-		MongoDatabase db = mongoClient.getDatabase("Catan");
-		MongoCollection<Document> coll = db.getCollection("Commands");
-		Document doc = coll.find().first();
-		ICommand command = (ICommand)doc.get(id);
-		
-		return command;
+		return null;
 	}
 
 	@Override
@@ -87,21 +80,12 @@ public class MongoCommandDAO implements ICommandDAO {
 
 	@Override
 	public ICommand[] getAllCommands(int gameID, int index) throws DatabaseException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void deleteCommand(int commandID) throws DatabaseException {
-		String id = Integer.toString(commandID);
-		
-		MongoDatabase db = mongoClient.getDatabase("Catan");
-		MongoCollection<Document> coll = db.getCollection("Commands");
-		Document origin = coll.find().first();
-		Document replace = new Document(origin);
-		
-		replace.remove(id);
-		coll.findOneAndReplace(origin, replace);		
+		throw new DatabaseException("This method should not be called");
 	}
 
 }

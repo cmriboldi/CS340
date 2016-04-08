@@ -5,6 +5,7 @@ import server.database.IGameDAO;
 import server.database.IPersistencePlugin;
 import server.database.IUserDAO;
 import server.exception.DatabaseException;
+import server.facade.IServerFacade;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -31,6 +32,12 @@ import org.bson.Document;
 public class MongoPlugin implements IPersistencePlugin {
 	
 	private MongoClient mongoClient;
+	private IServerFacade facade;
+	
+	public MongoPlugin(IServerFacade facade)
+	{
+		this.facade = facade;
+	}
 	
 	@Override
 	public void startTransaction() throws DatabaseException {
@@ -45,12 +52,11 @@ public class MongoPlugin implements IPersistencePlugin {
 	@Override
 	public void thaw() throws DatabaseException {
 		
-		
 	}
 
 	@Override
 	public IGameDAO getGameDAO() throws DatabaseException {
-		return new MongoGameDAO(mongoClient);
+		return new MongoGameDAO(mongoClient,facade);
 	}
 
 	@Override

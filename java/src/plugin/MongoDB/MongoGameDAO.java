@@ -4,6 +4,8 @@ import model.CatanModel;
 import server.database.GameData;
 import server.database.IGameDAO;
 import server.exception.DatabaseException;
+import server.exception.ServerException;
+import server.facade.IServerFacade;
 import server.facade.JSONSerializer;
 import serverProxy.JSONDeserializer;
 import shared.exceptions.player.GeneralPlayerException;
@@ -32,17 +34,20 @@ import org.bson.Document;
 public class MongoGameDAO implements IGameDAO{
 	
 	private MongoClient mongoClient;
+	private IServerFacade facade;
 	
-	public MongoGameDAO(MongoClient mongoClient) {
+	public MongoGameDAO(MongoClient mongoClient, IServerFacade facade) {
 		this.mongoClient = mongoClient;
+		this.facade = facade;
 	}
 	
 	@Override
 	public void addGame(GameData game) throws DatabaseException {
 		CatanModel model = game.getModel();
-		String id = Integer.toString(game.getGameID());///////////////
+		String id = Integer.toString(game.getGameID());
 		String json = JSONSerializer.serialize(model);
 		DBObject dbobject = (DBObject)JSON.parse(json);
+		dbobject.put("Name", game.getName());
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
@@ -68,7 +73,10 @@ public class MongoGameDAO implements IGameDAO{
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
 		Document doc = coll.find().first();
-		String json = JSON.serialize(doc.get(id));
+		DBObject dbobject = (DBObject) doc.get(id);
+		String name = (String) dbobject.get("Name");
+		dbobject.removeField("Name");
+		String json = JSON.serialize(dbobject);
 		
 		CatanModel model = null;
 		try {
@@ -76,7 +84,7 @@ public class MongoGameDAO implements IGameDAO{
 		} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) {
 			e.printStackTrace();
 		}		
-		return new GameData(gameID,"name",model);////////////////////
+		return new GameData(gameID,name,model);
 	}
 
 	@Override
@@ -90,7 +98,10 @@ public class MongoGameDAO implements IGameDAO{
 		int i = 0;
 		for(String id : ids)
 		{
-			String json = JSON.serialize(doc.get(id));
+			DBObject dbobject = (DBObject) doc.get(id);
+			String name = (String) dbobject.get("Name");
+			dbobject.removeField("Name");
+			String json = JSON.serialize(dbobject);
 			
 			CatanModel model = null;
 			try {
@@ -98,7 +109,7 @@ public class MongoGameDAO implements IGameDAO{
 			} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) {
 				e.printStackTrace();
 			}		
-			games[i] = new GameData(Integer.parseInt(id),"name",model);////////////////////
+			games[i] = new GameData(Integer.parseInt(id),name,model);////////////////////
 			i++;
 		}
 		return games;
@@ -106,7 +117,24 @@ public class MongoGameDAO implements IGameDAO{
 
 	@Override
 	public void updateGame(int gameID) throws DatabaseException {
-		// TODO Auto-generated method stub		
+		CatanModel model = null;
+		try {
+			model = facade.getDatabase().getGameModel(gameID);
+		} catch (ServerException e) {
+			e.printStackTrace();
+		}
+		MongoDatabase db = mongoClient.getDatabase("Catan");
+		MongoCollection<Document> coll = db.getCollection("Games");
+		Document origin = coll.find().first();
+		Document replace = new Document(origin);
+		
+		String name = (String)((DBObject)origin.get(Integer.toString(gameID))).get("Name");
+		String json = JSONSerializer.serialize(model);
+		DBObject dbobject = (DBObject)JSON.parse(json);
+		dbobject.put("Name", name);		
+					
+		replace.append(Integer.toString(gameID), dbobject);		
+		coll.findOneAndReplace(origin, replace);	
 	}
 
 	@Override
