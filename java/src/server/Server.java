@@ -178,7 +178,7 @@ public class Server {
         @Parameter(names = {"-p", "--port"}, description = "used to specify a custom port for the server to run on")
         private int port = 8081;
 
-        @Parameter(names = {"-u", "--plugin"}, description = "used to specify a plugin for the persistent database")
+        @Parameter(names = {"-u", "--plugin"}, description = "used to specify a plugin for the persistent database, JAR files only, don't include the file extension in the argument")
         private String pluginID = "";
 
         @Parameter(names = {"-?", "--help"}, help = true)
