@@ -139,25 +139,12 @@ public class Server {
         movesHandler = injector.getInstance(MovesHandler.class);
         swaggerHandler = injector.getInstance(SwaggerHandler.class);
 
-
-
-
         IServerFacade facade = injector.getInstance(IServerFacade.class);
 
         facade.register("Pete", "pete");
         facade.register("Sam", "sam");
         facade.register("Brooke", "brooke");
         facade.register("Mark", "mark");
-
-//        GameInfo info = facade.createGame(false, false, false, "Nothing Random");
-//
-//        facade.joinGame(new AuthToken("Pete", "pete", 1, -1), info.getId(), CatanColor.RED);
-//        facade.joinGame(new AuthToken("Sam", "sam", 2, -1), info.getId(), CatanColor.ORANGE);
-//        facade.joinGame(new AuthToken("Brooke", "brooke", 3, -1), info.getId(), CatanColor.BLUE);
-//        facade.joinGame(new AuthToken("Mark", "mark", 4, -1), info.getId(), CatanColor.GREEN);
-        
-
-
 
 
         try
@@ -167,7 +154,6 @@ public class Server {
         }
         catch (IOException e)
         {
-//            logger.log(Level.SEVERE, e.getMessage(), e);
             e.printStackTrace();
             return;
         }
