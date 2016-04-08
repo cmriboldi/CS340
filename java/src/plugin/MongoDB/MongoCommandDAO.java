@@ -39,7 +39,7 @@ public class MongoCommandDAO implements ICommandDAO {
 		Document origin = coll.find().first();
 		Document replace = new Document(origin);
 		
-		replace.append(command.toString(), command);	
+		replace.append(Integer.toString(command.getGameID()), command);
 		coll.findOneAndReplace(origin, replace);
 		
 	}

@@ -44,7 +44,7 @@ public class MongoPlugin implements IPersistencePlugin {
 
 	@Override
 	public void thaw() throws DatabaseException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
@@ -66,8 +66,8 @@ public class MongoPlugin implements IPersistencePlugin {
 	@Override
 	public void clear() throws DatabaseException
 	{
-		// TODO Auto-generated method stub
-		
+		DB db = mongoClient.getDB("Catan");
+		db.dropDatabase();
 	}
 }
 

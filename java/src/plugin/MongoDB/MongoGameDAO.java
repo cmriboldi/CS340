@@ -38,18 +38,27 @@ public class MongoGameDAO implements IGameDAO{
 	}
 	
 	@Override
-	public void addGame(CatanModel game) throws DatabaseException {	
-		String id = Integer.toString(game.getVersion());///////////////
-		String json = JSONSerializer.serialize(game);
+	public void addGame(GameData game) throws DatabaseException {
+		CatanModel model = game.getModel();
+		String id = Integer.toString(game.getGameID());///////////////
+		String json = JSONSerializer.serialize(model);
 		DBObject dbobject = (DBObject)JSON.parse(json);
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
 		Document origin = coll.find().first();
-		Document replace = new Document(origin);
-		
-		replace.append(id, dbobject);		
-		coll.findOneAndReplace(origin, replace);
+		if(origin == null)
+		{
+			origin = new Document();
+			origin.append(id, dbobject);
+			coll.insertOne(origin);
+		}
+		else
+		{
+			Document replace = new Document(origin);		
+			replace.append(id, dbobject);		
+			coll.findOneAndReplace(origin, replace);
+		}
 	}
 
 	@Override
@@ -97,8 +106,7 @@ public class MongoGameDAO implements IGameDAO{
 
 	@Override
 	public void updateGame(int gameID) throws DatabaseException {
-		// TODO Auto-generated method stub
-		
+		// TODO Auto-generated method stub		
 	}
 
 	@Override
