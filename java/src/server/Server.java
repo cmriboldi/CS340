@@ -106,7 +106,7 @@ public class Server {
                     //Iterate through all the files looking for the file matching the pluginID
                     for(File current : jarFolder.listFiles()){
                         //If we find a file with a name matching the requested plugin
-                        if(current.getName().equals(arguments.pluginID)){
+                        if(current.getName().equals(arguments.pluginID + ".jar")){
                             //Bind the plugin
                             URL pluginURL = current.toURI().toURL();
                             URLClassLoader classLoader = new URLClassLoader(new URL[]{pluginURL}, this.getClass().getClassLoader());
