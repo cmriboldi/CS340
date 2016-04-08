@@ -2,7 +2,9 @@ package server.database;
 
 import com.google.inject.Inject;
 import server.exception.DatabaseException;
+import server.facade.IServerFacade;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
@@ -11,18 +13,22 @@ import java.lang.reflect.Method;
  */
 public class ReflexivePlugin implements IPersistencePlugin {
 
+    private IServerFacade facade;
     private Class classInstance = null;
     private Object constructedInstance = null;
 
 
     @Inject
-    public ReflexivePlugin(IPluginClass pluginClass)
+    public ReflexivePlugin(IPluginClass pluginClass_p, IServerFacade facade_p)
     {
-        try {
-            classInstance = pluginClass.getClassType();
-            constructedInstance = classInstance.newInstance();
+        facade = facade_p;
 
-        } catch (InstantiationException | IllegalAccessException e) {
+        try {
+            classInstance = pluginClass_p.getClassType();
+            Constructor pluginConstructor = classInstance.getDeclaredConstructor(IServerFacade.class);
+            constructedInstance = pluginConstructor.newInstance(facade);
+
+        } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
         }
     }
