@@ -1,6 +1,8 @@
 package test;
 
+import model.CatanModel;
 import plugin.sql.SQLPlugin;
+import server.database.GameData;
 import server.database.IPersistencePlugin;
 import server.database.VolatileDatabase;
 import server.exception.DatabaseException;
@@ -17,7 +19,12 @@ public class TestSQLMain
         System.out.println("Got this far");
         try
         {
-            plugin.clear();
+            //plugin.clear();
+            plugin.startTransaction();
+            plugin.getGameDAO().addGame(new GameData(0, "Test", new CatanModel(false, false, false)));
+            //plugin.getGameDAO().deleteGame(2);
+            //plugin.getGameDAO().updateGame(1);
+            plugin.endTransaction(true);
         }
         catch (DatabaseException e)
         {

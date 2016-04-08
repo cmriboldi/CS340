@@ -86,11 +86,6 @@ public class SQLPlugin implements IPersistencePlugin
     private SQLGameDAO gameDAO;
     private SQLCommandDAO commandDAO;
     private Connection connection;
-    
-    public Connection getConnection()
-    {
-    	return connection;
-    }
 
     @Inject
     public SQLPlugin(IServerFacade facade)
@@ -109,6 +104,16 @@ public class SQLPlugin implements IPersistencePlugin
         {
             e.printStackTrace();
         }
+    }
+
+    public Connection getConnection()
+    {
+        return connection;
+    }
+
+    public IServerFacade getFacade()
+    {
+        return facade;
     }
 
     @Override
@@ -165,9 +170,12 @@ public class SQLPlugin implements IPersistencePlugin
         {
             startTransaction();
             Statement statement = getConnection().createStatement();
-            statement.execute(SQLQuery.deleteAllGames());
-            statement.execute(SQLQuery.deleteAllUsers());
-            statement.execute(SQLQuery.deleteAllCommands());
+            statement.execute(SQLQuery.dropGameTable());
+            statement.execute(SQLQuery.dropUsersTable());
+            statement.execute(SQLQuery.dropCommandTable());
+            statement.execute(SQLQuery.createGameTable());
+            statement.execute(SQLQuery.createUserTable());
+            statement.execute(SQLQuery.createCommandTable());
             endTransaction(true);
             statement.close();
         }
