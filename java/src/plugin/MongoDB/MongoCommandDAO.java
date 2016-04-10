@@ -27,19 +27,26 @@ import org.bson.Document;
 public class MongoCommandDAO implements ICommandDAO {
 
 	private MongoClient mongoClient;
+	private String gameID;
 	
 	public MongoCommandDAO(MongoClient mongoClient) {
-		this.mongoClient = mongoClient;
+		this.mongoClient = mongoClient;		
+	}
+	
+	public String getLastGameId()
+	{
+		return gameID;
 	}
 	
 	@Override
 	public void addCommand(ICommand command) throws DatabaseException {
+		gameID = Integer.toString(command.getGameID());
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Commands");
 		Document origin = coll.find().first();
 		Document replace = new Document(origin);
 		
-		replace.append(Integer.toString(command.getGameID()), command);
+		replace.append(gameID, command);
 		coll.findOneAndReplace(origin, replace);
 		
 	}
