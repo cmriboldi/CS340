@@ -18,6 +18,9 @@ import com.mongodb.DBObject;
 import com.mongodb.DBCursor;
 
 import com.mongodb.ServerAddress;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
+
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
