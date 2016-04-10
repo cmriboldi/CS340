@@ -3,10 +3,9 @@ package server.handler;
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import server.data.UserData;
-import server.database.IPersistencePlugin;
+import plugin.IPersistencePlugin;
 import server.exception.BadRequestException;
 import server.exception.InvalidCredentialsException;
-import server.exception.ServerException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.LoginJSON;
 

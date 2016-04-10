@@ -2,6 +2,7 @@ package server.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import plugin.*;
 import server.database.*;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
@@ -14,6 +15,7 @@ public class PersistantModule extends AbstractModule
     @Override
     protected void configure()
     {
+        bind(IPluginData.class).to(PluginData.class).in(Singleton.class);
         bind(IPluginClass.class).to(PluginClass.class).in(Singleton.class);
         bind(IPersistencePlugin.class).to(ReflexivePlugin.class).in(Singleton.class);
 

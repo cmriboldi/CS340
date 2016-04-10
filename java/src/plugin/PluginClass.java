@@ -1,4 +1,4 @@
-package server.database;
+package plugin;
 
 /**
  * Created by clayt on 4/8/2016.

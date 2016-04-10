@@ -1,6 +1,7 @@
-package server.database;
+package plugin;
 
 import com.google.inject.Inject;
+import server.database.*;
 import server.exception.DatabaseException;
 import server.facade.IServerFacade;
 

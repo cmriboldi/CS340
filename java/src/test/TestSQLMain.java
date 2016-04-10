@@ -1,17 +1,15 @@
 package test;
 
-import model.CatanModel;
+import plugin.IPluginData;
+import plugin.PluginData;
 import plugin.sql.SQLPlugin;
-import server.command.BuildCityCommand;
 import server.database.GameData;
-import server.database.IPersistencePlugin;
+import plugin.IPersistencePlugin;
 import server.database.VolatileDatabase;
 import server.exception.DatabaseException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
-import shared.communication.JSON.BuildRoadJSON;
-import shared.locations.EdgeLocation;
 
 /**
  * Created by Joshua on 4/4/2016.
@@ -21,7 +19,11 @@ public class TestSQLMain
     public static void main(String[] args)
     {
         IServerFacade facade = new ServerFacade(new VolatileDatabase());
-        IPersistencePlugin plugin = new SQLPlugin(facade);
+
+        IPluginData plugData = new PluginData();
+        plugData.setCheckinSize(10);
+
+        IPersistencePlugin plugin = new SQLPlugin(facade, plugData);
         System.out.println("Got this far");
         try
         {

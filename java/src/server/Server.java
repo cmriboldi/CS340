@@ -3,29 +3,20 @@ package server;
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
-import java.util.logging.*;
 
-import client.data.GameInfo;
 import com.google.inject.Guice;
-import com.google.inject.Inject;
 import com.google.inject.Injector;
 import com.sun.net.httpserver.*;
 import jcommander.JCommander;
 import jcommander.Parameter;
-import server.database.EmptyPlugin;
-import server.database.IDatabase;
-import server.database.IPersistencePlugin;
-import server.database.IPluginClass;
-import server.database.VolatileDatabase;
+import plugin.*;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
-import server.facade.ServerFacade;
 import server.guice.PersistantModule;
 import server.guice.PersistantMongoModule;
 import server.guice.PersistantSQLModule;
 import server.guice.VolatileRealModule;
 import server.handler.*;
-import shared.definitions.CatanColor;
 
 /**
  * Created by Joshua on 3/9/2016.
@@ -85,7 +76,6 @@ public class Server {
         //Parse the command line arguments - with JCommander you can access command line arguments like this ... arguments.port
         ArgParse arguments = new ArgParse();
         new JCommander(arguments, args);
-
 
         //Case to use the locally defined SQL plugin
         if(arguments.localPluginID.equals("SQL")){
@@ -148,6 +138,10 @@ public class Server {
 
         if(injector == null)
             injector = Guice.createInjector(new VolatileRealModule());
+
+        //set the checkInSize into the object the plugins will use to access the checkInSize
+        IPluginData plugData = injector.getInstance(IPluginData.class);
+        plugData.setCheckinSize(arguments.checkinSize);
 
         IPersistencePlugin plugin = injector.getInstance(IPersistencePlugin.class);
         plugin.thaw();

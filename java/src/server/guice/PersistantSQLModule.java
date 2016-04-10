@@ -2,6 +2,7 @@ package server.guice;
 
 import com.google.inject.AbstractModule;
 import com.google.inject.Singleton;
+import plugin.*;
 import plugin.sql.SQLPlugin;
 import server.database.*;
 import server.facade.IServerFacade;
@@ -15,7 +16,9 @@ public class PersistantSQLModule extends AbstractModule
     @Override
     protected void configure()
     {
+        bind(IPluginData.class).to(PluginData.class).in(Singleton.class);
         bind(IPluginClass.class).to(PluginClass.class).in(Singleton.class);
+
         bind(IPersistencePlugin.class).to(SQLPlugin.class).in(Singleton.class);
 
         bind(IServerFacade.class).to(ServerFacade.class).in(Singleton.class);

@@ -2,6 +2,8 @@ package plugin.sql;
 
 import com.google.inject.Inject;
 
+import plugin.IPersistencePlugin;
+import plugin.IPluginData;
 import server.command.ICommand;
 import server.data.UserData;
 import server.database.*;
@@ -88,7 +90,7 @@ public class SQLPlugin implements IPersistencePlugin
     private Connection connection;
 
     @Inject
-    public SQLPlugin(IServerFacade facade)
+    public SQLPlugin(IServerFacade facade, IPluginData plugData)
     {
         this.facade = facade;
         userDAO = new SQLUserDAO(this);
