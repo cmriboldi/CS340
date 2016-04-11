@@ -8,6 +8,7 @@ import server.AuthToken;
 import server.database.GameData;
 import plugin.IPersistencePlugin;
 import server.exception.BadRequestException;
+import server.exception.DatabaseException;
 import server.exception.InvalidCredentialsException;
 import server.exception.UnauthorizedException;
 import server.facade.IServerFacade;
@@ -48,6 +49,7 @@ public class GamesHandler extends APIHandler
         {
             String uri = httpExchange.getRequestURI().toString();
             System.out.println("GAMES_HANDLER: " + uri);
+            CatanModel model;
 
             switch(uri)
             {
@@ -58,16 +60,14 @@ public class GamesHandler extends APIHandler
                 case "/games/create":
                     CreateGameJSON json = (CreateGameJSON) getRequest(httpExchange, CreateGameJSON.class);
                     GameInfo response = facade.createGame(json.isRandomTiles(), json.isRandomNumbers(), json.isRandomPorts(), json.getName());
-                    respond200(httpExchange, response);
 
                     // account for persistence
-                    if(plugin != null)
-                    {
-                        plugin.startTransaction();
-                        CatanModel model = facade.getDatabase().getGameModel(response.getId());
-                        plugin.getGameDAO().addGame(new GameData(response.getId(), response.getTitle(), model));
-                        plugin.endTransaction(true);
-                    }
+                    plugin.startTransaction();
+                    model = facade.getDatabase().getGameModel(response.getId());
+                    plugin.getGameDAO().addGame(new GameData(response.getId(), response.getTitle(), model));
+                    plugin.endTransaction(true);
+
+                    respond200(httpExchange, response);
                     break;
 
                 case "/games/join":
@@ -75,16 +75,14 @@ public class GamesHandler extends APIHandler
                     JoinGameJSON joinJSON = (JoinGameJSON) getRequest(httpExchange, JoinGameJSON.class);
                     String cookie = facade.joinGame(token, joinJSON.getId(), CatanColor.toCatanColor(joinJSON.getColor()));
                     httpExchange.getResponseHeaders().add("Set-cookie", cookie);
-                    success(httpExchange);
 
                     // account for persistence
-                    if(plugin != null)
-                    {
-                        plugin.startTransaction();
-                        CatanModel model = facade.getDatabase().getGameModel(joinJSON.getId());
-                        plugin.getGameDAO().updateGame(joinJSON.getId());
-                        plugin.endTransaction(true);
-                    }
+                    plugin.startTransaction();
+                    model = facade.getDatabase().getGameModel(joinJSON.getId());
+                    plugin.getGameDAO().updateGame(joinJSON.getId());
+                    plugin.endTransaction(true);
+
+                    success(httpExchange);
                     break;
 
                 case "/games/save":
@@ -113,6 +111,14 @@ public class GamesHandler extends APIHandler
                 respond401(httpExchange, e.getMessage());
             else
                 respond500(httpExchange);
+            try
+            {
+                plugin.endTransaction(false);
+            }
+            catch (DatabaseException e1)
+            {
+                e1.printStackTrace();
+            }
             httpExchange.close();
             e.printStackTrace();
         }
