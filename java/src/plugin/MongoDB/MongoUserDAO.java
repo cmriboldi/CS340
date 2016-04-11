@@ -80,22 +80,29 @@ public class MongoUserDAO implements IUserDAO {
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Users");
 		Document doc = coll.find().first();
-		Set<String> ids = doc.keySet();
-		UserData[] users = new UserData[ids.size()];
-		
-		int i = 0;
-		for(String id : ids)
+		if(doc != null)
 		{
-			DBObject object = (DBObject) doc.get(id);
-			String name = (String) object.get("name");
-			String password = (String) object.get("password");
-			UserData user = new UserData(name,password);
-			user.setId(Integer.parseInt(id));
-			users[i] = user;
-			i++;
+			Set<String> ids = doc.keySet();
+			UserData[] users = new UserData[ids.size()];
+			
+			int i = 0;
+			for(String id : ids)
+			{
+				DBObject object = (DBObject) doc.get(id);
+				String name = (String) object.get("name");
+				String password = (String) object.get("password");
+				UserData user = new UserData(name,password);
+				user.setId(Integer.parseInt(id));
+				users[i] = user;
+				i++;
+			}
+			
+			return users;
 		}
-		
-		return users;
+		else
+		{
+			return new UserData[0];
+		}
 	}
 
 	@Override

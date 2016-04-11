@@ -89,8 +89,8 @@ public class Server {
 
         //Case to use the locally defined Mongo plugin
         if(arguments.localPluginID.equals("Mongo")){
-            injector = Guice.createInjector(new PersistantMongoModule());
-            System.out.println("SYSTEM IS USING THE LOCAL MONGO PLUGIN");
+        	System.out.println("SYSTEM IS USING THE LOCAL MONGO PLUGIN");
+            injector = Guice.createInjector(new PersistantMongoModule());            
         }
 
         //Case for a loaded plugin

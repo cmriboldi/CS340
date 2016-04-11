@@ -92,27 +92,34 @@ public class MongoGameDAO implements IGameDAO{
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
 		Document doc = coll.find().first();
-		Set<String> ids = doc.keySet();
-		GameData[] games = new GameData[ids.size()];
-		
-		int i = 0;
-		for(String id : ids)
+		if(doc != null)
 		{
-			DBObject dbobject = (DBObject) doc.get(id);
-			String name = (String) dbobject.get("Name");
-			dbobject.removeField("Name");
-			String json = JSON.serialize(dbobject);
+			Set<String> ids = doc.keySet();
+			GameData[] games = new GameData[ids.size()];
 			
-			CatanModel model = null;
-			try {
-				model = JSONDeserializer.deserialize(json);
-			} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) {
-				e.printStackTrace();
-			}		
-			games[i] = new GameData(Integer.parseInt(id),name,model);////////////////////
-			i++;
+			int i = 0;
+			for(String id : ids)
+			{
+				DBObject dbobject = (DBObject) doc.get(id);
+				String name = (String) dbobject.get("Name");
+				dbobject.removeField("Name");
+				String json = JSON.serialize(dbobject);
+				
+				CatanModel model = null;
+				try {
+					model = JSONDeserializer.deserialize(json);
+				} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) {
+					e.printStackTrace();
+				}		
+				games[i] = new GameData(Integer.parseInt(id),name,model);////////////////////
+				i++;
+			}
+			return games;
 		}
-		return games;
+		else
+		{
+			return new GameData[0];
+		}
 	}
 
 	@Override
