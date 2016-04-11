@@ -2,16 +2,22 @@ package plugin.sql;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import com.google.gson.*;
 
+import server.AuthToken;
+import server.command.CommandFactory;
 import server.command.ICommand;
 import server.data.UserData;
 import server.database.ICommandDAO;
 import server.exception.DatabaseException;
+import shared.communication.JSON.IJavaJSON;
 
 /**
  * Created by Joshua on 4/3/2016.
@@ -67,46 +73,49 @@ public class SQLCommandDAO implements ICommandDAO
     }
 
     @Override
-    public ICommand[] getAllCommands(int gameID) throws DatabaseException {
-    	
-    	PreparedStatement stmt = null; 
-
-       	ResultSet rs = null; 
-    	
+    public ICommand[] getAllCommands(int gameID) throws DatabaseException
+	{
+    	PreparedStatement stmt = null;
+       	ResultSet rs = null;
     	ICommand[] returnCommands = null; 
     	
 		String query = "select * from command where game_id = ?"; 
-		try {
+		try
+		{
 			stmt = database.getConnection().prepareStatement(query);
 			stmt.setInt(1,gameID);
 						
 			rs = stmt.executeQuery(); 
-			
-			int rowcount = 0;
-			if (rs.last()) {
-			  rowcount = rs.getRow();
-			  rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
+
+			List<ICommand> commands = new ArrayList<>();
+			CommandFactory factory = new CommandFactory(database.getFacade());
+			while(rs.next())
+			{
+				String command_type = rs.getString(3);
+				Type type = IJavaJSON.getTypeFromString(command_type);
+				AuthToken token = new Gson().fromJson(new String(rs.getBytes(4)), AuthToken.class);
+				IJavaJSON json = new Gson().fromJson(new String(rs.getBytes(5)), type);
+				ICommand command = factory.buildCommand(token, json);
+				commands.add(command);
 			}
 			
-			returnCommands = new ICommand[rowcount]; 
-			int index = 0; 
-			
-			while (rs.next()) {
-			  // do your standard per row stuff
-				ICommand newCommand = new Gson().fromJson(rs.toString(), ICommand.class); 
-				returnCommands[index] = newCommand;  // MAKE NEW COMMAND OBJECTS HERE,
-				index ++; 
-			}
-			
+			returnCommands = new ICommand[commands.size()];
+			commands.toArray(returnCommands);
+
 			stmt.close();
-			
-		} catch (SQLException e) {
+		}
+		catch (SQLException e)
+		{
 			throw new DatabaseException(e.getMessage());
 		}
-		finally{
-			try {
+		finally
+		{
+			try
+			{
 				stmt.close();
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				throw new DatabaseException(e.getMessage());
 			}
 

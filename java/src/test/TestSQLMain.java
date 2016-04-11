@@ -5,6 +5,7 @@ import plugin.IPluginData;
 import plugin.PluginData;
 import plugin.sql.SQLPlugin;
 import server.AuthToken;
+import server.command.ICommand;
 import server.command.MonopolyCommand;
 import server.data.UserData;
 import server.database.GameData;
@@ -55,9 +56,13 @@ public class TestSQLMain
 
             // Test commands
             AuthToken token = new AuthToken("string", "string", 0, 0);
-            plugin.getCommandDAO().addCommand(new MonopolyCommand(token, new MonopolyJSON(0, "WOOD"), facade));
+//            plugin.getCommandDAO().addCommand(new MonopolyCommand(token, new MonopolyJSON(0, "WOOD"), facade));
+            ICommand[] commands = plugin.getCommandDAO().getAllCommands(0);
+            System.out.println(commands[0].getClass().toString());
+
 
             plugin.endTransaction(true);
+            plugin.thaw();
         }
         catch (DatabaseException e)
         {
