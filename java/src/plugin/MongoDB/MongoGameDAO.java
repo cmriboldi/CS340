@@ -135,7 +135,8 @@ public class MongoGameDAO implements IGameDAO{
 		Document origin = coll.find().first();
 		Document replace = new Document(origin);
 		
-		String name = (String)((DBObject)origin.get(Integer.toString(gameID))).get("Name");
+		DBObject obj = (DBObject) origin.get(Integer.toString(gameID));
+		String name = (String) obj.get("Name");
 		String json = JSONSerializer.serialize(model);
 		DBObject dbobject = (DBObject)JSON.parse(json);
 		dbobject.put("Name", name);		
