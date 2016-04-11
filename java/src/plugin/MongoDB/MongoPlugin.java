@@ -63,25 +63,28 @@ public class MongoPlugin implements IPersistencePlugin {
 	@Override
 	public void endTransaction(boolean commit) throws DatabaseException {
 		String gameID = commandDAO.getLastGameId();
-		ICommand[] commands = commandDAO.getAllCommands(Integer.parseInt(gameID));
-		if(commands.length >= 10)
+		if(gameID != null)
 		{
-			gameDAO.updateGame(Integer.parseInt(gameID));
-			MongoDatabase db = mongoClient.getDatabase("Catan");
-			MongoCollection<Document> coll = db.getCollection("Commands");
-			Document origin = coll.find().first();
-			Document replace = new Document(origin);
-			Set<String> ids = origin.keySet();
-			
-			for(String id : ids)
+			ICommand[] commands = commandDAO.getAllCommands(Integer.parseInt(gameID));
+			if(commands.length >= 10)
 			{
-				if(id.equals(gameID))
+				gameDAO.updateGame(Integer.parseInt(gameID));
+				MongoDatabase db = mongoClient.getDatabase("Catan");
+				MongoCollection<Document> coll = db.getCollection("Commands");
+				Document origin = coll.find().first();
+				Document replace = new Document(origin);
+				Set<String> ids = origin.keySet();
+				
+				for(String id : ids)
 				{
-					replace.remove(gameID);
+					if(id.equals(gameID))
+					{
+						replace.remove(gameID);
+					}
 				}
+				
+				coll.findOneAndReplace(origin, replace);
 			}
-			
-			coll.findOneAndReplace(origin, replace);
 		}
 		mongoClient.close();		
 	}
