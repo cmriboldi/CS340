@@ -77,14 +77,20 @@ public class Server {
         ArgParse arguments = new ArgParse();
         new JCommander(arguments, args);
 
+        //assign command line arguments
+        if(arguments.port != 8081)
+            SERVER_PORT_NUMBER = arguments.port;
+
         //Case to use the locally defined SQL plugin
         if(arguments.localPluginID.equals("SQL")){
             injector = Guice.createInjector(new PersistantSQLModule());
+            System.out.println("SYSTEM IS USING THE LOCAL SQL PLUGIN");
         }
 
         //Case to use the locally defined Mongo plugin
         if(arguments.localPluginID.equals("Mongo")){
             injector = Guice.createInjector(new PersistantMongoModule());
+            System.out.println("SYSTEM IS USING THE LOCAL MONGO PLUGIN");
         }
 
         //Case for a loaded plugin
@@ -94,9 +100,7 @@ public class Server {
             //Get an instance of the pluginClassRepresentation, this with either be bound to the requested plugin OR a default class ... later to be bound to IPerPlug
             IPluginClass plugType = injector.getInstance(IPluginClass.class);
 
-            //assign command line arguments
-            if(arguments.port != 8081)
-                SERVER_PORT_NUMBER = arguments.port;
+
 
             //if a plugin argument is present
             if(!arguments.pluginID.equals("")){

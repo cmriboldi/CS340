@@ -187,6 +187,19 @@
 			</assertions>
 		</java>
 	</target>
+
+	<target name="our-server-SQL" depends="package" description="compiles, packages, and runs the student server with the SQL persistant database">
+		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
+			<arg value="--plugin"/>
+			<arg value="SQLPlugin"/>
+			<arg value="-n"/>
+			<arg value="10"/>
+			<sysproperty key="com.sun.management.jmxremote" value=""/>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
 	
 	<target name="test" depends="compile, compile-test" description="compiles, packages, and runs the JUnit tests for the project">
 		<java classname="test.Tester" fork="yes">
