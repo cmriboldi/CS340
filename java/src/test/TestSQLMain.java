@@ -55,7 +55,7 @@ public class TestSQLMain
 
             // Test commands
             AuthToken token = new AuthToken("string", "string", 0, 0);
-            plugin.getCommandDAO().addCommand(new MonopolyCommand(token, new MonopolyJSON(0, "WOOD"), facade));
+//            plugin.getCommandDAO().addCommand(new MonopolyCommand(token, new MonopolyJSON(0, "WOOD"), facade));
 
             plugin.endTransaction(true);
         }
