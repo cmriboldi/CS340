@@ -18,6 +18,7 @@ import com.mongodb.WriteConcern;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.model.InsertOneOptions;
 import com.mongodb.util.JSON;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -59,7 +60,7 @@ public class MongoGameDAO implements IGameDAO{
 		{
 			origin = new Document();
 			origin.append(id, dbobject);
-			coll.insertOne(origin);
+			coll.insertOne(origin); 
 		}
 		else
 		{
@@ -141,7 +142,8 @@ public class MongoGameDAO implements IGameDAO{
 		System.out.println(gameID);
 		System.out.println(origin.get(Integer.toString(gameID)));
 		
-		DBObject obj = (DBObject) origin.get(Integer.toString(gameID));
+		Document doc = (Document) origin.get(Integer.toString(gameID));
+		DBObject obj = (DBObject)JSON.parse(doc.toJson());
 		String name = (String) obj.get("Name");
 		String json = JSONSerializer.serialize(model);
 		DBObject dbobject = (DBObject)JSON.parse(json);
