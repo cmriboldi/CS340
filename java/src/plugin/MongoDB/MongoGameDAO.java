@@ -76,11 +76,12 @@ public class MongoGameDAO implements IGameDAO{
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
-		Document doc = coll.find().first();
-		DBObject dbobject = (DBObject) doc.get(id);
-		String name = (String) dbobject.get("Name");
-		dbobject.removeField("Name");
-		String json = JSON.serialize(dbobject);
+		Document origin = coll.find().first();
+		Document doc = (Document) origin.get(id);
+		DBObject obj = (DBObject)JSON.parse(doc.toJson());
+		String name = (String) obj.get("Name");
+		obj.removeField("Name");
+		String json = JSON.serialize(obj);
 		
 		CatanModel model = null;
 		try {
@@ -95,19 +96,20 @@ public class MongoGameDAO implements IGameDAO{
 	public GameData[] getAllGames() throws DatabaseException {
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Games");
-		Document doc = coll.find().first();
-		if(doc != null)
+		Document origin = coll.find().first();
+		if(origin != null)
 		{
-			Set<String> ids = doc.keySet();
+			Set<String> ids = origin.keySet();
 			GameData[] games = new GameData[ids.size()];
 			
 			int i = 0;
 			for(String id : ids)
 			{
-				DBObject dbobject = (DBObject) doc.get(id);
-				String name = (String) dbobject.get("Name");
-				dbobject.removeField("Name");
-				String json = JSON.serialize(dbobject);
+				Document doc = (Document) origin.get(id);
+				DBObject obj = (DBObject)JSON.parse(doc.toJson());
+				String name = (String) obj.get("Name");				
+				obj.removeField("Name");
+				String json = JSON.serialize(obj);
 				
 				CatanModel model = null;
 				try {
@@ -115,7 +117,7 @@ public class MongoGameDAO implements IGameDAO{
 				} catch (TurnIndexException | InvalidTurnStatusException | GeneralPlayerException e) {
 					e.printStackTrace();
 				}		
-				games[i] = new GameData(Integer.parseInt(id),name,model);////////////////////
+				games[i] = new GameData(Integer.parseInt(id),name,model);
 				i++;
 			}
 			return games;
@@ -140,7 +142,7 @@ public class MongoGameDAO implements IGameDAO{
 		Document replace = new Document(origin);
 		
 		System.out.println(gameID);
-		System.out.println(origin.get(Integer.toString(gameID)));
+		System.out.println(((Document)origin.get(Integer.toString(gameID))).toJson());
 		
 		Document doc = (Document) origin.get(Integer.toString(gameID));
 		DBObject obj = (DBObject)JSON.parse(doc.toJson());
