@@ -81,8 +81,8 @@ public class GamesHandler extends APIHandler
                     if(plugin != null)
                     {
                         plugin.startTransaction();
-                        CatanModel model = facade.getDatabase().getGameModel(token.getGameID());
-                        plugin.getGameDAO().updateGame(token.getGameID());
+                        CatanModel model = facade.getDatabase().getGameModel(joinJSON.getId());
+                        plugin.getGameDAO().updateGame(joinJSON.getId());
                         plugin.endTransaction(true);
                     }
                     break;
