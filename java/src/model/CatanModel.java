@@ -27,6 +27,7 @@ public class CatanModel
 	public PlayerManager playerManager;
 	public ResourceManager resourceManager;
 	public int version;
+	public String name;
 	
 	public CatanModel(boolean randomTile, boolean randomNumbers, boolean randomPorts)
 	{ 
