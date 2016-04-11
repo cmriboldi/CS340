@@ -224,7 +224,7 @@ public class Server {
         @Parameter(names = "-n", description = "used to specify how many commands to store in the persistant database in between model serializing")
         private int checkinSize = 10;
 
-        @Parameter(names = "--clear", description = "clear the database?", arity = 1)
+        @Parameter(names = "--clear", description = "clear the database?")
         private boolean clear = false;
 
     }
