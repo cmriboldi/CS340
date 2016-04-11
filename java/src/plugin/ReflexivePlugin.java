@@ -15,6 +15,7 @@ import java.lang.reflect.Method;
 public class ReflexivePlugin implements IPersistencePlugin {
 
     private IServerFacade facade;
+    private IPluginData data;
     private Class classInstance = null;
     private Object constructedInstance = null;
 
@@ -26,8 +27,8 @@ public class ReflexivePlugin implements IPersistencePlugin {
 
         try {
             classInstance = pluginClass_p.getClassType();
-            Constructor pluginConstructor = classInstance.getDeclaredConstructor(IServerFacade.class);
-            constructedInstance = pluginConstructor.newInstance(facade);
+            Constructor pluginConstructor = classInstance.getDeclaredConstructor(Object.class, Object.class);
+            constructedInstance = pluginConstructor.newInstance(facade, data);
 
         } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
             e.printStackTrace();
