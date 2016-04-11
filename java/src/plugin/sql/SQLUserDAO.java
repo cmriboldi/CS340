@@ -47,7 +47,7 @@ public class SQLUserDAO implements IUserDAO
 	    		{
 	    			throw new DatabaseException(" add user failed"); 
 	    		}
-	    		
+				stmt.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

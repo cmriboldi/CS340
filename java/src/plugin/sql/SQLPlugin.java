@@ -226,7 +226,7 @@ public class SQLPlugin implements IPersistencePlugin
                     command.execute();
                 }
             }
-
+            endTransaction(true);
         }
         catch (ServerException e)
         {

@@ -72,7 +72,7 @@ public class SQLGameDAO implements IGameDAO
             {
                 int id = result.getInt(1) - 1;
                 String game_name = result.getString(2);
-                CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(4)));
+                CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(4)).replace("\\", "\\\\"));
             }
             statement.close();
         }
