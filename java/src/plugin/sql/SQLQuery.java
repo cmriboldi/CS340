@@ -34,7 +34,9 @@ public final class SQLQuery
                 "(\n" +
                 "id INTEGER PRIMARY KEY,\n" +
                 "game_id INT NOT NULL,\n" +
-                "command BLOB NOT NULL\n" +
+                "command_type TEXT NOT NULL\n" +
+                "auth_token BLOB NOT NULL\n" +
+                "json BLOB NOT NULL\n" +
                 ");";
     }
 
