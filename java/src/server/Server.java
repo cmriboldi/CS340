@@ -102,16 +102,25 @@ public class Server {
             if(!arguments.pluginID.equals("")){
                 //search the fixed plugin folder for the pluginID
                 try {
+                    System.out.println("SEARCHING FOR PLUGIN: <" + arguments.pluginID + "> in pluginFolder: " + jarFolder.getCanonicalPath());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                try {
                     //Grab all the files in the plugin folder
                     File[] pluginFiles = jarFolder.listFiles();
 
                     //Check to make sure it's not empty
                     if(pluginFiles != null){
+                        System.out.println("PLUGIN FOLDER IS NOT EMPTY");
                         //Iterate through all the files looking for the file matching the pluginID
                         for(File current : jarFolder.listFiles()){
+                            System.out.println("\tSEARHCING FOR PLUGIN: " + current.getName());
                             //If we find a file with a name matching the requested plugin
                             if(current.getName().equals(arguments.pluginID + ".jar")){
                                 //Bind the plugin
+                                System.out.println("PLUGIN FOUND");
                                 URL pluginURL = current.toURI().toURL();
                                 URLClassLoader classLoader = new URLClassLoader(new URL[]{pluginURL}, this.getClass().getClassLoader());
                                 Class pluginClass = classLoader.loadClass(arguments.pluginID);
@@ -126,11 +135,17 @@ public class Server {
                             plugType.setClassType(EmptyPlugin.class);
                         }
                     }
+                    else
+                    {
+                        System.out.println("PLUGIN FOLDER IS EMPTY - BINDING VOLATILE DATABASE");
+                        injector = Guice.createInjector(new VolatileRealModule());
+                    }
 
                 } catch (ClassNotFoundException e) {
                     System.out.println("PLUGIN FAILED TO LOAD - ClassNotFoundException");
                     e.printStackTrace();
                 } catch (MalformedURLException e) {
+                    System.out.println("PLUGIN FAILED TO LOAD - MalformedURLException");
                     e.printStackTrace();
                 }
             }
@@ -198,7 +213,7 @@ public class Server {
         private boolean help;
 
         @Parameter(names = {"--local"}, description = "used to specify a local plugin defined in the project classes")
-        private String localPluginID = null;
+        private String localPluginID = "";
 
         @Parameter(names = "-n", description = "used to specify how many commands to store in the persistant database in between model serializing")
         private int checkinSize = 10;
