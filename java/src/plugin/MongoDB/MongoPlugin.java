@@ -146,8 +146,10 @@ public class MongoPlugin implements IPersistencePlugin {
 	@Override
 	public void clear() throws DatabaseException
 	{
+		mongoClient = new MongoClient( "localhost" , 27017 );
 		DB db = mongoClient.getDB("Catan");
 		db.dropDatabase();
+		mongoClient.close();
 	}
 }
 
