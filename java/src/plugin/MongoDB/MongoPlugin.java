@@ -3,11 +3,14 @@ package plugin.MongoDB;
 import com.google.inject.Inject;
 import plugin.IPluginData;
 import server.command.ICommand;
+import server.data.UserData;
+import server.database.GameData;
 import server.database.ICommandDAO;
 import server.database.IGameDAO;
 import plugin.IPersistencePlugin;
 import server.database.IUserDAO;
 import server.exception.DatabaseException;
+import server.exception.ServerException;
 import server.facade.IServerFacade;
 
 import com.mongodb.MongoClient;
@@ -92,7 +95,41 @@ public class MongoPlugin implements IPersistencePlugin {
 
 	@Override
 	public void thaw() throws DatabaseException {
+		mongoClient = new MongoClient( "localhost" , 27017 );
+		gameDAO = new MongoGameDAO(mongoClient,facade);
+		userDAO = new MongoUserDAO(mongoClient);
+		commandDAO = new MongoCommandDAO(mongoClient);
 		
+		UserData[] users = userDAO.getAllUsers();
+		GameData[] games = gameDAO.getAllGames();
+		
+		for(UserData user : users)
+		{
+			try {
+				facade.getDatabase().addUser(user);
+			} catch (ServerException e) {
+				e.printStackTrace();
+			}
+		}
+		for(GameData game : games)
+		{
+			int gameID = game.getGameID();
+			try {
+				facade.getDatabase().addGame(game.getName(), game.getModel());
+			} catch (ServerException e) {
+				e.printStackTrace();
+			}
+			ICommand[] commands = commandDAO.getAllCommands(gameID);
+			for(ICommand command : commands)
+			{
+				try {
+					command.execute();
+				} catch (ServerException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+		mongoClient.close();
 	}
 
 	@Override
