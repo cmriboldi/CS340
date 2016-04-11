@@ -100,8 +100,6 @@ public class Server {
             //Get an instance of the pluginClassRepresentation, this with either be bound to the requested plugin OR a default class ... later to be bound to IPerPlug
             IPluginClass plugType = injector.getInstance(IPluginClass.class);
 
-
-
             //if a plugin argument is present
             if(!arguments.pluginID.equals("")){
                 //search the fixed plugin folder for the pluginID
@@ -163,6 +161,10 @@ public class Server {
         plugData.setCheckinSize(arguments.checkinSize);
 
         IPersistencePlugin plugin = injector.getInstance(IPersistencePlugin.class);
+
+        if(arguments.clear == true)
+            plugin.clear();
+
         plugin.thaw();
 
         //initialize the http handlers
@@ -221,6 +223,10 @@ public class Server {
 
         @Parameter(names = "-n", description = "used to specify how many commands to store in the persistant database in between model serializing")
         private int checkinSize = 10;
+
+        @Parameter(names = "--clear", description = "clear the database?", arity = 1)
+        private boolean clear = true;
+
     }
 
 
