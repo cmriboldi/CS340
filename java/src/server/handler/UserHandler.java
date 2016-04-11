@@ -5,6 +5,7 @@ import com.sun.net.httpserver.HttpExchange;
 import server.data.UserData;
 import plugin.IPersistencePlugin;
 import server.exception.BadRequestException;
+import server.exception.DatabaseException;
 import server.exception.InvalidCredentialsException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.LoginJSON;
@@ -49,15 +50,13 @@ public class UserHandler extends APIHandler
                     json = (LoginJSON) getRequest(httpExchange, LoginJSON.class);
                     response = facade.register(json.getUsername(), json.getPassword());
                     httpExchange.getResponseHeaders().add("Set-cookie", response);
-                    success(httpExchange);
 
                     //account for persistence
-                    if(plugin != null)
-                    {
-                        plugin.startTransaction();
-                        plugin.getUserDAO().addUser(new UserData(json.getUsername(), json.getPassword()));
-                        plugin.endTransaction(true);
-                    }
+                    plugin.startTransaction();
+                    plugin.getUserDAO().addUser(new UserData(json.getUsername(), json.getPassword()));
+                    plugin.endTransaction(true);
+
+                    success(httpExchange);
                     break;
 
                 case "/user/login":
@@ -77,6 +76,14 @@ public class UserHandler extends APIHandler
                 respond400(httpExchange, e.getMessage());
             if(e.getClass().equals(InvalidCredentialsException.class))
                 respond401(httpExchange, e.getMessage());
+            try
+            {
+                plugin.endTransaction(false);
+            }
+            catch (DatabaseException e1)
+            {
+                e1.printStackTrace();
+            }
             httpExchange.close();
             e.printStackTrace();
         }
