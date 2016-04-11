@@ -42,16 +42,18 @@ public class MongoPlugin implements IPersistencePlugin {
 	
 	private int N;
 	
-	public MongoPlugin(IServerFacade facade, int N)
+	@Inject
+	public MongoPlugin(IServerFacade facade, int N, IPluginData plugData)
 	{
 		this.facade = facade;
 		this.N = N;
 	}
 	
-	public MongoPlugin(IServerFacade facade)
+	@Inject
+	public MongoPlugin(IServerFacade facade, IPluginData plugData)
 	{
 		this.facade = facade;
-		this.N = 10;
+		this.N = plugData.getCheckinSize();
 	}
 	
 	@Override
