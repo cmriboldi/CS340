@@ -225,7 +225,7 @@ public class Server {
         private int checkinSize = 10;
 
         @Parameter(names = "--clear", description = "clear the database?", arity = 1)
-        private boolean clear = true;
+        private boolean clear = false;
 
     }
 
