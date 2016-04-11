@@ -38,42 +38,27 @@ public class SQLCommandDAO implements ICommandDAO
     @Override
     public void addCommand(ICommand command) throws DatabaseException
 	{
-    	PreparedStatement stmt = null; 
-    	
-    	int gameID = command.getGameID(); 
-		byte[] data = new Gson().toJson(command).getBytes();
-    	
-    	try
+    	PreparedStatement stmt = null;
+    	int gameID = command.getGameID();
+
+		String query = "insert into command (game_id, command_type, auth_token, json) values (? , ?, ?, ?)";
+		try
 		{
-    		String query = "insert into command (game_id, command) values (? , ? )"; 
-    		try
+			stmt = database.getConnection().prepareStatement(query);
+			stmt.setInt(1,gameID);
+			stmt.setString(2, command.getClass().toString());
+			stmt.setBytes(3, new Gson().toJson(command.getAuthToken()).getBytes());
+			stmt.setBytes(4, new Gson().toJson(command.getJSON()).getBytes());
+			if (stmt.executeUpdate() != 1)
 			{
-				stmt = database.getConnection().prepareStatement(query);
-				stmt.setInt(1,gameID);
-				stmt.setBytes(2, data);
-	    		if (stmt.executeUpdate() != 1)
-	    		{
-	    			throw new DatabaseException(" add user failed"); 
-	    		}
-	    		
+				throw new DatabaseException(" add user failed");
 			}
-			catch (SQLException e)
-			{
-				throw new DatabaseException(e.getMessage());
-			}     		
-    	}
-    	finally
+			stmt.close();
+		}
+		catch (SQLException e)
 		{
-    		try
-			{
-				stmt.close();
-			}
-			catch (SQLException e)
-			{
-				throw new DatabaseException(e.getMessage());
-			}
-    	} 
-    	
+			throw new DatabaseException(e.getMessage());
+		}
     }
 
     @Override
