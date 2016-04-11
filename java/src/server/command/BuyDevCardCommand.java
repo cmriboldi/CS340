@@ -14,16 +14,15 @@ import shared.exceptions.resources.NotEnoughResourcesException;
 public class BuyDevCardCommand extends ICommand {
 
 
-	private BuyDevCardJSON body = null;
 	private DevCardType boughtDevCard = null;
 
 	private final IServerFacade facade;
 
 	public BuyDevCardCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade_p)
 	{
-		super(authToken);
+		super(authToken, jsonBody);
 		this.facade = facade_p;
-		this.body = (BuyDevCardJSON)jsonBody;
+		body = (BuyDevCardJSON)jsonBody;
 	}
 
 	/**
@@ -41,13 +40,13 @@ public class BuyDevCardCommand extends ICommand {
 			
 			//The reason we are checking if this devCard is null is because we are planning on saving the commandObject in a list to be executed later.
 			if(boughtDevCard == null) {
-				boughtDevCard = cm.cardManager.drawCard(body.getPlayerIndex());
+				boughtDevCard = cm.cardManager.drawCard(((BuyDevCardJSON)body).getPlayerIndex());
 			} else {
-				cm.cardManager.addDevCard(boughtDevCard, body.getPlayerIndex());
+				cm.cardManager.addDevCard(boughtDevCard, ((BuyDevCardJSON)body).getPlayerIndex());
 			}
-			cm.resourceManager.buyDevCard(body.getPlayerIndex());
+			cm.resourceManager.buyDevCard(((BuyDevCardJSON)body).getPlayerIndex());
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " bought a development card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((BuyDevCardJSON)body).getPlayerIndex()) + " bought a development card.", cm.playerManager.getPlayerName(((BuyDevCardJSON)body).getPlayerIndex()));
 			
 
 			

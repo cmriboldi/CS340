@@ -15,13 +15,11 @@ import shared.exceptions.resources.NotEnoughBankResourcesException;
 public class RollNumberCommand extends ICommand {
 
 
-	private RollNumberJSON body = null;
 	private final IServerFacade facade;
 	
 	public RollNumberCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (RollNumberJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -38,7 +36,7 @@ public class RollNumberCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 
-			if(this.body.getNumber() == 7)
+			if(((RollNumberJSON)body).getNumber() == 7)
 			{
 				if(cm.resourceManager.getGreatestCardCount() > 7)
 				{
@@ -52,7 +50,7 @@ public class RollNumberCommand extends ICommand {
 			}
 			else
 			{
-				ResourceList[] resLists = cm.mapManager.distributeResources(this.body.getNumber());
+				ResourceList[] resLists = cm.mapManager.distributeResources(((RollNumberJSON)body).getNumber());
 //				for(int i = 0; i < resLists.length; i++) {
 //					System.out.println("Player " + i + "'s resources are " + resLists[i].toString());
 //				}
@@ -60,7 +58,7 @@ public class RollNumberCommand extends ICommand {
 				cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			}
 
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " rolled a " + this.body.getNumber() + ".", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((RollNumberJSON)body).getPlayerIndex()) + " rolled a " + ((RollNumberJSON)body).getNumber() + ".", cm.playerManager.getPlayerName(((RollNumberJSON)body).getPlayerIndex()));
 
 
 

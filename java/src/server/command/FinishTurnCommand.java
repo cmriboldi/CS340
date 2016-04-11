@@ -13,13 +13,11 @@ import shared.exceptions.player.TurnIndexException;
 public class FinishTurnCommand extends ICommand {
 
 
-	private FinishTurnJSON body = null;
 	private final IServerFacade facade;
 	
 	public FinishTurnCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (FinishTurnJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -36,11 +34,11 @@ public class FinishTurnCommand extends ICommand {
 		try
 		{
 			cm = facade.getGameModel(authToken);
-			cm.cardManager.finishTurnRotateCards(this.body.getPlayerIndex());
+			cm.cardManager.finishTurnRotateCards(((FinishTurnJSON)body).getPlayerIndex());
 			cm.playerManager.advanceTurn();
 			cm.playerManager.setTurnStatus(TurnType.ROLLING);
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " finished his turn.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((FinishTurnJSON)body).getPlayerIndex()) + " finished his turn.", cm.playerManager.getPlayerName(((FinishTurnJSON)body).getPlayerIndex()));
 			
 
 			

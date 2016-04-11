@@ -15,13 +15,11 @@ import shared.locations.VertexLocation;
 public class RobPlayerCommand extends ICommand
 {
 
-	private RobPlayerJSON body = null;
 	private final IServerFacade facade;
 	
 	public RobPlayerCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (RobPlayerJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -38,15 +36,15 @@ public class RobPlayerCommand extends ICommand
 		{
 			cm = facade.getGameModel(authToken);
 			
-			if(this.body.getVictimIndex() > -1 && this.body.getVictimIndex() < 4) {
-				cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
-				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			if(((RobPlayerJSON)body).getVictimIndex() > -1 && ((RobPlayerJSON)body).getVictimIndex() < 4) {
+				cm.resourceManager.robPlayer(((RobPlayerJSON)body).getVictimIndex(), ((RobPlayerJSON)body).getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(((RobPlayerJSON)body).getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(((RobPlayerJSON)body).getPlayerIndex()));
 			}
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 
 			//Translate from JSONbody into a Java settlement location
-			int hexLocX = body.getLocation().getX();
-			int hexLocY = body.getLocation().getY();
+			int hexLocX = ((RobPlayerJSON)body).getLocation().getX();
+			int hexLocY = ((RobPlayerJSON)body).getLocation().getY();
 			HexLocation hexLoc = new HexLocation(hexLocX, hexLocY);
 
 			cm.getMapManager().placeRobber(hexLoc);

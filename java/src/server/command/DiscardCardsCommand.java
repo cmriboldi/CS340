@@ -12,13 +12,11 @@ import shared.exceptions.resources.NotEnoughResourcesException;
 public class DiscardCardsCommand extends ICommand {
 
 
-	private DiscardCardsJSON body = null;
 	private final IServerFacade facade;
 	
 	public DiscardCardsCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (DiscardCardsJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -35,12 +33,12 @@ public class DiscardCardsCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.resourceManager.discardCards(this.body.getDiscardedCards(), this.body.getPlayerIndex());
+			cm.resourceManager.discardCards(((DiscardCardsJSON)body).getDiscardedCards(), ((DiscardCardsJSON)body).getPlayerIndex());
 			if(cm.resourceManager.havePlayersDiscarded()) {
 				cm.playerManager.setTurnStatus(TurnType.ROBBING);
 			}
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " discarded cards.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((DiscardCardsJSON)body).getPlayerIndex()) + " discarded cards.", cm.playerManager.getPlayerName(((DiscardCardsJSON)body).getPlayerIndex()));
 			
 
 			

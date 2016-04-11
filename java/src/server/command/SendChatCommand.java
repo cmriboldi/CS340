@@ -10,13 +10,11 @@ import shared.communication.JSON.SendChatJSON;
 public class SendChatCommand extends ICommand {
 
 
-	private SendChatJSON body = null;
 	private final IServerFacade facade;
 	
 	public SendChatCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (SendChatJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -33,7 +31,7 @@ public class SendChatCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.chatManager.sendMessage(this.body.getContent(), cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.sendMessage(((SendChatJSON)body).getContent(), cm.playerManager.getPlayerName(((SendChatJSON)body).getPlayerIndex()));
 			
 
 			

@@ -14,13 +14,11 @@ import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 public class MaritimeTradeCommand extends ICommand {
 
 
-	private MaritimeTradeJSON body = null;
 	private final IServerFacade facade;
 	
 	public MaritimeTradeCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (MaritimeTradeJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -38,10 +36,10 @@ public class MaritimeTradeCommand extends ICommand {
 			cm = facade.getGameModel(authToken);
 			
 			ResourceList rs = new ResourceList();
-			rs.addResource(ResourceType.toEnum(this.body.getOutputResource()), 1);
-			rs.removeResource(ResourceType.toEnum(this.body.getInputResource()), this.body.getRatio());
+			rs.addResource(ResourceType.toEnum(((MaritimeTradeJSON)body).getOutputResource()), 1);
+			rs.removeResource(ResourceType.toEnum(((MaritimeTradeJSON)body).getInputResource()), ((MaritimeTradeJSON)body).getRatio());
 			
-			cm.resourceManager.tradeWithBank(rs, this.body.getPlayerIndex());
+			cm.resourceManager.tradeWithBank(rs, ((MaritimeTradeJSON)body).getPlayerIndex());
 			
 
 			

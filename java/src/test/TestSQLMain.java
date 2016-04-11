@@ -50,7 +50,7 @@ public class TestSQLMain
 
             // Test commands
 //            plugin.getUserDAO().addUser(new UserData("test1", "password"));
-            UserData user = plugin.getUserDAO().getUser(4);
+            UserData user = plugin.getUserDAO().getUser(0);
             System.out.println(user.getName());
 
             // Test commands

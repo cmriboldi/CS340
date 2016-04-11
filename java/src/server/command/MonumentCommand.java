@@ -12,13 +12,11 @@ import shared.exceptions.development.NotEnoughDevCardsException;
 public class MonumentCommand extends ICommand {
 
 
-	private MonumentJSON body = null;
 	private final IServerFacade facade;
 	
 	public MonumentCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (MonumentJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -36,10 +34,10 @@ public class MonumentCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.cardManager.playDevCard(DevCardType.MONUMENT, this.body.getPlayerIndex());
-			cm.playerManager.incrementPlayerPoints(this.body.getPlayerIndex());
+			cm.cardManager.playDevCard(DevCardType.MONUMENT, ((MonumentJSON)body).getPlayerIndex());
+			cm.playerManager.incrementPlayerPoints(((MonumentJSON)body).getPlayerIndex());
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a monument card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((MonumentJSON)body).getPlayerIndex()) + " played a monument card.", cm.playerManager.getPlayerName(((MonumentJSON)body).getPlayerIndex()));
 			
 
 			

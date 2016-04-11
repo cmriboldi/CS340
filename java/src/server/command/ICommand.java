@@ -2,6 +2,7 @@ package server.command;
 
 import server.AuthToken;
 import server.exception.ServerException;
+import shared.communication.JSON.IJavaJSON;
 
 /**
  * Created by Joshua on 3/9/2016. ICommand is the abstracted class used to run commands through the Handlers.
@@ -10,10 +11,12 @@ import server.exception.ServerException;
 public abstract class ICommand
 {
     protected AuthToken authToken;
+    protected IJavaJSON body;
 
-    public ICommand(AuthToken authToken)
+    public ICommand(AuthToken authToken, IJavaJSON json)
     {
         this.authToken = authToken;
+        body = json;
     }
     /**
      * execute acts as a hook for whatever outside object wants to interact with the Command Object
@@ -25,5 +28,15 @@ public abstract class ICommand
     public int getGameID()
     {
         return authToken.getGameID();
+    }
+
+    public AuthToken getAuthToken()
+    {
+        return authToken;
+    }
+
+    public IJavaJSON getJSON()
+    {
+        return body;
     }
 }

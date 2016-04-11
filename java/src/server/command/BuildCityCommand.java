@@ -17,12 +17,10 @@ import shared.locations.VertexLocation;
 public class BuildCityCommand extends ICommand {
 
 
-    private BuildCityJSON body = null;
     private final IServerFacade facade;
 
     public BuildCityCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade) {
-        super(authToken);
-        this.body = (BuildCityJSON) jsonBody;
+        super(authToken, jsonBody);
         this.facade = facade;
     }
 
@@ -40,19 +38,19 @@ public class BuildCityCommand extends ICommand {
             cm = facade.getGameModel(authToken);
 
             //Translate from JSONbody into a Java city location
-            int cityLocX = body.getVertexLocation().getX();
-            int cityLocY = body.getVertexLocation().getY();
-            VertexDirection cityLocDir = VertexDirection.toEnum(body.getVertexLocation().getDirection());
+            int cityLocX = ((BuildCityJSON)body).getVertexLocation().getX();
+            int cityLocY = ((BuildCityJSON)body).getVertexLocation().getY();
+            VertexDirection cityLocDir = VertexDirection.toEnum(((BuildCityJSON)body).getVertexLocation().getDirection());
             VertexLocation cityLoc = new VertexLocation(new HexLocation(cityLocX, cityLocY), cityLocDir);
 
             //Make the change to the model
-            cm.getMapManager().upgradeSettlement(cityLoc, body.getPlayerIndex());
+            cm.getMapManager().upgradeSettlement(cityLoc, ((BuildCityJSON)body).getPlayerIndex());
 
-            cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.CITY);
-            cm.playerManager.incrementPieceCount(this.body.getPlayerIndex(), PieceType.SETTLEMENT);
-            cm.resourceManager.buyPiece(this.body.getPlayerIndex(), PieceType.CITY);
-            cm.playerManager.incrementPlayerPoints(this.body.getPlayerIndex());
-            cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " built a city.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+            cm.playerManager.decrementPieceCount(((BuildCityJSON)body).getPlayerIndex(), PieceType.CITY);
+            cm.playerManager.incrementPieceCount(((BuildCityJSON)body).getPlayerIndex(), PieceType.SETTLEMENT);
+            cm.resourceManager.buyPiece(((BuildCityJSON)body).getPlayerIndex(), PieceType.CITY);
+            cm.playerManager.incrementPlayerPoints(((BuildCityJSON)body).getPlayerIndex());
+            cm.chatManager.logAction(cm.playerManager.getPlayerName(((BuildCityJSON)body).getPlayerIndex()) + " built a city.", cm.playerManager.getPlayerName(((BuildCityJSON)body).getPlayerIndex()));
             
             //Update the changed model in the ServerFacade
 

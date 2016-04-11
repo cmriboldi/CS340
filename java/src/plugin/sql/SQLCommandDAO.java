@@ -36,33 +36,40 @@ public class SQLCommandDAO implements ICommandDAO
 
 
     @Override
-    public void addCommand(ICommand command) throws DatabaseException {
-
+    public void addCommand(ICommand command) throws DatabaseException
+	{
     	PreparedStatement stmt = null; 
     	
     	int gameID = command.getGameID(); 
 		byte[] data = new Gson().toJson(command).getBytes();
-		InputStream is = new ByteArrayInputStream(data);
     	
-    	try {
+    	try
+		{
     		String query = "insert into command (game_id, command) values (? , ? )"; 
-    		try {
+    		try
+			{
 				stmt = database.getConnection().prepareStatement(query);
 				stmt.setInt(1,gameID);
-				stmt.setBlob(2, is);
+				stmt.setBytes(2, data);
 	    		if (stmt.executeUpdate() != 1)
 	    		{
 	    			throw new DatabaseException(" add user failed"); 
 	    		}
 	    		
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				throw new DatabaseException(e.getMessage());
 			}     		
     	}
-    	finally{
-    		try {
+    	finally
+		{
+    		try
+			{
 				stmt.close();
-			} catch (SQLException e) {
+			}
+			catch (SQLException e)
+			{
 				throw new DatabaseException(e.getMessage());
 			}
     	} 

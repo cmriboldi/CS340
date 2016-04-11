@@ -11,13 +11,11 @@ import shared.communication.JSON.OfferTradeJSON;
 public class OfferTradeCommand extends ICommand{
 
 
-	private OfferTradeJSON body = null;
 	private final IServerFacade facade;
 	
 	public OfferTradeCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (OfferTradeJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -34,11 +32,11 @@ public class OfferTradeCommand extends ICommand{
 		{
 			cm = facade.getGameModel(authToken);
 			
-			TradeOffer tradeOffer = new TradeOffer(this.body.getOffer(), this.body.getPlayerIndex(), this.body.getReceiver());
+			TradeOffer tradeOffer = new TradeOffer(((OfferTradeJSON)body).getOffer(), ((OfferTradeJSON)body).getPlayerIndex(), ((OfferTradeJSON)body).getReceiver());
 			
 			cm.resourceManager.setTradeOffer(tradeOffer);
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " offered a trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((OfferTradeJSON)body).getPlayerIndex()) + " offered a trade.", cm.playerManager.getPlayerName(((OfferTradeJSON)body).getPlayerIndex()));
 			
 
 			

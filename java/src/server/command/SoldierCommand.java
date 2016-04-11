@@ -14,13 +14,11 @@ import shared.locations.HexLocation;
 public class SoldierCommand extends ICommand {
 
 
-	private SoldierJSON body = null;
 	private final IServerFacade facade;
 	
 	public SoldierCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (SoldierJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -37,20 +35,20 @@ public class SoldierCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
-			if(this.body.getVictimIndex() > -1 && this.body.getVictimIndex() < 4) {
-				cm.resourceManager.robPlayer(this.body.getVictimIndex(), this.body.getPlayerIndex());
-				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			if(((SoldierJSON)body).getVictimIndex() > -1 && ((SoldierJSON)body).getVictimIndex() < 4) {
+				cm.resourceManager.robPlayer(((SoldierJSON)body).getVictimIndex(), ((SoldierJSON)body).getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(((SoldierJSON)body).getPlayerIndex()) + " robbed a player.", cm.playerManager.getPlayerName(((SoldierJSON)body).getPlayerIndex()));
 			}
 			
-			cm.getMapManager().placeRobber(this.body.getHexLocation());
-			cm.cardManager.playDevCard(DevCardType.SOLDIER, this.body.getPlayerIndex());
-			cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
+			cm.getMapManager().placeRobber(((SoldierJSON)body).getHexLocation());
+			cm.cardManager.playDevCard(DevCardType.SOLDIER, ((SoldierJSON)body).getPlayerIndex());
+			cm.cardManager.setHasPlayedDevCard(((SoldierJSON)body).getPlayerIndex(), true);
 			
-			if(cm.playerManager.getIndexOfLargestArmy() != this.body.getPlayerIndex() && cm.cardManager.getIndexOfLargestArmy() == this.body.getPlayerIndex()) {
-				cm.playerManager.setNewLargestArmy(this.body.getPlayerIndex());
+			if(cm.playerManager.getIndexOfLargestArmy() != ((SoldierJSON)body).getPlayerIndex() && cm.cardManager.getIndexOfLargestArmy() == ((SoldierJSON)body).getPlayerIndex()) {
+				cm.playerManager.setNewLargestArmy(((SoldierJSON)body).getPlayerIndex());
 			}
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a soldier card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((SoldierJSON)body).getPlayerIndex()) + " played a soldier card.", cm.playerManager.getPlayerName(((SoldierJSON)body).getPlayerIndex()));
 			
 
 			

@@ -14,13 +14,11 @@ public class RoadBuildingCommand extends ICommand
 {
 
 
-	private RoadBuildingJSON body = null;
 	private final IServerFacade facade;
 	
 	public RoadBuildingCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (RoadBuildingJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -36,14 +34,14 @@ public class RoadBuildingCommand extends ICommand
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.cardManager.playDevCard(DevCardType.ROAD_BUILD, this.body.getPlayerIndex());
-			cm.mapManager.placeRoad(this.body.getSpot1().getEdgeLocation(), this.body.getPlayerIndex());
-			cm.mapManager.placeRoad(this.body.getSpot2().getEdgeLocation(), this.body.getPlayerIndex());
-			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
-			cm.playerManager.decrementPieceCount(this.body.getPlayerIndex(), PieceType.ROAD);
-			cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
+			cm.cardManager.playDevCard(DevCardType.ROAD_BUILD, ((RoadBuildingJSON)body).getPlayerIndex());
+			cm.mapManager.placeRoad(((RoadBuildingJSON)body).getSpot1().getEdgeLocation(), ((RoadBuildingJSON)body).getPlayerIndex());
+			cm.mapManager.placeRoad(((RoadBuildingJSON)body).getSpot2().getEdgeLocation(), ((RoadBuildingJSON)body).getPlayerIndex());
+			cm.playerManager.decrementPieceCount(((RoadBuildingJSON)body).getPlayerIndex(), PieceType.ROAD);
+			cm.playerManager.decrementPieceCount(((RoadBuildingJSON)body).getPlayerIndex(), PieceType.ROAD);
+			cm.cardManager.setHasPlayedDevCard(((RoadBuildingJSON)body).getPlayerIndex(), true);
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a road building card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((RoadBuildingJSON)body).getPlayerIndex()) + " played a road building card.", cm.playerManager.getPlayerName(((RoadBuildingJSON)body).getPlayerIndex()));
 			
 
 			

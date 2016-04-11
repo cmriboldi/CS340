@@ -13,13 +13,11 @@ import shared.exceptions.development.NotEnoughDevCardsException;
 public class MonopolyCommand extends ICommand {
 
 
-	private MonopolyJSON body = null;
 	private final IServerFacade facade;
 	
 	public MonopolyCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (MonopolyJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -36,18 +34,15 @@ public class MonopolyCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
-			cm.cardManager.playDevCard(DevCardType.MONOPOLY, this.body.getPlayerIndex());
+			cm.cardManager.playDevCard(DevCardType.MONOPOLY, ((MonopolyJSON)body).getPlayerIndex());
 			
-			ResourceType resource = ResourceType.toEnum(this.body.getResource());
+			ResourceType resource = ResourceType.toEnum(((MonopolyJSON)body).getResource());
 			if(resource != null) {
-				cm.resourceManager.useMonopolyCard(this.body.getPlayerIndex(), resource);
-				cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
+				cm.resourceManager.useMonopolyCard(((MonopolyJSON)body).getPlayerIndex(), resource);
+				cm.cardManager.setHasPlayedDevCard(((MonopolyJSON)body).getPlayerIndex(), true);
 			}
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a monopoly card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
-			
-
-			
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((MonopolyJSON)body).getPlayerIndex()) + " played a monopoly card.", cm.playerManager.getPlayerName(((MonopolyJSON)body).getPlayerIndex()));
 
 			
 		} catch (ServerException | NotEnoughDevCardsException e)

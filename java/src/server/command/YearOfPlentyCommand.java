@@ -16,13 +16,11 @@ import shared.exceptions.resources.NotEnoughBankResourcesException;
 public class YearOfPlentyCommand extends ICommand {
 
 
-	private YearOfPlentyJSON body = null;
 	private final IServerFacade facade;
 	
 	public YearOfPlentyCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade)
 	{
-		super(authToken);
-		this.body = (YearOfPlentyJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade;
 	}
 
@@ -40,15 +38,15 @@ public class YearOfPlentyCommand extends ICommand {
 			cm = facade.getGameModel(authToken);
 			
 			ResourceList rs = new ResourceList();
-			rs.addResource(ResourceType.toEnum(this.body.getResource1()), 1);
-			rs.addResource(ResourceType.toEnum(this.body.getResource2()), 1);
+			rs.addResource(ResourceType.toEnum(((YearOfPlentyJSON)body).getResource1()), 1);
+			rs.addResource(ResourceType.toEnum(((YearOfPlentyJSON)body).getResource2()), 1);
 			
-			cm.resourceManager.useYearOfPlentyCard(this.body.getPlayerIndex(), rs);
-			cm.cardManager.setHasPlayedDevCard(this.body.getPlayerIndex(), true);
+			cm.resourceManager.useYearOfPlentyCard(((YearOfPlentyJSON)body).getPlayerIndex(), rs);
+			cm.cardManager.setHasPlayedDevCard(((YearOfPlentyJSON)body).getPlayerIndex(), true);
 			
-			cm.cardManager.playDevCard(DevCardType.YEAR_OF_PLENTY, this.body.getPlayerIndex());
+			cm.cardManager.playDevCard(DevCardType.YEAR_OF_PLENTY, ((YearOfPlentyJSON)body).getPlayerIndex());
 			
-			cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " played a year of plenty card.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			cm.chatManager.logAction(cm.playerManager.getPlayerName(((YearOfPlentyJSON)body).getPlayerIndex()) + " played a year of plenty card.", cm.playerManager.getPlayerName(((YearOfPlentyJSON)body).getPlayerIndex()));
 			
 
 			

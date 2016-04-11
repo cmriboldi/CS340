@@ -12,17 +12,13 @@ import shared.exceptions.player.InvalidPlayerIndexException;
 import shared.exceptions.resources.NotEnoughPlayerResourcesException;
 import shared.exceptions.resources.TradeOfferNullException;
 
-public class AcceptTradeCommand extends ICommand {
-	
-
-	private AcceptTradeJSON body = null;
+public class AcceptTradeCommand extends ICommand
+{
 	private final IServerFacade facade;
-
 	
 	public AcceptTradeCommand(AuthToken authToken, IJavaJSON jsonBody, IServerFacade facade_p)
 	{
-		super(authToken);
-		this.body = (AcceptTradeJSON)jsonBody;
+		super(authToken, jsonBody);
 		this.facade = facade_p;
 	}
 
@@ -39,12 +35,12 @@ public class AcceptTradeCommand extends ICommand {
 		{
 			cm = facade.getGameModel(authToken);
 			
-			if(this.body.isWillAccept()) {
-				cm.resourceManager.acceptPlayerTrade(this.body.getPlayerIndex());
-				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " accepted a trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+			if(((AcceptTradeJSON)body).isWillAccept()) {
+				cm.resourceManager.acceptPlayerTrade(((AcceptTradeJSON)body).getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(((AcceptTradeJSON)body).getPlayerIndex()) + " accepted a trade.", cm.playerManager.getPlayerName(((AcceptTradeJSON)body).getPlayerIndex()));
 			} else {
-				cm.resourceManager.declineTrade(this.body.getPlayerIndex());
-				cm.chatManager.logAction(cm.playerManager.getPlayerName(this.body.getPlayerIndex()) + " declined trade.", cm.playerManager.getPlayerName(this.body.getPlayerIndex()));
+				cm.resourceManager.declineTrade(((AcceptTradeJSON)body).getPlayerIndex());
+				cm.chatManager.logAction(cm.playerManager.getPlayerName(((AcceptTradeJSON)body).getPlayerIndex()) + " declined trade.", cm.playerManager.getPlayerName(((AcceptTradeJSON)body).getPlayerIndex()));
 			}
 			cm.playerManager.setTurnStatus(TurnType.PLAYING);
 			
