@@ -33,16 +33,6 @@ public interface ICommandDAO
     ICommand[] getAllCommands(int gameID) throws DatabaseException;
 
     /**
-     * Returns all command data currently stored in the database for a specific game in order of execution
-     * from a specific index on
-     * @param gameID Unique ID of game to get all commands for
-     * @param index Order of execution of a particular command on a game
-     * @return All command objects that occurred at the index and after
-     * @throws DatabaseException
-     */
-    ICommand[] getAllCommands(int gameID, int index) throws DatabaseException;
-
-    /**
      * Delete the data stored in the database representing a specific command
      * @param commandID Unique ID of command to be deleted
      * @throws DatabaseException

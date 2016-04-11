@@ -56,16 +56,14 @@ public class SQLCommandDAO implements ICommandDAO
 	    		}
 	    		
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new DatabaseException(e.getMessage());
 			}     		
     	}
     	finally{
     		try {
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new DatabaseException(e.getMessage());
 			}
     	} 
     	
@@ -73,10 +71,6 @@ public class SQLCommandDAO implements ICommandDAO
 
     @Override
     public ICommand getCommand(int commandID) throws DatabaseException {
-    	
-    	
-    	
-    	
         return null;
     }
 
@@ -115,27 +109,18 @@ public class SQLCommandDAO implements ICommandDAO
 			stmt.close();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new DatabaseException(e.getMessage());
 		}
 		finally{
 			try {
 				stmt.close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				throw new DatabaseException(e.getMessage());
 			}
 
 		}
-    	
-    	
-    	
-        return returnCommands;
-    }
 
-    @Override
-    public ICommand[] getAllCommands(int gameID, int index) throws DatabaseException {
-        return new ICommand[0];
+        return returnCommands;
     }
 
     @Override

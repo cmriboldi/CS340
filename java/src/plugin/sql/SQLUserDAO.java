@@ -3,6 +3,9 @@ package plugin.sql;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import server.data.UserData;
 import server.database.IUserDAO;
@@ -73,31 +76,33 @@ public class SQLUserDAO implements IUserDAO
     	String password = null; 
     	
 		String query = "select * from users where id = ?"; 
-		try {
+		try
+		{
 			stmt = database.getConnection().prepareStatement(query);
-			stmt.setInt(1, userID);
+			stmt.setInt(1, userID + 1);
 			
 			rs = stmt.executeQuery(); 
 			
 			if (rs.next())
 			{
-		    	username  = rs.getString(1); 
-		    	password = rs.getString(2); 
+		    	username = rs.getString(2);
+		    	password = rs.getString(3);
 			}
-	    	
-			stmt.close();
-		
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
 		}
-		finally{
-			try {
+		catch (SQLException e)
+		{
+			throw new DatabaseException(e.getMessage());
+		}
+		finally
+		{
+			try
+			{
 				stmt.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+			}
+			catch (SQLException e)
+			{
+				throw new DatabaseException(e.getMessage());
 			}
 
 		}
@@ -106,49 +111,45 @@ public class SQLUserDAO implements IUserDAO
     }
 
     @Override
-    public UserData[] getAllUsers() throws DatabaseException {
-    	
-    	PreparedStatement stmt = null; 
-    	ResultSet rs = null; 
-
-    	
+    public UserData[] getAllUsers() throws DatabaseException
+	{
+		Statement stmt = null;
+    	ResultSet rs = null;
     	UserData[] returnUsers = null; 
     	
 		String query = "select * from users"; 
-		try {
-			stmt = database.getConnection().prepareStatement(query);
-			
-			rs = stmt.executeQuery(); 
-			
-			int rowcount = 0;
-			if (rs.last()) {
-			  rowcount = rs.getRow();
-			  rs.beforeFirst(); // not rs.first() because the rs.next() below will move on, missing the first element
-			}
-			
-			returnUsers = new UserData[rowcount]; 
-			int index = 0; 
-			
-			while (rs.next()) {
-			  // do your standard per row stuff
-				returnUsers[index] = new UserData(rs.getString(1), rs.getString(2)); 
-				index ++; 
-			}
-			
-			stmt.close();
-			
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		finally{
-			try {
-				stmt.close();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		try
+		{
+			stmt = database.getConnection().createStatement();
+			rs = stmt.executeQuery(query);
+
+			List<UserData> users = new ArrayList<>();
+			while(rs.next())
+			{
+				UserData newUser = new UserData();
+				newUser.setId(rs.getInt(1) - 1);
+				newUser.setName(rs.getString(2));
+				newUser.setPassword(rs.getString(3));
+				users.add(newUser);
 			}
 
+			returnUsers = new UserData[users.size()];
+			users.toArray(returnUsers);
+		}
+		catch (SQLException e)
+		{
+			throw new DatabaseException(e.getMessage());
+		}
+		finally
+		{
+			try
+			{
+				stmt.close();
+			}
+			catch (SQLException e)
+			{
+				throw new DatabaseException(e.getMessage());
+			}
 		}
     	
         return returnUsers;

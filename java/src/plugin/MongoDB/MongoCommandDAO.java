@@ -85,10 +85,6 @@ public class MongoCommandDAO implements ICommandDAO {
 		return commands;
 	}
 
-	@Override
-	public ICommand[] getAllCommands(int gameID, int index) throws DatabaseException {
-		return null;
-	}
 
 	@Override
 	public void deleteCommand(int commandID) throws DatabaseException {

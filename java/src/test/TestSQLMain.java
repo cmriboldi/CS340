@@ -1,8 +1,12 @@
 package test;
 
+import model.CatanModel;
 import plugin.IPluginData;
 import plugin.PluginData;
 import plugin.sql.SQLPlugin;
+import server.AuthToken;
+import server.command.MonopolyCommand;
+import server.data.UserData;
 import server.database.GameData;
 import plugin.IPersistencePlugin;
 import server.database.VolatileDatabase;
@@ -10,6 +14,7 @@ import server.exception.DatabaseException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
 import server.facade.ServerFacade;
+import shared.communication.JSON.MonopolyJSON;
 
 /**
  * Created by Joshua on 4/4/2016.
@@ -28,7 +33,7 @@ public class TestSQLMain
         try
         {
             facade.createGame(true, true, true, "Test 2");
-            plugin.clear();
+//            plugin.clear();
             plugin.startTransaction();
 //            plugin.getGameDAO().addGame(new GameData(0, "Test", new CatanModel(false, false, false)));
 //            plugin.getGameDAO().deleteGame(2);
@@ -42,6 +47,16 @@ public class TestSQLMain
             {
                 System.out.println(game.getGameID());
             }
+
+            // Test commands
+//            plugin.getUserDAO().addUser(new UserData("test1", "password"));
+            UserData user = plugin.getUserDAO().getUser(4);
+            System.out.println(user.getName());
+
+            // Test commands
+            AuthToken token = new AuthToken("string", "string", 0, 0);
+            plugin.getCommandDAO().addCommand(new MonopolyCommand(token, new MonopolyJSON(0, "WOOD"), facade));
+
             plugin.endTransaction(true);
         }
         catch (DatabaseException e)
