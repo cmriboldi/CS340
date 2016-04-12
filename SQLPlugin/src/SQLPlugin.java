@@ -1,0 +1,231 @@
+import app.command.ICommand;
+import app.database.GameData;
+import app.exception.DatabaseException;
+import app.exception.ServerException;
+import app.plugin.*;
+import app.server.IServerFacade;
+import app.server.UserData;
+
+import java.io.File;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+/**
+ * Created by Joshua on 4/4/2016.
+ */
+public class SQLPlugin implements IPersistencePlugin
+{
+    private static final String DATABASE_DIRECTORY = "plugins/sql/database";
+    private static final String DATABASE_FILE = "database.sqlite";
+    private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
+            File.separator + DATABASE_FILE;
+
+    private void initialize() throws DatabaseException
+    {
+        try
+        {
+            final String driver = "org.sqlite.JDBC";
+            Class.forName(driver);
+            File sqliteFile = new File(DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
+            if(!sqliteFile.getParentFile().getParentFile().getParentFile().exists())
+                sqliteFile.getParentFile().getParentFile().getParentFile().mkdir();
+            if(!sqliteFile.getParentFile().getParentFile().exists())
+                sqliteFile.getParentFile().getParentFile().mkdir();
+            if(!sqliteFile.getParentFile().exists())
+                sqliteFile.getParentFile().mkdir();
+            if(!sqliteFile.exists())
+            {
+                sqliteFile.createNewFile();
+                startTransaction();
+                Statement statement = getConnection().createStatement();
+                statement.execute(SQLQuery.createGameTable());
+                statement.execute(SQLQuery.createUserTable());
+                statement.execute(SQLQuery.createCommandTable());
+                endTransaction(true);
+                statement.close();
+            }
+        }
+        catch(ClassNotFoundException e)
+        {
+            throw new DatabaseException("Loading JDBC: class not found");
+        }
+        catch (IOException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+        catch (SQLException e)
+        {
+            endTransaction(false);
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    private void safeClose(Connection conn) throws DatabaseException
+    {
+        if (conn != null)
+        {
+            try
+            {
+                conn.close();
+            }
+            catch (SQLException e)
+            {
+                throw new DatabaseException("Error occurred while attempting to close the connection to the database");
+            }
+        }
+    }
+
+    private final IServerFacade facade;
+    private SQLUserDAO userDAO;
+    private SQLGameDAO gameDAO;
+    private SQLCommandDAO commandDAO;
+    private Connection connection;
+
+    public SQLPlugin(IServerFacade facade, IPluginData plugData)
+    {
+        this.facade = facade;
+        userDAO = new SQLUserDAO(this);
+        gameDAO = new SQLGameDAO(this);
+        commandDAO = new SQLCommandDAO(this);
+        connection = null;
+
+        try
+        {
+            initialize();
+        }
+        catch (DatabaseException e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public Connection getConnection()
+    {
+        return connection;
+    }
+
+    public IServerFacade getFacade()
+    {
+        return facade;
+    }
+
+    @Override
+    public void startTransaction() throws DatabaseException
+    {
+        try
+        {
+            if(connection == null)
+            {
+                connection = DriverManager.getConnection(DATABASE_URL);
+                connection.setAutoCommit(false);
+            }
+            else
+                throw new DatabaseException("There is already an active connection");
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException("Could not connect to database");
+        }
+    }
+
+    @Override
+    public void endTransaction(boolean commit) throws DatabaseException
+    {
+        if (connection != null)
+        {
+            try
+            {
+                if (commit)
+                {
+                    connection.commit();
+                }
+                else
+                {
+                    connection.rollback();
+                }
+            }
+            catch (SQLException e)
+            {
+                e.printStackTrace();
+            }
+            finally
+            {
+                safeClose(connection);
+                connection = null;
+            }
+        }
+    }
+
+    @Override
+    public void clear() throws DatabaseException
+    {
+        try
+        {
+            startTransaction();
+            Statement statement = getConnection().createStatement();
+            statement.execute(SQLQuery.dropGameTable());
+            statement.execute(SQLQuery.dropUsersTable());
+            statement.execute(SQLQuery.dropCommandTable());
+            statement.execute(SQLQuery.createGameTable());
+            statement.execute(SQLQuery.createUserTable());
+            statement.execute(SQLQuery.createCommandTable());
+            endTransaction(true);
+            statement.close();
+        }
+        catch (SQLException e)
+        {
+            throw new DatabaseException(e.getMessage());
+        }
+    }
+
+    @Override
+    public IGameDAO getGameDAO() throws DatabaseException
+    {
+        return gameDAO;
+    }
+
+    @Override
+    public IUserDAO getUserDAO() throws DatabaseException
+    {
+        return userDAO;
+    }
+
+    @Override
+    public ICommandDAO getCommandDAO() throws DatabaseException
+    {
+        return commandDAO;
+    }
+
+	@Override
+	public void thaw() throws DatabaseException
+	{
+        try
+        {
+            startTransaction();
+            UserData[] users = userDAO.getAllUsers();
+            for(UserData user : users)
+            {
+                facade.register(user.getName(), user.getPassword());
+            }
+            GameData[] games = gameDAO.getAllGames();
+            for(GameData game : games)
+            {
+                facade.getDatabase().addGame(game.getName(), game.getModel());
+                ICommand[] commands = commandDAO.getAllCommands(game.getGameID());
+                for(ICommand command : commands)
+                {
+                    command.execute();
+                }
+            }
+
+        }
+        catch (ServerException e)
+        {
+            e.printStackTrace();
+        }
+
+	}
+}

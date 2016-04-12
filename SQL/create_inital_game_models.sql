@@ -1,7 +1,0 @@
-CREATE TABLE game
-(
-id INT PRIMARY KEY NOT NULL,
-game_name VARCHAR(40),
-version INT NOT NULL,
-model BLOB NOT NULL
-);
