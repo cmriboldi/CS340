@@ -1,5 +1,6 @@
 package server.handler;
 
+import client.main.Catan;
 import com.google.inject.Inject;
 import com.sun.net.httpserver.HttpExchange;
 import model.CatanModel;
@@ -57,13 +58,13 @@ public class MovesHandler extends APIHandler
 
             IJavaJSON json = (IJavaJSON) getRequest(httpExchange, type);
             ICommand command = commandFactory.buildCommand(token, json);
-            
-            plugin.startTransaction();
 
-            respond200(httpExchange, JSONSerializer.serialize((CatanModel)command.execute()));
-            
+            CatanModel model = (CatanModel)command.execute();
+            facade.updateGame(token, model);
+            respond200(httpExchange, JSONSerializer.serialize(model));
+
+            plugin.startTransaction();
             plugin.getCommandDAO().addCommand(command); //Need to make sure that each of the addCommand methods check for the nth command and do the clearning needed.
-            
             plugin.endTransaction(true);
             
             facade.recordCommand(token, command); // Probably don't need this because it's stored in the databases.

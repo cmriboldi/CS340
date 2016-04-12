@@ -88,6 +88,7 @@ public class SQLPlugin implements IPersistencePlugin
     private SQLGameDAO gameDAO;
     private SQLCommandDAO commandDAO;
     private Connection connection;
+    private int updateRate;
 
     @Inject
     public SQLPlugin(IServerFacade facade, IPluginData plugData)
@@ -97,6 +98,7 @@ public class SQLPlugin implements IPersistencePlugin
         gameDAO = new SQLGameDAO(this);
         commandDAO = new SQLCommandDAO(this);
         connection = null;
+        updateRate = plugData.getCheckinSize();
 
         try
         {
@@ -106,6 +108,11 @@ public class SQLPlugin implements IPersistencePlugin
         {
             e.printStackTrace();
         }
+    }
+
+    public int getUpdateRate()
+    {
+        return updateRate;
     }
 
     public Connection getConnection()
