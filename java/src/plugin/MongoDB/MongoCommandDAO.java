@@ -119,22 +119,54 @@ public class MongoCommandDAO implements ICommandDAO {
 			if(id.equals(Integer.toString(gameID)))
 			{
 				Document doc = (Document) origin.get(id);
+				System.out.println("doc is: " + doc);
 				DBObject obj = (DBObject)JSON.parse(doc.toJson());
+				System.out.println("obj is: " + obj);
 				DBObject token = (DBObject) obj.get("token");
+				System.out.println("token is: " + token);
 				DBObject json = (DBObject) obj.get("json");
+				System.out.println("json is: " + json);
 				String klass = (String) obj.get("class");
+				System.out.println("klass is: " + klass);
+				
+				System.out.println("After objects are made");
 				
 				AuthToken t = new AuthToken();
-				t.setGameID(Integer.parseInt((String) token.get("gameID")));
+				
+				System.out.println("After token is made");
+				
+				System.out.println("type is: " + token.get("gameID").getClass());
+				
+				t.setGameID((Integer)token.get("gameID"));
+				System.out.println("After gameID");
 				t.setName((String) token.get("name"));
+				System.out.println("After name");
 				t.setPassword((String) token.get("password"));
-				t.setPlayerID(Integer.parseInt((String) token.get("playerID")));
+				System.out.println("After password");
+				t.setPlayerID((Integer) token.get("playerID"));
+				System.out.println("After playerID");
+				
+				System.out.println("After token is made");
 				
 				Type type = IJavaJSON.getTypeFromString(klass);
+				
+				System.out.println("After objects are made");
 				IJavaJSON j = new Gson().fromJson(json.toString(), type);
 				
+				System.out.println("After objects are made");
+				
+				System.out.println("Before factory");
+				
 				CommandFactory factory = new CommandFactory(facade);
-				ICommand command = factory.buildCommand(t, j);			
+				
+				System.out.println("After factory");
+				ICommand command = factory.buildCommand(t, j);
+				
+				System.out.println("after command");
+				System.out.println("command.gameID is: " + command.getGameID());
+				System.out.println("command.class is: " + command.getClass().toString());
+				System.out.println("command.Json.getClass() is: " + command.getJSON().getClass().toString());
+				System.out.println("command.Json is: " + command.getJSON());
 				commands[i] = command;
 				i++;
 			}

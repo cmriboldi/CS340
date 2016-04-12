@@ -100,11 +100,15 @@ public class MongoGameDAO implements IGameDAO{
 		if(origin != null)
 		{
 			Set<String> ids = origin.keySet();
+			ids.remove("_id");
+			System.out.println("ids is : " + ids);
 			GameData[] games = new GameData[ids.size()];
 			
 			int i = 0;
 			for(String id : ids)
 			{
+				System.out.println("id is : " + id);
+				System.out.println("origin is: " + origin.get(id));
 				Document doc = (Document) origin.get(id);
 				DBObject obj = (DBObject)JSON.parse(doc.toJson());
 				String name = (String) obj.get("Name");				
