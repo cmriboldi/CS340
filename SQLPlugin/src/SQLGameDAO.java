@@ -1,14 +1,23 @@
-import app.database.GameData;
-import app.exception.*;
-import app.model.CatanModel;
-import app.plugin.IGameDAO;
-import app.serial.JSONDeserializer;
-import app.serial.JSONSerializer;
-import app.server.AuthToken;
+package SQLPlugin.src;
+
 import com.google.gson.Gson;
+import model.CatanModel;
+import plugin.sql.SQLPlugin;
+import server.AuthToken;
+import server.database.GameData;
+import server.database.IGameDAO;
+import server.exception.DatabaseException;
+import server.exception.ServerException;
+import server.facade.JSONSerializer;
+import serverProxy.JSONDeserializer;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 
-
-import java.sql.*;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -67,7 +76,8 @@ public class SQLGameDAO implements IGameDAO
             {
                 int id = result.getInt(1) - 1;
                 String game_name = result.getString(2);
-                CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(4)));
+                CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(3)).replace("\"", "").replace("\\", "\""));
+                game = new GameData(id, game_name, model);
             }
             statement.close();
         }
@@ -104,7 +114,7 @@ public class SQLGameDAO implements IGameDAO
             {
                 int id = result.getInt(1) - 1;
                 String game_name = result.getString(2);
-                CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(3)));
+                CatanModel model = JSONDeserializer.deserialize(new String(result.getBytes(3)).replace("\"", "").replace("\\", "\""));
                 GameData newGame = new GameData(id, game_name, model);
                 list.add(newGame);
             }
@@ -139,6 +149,7 @@ public class SQLGameDAO implements IGameDAO
     @Override
     public void updateGame(int gameID) throws DatabaseException
     {
+        System.out.println("\t\t!!!UPDATING GAME!!!");
         try
         {
             CatanModel newVersion = database.getFacade().getGameModel(new AuthToken("", "", -1, gameID));
@@ -153,7 +164,7 @@ public class SQLGameDAO implements IGameDAO
             else
             {
                 Statement statement = database.getConnection().createStatement();
-                statement.execute(SQLQuery.deleteAllCommandsForGame(gameID + 1));
+                statement.execute(SQLQuery.deleteAllCommandsForGame(gameID));
                 statement.close();
             }
             pstmt.close();

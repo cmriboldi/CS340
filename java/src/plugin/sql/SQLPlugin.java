@@ -10,6 +10,7 @@ import server.database.*;
 import server.exception.DatabaseException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
+import shared.communication.JSON.RollNumberJSON;
 
 import java.io.File;
 import java.io.IOException;
@@ -224,12 +225,16 @@ public class SQLPlugin implements IPersistencePlugin
                 facade.register(user.getName(), user.getPassword());
             }
             GameData[] games = gameDAO.getAllGames();
+            int count = 0;
             for(GameData game : games)
             {
                 facade.getDatabase().addGame(game.getName(), game.getModel());
                 ICommand[] commands = commandDAO.getAllCommands(game.getGameID());
                 for(ICommand command : commands)
                 {
+                    System.out.println(count++ + command.getJSON().getClass().toString());
+                    if(command.getJSON().getClass().equals(RollNumberJSON.class))
+                        System.out.println("\tRolled!: " + ((RollNumberJSON)command.getJSON()).getNumber());
                     command.execute();
                 }
             }

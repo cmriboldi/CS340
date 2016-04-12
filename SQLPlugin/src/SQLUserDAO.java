@@ -1,6 +1,9 @@
-import app.exception.DatabaseException;
-import app.plugin.IUserDAO;
-import app.server.UserData;
+package SQLPlugin.src;
+
+import plugin.sql.SQLPlugin;
+import server.data.UserData;
+import server.database.IUserDAO;
+import server.exception.DatabaseException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -8,7 +11,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Created by Joshua on 4/3/2016.
@@ -46,7 +48,7 @@ public class SQLUserDAO implements IUserDAO
 	    		{
 	    			throw new DatabaseException(" add user failed"); 
 	    		}
-	    		
+				stmt.close();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

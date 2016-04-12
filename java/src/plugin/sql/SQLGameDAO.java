@@ -145,6 +145,7 @@ public class SQLGameDAO implements IGameDAO
     @Override
     public void updateGame(int gameID) throws DatabaseException
     {
+        System.out.println("\t\t!!!UPDATING GAME!!!");
         try
         {
             CatanModel newVersion = database.getFacade().getGameModel(new AuthToken("", "", -1, gameID));
@@ -159,7 +160,7 @@ public class SQLGameDAO implements IGameDAO
             else
             {
                 Statement statement = database.getConnection().createStatement();
-                statement.execute(SQLQuery.deleteAllCommandsForGame(gameID + 1));
+                statement.execute(SQLQuery.deleteAllCommandsForGame(gameID));
                 statement.close();
             }
             pstmt.close();

@@ -1,19 +1,21 @@
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
+package SQLPlugin.src;
+
+import com.google.gson.Gson;
+import plugin.sql.SQLPlugin;
+import server.AuthToken;
+import server.command.CommandFactory;
+import server.command.ICommand;
+import server.database.ICommandDAO;
+import server.exception.DatabaseException;
+import shared.communication.JSON.IJavaJSON;
+
 import java.lang.reflect.Type;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
-import app.command.CommandFactory;
-import app.command.ICommand;
-import app.communication.IJavaJSON;
-import app.exception.DatabaseException;
-import app.plugin.ICommandDAO;
-import app.server.AuthToken;
-import com.google.gson.*;
 
 /**
  * Created by Joshua on 4/3/2016.
@@ -56,6 +58,19 @@ public class SQLCommandDAO implements ICommandDAO
 				throw new DatabaseException(" add user failed");
 			}
 			stmt.close();
+
+			Statement statement = database.getConnection().createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM command WHERE game_id = " + gameID);
+			int commandCount = 0;
+			while(result.next())
+			{
+				commandCount++;
+			}
+			System.out.println("<<-- Commands: " + commandCount + " update rate: " + database.getUpdateRate());
+			if(commandCount > database.getUpdateRate())
+			{
+				database.getGameDAO().updateGame(gameID);
+			}
 		}
 		catch (SQLException e)
 		{
@@ -120,12 +135,7 @@ public class SQLCommandDAO implements ICommandDAO
         return returnCommands;
     }
 
-	@Override
-	public ICommand[] getAllCommands(int gameID, int index) throws DatabaseException {
-		return new ICommand[0];
-	}
-
-	@Override
+    @Override
     public void deleteCommand(int commandID) throws DatabaseException {
 
     }

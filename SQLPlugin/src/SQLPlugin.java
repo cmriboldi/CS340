@@ -1,10 +1,18 @@
-import app.command.ICommand;
-import app.database.GameData;
-import app.exception.DatabaseException;
-import app.exception.ServerException;
-import app.plugin.*;
-import app.server.IServerFacade;
-import app.server.UserData;
+package SQLPlugin.src;
+
+import com.google.inject.Inject;
+import plugin.IPersistencePlugin;
+import plugin.IPluginData;
+import server.command.ICommand;
+import server.data.UserData;
+import server.database.GameData;
+import server.database.ICommandDAO;
+import server.database.IGameDAO;
+import server.database.IUserDAO;
+import server.exception.DatabaseException;
+import server.exception.ServerException;
+import server.facade.IServerFacade;
+import shared.communication.JSON.RollNumberJSON;
 
 import java.io.File;
 import java.io.IOException;
@@ -83,7 +91,9 @@ public class SQLPlugin implements IPersistencePlugin
     private SQLGameDAO gameDAO;
     private SQLCommandDAO commandDAO;
     private Connection connection;
+    private int updateRate;
 
+    @Inject
     public SQLPlugin(IServerFacade facade, IPluginData plugData)
     {
         this.facade = facade;
@@ -91,6 +101,7 @@ public class SQLPlugin implements IPersistencePlugin
         gameDAO = new SQLGameDAO(this);
         commandDAO = new SQLCommandDAO(this);
         connection = null;
+        updateRate = plugData.getCheckinSize();
 
         try
         {
@@ -100,6 +111,11 @@ public class SQLPlugin implements IPersistencePlugin
         {
             e.printStackTrace();
         }
+    }
+
+    public int getUpdateRate()
+    {
+        return updateRate;
     }
 
     public Connection getConnection()
@@ -211,16 +227,20 @@ public class SQLPlugin implements IPersistencePlugin
                 facade.register(user.getName(), user.getPassword());
             }
             GameData[] games = gameDAO.getAllGames();
+            int count = 0;
             for(GameData game : games)
             {
                 facade.getDatabase().addGame(game.getName(), game.getModel());
                 ICommand[] commands = commandDAO.getAllCommands(game.getGameID());
                 for(ICommand command : commands)
                 {
+                    System.out.println(count++ + command.getJSON().getClass().toString());
+                    if(command.getJSON().getClass().equals(RollNumberJSON.class))
+                        System.out.println("\tRolled!: " + ((RollNumberJSON)command.getJSON()).getNumber());
                     command.execute();
                 }
             }
-
+            endTransaction(true);
         }
         catch (ServerException e)
         {

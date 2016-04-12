@@ -6,6 +6,7 @@ import java.lang.reflect.Type;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,6 +61,19 @@ public class SQLCommandDAO implements ICommandDAO
 				throw new DatabaseException(" add user failed");
 			}
 			stmt.close();
+
+			Statement statement = database.getConnection().createStatement();
+			ResultSet result = statement.executeQuery("SELECT * FROM command WHERE game_id = " + gameID);
+			int commandCount = 0;
+			while(result.next())
+			{
+				commandCount++;
+			}
+			System.out.println("<<-- Commands: " + commandCount + " update rate: " + database.getUpdateRate());
+			if(commandCount > database.getUpdateRate())
+			{
+				database.getGameDAO().updateGame(gameID);
+			}
 		}
 		catch (SQLException e)
 		{
