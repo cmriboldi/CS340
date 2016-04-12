@@ -119,6 +119,8 @@ public class MongoCommandDAO implements ICommandDAO {
 				DBObject json = (DBObject) obj.get("json");
 				DBObject klass = (DBObject) obj.get("class");
 				
+				
+				
 				ICommand command = (ICommand) doc.get(id);
 				commands[i] = command;
 				i++;
