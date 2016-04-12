@@ -65,10 +65,11 @@ public class MongoUserDAO implements IUserDAO {
 		
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Users");
-		Document doc = coll.find().first();
-		DBObject object = (DBObject) doc.get(id);
-		String name = (String) object.get("name");
-		String password = (String) object.get("password");
+		Document origin = coll.find().first();
+		Document doc = (Document) origin.get(id);
+		DBObject obj = (DBObject)JSON.parse(doc.toJson());
+		String name = (String) obj.get("name");
+		String password = (String) obj.get("password");
 		
 		UserData user = new UserData(name,password);
 		user.setId(userID);
@@ -79,18 +80,20 @@ public class MongoUserDAO implements IUserDAO {
 	public UserData[] getAllUsers() throws DatabaseException {
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Users");
-		Document doc = coll.find().first();
-		if(doc != null)
+		Document origin = coll.find().first();
+		if(origin != null)
 		{
-			Set<String> ids = doc.keySet();
+			Set<String> ids = origin.keySet();
+			ids.remove("_id");
 			UserData[] users = new UserData[ids.size()];
 			
 			int i = 0;
 			for(String id : ids)
 			{
-				DBObject object = (DBObject) doc.get(id);
-				String name = (String) object.get("name");
-				String password = (String) object.get("password");
+				Document doc = (Document) origin.get(id);
+				DBObject obj = (DBObject)JSON.parse(doc.toJson());
+				String name = (String) obj.get("name");
+				String password = (String) obj.get("password");
 				UserData user = new UserData(name,password);
 				user.setId(Integer.parseInt(id));
 				users[i] = user;
