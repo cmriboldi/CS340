@@ -17,6 +17,7 @@ import com.mongodb.util.JSON;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.DBCursor;
@@ -59,14 +60,28 @@ public class MongoCommandDAO implements ICommandDAO {
 			obj.put("token", JSON.parse(gson.toJson(token)));
 			obj.put("json", JSON.parse(gson.toJson(json)));
 			obj.put("class", JSON.parse(gson.toJson(klass)));
+			
+			System.out.println("obj is: " + obj);
+			
 			origin.append(gameID, obj);
 			coll.insertOne(origin);
 		}
 		else
 		{
 			Document replace = new Document(origin);
-			DBObject obj = new BasicDBObject();
-			obj.put("command", command);
+			Gson gson = new Gson();
+			
+			DBObject obj = new BasicDBObject();		
+			AuthToken token = command.getAuthToken();
+			IJavaJSON json = command.getJSON();
+			String klass = command.getClass().toString();
+
+			obj.put("token", JSON.parse(gson.toJson(token)));
+			obj.put("json", JSON.parse(gson.toJson(json)));
+			obj.put("class", JSON.parse(gson.toJson(klass)));
+			
+			System.out.println("obj is: " + obj);
+			
 			replace.append(gameID, obj);
 			coll.findOneAndReplace(origin, replace);
 		}		
@@ -81,8 +96,8 @@ public class MongoCommandDAO implements ICommandDAO {
 	public ICommand[] getAllCommands(int gameID) throws DatabaseException {
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Commands");
-		Document doc = coll.find().first();
-		Set<String> ids = doc.keySet();
+		Document origin = coll.find().first();
+		Set<String> ids = origin.keySet();
 		
 		int n = 0;
 		for(String id : ids)
@@ -97,6 +112,13 @@ public class MongoCommandDAO implements ICommandDAO {
 		{
 			if(id.equals(Integer.toString(gameID)))
 			{
+				Gson gson = new Gson();
+				Document doc = (Document) origin.get(id);
+				DBObject obj = (DBObject)JSON.parse(doc.toJson());
+				DBObject token = (DBObject) obj.get("token");
+				DBObject json = (DBObject) obj.get("json");
+				DBObject klass = (DBObject) obj.get("class");
+				
 				ICommand command = (ICommand) doc.get(id);
 				commands[i] = command;
 				i++;
