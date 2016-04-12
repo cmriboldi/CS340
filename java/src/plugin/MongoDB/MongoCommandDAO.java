@@ -1,9 +1,11 @@
 package plugin.MongoDB;
 
+import server.AuthToken;
 import server.command.ICommand;
 import server.data.UserData;
 import server.database.ICommandDAO;
 import server.exception.DatabaseException;
+import shared.communication.JSON.IJavaJSON;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -47,13 +49,17 @@ public class MongoCommandDAO implements ICommandDAO {
 		if(origin == null)
 		{
 			origin = new Document();
-			origin.append(gameID, command);
+			DBObject obj = new BasicDBObject();
+			obj.put("command", command);
+			origin.append(gameID, obj);
 			coll.insertOne(origin); 
 		}
 		else
 		{
-			Document replace = new Document(origin);			
-			replace.append(gameID, command);
+			Document replace = new Document(origin);
+			DBObject obj = new BasicDBObject();
+			obj.put("command", command);
+			replace.append(gameID, obj);
 			coll.findOneAndReplace(origin, replace);
 		}		
 	}
