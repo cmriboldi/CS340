@@ -1,18 +1,11 @@
-package SQLPlugin.src;
-
-import com.google.gson.Gson;
+import database.GameData;
+import exception.*;
 import model.CatanModel;
-import plugin.sql.SQLPlugin;
+import plugin.IGameDAO;
+import serial.JSONDeserializer;
+import serial.JSONSerializer;
 import server.AuthToken;
-import server.database.GameData;
-import server.database.IGameDAO;
-import server.exception.DatabaseException;
-import server.exception.ServerException;
-import server.facade.JSONSerializer;
-import serverProxy.JSONDeserializer;
-import shared.exceptions.player.GeneralPlayerException;
-import shared.exceptions.player.InvalidTurnStatusException;
-import shared.exceptions.player.TurnIndexException;
+import com.google.gson.Gson;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

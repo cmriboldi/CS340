@@ -1,5 +1,3 @@
-package SQLPlugin.src;
-
 /**
  * Created by Joshua on 4/7/2016.
  */
