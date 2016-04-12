@@ -16,6 +16,7 @@ import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
+import com.google.gson.Gson;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
 import com.mongodb.DBCursor;
@@ -49,10 +50,11 @@ public class MongoCommandDAO implements ICommandDAO {
 		if(origin == null)
 		{
 			origin = new Document();
-			DBObject obj = new BasicDBObject();
-			obj.put("command", command);
+			Gson gson = new Gson();
+			DBObject obj = (DBObject) JSON.parse(gson.toJson(command));
+			System.out.println(obj);
 			origin.append(gameID, obj);
-			coll.insertOne(origin); 
+			coll.insertOne(origin);
 		}
 		else
 		{

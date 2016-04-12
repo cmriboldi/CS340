@@ -66,7 +66,7 @@ public class MongoPlugin implements IPersistencePlugin {
 		if(gameID != null)
 		{
 			ICommand[] commands = commandDAO.getAllCommands(Integer.parseInt(gameID));
-			if(commands.length >= 10)
+			if(commands.length > 10)
 			{
 				gameDAO.updateGame(Integer.parseInt(gameID));
 				MongoDatabase db = mongoClient.getDatabase("Catan");
