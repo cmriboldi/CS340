@@ -50,13 +50,15 @@ public class MongoCommandDAO implements ICommandDAO {
 		if(origin == null)
 		{
 			origin = new Document();
-			DBObject obj = new BasicDBObject();
+			Gson gson = new Gson();
+			
+			DBObject obj = new BasicDBObject();		
 			AuthToken token = command.getAuthToken();
 			IJavaJSON json = command.getJSON();
 			String klass = command.getClass().toString();
-			obj.put("token", token);
-			obj.put("json", json);
-			obj.put("class", klass);
+			obj.put("token", gson.toJson(token));
+			obj.put("json", gson.toJson(json));
+			obj.put("class", gson.toJson(klass));
 			origin.append(gameID, obj);
 			coll.insertOne(origin);
 		}
