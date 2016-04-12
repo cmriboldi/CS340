@@ -44,11 +44,18 @@ public class MongoCommandDAO implements ICommandDAO {
 		MongoDatabase db = mongoClient.getDatabase("Catan");
 		MongoCollection<Document> coll = db.getCollection("Commands");
 		Document origin = coll.find().first();
-		Document replace = new Document(origin);
-		
-		replace.append(gameID, command);
-		coll.findOneAndReplace(origin, replace);
-		
+		if(origin == null)
+		{
+			origin = new Document();
+			origin.append(gameID, command);
+			coll.insertOne(origin); 
+		}
+		else
+		{
+			Document replace = new Document(origin);			
+			replace.append(gameID, command);
+			coll.findOneAndReplace(origin, replace);
+		}		
 	}
 
 	@Override
