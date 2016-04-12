@@ -1,11 +1,14 @@
 package plugin.MongoDB;
 
 import server.AuthToken;
+import server.command.CommandFactory;
 import server.command.ICommand;
 import server.data.UserData;
 import server.database.ICommandDAO;
 import server.exception.DatabaseException;
+import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
+import java.lang.reflect.Type;
 
 import com.mongodb.MongoClient;
 import com.mongodb.MongoException;
@@ -14,6 +17,7 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
+
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.google.gson.Gson;
@@ -31,10 +35,12 @@ import org.bson.Document;
 public class MongoCommandDAO implements ICommandDAO {
 
 	private MongoClient mongoClient;
+	private IServerFacade facade; 
 	private String gameID;
 	
-	public MongoCommandDAO(MongoClient mongoClient) {
-		this.mongoClient = mongoClient;		
+	public MongoCommandDAO(MongoClient mongoClient, IServerFacade facade) {
+		this.mongoClient = mongoClient;	
+		this.facade = facade;
 	}
 	
 	public String getLastGameId()
@@ -112,16 +118,23 @@ public class MongoCommandDAO implements ICommandDAO {
 		{
 			if(id.equals(Integer.toString(gameID)))
 			{
-				Gson gson = new Gson();
 				Document doc = (Document) origin.get(id);
 				DBObject obj = (DBObject)JSON.parse(doc.toJson());
 				DBObject token = (DBObject) obj.get("token");
 				DBObject json = (DBObject) obj.get("json");
-				DBObject klass = (DBObject) obj.get("class");
+				String klass = (String) obj.get("class");
 				
+				AuthToken t = new AuthToken();
+				t.setGameID(Integer.parseInt((String) token.get("gameID")));
+				t.setName((String) token.get("name"));
+				t.setPassword((String) token.get("password"));
+				t.setPlayerID(Integer.parseInt((String) token.get("playerID")));
 				
+				Type type = IJavaJSON.getTypeFromString(klass);
+				IJavaJSON j = new Gson().fromJson(json.toString(), type);
 				
-				ICommand command = (ICommand) doc.get(id);
+				CommandFactory factory = new CommandFactory(facade);
+				ICommand command = factory.buildCommand(t, j);			
 				commands[i] = command;
 				i++;
 			}

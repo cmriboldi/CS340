@@ -57,7 +57,7 @@ public class MongoPlugin implements IPersistencePlugin {
 		mongoClient = new MongoClient( "localhost" , 27017 );
 		gameDAO = new MongoGameDAO(mongoClient,facade);
 		userDAO = new MongoUserDAO(mongoClient);
-		commandDAO = new MongoCommandDAO(mongoClient);
+		commandDAO = new MongoCommandDAO(mongoClient, facade);
 	}
 
 	@Override
@@ -94,7 +94,7 @@ public class MongoPlugin implements IPersistencePlugin {
 		mongoClient = new MongoClient( "localhost" , 27017 );
 		gameDAO = new MongoGameDAO(mongoClient,facade);
 		userDAO = new MongoUserDAO(mongoClient);
-		commandDAO = new MongoCommandDAO(mongoClient);
+		commandDAO = new MongoCommandDAO(mongoClient, facade);
 		
 		UserData[] users = userDAO.getAllUsers();
 		GameData[] games = gameDAO.getAllGames();
