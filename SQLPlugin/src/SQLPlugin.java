@@ -1,18 +1,13 @@
-package SQLPlugin.src;
 
-import com.google.inject.Inject;
-import plugin.IPersistencePlugin;
-import plugin.IPluginData;
-import server.command.ICommand;
-import server.data.UserData;
-import server.database.GameData;
-import server.database.ICommandDAO;
-import server.database.IGameDAO;
-import server.database.IUserDAO;
-import server.exception.DatabaseException;
-import server.exception.ServerException;
+import command.ICommand;
+import communication.RollNumberJSON;
+import database.GameData;
+import exception.DatabaseException;
+import exception.ServerException;
+import plugin.*;
 import server.facade.IServerFacade;
-import shared.communication.JSON.RollNumberJSON;
+import server.UserData;
+import com.google.inject.Inject;
 
 import java.io.File;
 import java.io.IOException;
@@ -94,14 +89,14 @@ public class SQLPlugin implements IPersistencePlugin
     private int updateRate;
 
     @Inject
-    public SQLPlugin(IServerFacade facade, IPluginData plugData)
+    public SQLPlugin(Object facade, Object plugData)
     {
-        this.facade = facade;
+        this.facade = (IServerFacade)facade;
         userDAO = new SQLUserDAO(this);
         gameDAO = new SQLGameDAO(this);
         commandDAO = new SQLCommandDAO(this);
         connection = null;
-        updateRate = plugData.getCheckinSize();
+        updateRate = ((IPluginData)plugData).getCheckinSize();
 
         try
         {

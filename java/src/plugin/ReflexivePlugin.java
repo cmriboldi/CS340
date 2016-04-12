@@ -21,9 +21,10 @@ public class ReflexivePlugin implements IPersistencePlugin {
 
 
     @Inject
-    public ReflexivePlugin(IPluginClass pluginClass_p, IServerFacade facade_p)
+    public ReflexivePlugin(IPluginClass pluginClass_p, IServerFacade facade_p, IPluginData _data)
     {
         facade = facade_p;
+        data = _data;
 
         try {
             classInstance = pluginClass_p.getClassType();

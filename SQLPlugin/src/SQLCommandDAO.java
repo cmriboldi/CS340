@@ -1,13 +1,11 @@
-package SQLPlugin.src;
 
-import com.google.gson.Gson;
-import plugin.sql.SQLPlugin;
+import command.CommandFactory;
+import command.ICommand;
+import communication.IJavaJSON;
+import exception.DatabaseException;
+import plugin.ICommandDAO;
 import server.AuthToken;
-import server.command.CommandFactory;
-import server.command.ICommand;
-import server.database.ICommandDAO;
-import server.exception.DatabaseException;
-import shared.communication.JSON.IJavaJSON;
+import com.google.gson.Gson;
 
 import java.lang.reflect.Type;
 import java.sql.PreparedStatement;
@@ -135,7 +133,12 @@ public class SQLCommandDAO implements ICommandDAO
         return returnCommands;
     }
 
-    @Override
+	@Override
+	public ICommand[] getAllCommands(int gameID, int index) throws DatabaseException {
+		return new ICommand[0];
+	}
+
+	@Override
     public void deleteCommand(int commandID) throws DatabaseException {
 
     }

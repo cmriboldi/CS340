@@ -1,9 +1,7 @@
-package SQLPlugin.src;
 
-import plugin.sql.SQLPlugin;
-import server.data.UserData;
-import server.database.IUserDAO;
-import server.exception.DatabaseException;
+import exception.DatabaseException;
+import plugin.IUserDAO;
+import server.UserData;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
