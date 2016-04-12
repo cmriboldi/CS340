@@ -7,7 +7,6 @@ import exception.ServerException;
 import plugin.*;
 import server.facade.IServerFacade;
 import server.UserData;
-import com.google.inject.Inject;
 
 import java.io.File;
 import java.io.IOException;
@@ -88,7 +87,6 @@ public class SQLPlugin implements IPersistencePlugin
     private Connection connection;
     private int updateRate;
 
-    @Inject
     public SQLPlugin(Object facade, Object plugData)
     {
         this.facade = (IServerFacade)facade;
