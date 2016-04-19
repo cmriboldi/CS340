@@ -24,10 +24,9 @@ import java.sql.Statement;
  */
 public class SQLPlugin implements IPersistencePlugin
 {
-    private static final String DATABASE_DIRECTORY = "plugins/sql/database";
+//    private static final String DATABASE_DIRECTORY = "plugins/sql/database/";
     private static final String DATABASE_FILE = "database.sqlite";
-    private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_DIRECTORY +
-            File.separator + DATABASE_FILE;
+    private static final String DATABASE_URL = "jdbc:sqlite:" + DATABASE_FILE;
 
     private void initialize() throws DatabaseException
     {
@@ -35,13 +34,13 @@ public class SQLPlugin implements IPersistencePlugin
         {
             final String driver = "org.sqlite.JDBC";
             Class.forName(driver);
-            File sqliteFile = new File(DATABASE_DIRECTORY + File.separator + DATABASE_FILE);
-            if(!sqliteFile.getParentFile().getParentFile().getParentFile().exists())
-                sqliteFile.getParentFile().getParentFile().getParentFile().mkdir();
-            if(!sqliteFile.getParentFile().getParentFile().exists())
-                sqliteFile.getParentFile().getParentFile().mkdir();
-            if(!sqliteFile.getParentFile().exists())
-                sqliteFile.getParentFile().mkdir();
+            File sqliteFile = new File(DATABASE_FILE);
+//            if(!sqliteFile.getParentFile().getParentFile().getParentFile().exists())
+//                sqliteFile.getParentFile().getParentFile().getParentFile().mkdir();
+//            if(!sqliteFile.getParentFile().getParentFile().exists())
+//                sqliteFile.getParentFile().getParentFile().mkdir();
+//            if(!sqliteFile.getParentFile().exists())
+//                sqliteFile.getParentFile().mkdir();
             if(!sqliteFile.exists())
             {
                 sqliteFile.createNewFile();
@@ -133,6 +132,8 @@ public class SQLPlugin implements IPersistencePlugin
         {
             if(connection == null)
             {
+                File newFile = new File(DATABASE_FILE);
+                System.out.println(newFile.exists());
                 connection = DriverManager.getConnection(DATABASE_URL);
                 connection.setAutoCommit(false);
             }
@@ -141,7 +142,7 @@ public class SQLPlugin implements IPersistencePlugin
         }
         catch (SQLException e)
         {
-            throw new DatabaseException("Could not connect to database");
+            throw new DatabaseException("Could not connect to database " + DATABASE_URL + " " + e.getMessage());
         }
     }
 
