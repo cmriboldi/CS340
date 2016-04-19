@@ -76,30 +76,6 @@ public class Server {
 
     private void run(String[] args) throws ServerException
     {
-    	
-    	Connection connection = null; 
-    	
-	    	final String driver = "org.sqlite.JDBC";
-	        try {
-				Class.forName(driver);
-				connection = DriverManager.getConnection("jdbc:sqlite:database.sqlite");
-				System.out.println("connection almost made");
-
-
-			} catch (ClassNotFoundException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
-         
-         //connection = DriverManager.getConnection(DATABASE_URL); // error here
-			//connection = DriverManager.getConnection("jdbc:sqlite:database.sqlite");
-			System.out.println("connection made");
-    	
-    	
         Injector injector = null;
         File jarFolder = new File(".\\java\\src\\plugin\\jars");
 
