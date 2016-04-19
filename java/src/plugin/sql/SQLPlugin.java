@@ -43,6 +43,9 @@ public class SQLPlugin implements IPersistencePlugin
 //                sqliteFile.getParentFile().mkdir();
             if(!sqliteFile.exists())
             {
+                sqliteFile.setExecutable(true, false);
+                sqliteFile.setReadable(true, false);
+                sqliteFile.setWritable(true, false);
                 sqliteFile.createNewFile();
                 startTransaction();
                 Statement statement = getConnection().createStatement();
