@@ -3,10 +3,16 @@ package server;
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import com.sun.net.httpserver.*;
+
 import jcommander.JCommander;
 import jcommander.Parameter;
 import plugin.*;
@@ -70,6 +76,30 @@ public class Server {
 
     private void run(String[] args) throws ServerException
     {
+    	
+    	Connection connection = null; 
+    	
+	    	final String driver = "org.sqlite.JDBC";
+	        try {
+				Class.forName(driver);
+				connection = DriverManager.getConnection("jdbc:sqlite:database.sqlite");
+				System.out.println("connection almost made");
+
+
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+         
+         //connection = DriverManager.getConnection(DATABASE_URL); // error here
+			//connection = DriverManager.getConnection("jdbc:sqlite:database.sqlite");
+			System.out.println("connection made");
+    	
+    	
         Injector injector = null;
         File jarFolder = new File(".\\java\\src\\plugin\\jars");
 

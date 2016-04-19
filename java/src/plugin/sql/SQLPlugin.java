@@ -14,6 +14,8 @@ import shared.communication.JSON.RollNumberJSON;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -135,9 +137,24 @@ public class SQLPlugin implements IPersistencePlugin
         {
             if(connection == null)
             {
+            	
+            	
+            
+            	
+            	
                 File newFile = new File(DATABASE_FILE);
                 System.out.println(newFile.exists());
-                connection = DriverManager.getConnection(DATABASE_URL);
+                System.out.println("$$$: " + DATABASE_URL); 
+                
+                Path currentRelativePath = Paths.get("");
+                String s = currentRelativePath.toAbsolutePath().toString();
+                System.out.println("Current relative path is: " + s);
+                
+                //connection = DriverManager.getConnection(DATABASE_URL); // error here
+				connection = DriverManager.getConnection("jdbc:sqlite:database.sqlite");
+				System.out.println("connection made");
+
+                
                 connection.setAutoCommit(false);
             }
             else
