@@ -162,6 +162,14 @@
 
 			<zipfileset includes="**/*.class" src="${java.lib}/gson-2.5.jar"/>
 
+			<zipfileset includes="**/*.class" src="${java.lib}/sqlite-jdbc-3.8.11.2.jar"/>
+
+			<zipfileset includes="**/*.class" src="${java.lib}/mongo-java-driver-3.2.2.jar"/>
+			<zipfileset includes="**/*.class" src="${java.lib}/mongo-java-driver-3.2.2-javadoc.jar"/>
+			<zipfileset includes="**/*.class" src="${java.lib}/mongo-java-driver-3.2.2-sources.jar"/>
+
+
+
 			<manifest>
 				<attribute name="Main-Class" value="server.Server"/>
 				<!--<attribute name="Class-Path" value="lib/guice-3.0.jar" />-->
@@ -190,10 +198,51 @@
 
 	<target name="our-server-SQL" depends="package" description="compiles, packages, and runs the student server with the SQL persistant database">
 		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
-			<arg value="--plugin"/>
-			<arg value="SQLPlugin"/>
+			<arg value="--local"/>
+			<arg value="SQL"/>
 			<arg value="-n"/>
 			<arg value="10"/>
+			<sysproperty key="com.sun.management.jmxremote" value=""/>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
+
+	<target name="our-server-SQL-clean" depends="package" description="compiles, packages, and runs the student server with the SQL persistant database">
+		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
+			<arg value="--local"/>
+			<arg value="SQL"/>
+			<arg value="-n"/>
+			<arg value="10"/>
+			<arg value="--clear"/>
+			<sysproperty key="com.sun.management.jmxremote" value=""/>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
+
+	<target name="our-server-Mongo" depends="package" description="compiles, packages, and runs the student server with the SQL persistant database">
+		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
+			<arg value="--local"/>
+			<arg value="Mongo"/>
+			<arg value="-n"/>
+			<arg value="10"/>
+			<sysproperty key="com.sun.management.jmxremote" value=""/>
+			<assertions>
+				<enable/>
+			</assertions>
+		</java>
+	</target>
+
+	<target name="our-server-Mongo-clear" depends="package" description="compiles, packages, and runs the student server with the SQL persistant database">
+		<java jar="${java.dist}/catan-server.jar" dir="${java.dist}" fork="yes">
+			<arg value="--local"/>
+			<arg value="Mongo"/>
+			<arg value="-n"/>
+			<arg value="10"/>
+			<arg value="--clear"/>
 			<sysproperty key="com.sun.management.jmxremote" value=""/>
 			<assertions>
 				<enable/>

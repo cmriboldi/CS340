@@ -123,10 +123,12 @@ public class Server {
                             if(current.getName().equals(arguments.pluginID + ".jar")){
                                 //Bind the plugin
                                 System.out.println("PLUGIN FOUND");
-                                URL pluginURL = current.toURI().toURL();
-                                URLClassLoader classLoader = new URLClassLoader(new URL[]{pluginURL}, this.getClass().getClassLoader());
-                                Class pluginClass = classLoader.loadClass(arguments.pluginID);
-                                plugType.setClassType(pluginClass);
+
+URL pluginURL = current.toURI().toURL();
+URLClassLoader classLoader = new URLClassLoader(new URL[]{pluginURL}, this.getClass().getClassLoader());
+Class pluginClass = classLoader.loadClass(arguments.pluginID);
+plugType.setClassType(pluginClass);
+
                                 System.out.println("PLUGIN BOUND: " + current.getName());
                             }
                         }
