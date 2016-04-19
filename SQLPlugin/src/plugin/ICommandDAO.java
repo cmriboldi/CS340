@@ -1,7 +1,8 @@
 package plugin;
 
-import exception.*;
 import command.*;
+import server.exception.DatabaseException;
+
 /**
  * Abstract interface any CommandDAO must implement in order to be plugged in
  */

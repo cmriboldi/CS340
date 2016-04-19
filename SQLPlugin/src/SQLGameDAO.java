@@ -1,11 +1,15 @@
 import database.GameData;
-import exception.*;
 import model.CatanModel;
 import plugin.IGameDAO;
-import serial.JSONDeserializer;
-import serial.JSONSerializer;
+import serverProxy.JSONDeserializer;
+import server.facade.JSONSerializer;
 import server.AuthToken;
 import com.google.gson.Gson;
+import server.exception.DatabaseException;
+import server.exception.ServerException;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

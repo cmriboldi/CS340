@@ -1,11 +1,11 @@
 package model.map;
 
 
-import exception.IllegalPlacementException;
-import exception.OwnershipException;
-import locations.EdgeLocation;
-import locations.HexLocation;
-import locations.VertexLocation;
+import shared.exceptions.map.IllegalPlacementException;
+import shared.exceptions.map.OwnershipException;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import model.resources.ResourceList;
 
 import java.util.HashMap;

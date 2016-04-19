@@ -2,7 +2,7 @@ package plugin.MongoDB;
 
 import model.CatanModel;
 import server.database.GameData;
-import server.database.IGameDAO;
+import plugin.IGameDAO;
 import server.exception.DatabaseException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
@@ -13,21 +13,11 @@ import shared.exceptions.player.InvalidTurnStatusException;
 import shared.exceptions.player.TurnIndexException;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
-import com.mongodb.WriteConcern;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.model.InsertOneOptions;
 import com.mongodb.util.JSON;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.DBCursor;
 
-import com.mongodb.ServerAddress;
-import java.util.Arrays;
 import java.util.Set;
 
 import org.bson.Document;

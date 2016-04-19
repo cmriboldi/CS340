@@ -3,7 +3,8 @@ package model.resources;
 import definitions.Cost;
 import definitions.PieceType;
 import definitions.ResourceType;
-import exception.*;
+import shared.exceptions.player.InvalidPlayerIndexException;
+import shared.exceptions.resources.*;
 
 /** The ResourceManger class manages all transactions other packages need to make concerning resources.
  * @author Christian Riboldi

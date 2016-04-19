@@ -1,7 +1,6 @@
 package model.map;
 
 //Project Imports
-import locations.*;
 
 /**
  * Used to represent road states.

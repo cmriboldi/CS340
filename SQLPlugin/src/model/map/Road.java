@@ -1,8 +1,8 @@
 package model.map;
 
 
-import locations.EdgeDirection;
-import locations.EdgeLocation;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 
 /**
  * Created by clayt on 2/1/2016.

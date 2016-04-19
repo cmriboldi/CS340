@@ -1,7 +1,5 @@
 package plugin.sql;
 
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
 import java.lang.reflect.Type;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -15,8 +13,7 @@ import com.google.gson.*;
 import server.AuthToken;
 import server.command.CommandFactory;
 import server.command.ICommand;
-import server.data.UserData;
-import server.database.ICommandDAO;
+import plugin.ICommandDAO;
 import server.exception.DatabaseException;
 import shared.communication.JSON.IJavaJSON;
 

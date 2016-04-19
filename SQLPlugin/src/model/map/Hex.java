@@ -4,7 +4,7 @@ package model.map;
 
 
 import definitions.HexType;
-import locations.HexLocation;
+import shared.locations.HexLocation;
 
 /**
  * The Hex class is used to represent each tile on the board

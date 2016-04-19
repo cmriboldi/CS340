@@ -4,9 +4,9 @@ package model.options;
 import definitions.DevCardType;
 import definitions.PortType;
 import definitions.TurnType;
-import locations.EdgeLocation;
-import locations.HexLocation;
-import locations.VertexLocation;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import model.CatanModel;
 import model.players.PlayerTurnTracker;
 

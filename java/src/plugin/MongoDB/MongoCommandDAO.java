@@ -3,31 +3,21 @@ package plugin.MongoDB;
 import server.AuthToken;
 import server.command.CommandFactory;
 import server.command.ICommand;
-import server.data.UserData;
-import server.database.ICommandDAO;
+import plugin.ICommandDAO;
 import server.exception.DatabaseException;
 import server.facade.IServerFacade;
 import shared.communication.JSON.IJavaJSON;
 import java.lang.reflect.Type;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
-import com.mongodb.WriteConcern;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
 
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.google.gson.Gson;
-import com.google.gson.JsonElement;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.DBCursor;
 
-import com.mongodb.ServerAddress;
-import java.util.Arrays;
 import java.util.Set;
 
 import org.bson.Document;

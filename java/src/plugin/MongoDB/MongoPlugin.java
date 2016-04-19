@@ -5,29 +5,21 @@ import plugin.IPluginData;
 import server.command.ICommand;
 import server.data.UserData;
 import server.database.GameData;
-import server.database.ICommandDAO;
-import server.database.IGameDAO;
+import plugin.ICommandDAO;
+import plugin.IGameDAO;
 import plugin.IPersistencePlugin;
-import server.database.IUserDAO;
+import plugin.IUserDAO;
 import server.exception.DatabaseException;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
 
 import com.mongodb.MongoClient;
 import com.mongodb.DB;
-import com.mongodb.DBCollection;
-import com.mongodb.BasicDBObject;
-import com.mongodb.DBObject;
-import com.mongodb.DBCursor;
 
-import com.mongodb.ServerAddress;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
-import java.util.Arrays;
-import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 
 import org.bson.Document;
 

@@ -1,9 +1,9 @@
 
 import command.ICommand;
-import communication.RollNumberJSON;
+import shared.communication.JSON.RollNumberJSON;
 import database.GameData;
-import exception.DatabaseException;
-import exception.ServerException;
+import server.exception.DatabaseException;
+import server.exception.ServerException;
 import plugin.*;
 import server.facade.IServerFacade;
 import server.UserData;

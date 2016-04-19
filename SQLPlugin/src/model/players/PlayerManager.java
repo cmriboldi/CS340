@@ -1,13 +1,13 @@
 package model.players;
 
 
-import client.Facade;
-import client.PlayerInfo;
+import SQLPlugin.src.clientfacade.Facade;
+import SQLPlugin.src.client.data.PlayerInfo;
 import definitions.CatanColor;
 import definitions.PieceType;
 import definitions.TurnType;
-import exception.PlayerNameNotFoundException;
-import exception.TurnIndexException;
+import shared.exceptions.player.PlayerNameNotFoundException;
+import shared.exceptions.player.TurnIndexException;
 
 import java.util.ArrayList;
 

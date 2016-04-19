@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import model.CatanModel;
 import server.AuthToken;
 import server.database.GameData;
-import server.database.IGameDAO;
+import plugin.IGameDAO;
 import server.exception.DatabaseException;
 import server.exception.ServerException;
 import server.facade.JSONSerializer;

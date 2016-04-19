@@ -2,8 +2,7 @@ package plugin.sql;
 
 import com.google.inject.Inject;
 
-import plugin.IPersistencePlugin;
-import plugin.IPluginData;
+import plugin.*;
 import server.command.ICommand;
 import server.data.UserData;
 import server.database.*;
@@ -14,8 +13,6 @@ import shared.communication.JSON.RollNumberJSON;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;

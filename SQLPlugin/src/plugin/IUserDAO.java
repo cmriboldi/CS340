@@ -1,7 +1,7 @@
 package plugin;
 
 
-import exception.DatabaseException;
+import server.exception.DatabaseException;
 import server.UserData;
 
 /**

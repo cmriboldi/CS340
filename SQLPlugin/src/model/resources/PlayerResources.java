@@ -1,7 +1,7 @@
 package model.resources;
 
 import definitions.ResourceType;
-import exception.NotEnoughResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 public class PlayerResources
 {

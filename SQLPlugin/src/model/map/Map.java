@@ -6,7 +6,6 @@ package model.map;
 import definitions.HexType;
 import definitions.PortType;
 import definitions.ResourceType;
-import locations.*;
 import model.resources.ResourceList;
 
 import java.util.*;
@@ -99,7 +98,7 @@ public class Map {
         //list of all the possible xy combinations
         List<HexLocation> hexLocs = generateHexLocs();
 
-        //list of all possible port locations
+        //list of all possible port shared.locations
         List<EdgeLocation> portLocs = generatePortLocs();
 
         //one desert, two sheep brick ore wheat wood
@@ -695,7 +694,7 @@ public class Map {
 
         //----- check for ocean roads
         //check that at least one hex adj to the edge location is a non water tile (because we don't store the ocean tiles
-        //check that there exists in hexes at least ONE of the hex locations
+        //check that there exists in hexes at least ONE of the hex shared.locations
         HexLocation one = edge.getHexLoc();
         HexLocation two = one.getNeighborLoc(edge.getDir());
 

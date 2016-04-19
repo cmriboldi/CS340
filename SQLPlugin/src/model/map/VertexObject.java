@@ -1,9 +1,9 @@
 package model.map;
 
 
-import locations.HexLocation;
-import locations.VertexDirection;
-import locations.VertexLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 /**
  * The VertexObject class is used represent either a settlement or a city

@@ -1,24 +1,16 @@
 package plugin.MongoDB;
 
 import server.data.UserData;
-import server.database.IUserDAO;
+import plugin.IUserDAO;
 import server.exception.DatabaseException;
 
 import com.mongodb.MongoClient;
-import com.mongodb.MongoException;
-import com.mongodb.WriteConcern;
-import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import com.mongodb.util.JSON;
-import com.mongodb.DB;
-import com.mongodb.DBCollection;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DBObject;
-import com.mongodb.DBCursor;
 
-import com.mongodb.ServerAddress;
-import java.util.Arrays;
 import java.util.Set;
 
 import org.bson.Document;

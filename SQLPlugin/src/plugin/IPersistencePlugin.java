@@ -1,6 +1,6 @@
 package plugin;
 
-import exception.DatabaseException;
+import server.exception.DatabaseException;
 
 /**
  * Created by Joshua on 4/3/2016.

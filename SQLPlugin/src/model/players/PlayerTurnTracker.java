@@ -1,9 +1,9 @@
 package model.players;
 
 import definitions.TurnType;
-import exception.GeneralPlayerException;
-import exception.InvalidTurnStatusException;
-import exception.TurnIndexException;
+import shared.exceptions.player.GeneralPlayerException;
+import shared.exceptions.player.InvalidTurnStatusException;
+import shared.exceptions.player.TurnIndexException;
 
 /**
  * The PlayerTurnTracker tracks whose turn it is, and who will go next

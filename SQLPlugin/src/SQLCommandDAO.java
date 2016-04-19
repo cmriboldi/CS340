@@ -1,8 +1,8 @@
 
 import command.CommandFactory;
 import command.ICommand;
-import communication.IJavaJSON;
-import exception.DatabaseException;
+import shared.communication.JSON.IJavaJSON;
+import server.exception.DatabaseException;
 import plugin.ICommandDAO;
 import server.AuthToken;
 import com.google.gson.Gson;

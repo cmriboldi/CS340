@@ -3,7 +3,7 @@ package model.players;
 
 import definitions.CatanColor;
 import definitions.PieceType;
-import exception.InvalidColorException;
+import shared.exceptions.player.InvalidColorException;
 
 /**
  * The Player class contains all necessary information about a given player

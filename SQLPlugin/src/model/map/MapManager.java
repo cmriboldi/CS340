@@ -3,9 +3,9 @@ package model.map;
 //Project Imports
 
 import definitions.PortType;
-import locations.EdgeLocation;
-import locations.HexLocation;
-import locations.VertexLocation;
+import shared.locations.EdgeLocation;
+import shared.locations.HexLocation;
+import shared.locations.VertexLocation;
 import model.resources.ResourceList;
 
 import java.util.HashMap;

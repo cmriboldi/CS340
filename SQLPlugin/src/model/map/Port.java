@@ -2,8 +2,8 @@ package model.map;
 
 
 import definitions.PortType;
-import locations.EdgeDirection;
-import locations.EdgeLocation;
+import shared.locations.EdgeDirection;
+import shared.locations.EdgeLocation;
 
 /**
  * Created by clayt on 1/29/2016.

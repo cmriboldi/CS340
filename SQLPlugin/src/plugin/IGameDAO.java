@@ -2,7 +2,7 @@ package plugin;
 
 
 import database.GameData;
-import exception.DatabaseException;
+import server.exception.DatabaseException;
 
 /**
  * Abstract interface any GameDAO must implement in order to be plugged in

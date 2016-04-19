@@ -4,7 +4,7 @@ package model.resources;
 import definitions.Cost;
 import definitions.PieceType;
 import definitions.ResourceType;
-import exception.*;
+import shared.exceptions.resources.*;
 
 /**
  * The Banker handles all transactions in or out of the Bank
@@ -56,8 +56,8 @@ public class Banker
 	 * 
 	 * @param playerIndex The index of the player who is purchasing the piece.
 	 * @param piece The PieceType which will be bought.
-	 * @throws InvalidPieceTypeException 
-	 * @throws NotEnoughResourcesException 
+	 * @throws InvalidPieceTypeException
+	 * @throws NotEnoughResourcesException
 	 */
 	public void buyPiece(int playerIndex, PieceType piece) throws NotEnoughPlayerResourcesException, InvalidPieceTypeException, NotEnoughResourcesException
 	{
@@ -126,7 +126,7 @@ public class Banker
 	/**
 	 * @param playerIndex The index of the player who is using the card.
 	 * @param resourcesAskedFor The ResourceList with the two resources requested.
-	 * @throws InvalidNumberOfResourcesRequested 
+	 * @throws InvalidNumberOfResourcesRequested
 	 */
 	public void useYearOfPlentyCard(int playerIndex, ResourceList resourcesAskedFor)
 			throws NotEnoughBankResourcesException, InvalidNumberOfResourcesRequested

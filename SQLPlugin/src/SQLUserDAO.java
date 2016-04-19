@@ -1,5 +1,5 @@
 
-import exception.DatabaseException;
+import server.exception.DatabaseException;
 import plugin.IUserDAO;
 import server.UserData;
 

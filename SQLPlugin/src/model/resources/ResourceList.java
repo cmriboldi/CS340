@@ -2,7 +2,7 @@ package model.resources;
 
 
 import definitions.ResourceType;
-import exception.NotEnoughResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
 
 /**
  * The ResourceList is an object keeps track of how many resources it contains.

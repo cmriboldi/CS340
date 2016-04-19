@@ -2,10 +2,10 @@ package model.resources;
 
 
 import definitions.ResourceType;
-import exception.InvalidPlayerIndexException;
-import exception.NotEnoughPlayerResourcesException;
-import exception.NotEnoughResourcesException;
-import exception.TradeOfferNullException;
+import shared.exceptions.player.InvalidPlayerIndexException;
+import shared.exceptions.resources.NotEnoughPlayerResourcesException;
+import shared.exceptions.resources.NotEnoughResourcesException;
+import shared.exceptions.resources.TradeOfferNullException;
 
 /**
  * The Trader handles all Player to Player transactions.

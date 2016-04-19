@@ -1,11 +1,11 @@
 package server.facade;
 
 
-import client.GameInfo;
+import SQLPlugin.src.client.data.GameInfo;
 import command.ICommand;
 import database.IDatabase;
 import definitions.CatanColor;
-import exception.ServerException;
+import server.exception.ServerException;
 import model.CatanModel;
 import server.AuthToken;
 

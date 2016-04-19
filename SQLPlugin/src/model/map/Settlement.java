@@ -1,8 +1,8 @@
 package model.map;
 
 
-import locations.VertexDirection;
-import locations.VertexLocation;
+import shared.locations.VertexDirection;
+import shared.locations.VertexLocation;
 
 /**
  * Created by clayt on 1/29/2016.
