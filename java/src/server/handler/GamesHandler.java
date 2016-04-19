@@ -78,7 +78,7 @@ public class GamesHandler extends APIHandler
 
                     // account for persistence
                     plugin.startTransaction();
-                    model = facade.getDatabase().getGameModel(joinJSON.getId());
+//                    model = facade.getDatabase().getGameModel(joinJSON.getId());
                     plugin.getGameDAO().updateGame(joinJSON.getId());
                     plugin.endTransaction(true);
 

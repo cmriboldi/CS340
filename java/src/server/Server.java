@@ -3,11 +3,6 @@ package server;
 import java.io.File;
 import java.io.IOException;
 import java.net.*;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
@@ -183,11 +178,6 @@ plugType.setClassType(pluginClass);
         swaggerHandler = injector.getInstance(SwaggerHandler.class);
 
         IServerFacade facade = injector.getInstance(IServerFacade.class);
-
-        facade.register("Pete", "pete");
-        facade.register("Sam", "sam");
-        facade.register("Brooke", "brooke");
-        facade.register("Mark", "mark");
 
         try
         {
