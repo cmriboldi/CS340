@@ -40,6 +40,7 @@ public class MongoPlugin implements IPersistencePlugin {
 	@Inject
 	public MongoPlugin(IServerFacade facade, IPluginData plugData)
 	{
+		System.out.println("Mongo Time !!!!"); 
 		this.facade = facade;
 		this.N = plugData.getCheckinSize();
 	}
@@ -83,6 +84,11 @@ public class MongoPlugin implements IPersistencePlugin {
 
 	@Override
 	public void thaw() throws DatabaseException {
+		
+		
+		System.out.println("<<<<<THAW"); 
+		/*
+		 * 
 		mongoClient = new MongoClient( "localhost" , 27017 );
 		gameDAO = new MongoGameDAO(mongoClient,facade);
 		userDAO = new MongoUserDAO(mongoClient);
@@ -117,7 +123,7 @@ public class MongoPlugin implements IPersistencePlugin {
 				}
 			}
 		}
-		mongoClient.close();
+		mongoClient.close(); */
 	}
 
 	@Override
