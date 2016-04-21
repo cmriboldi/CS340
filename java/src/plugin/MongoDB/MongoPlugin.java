@@ -1,6 +1,7 @@
 package plugin.MongoDB;
 
 import com.google.inject.Inject;
+
 import plugin.IPluginData;
 import server.command.ICommand;
 import server.data.UserData;
@@ -15,10 +16,11 @@ import server.facade.IServerFacade;
 
 import com.mongodb.MongoClient;
 import com.mongodb.DB;
-
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 
+import java.io.IOException;
+import java.net.ServerSocket;
 import java.util.Set;
 
 import org.bson.Document;
@@ -87,13 +89,39 @@ public class MongoPlugin implements IPersistencePlugin {
 		
 		
 		System.out.println("<<<<<THAW"); 
-		/*
-		 * 
-		mongoClient = new MongoClient( "localhost" , 27017 );
+		
+		//mongoClient = new MongoClient( "localhost" , 27017 );
+		
+		boolean portTaken = false;
+	    ServerSocket socket = null;
+	    try {
+	        socket = new ServerSocket(27017);
+	        System.out.println("Availble"); 
+	        
+	    } catch (IOException e) {
+	        portTaken = true;
+	        System.out.println("TAKEN########"); 
+	    } finally {
+	        if (socket != null)
+	            try {
+	                socket.close();
+	            } catch (IOException e) { /* e.printStackTrace(); */ }
+	}
+	    
+	    if (portTaken) System.out.println("TAKEN########"); 
+		
+		
+		mongoClient = new MongoClient();
+		System.out.println("(1)"); 
+
+
 		gameDAO = new MongoGameDAO(mongoClient,facade);
 		userDAO = new MongoUserDAO(mongoClient);
 		commandDAO = new MongoCommandDAO(mongoClient, facade);
 		
+		System.out.println("(2)"); 
+		/*
+
 		UserData[] users = userDAO.getAllUsers();
 		GameData[] games = gameDAO.getAllGames();
 		

@@ -11,6 +11,7 @@ import com.sun.net.httpserver.*;
 import jcommander.JCommander;
 import jcommander.Parameter;
 import plugin.*;
+//import plugin.MongoDB.MongoClient;
 import server.exception.ServerException;
 import server.facade.IServerFacade;
 import server.guice.PersistantModule;
@@ -18,6 +19,11 @@ import server.guice.PersistantMongoModule;
 import server.guice.PersistantSQLModule;
 import server.guice.VolatileRealModule;
 import server.handler.*;
+
+import com.mongodb.MongoClient;
+import com.mongodb.DB;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 
 /**
  * Created by Joshua on 3/9/2016.
@@ -71,6 +77,11 @@ public class Server {
 
     private void run(String[] args) throws ServerException
     {
+    	System.out.println("BEGIN SERVER RUN"); 
+    	
+    	MongoClient mongoclient = new MongoClient();
+
+    	
         Injector injector = null;
         File jarFolder = new File(".\\java\\src\\plugin\\jars");
 

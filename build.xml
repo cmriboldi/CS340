@@ -165,6 +165,7 @@
 			<zipfileset includes="**/*.class" src="${java.lib}/sqlite-jdbc-3.7.2.jar"/>
 
 			<zipfileset includes="**/*.class" src="${java.lib}/mongo-java-driver-3.2.2.jar"/>
+ 			<zipfileset includes="**/*.class" src="${java.lib}/bson-3.0.4-javadoc.jar"/>
 			<zipfileset includes="**/*.class" src="${java.lib}/mongo-java-driver-3.2.2-javadoc.jar"/>
 			<zipfileset includes="**/*.class" src="${java.lib}/mongo-java-driver-3.2.2-sources.jar"/>
 
